@@ -1,19 +1,9 @@
-import React, { useState, useEffect, useContext } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import Sidebar from "../src/components/sidebarComponent.js";
 import  "./assets/styles/style.scss";
 import SplashScreen from "../src/pages/splashScreen.js";
 import ContentCategory from "../src/components/categoryComponent.js"
-
-// Import the SplashScreen component
-// import List from "./List.js";
-// import Search from "./Search.js";
-
-import Navigation, {
-  VerticalList,
-  HorizontalList,
-} from "./helper/react-navigation.js";
-// import MyProvider, { MyContext } from "./global.js";
-// import { data, data_1 } from "./data.js";
+import Navigation, {HorizontalList} from "./helper/react-navigation.js";
 
 const App = () => {
  
