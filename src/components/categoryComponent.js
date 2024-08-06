@@ -20,6 +20,7 @@ const ContentCategory = () => {
   const [opacity, setOpacity] = useState(0);
   const content1 = useRef(null);
   const content2 = useRef(null);
+  // eslint-disable-next-line
   const [lists, setLists] = useState(data);
 
   const handleSetActive = (status, index) => {
