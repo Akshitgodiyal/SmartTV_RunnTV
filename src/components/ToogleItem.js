@@ -9,7 +9,7 @@ const ToggleItem = (props) => {
     if (cc !== props.parentNav) {
       return;
     }
-    console.log("Asset clicked:", props.assetinfo);
+
     setActive(true);
     if (props.onClick) {
       props.onClick(props.assetinfo);
@@ -27,7 +27,11 @@ const ToggleItem = (props) => {
       onEnterDown={onKeyDown}
       onClick={assetClick}
     >
-      <div className={"item " + (active ? "item-focus" : "")}></div>
+      <div className={"item " + (active ? "item-focus" : "")}>
+
+        <i className={"fa fa-" + props.icon} /> {props.children}
+
+      </div>
     </Focusable>
   );
 };
