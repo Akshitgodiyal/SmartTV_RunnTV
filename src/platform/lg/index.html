@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop LC</title>
+
+    <script src="./bundle.js" defer></script>
+    <script>window.onload=()=>{
+        document.getElementsByTagName('body')[0].style.width=window.innerWidth;
+        document.getElementsByTagName('body')[0].style.height=window.innerHeight;
+    }
+    
+  
+    </script>
+     <script>
+		function handleMouseDown(event) {
+			console.log('mousedown event:', event , event.target.onclick);
+			// if (event.target.nodeName == "BUTTON") {
+				if (event.target.onclick !== null) {
+					// console.log("hello");
+				} else {
+					// console.log("null");
+					event.preventDefault();
+				}
+			}
+		// }
+	</script>
+    <script type="text/javascript" src="../../helper/webOS-0.1.0/webOS.js"></script>
+ <!-- <script src="../../helper/webOSTV.js" defer></script> -->
+ <!-- <link href="/Roboto-Bold.ttf" rel="stylesheet" type="text/css"> -->
+ <!-- <style>
+    
+    @font-face {
+font-family: "My-Font";
+src: url("/Roboto-Bold.ttf");
+}
+
+
+
+body{
+ font-family: 'My-Font' !important;
+
+
+} -->
+</style>
+</head>
+<body>
+    <div id="root"></div>  
+    <script>
+        document.addEventListener('mousedown', handleMouseDown);
+    </script>
+</body>
+</html>

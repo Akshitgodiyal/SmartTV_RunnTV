@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+import { Focusable } from "../helper/react-navigation.js";
+
+const ToggleItem = (props) => {
+  const [active, setActive] = useState(false);
+
+  const assetClick = () => {
+    var cc = localStorage.getItem("activeNav");
+    if (cc !== props.parentNav) {
+      return;
+    }
+    console.log("Asset clicked:", props.assetinfo);
+    setActive(true);
+    if (props.onClick) {
+      props.onClick(props.assetinfo);
+    }
+  };
+
+  const onKeyDown = () => {
+    assetClick();
+  };
+
+  return (
+    <Focusable
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}
+      onEnterDown={onKeyDown}
+      onClick={assetClick}
+    >
+      <div className={"item " + (active ? "item-focus" : "")}></div>
+    </Focusable>
+  );
+};
+
+export default ToggleItem;

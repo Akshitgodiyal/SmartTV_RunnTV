@@ -1,0 +1,11 @@
+{
+    "id": "runnTV",
+    "version": "0.0.1",
+    "vendor": "My Company",
+    "type": "web",
+    "main": "index.html",
+    "title": "Runn TV",
+    "icon": "icon.png",
+    "resolution": "1920x1080",
+    "disableBackHistoryAPI": true
+}

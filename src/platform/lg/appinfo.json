@@ -1,0 +1,11 @@
+{
+	"id": "com.yourdomain.app",
+	"version": "0.0.1",
+	"vendor": "My Company",
+	"type": "web",
+	"main": "index.html",
+	"title": "singlepane",
+	"icon": "images/logo192.png",
+	"resolution": "1920x1080",
+	"disableBackHistoryAPI": true
+}
