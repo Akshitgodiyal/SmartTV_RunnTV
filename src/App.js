@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import Sidebar from "../src/components/sidebarComponent.js";
-import  "./assets/styles/style.scss";
+import "./assets/base.js";
 import SplashScreen from "../src/pages/splashScreen.js";
-import ContentCategory from "../src/components/categoryComponent.js"
-import Navigation, {HorizontalList} from "./helper/react-navigation.js";
+import ContentCategory from "../src/components/categoryComponent.js";
+import Navigation, { HorizontalList } from "./helper/react-navigation.js";
 
 const App = () => {
- 
   const [showSplash, setShowSplash] = useState(true);
-  
-  
 
   useEffect(() => {
     const splashTimeout = setTimeout(() => {
-    //  console.log(context);
+      //  console.log(context);
       setShowSplash(false); // Hide the splash screen after 1 second
     }, 1000);
 
@@ -29,9 +26,9 @@ const App = () => {
   });
 
   // Render the splash screen if showSplash is true
-   if (showSplash) {
-     return <SplashScreen />;
-   }
+  if (showSplash) {
+    return <SplashScreen />;
+  }
 
   localStorage.setItem("activeNav", "home-div-nav");
 
@@ -43,20 +40,16 @@ const App = () => {
             <div>
               <Sidebar />
 
-               <div
+              <div
                 className="mainbox"
                 style={{ position: "absolute", top: "50%" }}
               >
                 <HorizontalList retainLastFocus={true}>
                   <div>
-                    
-                     <ContentCategory navDefault /> 
-                   
-
-                   
+                    <ContentCategory navDefault />
                   </div>
                 </HorizontalList>
-              </div> 
+              </div>
             </div>
           </HorizontalList>
         </div>
@@ -67,6 +60,5 @@ const App = () => {
     </>
   );
 };
-
 
 export default App;
