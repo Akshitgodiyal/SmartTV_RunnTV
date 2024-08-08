@@ -1,206 +1,242 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import VerticalList from './VerticalList.js';
 
-class Focusable extends Component {
-  treePath = [];
-  children = [];
-  indexInParent = 0;
-  focusableId = null;
-  lastFocusChild = null;
-  updateChildrenOrder = false;
-  updateChildrenOrderNum = 0;
+const reverseDirection = {
+  'up': 'down',
+  'down': 'up',
+  'left': 'right',
+  'right': 'left'
+};
 
-  state = {
-    focusTo: null
-  }
+class Navigation extends Component {
+  currentFocusedPath = null;
+  lastFocusedPath = null;
+  lastDirection = null;
+  pause = false;
+  default = null;
+  root = null;
+  focusableComponents = {};
+  focusableIds = 0;
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  isContainer() {
-    return false;
-  }
-  
-  hasChildren() {
-    return this.children.length > 0;
-  }
-
-  getParent() {
-    return this.context.parentFocusable;
-  }
-
-  addChild(child) {
-    this.children.push(child);
-    return this.children.length - 1;
-  }
-
-  removeChild(child) {
-    this.context.navigationComponent.removeFocusableId(child.focusableId);
-
-    const currentFocusedPath = this.context.navigationComponent.currentFocusedPath;
-    if(!currentFocusedPath){
-      return
-    }
-    const index = currentFocusedPath.indexOf(child);
-
-    if (index > 0) {
-      this.setState({ focusTo: currentFocusedPath[index - 1] })
-    }
-  }
-
-  getDefaultChild() {
-    if (this.lastFocusChild && this.props.retainLastFocus) {
-      return this.lastFocusChild;
+  onKeyDown = (evt) => {
+    if (this.pause || evt.altKey || evt.ctrlKey || evt.metaKey || evt.shiftKey) {
+      return;
     }
 
-    return 0;
-  }
+    const preventDefault = function () {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return false;
+    };
 
-  getNextFocusFrom(direction) {
-    return this.getNextFocus(direction, this.indexInParent);
-  }
+    const direction = this.props.keyMapping[evt.keyCode];
 
-  getNextFocus(direction, focusedIndex) {
-    if (!this.getParent()) {
-      return null;
-    }
-
-    return this.getParent().getNextFocus(direction, focusedIndex);
-  }
-
-  getDefaultFocus() {
-    if (this.isContainer()) {
-      if (this.hasChildren()) {
-        return this.children[this.getDefaultChild()].getDefaultFocus();
+    if (!direction) {
+      if (evt.keyCode === this.props.keyMapping['enter']) {
+        if (this.currentFocusedPath) {
+          if (!this.fireEvent(this.getLastFromPath(this.currentFocusedPath), 'enter-down')) {
+            return preventDefault();
+          }
+        }
       }
-      
-      return null;
+      return;
     }
 
-    return this;
+    let currentFocusedPath = this.currentFocusedPath;
+
+    if (!currentFocusedPath || currentFocusedPath.length === 0) {
+      currentFocusedPath = this.lastFocusedPath;
+
+      if (!currentFocusedPath || currentFocusedPath.length === 0) {
+        return preventDefault();
+      }
+    }
+
+    this.focusNext(direction, currentFocusedPath);
+    return preventDefault();
   }
 
-  buildTreePath() {
-    this.treePath.unshift(this);
+  fireEvent(element, evt, evtProps) {
+    switch (evt) {
+      case 'willmove':
+        if (element.props.onWillMove)
+          element.props.onWillMove(evtProps);
+        break;
+      case 'onfocus':
+        element.focus(evtProps);
+        break;
+      case 'onblur':
+        element.blur(evtProps);
+        break;
+      case 'enter-down':
+        if (element.props.onEnterDown)
+          element.props.onEnterDown(evtProps, this);
+        break;
+      default:
+        return false;
+    }
 
-    let parent = this.getParent();
-    while (parent) {
-      this.treePath.unshift(parent);
-      parent = parent.getParent();
+    return true;
+  }
+
+  focusNext(direction, focusedPath) {
+    const current = this.getLastFromPath(focusedPath);
+    const next = this.getLastFromPath(focusedPath).getNextFocusFrom(direction);
+ 
+    if (this.preventLeft(direction, current)) {
+      return;
+    }
+
+    if (next) {
+      this.lastDirection = direction;
+      this.focus(next);
     }
   }
 
-  focus() {
-    this.treePath.map(component => {
-      if (component.props.onFocus)
-        component.props.onFocus(this.indexInParent, this.context.navigationComponent);
-    });
+  preventLeft(direction, current) {
+    let prevent = false;
+    const activeComponent = localStorage.getItem("ACTIVE_COMPONENT") || null;
+    
+    if (direction === "left") {
+      switch (activeComponent) {
+        case "player-controls":
+          if (current && current.indexInParent === 0) {
+            prevent = true;
+          }
+          break;
+        default:
+          prevent = false;
+          break;
+      }
+    }
+    
+    return prevent;
   }
 
-  blur() {
-    if (this.props.onBlur) {
-      this.props.onBlur(this.indexInParent, this.context.navigationComponent);
+  blur(nextTree) {
+    if (this.currentFocusedPath === null)
+      return;
+
+    let changeNode = null;
+
+    for (let i = 0; i < Math.min(nextTree.length, this.currentFocusedPath.length); ++i) {
+      if (nextTree[i] !== this.currentFocusedPath[i]) {
+        changeNode = i;
+        break;
+      }
+    }
+
+    if (changeNode === null)
+      return;
+
+    for (let i = changeNode; i < this.currentFocusedPath.length; ++i) {
+      if (this.currentFocusedPath[i].focusableId === null) {
+        continue;
+      }
+
+      this.currentFocusedPath[i].blur();
+
+      if (i < this.currentFocusedPath.length - 1) {
+        this.currentFocusedPath[i].lastFocusChild = this.currentFocusedPath[i + 1].indexInParent;
+      }
     }
   }
 
-  nextChild(focusedIndex) {
-    if (this.children.length === focusedIndex + 1) {
-      return null;
+  focus(next) {
+    if (next === null) {
+      console.warn('Trying to focus a null component');
+      return;
     }
 
-    return this.children[focusedIndex + 1];
+    this.blur(next.treePath);
+    next.focus();
+
+    const lastPath = this.currentFocusedPath;
+    this.currentFocusedPath = next.treePath;
+    this.lastFocusedPath = lastPath;
   }
 
-  previousChild(focusedIndex) {
-    if (focusedIndex - 1 < 0) {
-      return null;
+  getLastFromPath(path) {
+    return path[path.length - 1];
+  }
+
+  focusDefault() {
+    if (this.default !== null) {
+      this.focus(this.default.getDefaultFocus());
+    } else { 
+      this.focus(this.root.getDefaultFocus());
+    }
+  }
+
+  setDefault(component) {
+    this.default = component;
+  }
+
+  addComponent(component, id = null) {
+    if (this.focusableComponents[id]) {
+      return id;
     }
 
-    return this.children[focusedIndex - 1];
+    if (!id) {
+      id = 'focusable-' + this.focusableIds++;
+    }
+
+    this.focusableComponents[id] = component;
+    return id;
   }
 
-  getNavigator() {
-    return this.context.navigationComponent;
+  forceFocus(focusableId) {
+    if (!this.focusableComponents[focusableId]) {
+      throw new Error('Focusable component with id "' + focusableId + '" doesn\'t exist!');
+    }
+
+    this.focus(this.focusableComponents[focusableId].getDefaultFocus());
   }
 
-  // React Methods
-  getChildContext() { 
-    return { parentFocusable: this }; 
+  removeFocusableId(focusableId) {
+    if (this.focusableComponents[focusableId])
+      delete this.focusableComponents[focusableId];
   }
 
   componentDidMount() {
-    this.focusableId = this.context.navigationComponent.addComponent(this, this.props.focusId);
-    
-    if (this.context.parentFocusable) {
-      this.buildTreePath();
-      this.indexInParent = this.getParent().addChild(this);
-    }
-
-    if (this.props.navDefault) {
-      this.context.navigationComponent.setDefault(this);
-    }
-
-    if (this.props.forceFocus) {
-     this.context.navigationComponent.focus(this);
-    }
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
+    this.focusDefault();
   }
 
   componentWillUnmount() {
-    if (this.context.parentFocusable) {
-      this.getParent().removeChild(this);
-    }
-    
-    this.focusableId = null;
+    window.removeEventListener('keyup', this.onKeyUp);
+    window.removeEventListener('keydown', this.onKeyDown);
   }
 
-  componentDidUpdate() {
-    const parent = this.getParent();
-    if (parent && parent.updateChildrenOrder) {
-      if (parent.updateChildrenOrderNum === 0) {
-        parent.children = [];
-      }
+  getChildContext() {
+    return { navigationComponent: this };
+  }
 
-      parent.updateChildrenOrderNum++;
-      this.indexInParent = parent.addChild(this);
-    }
-
-    if (this.state.focusTo !== null) {
-      this.context.navigationComponent.focus(this.state.focusTo.getDefaultFocus());
-      this.setState({ focusTo: null });
-    }
-    
-    this.updateChildrenOrder = false;
+  getRoot() {
+    return this.root;
   }
 
   render() {
-    const { focusId, rootNode, navDefault, forceFocus, retainLastFocus, onFocus, onBlur, onEnterDown, ...props } = this.props;
-
-    if (this.children.length > 0) {
-      this.updateChildrenOrder = true;
-      this.updateChildrenOrderNum = 0;
-    }
-    return <span {...props} />
+    return <VerticalList ref={element => this.root = element} focusId='navigation'>
+      {this.props.children}
+    </VerticalList>;
   }
 }
 
-Focusable.contextTypes = {
-  parentFocusable: PropTypes.object,
-  navigationComponent: PropTypes.object,
+Navigation.defaultProps = {
+  keyMapping: {
+    '37': 'left',
+    '38': 'up',
+    '39': 'right',
+    '40': 'down',
+    'enter': 13
+  }
 };
 
-Focusable.childContextTypes = {
-  parentFocusable: PropTypes.object,
+Navigation.childContextTypes = {
+  navigationComponent: PropTypes.object
 };
 
-Focusable.defaultProps = {
-  rootNode: false,
-  navDefault: false,
-  forceFocus: false,
-  retainLastFocus: false,
-  onFocus: PropTypes.function,
-  onBlur: PropTypes.function,
-  onEnterDown: PropTypes.function
-};
-
-export default Focusable;
+export default Navigation;
