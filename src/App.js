@@ -4,10 +4,12 @@ import SplashScreen from "../src/pages/splashScreen.js";
 import Home from "./pages/Home.js";
  
 
+
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
+
     const splashTimeout = setTimeout(() => {
       //  console.log(context);
       setShowSplash(false); // Hide the splash screen after 1 second
