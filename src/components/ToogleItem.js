@@ -14,10 +14,17 @@ const ToggleItem = (props) => {
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
+
+
+
   };
 
   const onKeyDown = () => {
     assetClick();
+ if (props.onEnter) {
+      props.onEnter();  // Call the passed callback function
+    }
+    
   };
 
   return (
@@ -26,6 +33,7 @@ const ToggleItem = (props) => {
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={assetClick}
+    
     >
       <div className={"item " + (active ? "item-focus" : "")}>
 

@@ -1,31 +1,25 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Focusable, HorizontalList, VerticalList } from "../helper/react-navigation";
 import { data } from "../data.js";
 import List from "./listComponent.js";
+import { VideoContext } from "../utility/context.js";
+import ToggleItem from "./ToogleItem.js";
 
-const ToggleItem = ({ icon, children }) => {
+
+const ContentCategory = ({setUrl}) => {
+  const {isActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
-
-  return (
-    <Focusable onFocus={() => setActive(true)} onBlur={() => setActive(false)}>
-      <div className={"item " + (active ? "item-focus" : "")}>
-        <i className={"fa fa-" + icon} /> {children}
-      </div>
-    </Focusable>
-  );
-};
-
-const ContentCategory = () => {
-  const [active, setActive] = useState(false);
-  const [opacity, setOpacity] = useState(0);
+  const [opacity, setOpacity] = useState(1);
   const content1 = useRef(null);
   const content2 = useRef(null);
   // eslint-disable-next-line
   const [lists, setLists] = useState(data);
-
+  const { hlsLink, setHlsLink } = useContext(VideoContext);
+ 
   const handleSetActive = (status, index) => {
     setActive(status);
-    setOpacity(status ? 1 : 0);
+    // setOpacity(status ? 1 : 0);
+  
 
 
     if (status && content1.current) {
@@ -42,10 +36,10 @@ const ContentCategory = () => {
   };
 
   const changeFocusTo = (index) => {
-    console.log("changeFocusTo", index);
-    
+   
+   
     setActive(index);
-    setOpacity(index !== null ? 1 : 0);
+    // setOpacity(index !== null ? 1 : 0);
 
     if (content2.current) {
       const items = content2.current.getElementsByClassName("contentgroup");
@@ -59,6 +53,18 @@ const ContentCategory = () => {
       }
     }
   };
+
+const abc=(av)=>{
+  // console.log("clicked",av);
+setUrl(av);
+}
+
+
+useEffect(() => {
+  setOpacity(isActive  ? 1:0)
+}, [isActive]);
+// console.log(isActive);
+
 
   return (
     <div
@@ -74,8 +80,9 @@ const ContentCategory = () => {
                 onBlur={(index) => handleSetActive(false,index)}
                 retainLastFocus={true}
               >
-                <ToggleItem icon="user">Menu 1</ToggleItem>
-                <ToggleItem icon="search">Menu 2</ToggleItem>
+                <ToggleItem  onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")} icon="user">Menu 1</ToggleItem>
+                <ToggleItem  onEnter={() => abc("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")} icon="user">Menu 1</ToggleItem>
+                <ToggleItem icon="search">Menu 2</ToggleItem> 
                 <ToggleItem icon="home">Menu 3</ToggleItem>
                 <ToggleItem icon="star">Menu 4</ToggleItem>
                 <ToggleItem icon="music">Menu 5</ToggleItem>
@@ -97,10 +104,12 @@ const ContentCategory = () => {
             id="content"
             retainLastFocus={true}
             navDefault
+            onFocus={(index) => handleSetActive(true, index)}
             onBlur={(index) => handleSetActive(false,index)}
           >
             {lists.map((list, i) => (
               <List
+              setUrl={setUrl}
                 key={i}
                 title={list.title}
                 layout={list.layout}

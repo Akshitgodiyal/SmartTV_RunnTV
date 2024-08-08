@@ -8,6 +8,7 @@ const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
+
     const splashTimeout = setTimeout(() => {
       setShowSplash(false); // Hide the splash screen after 1 second
     }, 1000);

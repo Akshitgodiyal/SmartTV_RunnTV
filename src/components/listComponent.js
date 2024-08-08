@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem";
+import { VideoContext } from "../utility/context.js";
 
 const List = (props) => {
   const contentRef = useRef(null);
@@ -57,7 +58,11 @@ const List = (props) => {
   
     setLastFocus(index);
   };
-  
+  const { hlsLink, setHlsLink } = useContext(VideoContext);
+  const abc=(av)=>{
+    // console.log("clicked",av);
+    props.setUrl(av);
+  }
 
   return (
     <div
@@ -81,6 +86,7 @@ const List = (props) => {
         >
           {props.assets.map((asset, i) => (
             <ToggleItem
+            onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
               key={i}
               assetinfo={asset}
               parentNav={props.parentNav}
