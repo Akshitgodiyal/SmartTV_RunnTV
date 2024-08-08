@@ -80,7 +80,7 @@ useEffect(() => {
                 onBlur={(index) => handleSetActive(false,index)}
                 retainLastFocus={true}
               >
-                <ToggleItem  onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")} icon="user">Menu 1</ToggleItem>
+                <ToggleItem onClick={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")} onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")} icon="user">Menu 1</ToggleItem>
                 <ToggleItem  onEnter={() => abc("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")} icon="user">Menu 1</ToggleItem>
                 <ToggleItem icon="search">Menu 2</ToggleItem> 
                 <ToggleItem icon="home">Menu 3</ToggleItem>

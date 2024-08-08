@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import VerticalList from './VerticalList.js';
 
 const reverseDirection = {
@@ -8,11 +7,7 @@ const reverseDirection = {
   'down': 'up',
   'left': 'right',
   'right': 'left'
-}
-
-/*
-This component listen the window keys events.
-*/
+};
 
 class Navigation extends Component {
   currentFocusedPath = null;
@@ -24,12 +19,27 @@ class Navigation extends Component {
   focusableComponents = {};
   focusableIds = 0;
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('click', this.onClick); // Add click event listener
+    this.focusDefault();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('click', this.onClick); // Remove click event listener
+  }
+
+  getChildContext() {
+    return { navigationComponent: this };
+  }
+
   onKeyDown = (evt) => {
-    if (this._pause || evt.altKey || evt.ctrlKey || evt.metaKey || evt.shiftKey) {
+    if (this.pause || evt.altKey || evt.ctrlKey || evt.metaKey || evt.shiftKey) {
       return;
     }
 
-    const preventDefault = function () {
+    const preventDefault = () => {
       evt.preventDefault();
       evt.stopPropagation();
       return false;
@@ -49,13 +59,11 @@ class Navigation extends Component {
     }
 
     let currentFocusedPath = this.currentFocusedPath;
-    // console.log('currentFocusedPath', currentFocusedPath);
 
     if (!currentFocusedPath || currentFocusedPath.length === 0) {
       currentFocusedPath = this.lastFocusedPath;
 
       if (!currentFocusedPath || currentFocusedPath.length === 0) {
-        //this.focusDefault();
         return preventDefault();
       }
     }
@@ -64,22 +72,37 @@ class Navigation extends Component {
     return preventDefault();
   }
 
+  onClick = (evt) => {
+    if (this.pause) {
+      return;
+    }
+
+    const target = evt.target;
+    const focusableId = target.getAttribute('data-focusable-id');
+
+    if (focusableId && this.focusableComponents[focusableId]) {
+      this.forceFocus(focusableId);
+      this.fireEvent(this.focusableComponents[focusableId], 'enter-down');
+    }
+  }
+
   fireEvent(element, evt, evtProps) {
     switch (evt) {
       case 'willmove':
-        if (element.props.onWillMove)
+        if (element.props.onWillMove) {
           element.props.onWillMove(evtProps);
+        }
         break;
       case 'onfocus':
-        debugger;
         element.focus(evtProps);
         break;
       case 'onblur':
         element.blur(evtProps);
         break;
       case 'enter-down':
-        if (element.props.onEnterDown)
+        if (element.props.onEnterDown) {
           element.props.onEnterDown(evtProps, this);
+        }
         break;
       default:
         return false;
@@ -90,7 +113,7 @@ class Navigation extends Component {
 
   focusNext(direction, focusedPath) {
     const next = this.getLastFromPath(focusedPath).getNextFocusFrom(direction);
-    
+
     if (next) {
       this.lastDirection = direction;
       this.focus(next);
@@ -98,8 +121,7 @@ class Navigation extends Component {
   }
 
   blur(nextTree) {
-    if (this.currentFocusedPath === null)
-      return;
+    if (!this.currentFocusedPath) return;
 
     let changeNode = null;
 
@@ -110,8 +132,7 @@ class Navigation extends Component {
       }
     }
 
-    if (changeNode === null)
-      return;
+    if (changeNode === null) return;
 
     for (let i = changeNode; i < this.currentFocusedPath.length; ++i) {
       if (this.currentFocusedPath[i].focusableId === null) {
@@ -127,7 +148,7 @@ class Navigation extends Component {
   }
 
   focus(next) {
-    if (next === null) {
+    if (!next) {
       console.warn('Trying to focus a null component');
       return;
     }
@@ -135,9 +156,21 @@ class Navigation extends Component {
     this.blur(next.treePath);
     next.focus();
 
-    const lastPath = this.currentFocusedPath;
+    this.lastFocusedPath = this.currentFocusedPath;
     this.currentFocusedPath = next.treePath;
-    this.lastFocusedPath = lastPath;
+
+    // Update visual focus
+    this.updateVisualFocus();
+  }
+
+  updateVisualFocus() {
+    Object.keys(this.focusableComponents).forEach(id => {
+      const component = this.focusableComponents[id];
+      const isFocused = this.currentFocusedPath.includes(component);
+      if (component.state.isFocused !== isFocused) {
+        component.setState({ isFocused });
+      }
+    });
   }
 
   getLastFromPath(path) {
@@ -145,9 +178,9 @@ class Navigation extends Component {
   }
 
   focusDefault() {
-    if (this.default !== null) {
+    if (this.default) {
       this.focus(this.default.getDefaultFocus());
-    } else { 
+    } else {
       this.focus(this.root.getDefaultFocus());
     }
   }
@@ -159,11 +192,10 @@ class Navigation extends Component {
   addComponent(component, id = null) {
     if (this.focusableComponents[id]) {
       return id;
-      // throw new Error('Focusable component with id "' + id + '" has already existed!');
     }
 
     if (!id) {
-      id = 'focusable-' + this.focusableIds++;
+      id = `focusable-${this.focusableIds++}`;
     }
 
     this.focusableComponents[id] = component;
@@ -172,44 +204,24 @@ class Navigation extends Component {
 
   forceFocus(focusableId) {
     if (!this.focusableComponents[focusableId]) {
-      throw new Error('Focusable component with id "' + focusableId + '" doesn\'t exists!');
+      throw new Error(`Focusable component with id "${focusableId}" doesn't exist!`);
     }
 
     this.focus(this.focusableComponents[focusableId].getDefaultFocus());
   }
 
   removeFocusableId(focusableId) {
-    if (this.focusableComponents[focusableId])
-      delete this.focusableComponents[focusableId]
-  }
-
-  // React Functions
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown);
-    window.addEventListener('keyup', this.onKeyUp);
-    this.focusDefault();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.onKeyUp);
-    window.removeEventListener('keydown', this.onKeyDown);
-  
-  }
-  componentDidUpdate(){ 
-    //debugger;
-  }
-  getChildContext() {
-    return { navigationComponent: this };
-  }
-
-  getRoot() {
-    return this.root;
+    if (this.focusableComponents[focusableId]) {
+      delete this.focusableComponents[focusableId];
+    }
   }
 
   render() {
-    return <VerticalList ref={element => this.root = element} focusId='navigation'>
-      {this.props.children}
-    </VerticalList>;
+    return (
+      <VerticalList ref={element => this.root = element} focusId='navigation'>
+        {this.props.children}
+      </VerticalList>
+    );
   }
 }
 

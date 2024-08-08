@@ -10,8 +10,7 @@ class HorizontalList extends Focusable {
     const remainInFocus = this.props.remainInFocus ? this.props.remainInFocus : false;
 
     if (direction !== 'left' && direction !== 'right') {
-      if (remainInFocus)
-        return null;
+      if (remainInFocus) return null;
       return super.getNextFocus(direction, this.indexInParent);
     }
 
@@ -29,8 +28,7 @@ class HorizontalList extends Focusable {
     if (nextFocus.isContainer()) {
       if (nextFocus.hasChildren()) {
         return nextFocus.getDefaultFocus();
-      }
-      else {
+      } else {
         return this.getNextFocus(direction, nextFocus.indexInParent);
       }
     }
@@ -40,7 +38,11 @@ class HorizontalList extends Focusable {
 
   render() {
     const { focusId, rootNode, navDefault, forceFocus, retainLastFocus, onFocus, onBlur, onEnterDown, ...props } = this.props;
-    return <div {...props} />
+    return (
+      <div {...props} data-focusable-id={this.focusableId}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 

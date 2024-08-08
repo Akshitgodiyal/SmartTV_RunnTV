@@ -14,17 +14,13 @@ const ToggleItem = (props) => {
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
-
-
-
   };
 
   const onKeyDown = () => {
     assetClick();
- if (props.onEnter) {
+    if (props.onEnter) {
       props.onEnter();  // Call the passed callback function
     }
-    
   };
 
   return (
@@ -32,13 +28,10 @@ const ToggleItem = (props) => {
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
-      onClick={assetClick}
-    
+      onClick={onKeyDown}
     >
       <div className={"item " + (active ? "item-focus" : "")}>
-
         <i className={"fa fa-" + props.icon} /> {props.children}
-
       </div>
     </Focusable>
   );
