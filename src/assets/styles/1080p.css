@@ -1,2 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import "./1080p/splash.css";
 @import "./1080p/style.scss";

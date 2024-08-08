@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Focusable } from "../helper/react-navigation.js";
+import Navigation, { Focusable } from "../helper/react-navigation.js";
 
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
@@ -9,11 +9,13 @@ const ToggleItem = (props) => {
     if (cc !== props.parentNav) {
       return;
     }
-    console.log("Asset clicked:", props.assetinfo);
-    setActive(true);
+
+   // setActive(true);
+
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
+     
   };
 
   const onKeyDown = () => {
@@ -27,7 +29,9 @@ const ToggleItem = (props) => {
       onEnterDown={onKeyDown}
       onClick={assetClick}
     >
-      <div className={"item " + (active ? "item-focus" : "")}></div>
+      <div className={"item " + (active ? "item-focus" : "")}>
+        <i className={"fa fa-" + props.icon} /> {props.children}
+      </div>
     </Focusable>
   );
 };
