@@ -1,7 +1,5 @@
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -96,13 +94,7 @@ body {
 #menu .item:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
-.item-focus {
-  background-color: white;
-  color: red !important;
-}
-.item .fa {
-  width: 40px;
-}
+
 #menu .item-focus {
   background-color: white;
   color: red !important;
