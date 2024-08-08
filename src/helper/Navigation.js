@@ -92,7 +92,25 @@ class Navigation extends Component {
     this.focusNext(direction, currentFocusedPath);
     return preventDefault();
   };
-
+  preventLeft(direction,current){
+     var prevent=false;
+     var activeComponent=localStorage.getItem("ACTIVE_COMPONENT")?localStorage.getItem("ACTIVE_COMPONENT"):null;
+     if(direction==="left"){
+      switch (activeComponent) {
+        case "player-controls":
+          if(current && current.indexInParent===0){
+            prevent=true;
+          }
+          
+          break;
+       
+        default:
+          prevent=false;
+          break;
+       }
+     } 
+     return prevent;
+  }
   fireEvent(element, evt, evtProps) {
     switch (evt) {
       case "willmove":
@@ -116,7 +134,12 @@ class Navigation extends Component {
   }
 
   focusNext(direction, focusedPath) {
+    const current=this.getLastFromPath(focusedPath);
     const next = this.getLastFromPath(focusedPath).getNextFocusFrom(direction);
+
+    if(this.preventLeft(direction,current)){
+      return ;
+    }
 
     if (next) {
       this.lastDirection = direction;

@@ -12,11 +12,8 @@ import { VideoContext } from '../../utility/context';
 //   const [url, setUrl] = useState("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8");
 
 
-  return (
-
-
-    <div>
-        
+  return ( 
+    <div> 
         <HlsPlayer url={url}  />
         <PlayerControls />
         

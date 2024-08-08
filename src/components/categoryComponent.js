@@ -64,7 +64,10 @@ useEffect(() => {
   setOpacity(isActive  ? 1:0)
 }, [isActive]);
 // console.log(isActive);
-
+const onFocus = (index,component) => {
+  handleSetActive(true, index);
+  localStorage.setItem("ACTIVE_COMPONENT",component);
+};
 
   return (
     <div
@@ -76,7 +79,8 @@ useEffect(() => {
           <div id="category-filter-div" className={active ? "focused" : ""}>
             <div id="category-filter" ref={content1}>
               <VerticalList
-                onFocus={(index) => handleSetActive(true, index)}
+               id="filterComponent"
+               onFocus={(index) => onFocus( index,"filterComponent")}
                 onBlur={(index) => handleSetActive(false,index)}
                 retainLastFocus={true}
               >
@@ -104,8 +108,9 @@ useEffect(() => {
             id="content"
             retainLastFocus={true}
             navDefault
-            onFocus={(index) => handleSetActive(true, index)}
+            onFocus={(index) => onFocus( index,"content")}
             onBlur={(index) => handleSetActive(false,index)}
+           
           >
             {lists.map((list, i) => (
               <List
