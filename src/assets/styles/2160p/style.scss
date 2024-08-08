@@ -95,11 +95,10 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-#menu .item-focus {
+.item-focus {
   background-color: white;
   color: red !important;
-}
-
+} 
 #menu .item .fa {
   width: 40px;
 }

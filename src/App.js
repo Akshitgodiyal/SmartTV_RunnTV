@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"; 
-import "./assets/styles/style.scss";
+import "./assets/base.js"; 
 import SplashScreen from "../src/pages/splashScreen.js";
 import Home from "./pages/Home.js";
+ 
 
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   useEffect(() => {
 
     const splashTimeout = setTimeout(() => {
+      //  console.log(context);
       setShowSplash(false); // Hide the splash screen after 1 second
     }, 1000);
 

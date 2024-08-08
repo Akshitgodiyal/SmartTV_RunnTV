@@ -90,15 +90,15 @@ body {
   display: none;
   cursor: pointer;
 }
-
+ 
 #menu .item:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-#menu .item-focus {
+.item-focus {
   background-color: white;
   color: red !important;
-}
+} 
 
 #menu .item .fa {
   width: 40px;
@@ -168,7 +168,7 @@ body {
  .horizontal .item { 
   width: 203px !important;
   border: 2px solid transparent;
-  height: 45px;
+  height: 50px;
   transition: width 0.2s ease-in-out;
 }
 

@@ -35,7 +35,10 @@ const Sidebar = () => {
       }
     }
   };
-
+  const onFocus = (index) => {
+    handleSetActive(true, index);
+    localStorage.setItem("ACTIVE_COMPONENT","sidebarComponent");
+  };
   return (
     <div id="sidebar" className={active ? "focused" : ""}>
       <div id="icons">
@@ -54,9 +57,10 @@ const Sidebar = () => {
       </div>
       <div id="menu" ref={content1}>
         <VerticalList
-          onFocus={(index) => handleSetActive(true, index)}
+          onFocus={(index) => onFocus(index)}
           onBlur={() => handleSetActive(false)}
           retainLastFocus={true}
+          id="sidebarComponent"
         >
           <ToggleItem icon="user">Menu 1</ToggleItem>
           <ToggleItem icon="search">Menu 2</ToggleItem>

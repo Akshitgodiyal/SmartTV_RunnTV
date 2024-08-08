@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Focusable } from "../helper/react-navigation.js";
+import Navigation, { Focusable } from "../helper/react-navigation.js";
 
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
@@ -10,7 +10,8 @@ const ToggleItem = (props) => {
       return;
     }
 
-    setActive(true);
+   // setActive(true);
+
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
