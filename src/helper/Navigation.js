@@ -24,7 +24,7 @@ class Navigation extends Component {
       return;
     }
 
-    const preventDefault = function () {
+    const preventDefault = () => {
       evt.preventDefault();
       evt.stopPropagation();
       return false;
@@ -76,14 +76,14 @@ class Navigation extends Component {
       default:
         return false;
     }
-
     return true;
   }
 
   focusNext(direction, focusedPath) {
     const current = this.getLastFromPath(focusedPath);
-    const next = this.getLastFromPath(focusedPath).getNextFocusFrom(direction);
- 
+    const next = current.getNextFocusFrom(direction);
+
+    // Prevent navigation left if conditions are met
     if (this.preventLeft(direction, current)) {
       return;
     }
@@ -97,7 +97,7 @@ class Navigation extends Component {
   preventLeft(direction, current) {
     let prevent = false;
     const activeComponent = localStorage.getItem("ACTIVE_COMPONENT") || null;
-    
+
     if (direction === "left") {
       switch (activeComponent) {
         case "player-controls":
@@ -110,13 +110,12 @@ class Navigation extends Component {
           break;
       }
     }
-    
+
     return prevent;
   }
 
   blur(nextTree) {
-    if (this.currentFocusedPath === null)
-      return;
+    if (this.currentFocusedPath === null) return;
 
     let changeNode = null;
 
@@ -127,16 +126,11 @@ class Navigation extends Component {
       }
     }
 
-    if (changeNode === null)
-      return;
+    if (changeNode === null) return;
 
     for (let i = changeNode; i < this.currentFocusedPath.length; ++i) {
-      if (this.currentFocusedPath[i].focusableId === null) {
-        continue;
-      }
-
+      if (this.currentFocusedPath[i].focusableId === null) continue;
       this.currentFocusedPath[i].blur();
-
       if (i < this.currentFocusedPath.length - 1) {
         this.currentFocusedPath[i].lastFocusChild = this.currentFocusedPath[i + 1].indexInParent;
       }
@@ -210,6 +204,10 @@ class Navigation extends Component {
     window.removeEventListener('keydown', this.onKeyDown);
   }
 
+  componentDidUpdate() {
+    // Handle updates if necessary
+  }
+
   getChildContext() {
     return { navigationComponent: this };
   }
@@ -219,9 +217,11 @@ class Navigation extends Component {
   }
 
   render() {
-    return <VerticalList ref={element => this.root = element} focusId='navigation'>
-      {this.props.children}
-    </VerticalList>;
+    return (
+      <VerticalList ref={(element) => (this.root = element)} focusId="navigation">
+        {this.props.children}
+      </VerticalList>
+    );
   }
 }
 
@@ -231,12 +231,12 @@ Navigation.defaultProps = {
     '38': 'up',
     '39': 'right',
     '40': 'down',
-    'enter': 13
-  }
+    'enter': 13,
+  },
 };
 
 Navigation.childContextTypes = {
-  navigationComponent: PropTypes.object
+  navigationComponent: PropTypes.object,
 };
 
 export default Navigation;
