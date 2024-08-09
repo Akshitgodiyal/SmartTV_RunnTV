@@ -7,19 +7,20 @@
     cursor: default;
     cursor: pointer;
     /* background: #1f1f1f; */
-    text-align: center;
+    /* text-align: center; */
     margin: 0px 0px 0px 0px;
   }
   #category-filter .item-focus{
  
-    border:1px solid #fff;
+    border:8px solid #fff !important;
     background-color: transparent;
     color:#fff !important;
 }
 #category-filter{ 
     .active{
-        background-color: white;
+        background-color: #ffffff82;
         color: red !important;
         margin: 0px 0px 5px 0px;
+        border:8px solid transparent;
     }
 }

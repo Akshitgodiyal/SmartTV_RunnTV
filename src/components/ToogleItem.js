@@ -24,6 +24,7 @@ const ToggleItem = (props) => {
 
   return (
     <Focusable
+    forceFocus={props.index == 0 && props.forceFocus}
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}

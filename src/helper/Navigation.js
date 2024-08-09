@@ -87,12 +87,16 @@ class Navigation extends Component {
     if (this.preventLeft(direction, current)) {
       return;
     }
+    if (this.preventTop(direction, current)) {
+      return;
+    }
 
     if (next) {
       this.lastDirection = direction;
       this.focus(next);
     }
   }
+ 
 
   preventLeft(direction, current) {
     let prevent = false;
@@ -102,6 +106,25 @@ class Navigation extends Component {
       switch (activeComponent) {
         case "player-controls":
           if (current && current.indexInParent === 0) {
+            prevent = true;
+          }
+          break;
+        default:
+          prevent = false;
+          break;
+      }
+    }
+
+    return prevent;
+  }
+  preventTop(direction, current) {
+    let prevent = false;
+    const activeComponent = localStorage.getItem("ACTIVE_COMPONENT") || null;
+
+    if (direction == "up") {
+      switch (activeComponent) {
+        case "discover":
+          if (current) {
             prevent = true;
           }
           break;

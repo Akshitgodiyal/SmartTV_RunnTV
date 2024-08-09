@@ -4,7 +4,7 @@ import PlayerControls from './PlayerControls';
 import { VideoContext } from '../../utility/context';
 
  function Player({url}) {
-    // const { hlsLink } = useContext(VideoContext);
+
    
 
 // console.log("url",url);
@@ -14,7 +14,7 @@ import { VideoContext } from '../../utility/context';
 
   return ( 
     <div> 
-        {/* <HlsPlayer url={url}  /> */}
+        <HlsPlayer url={"url"}  />
         <PlayerControls />
         
     </div>
