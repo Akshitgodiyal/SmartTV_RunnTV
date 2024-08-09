@@ -8,7 +8,8 @@ import ToggleItem from "./ToogleItem.js";
 
 const ContentCategory = ({setUrl}) => {
   const {isActive } = useContext(VideoContext);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false); 
+  const [activeIndex, setActiveIndex] = useState(0); 
   const [opacity, setOpacity] = useState(1);
   const content1 = useRef(null);
   const content2 = useRef(null);
@@ -54,9 +55,10 @@ const ContentCategory = ({setUrl}) => {
     }
   };
 
-const abc=(av)=>{
+const abc=(av,index)=>{
   // console.log("clicked",av);
-setUrl(av);
+   setUrl(av);
+   setActiveIndex(index);
 }
 
 
@@ -84,17 +86,20 @@ const onFocus = (index,component) => {
                 onBlur={(index) => handleSetActive(false,index)}
                 retainLastFocus={true}
               >
-                <ToggleItem  onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")} icon="user">Menu 1</ToggleItem>
-                <ToggleItem  onEnter={() => abc("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")} icon="user">Menu 1</ToggleItem>
-                <ToggleItem icon="search">Menu 2</ToggleItem> 
-                <ToggleItem icon="home">Menu 3</ToggleItem>
-                <ToggleItem icon="star">Menu 4</ToggleItem>
-                <ToggleItem icon="music">Menu 5</ToggleItem>
-                <ToggleItem icon="user">Menu 1</ToggleItem>
-                <ToggleItem icon="search">Menu 2</ToggleItem>
-                <ToggleItem icon="home">Menu 3</ToggleItem>
-                <ToggleItem icon="star">Menu 4</ToggleItem>
-                <ToggleItem icon="music">Menu 5</ToggleItem>
+
+              {["Menu 2", "Menu 2", "Menu 2", "Menu 2", "Menu 2","Menu 2", "Menu 2", "Menu 2", "Menu 2", "Menu 2"].map((icon, index) => (
+                          <ToggleItem
+                            key={icon}
+                            icon={icon}
+                            // isFocused={focusedIndex === index}
+                            isActiveIndex={activeIndex === index} 
+                            onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",index)}
+                          >
+                            {index}
+                          </ToggleItem>
+                        ))}
+
+                 
               </VerticalList>
             </div>
           </div>
