@@ -11,7 +11,8 @@ class Focusable extends Component {
   updateChildrenOrderNum = 0;
 
   state = {
-    focusTo: null
+    focusTo: null,
+    isFocused: false
   }
 
   constructor(props, context) {
@@ -39,13 +40,13 @@ class Focusable extends Component {
     this.context.navigationComponent.removeFocusableId(child.focusableId);
 
     const currentFocusedPath = this.context.navigationComponent.currentFocusedPath;
-    if(!currentFocusedPath){
-      return
+    if (!currentFocusedPath) {
+      return;
     }
     const index = currentFocusedPath.indexOf(child);
 
     if (index > 0) {
-      this.setState({ focusTo: currentFocusedPath[index - 1] })
+      this.setState({ focusTo: currentFocusedPath[index - 1] });
     }
   }
 
@@ -92,17 +93,25 @@ class Focusable extends Component {
   }
 
   focus() {
-    this.treePath.map(component => {
-      if (component.props.onFocus)
+    this.treePath.forEach(component => {
+      if (component.props.onFocus) {
         component.props.onFocus(this.indexInParent, this.context.navigationComponent);
+      }
     });
+    this.setState({ isFocused: true });
   }
 
   blur() {
+
     if (this.props.onBlur) {
+
       this.props.onBlur(this.indexInParent, this.context.navigationComponent);
+
     }
+
   }
+
+
 
   nextChild(focusedIndex) {
     if (this.children.length === focusedIndex + 1) {
@@ -124,6 +133,20 @@ class Focusable extends Component {
     return this.context.navigationComponent;
   }
 
+  handleClick = () => {
+    if (this.context.navigationComponent.currentFocusedPath.includes(this)) {
+      return;
+    }
+
+    // Trigger focus when clicked
+    this.context.navigationComponent.focus(this);
+
+    // Also trigger the onEnterDown event when clicked
+    if (this.props.onEnterDown) {
+      this.props.onEnterDown();
+    }
+  }
+
   // React Methods
   getChildContext() { 
     return { parentFocusable: this }; 
@@ -142,7 +165,7 @@ class Focusable extends Component {
     }
 
     if (this.props.forceFocus) {
-     this.context.navigationComponent.focus(this);
+      this.context.navigationComponent.focus(this);
     }
   }
 
@@ -175,12 +198,21 @@ class Focusable extends Component {
 
   render() {
     const { focusId, rootNode, navDefault, forceFocus, retainLastFocus, onFocus, onBlur, onEnterDown, ...props } = this.props;
+    const focusClass = this.state.isFocused ? 'focused' : '';
 
     if (this.children.length > 0) {
       this.updateChildrenOrder = true;
       this.updateChildrenOrderNum = 0;
     }
-    return <span {...props} />
+
+    return (
+      <span
+        {...props}
+        data-focusable-id={this.focusableId}
+        onClick={this.handleClick} // Updated to handle mouse click
+        className={focusClass}
+      />
+    );
   }
 }
 
@@ -198,9 +230,10 @@ Focusable.defaultProps = {
   navDefault: false,
   forceFocus: false,
   retainLastFocus: false,
-  onFocus: PropTypes.function,
-  onBlur: PropTypes.function,
-  onEnterDown: PropTypes.function
+  onFocus: () => {},
+  onBlur: () => {},
+  onEnterDown: () => {}
 };
 
 export default Focusable;
+

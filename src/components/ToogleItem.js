@@ -18,7 +18,7 @@ const ToggleItem = (props) => {
   const onKeyDown = () => {
     assetClick();
     if (props.onEnter) {
-      props.onEnter(); // Call the passed callback function
+      props.onEnter();  // Call the passed callback function
     }
   };
 
@@ -27,7 +27,7 @@ const ToggleItem = (props) => {
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
-      onClick={assetClick}
+      onClick={onKeyDown}
     >
       <div className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
         <i className={"fa fa-" + props.icon} /> {props.children}
