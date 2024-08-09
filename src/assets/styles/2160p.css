@@ -2,4 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 @import "./2160p/splash.css";
+@import "./2160p/sidebar.css";
 @import "./2160p/style.scss";
+@import "./2160p/category_filter.css";

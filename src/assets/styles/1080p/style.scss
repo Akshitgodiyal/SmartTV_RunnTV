@@ -20,14 +20,15 @@ body {
 
 #sidebar {
   position: absolute;
-  left: -300px;
+  /* left: -300px; */
   top: 0;
-  width: 370px;
+  width: 70px;
   height: 100%;
-  box-shadow: 2px 0 20px 0 black;
+  background-color: #000 !important;
+  box-shadow: 2px 0 20px 0 #000;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  /* align-items: center; */
+  justify-content: center;
   transition: left 0.5s, background-color 0.3s;
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 100;
@@ -42,14 +43,14 @@ body {
 }
 
 #icons {
-  margin-right: 22px;
+  
   transition: opacity 0.5s;
   z-index: 10;
 }
 
 #icons div {
   text-align: center;
-  margin: 30px 0;
+  margin: 10px 0;
 }
 
 #icons .fa {
@@ -295,19 +296,3 @@ display: block;
   scrollbar-width: none;  
 } 
 
-#category-filter .item{
-  height: 70px;
-  line-height: 70px;
-  color: #f1f1f1;
-  font-size: 25px; 
-  box-sizing: border-box;
-  cursor: default;
-  cursor: pointer;
-  background: #1f1f1f;
-  text-align: center;
-  margin: 0px 18px 14px 0px;
-}
-#category-filter .item-focus{
-  background-color: white;
-  color: red !important;
-}

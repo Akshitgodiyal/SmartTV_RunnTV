@@ -6,9 +6,11 @@ import { VideoContext } from "../utility/context.js";
 import ToggleItem from "./ToogleItem.js";
 import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 
-const ContentCategory = ({ setUrl }) => {
-  const { isActive } = useContext(VideoContext);
-  const [active, setActive] = useState(false);
+
+const ContentCategory = ({setUrl}) => {
+  const {isActive } = useContext(VideoContext);
+  const [active, setActive] = useState(false); 
+  const [activeIndex, setActiveIndex] = useState(0); 
   const [opacity, setOpacity] = useState(1);
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
@@ -49,9 +51,11 @@ const ContentCategory = ({ setUrl }) => {
     }
   };
 
-  const abc = (av) => {
-    setUrl(av);
-  };
+const abc=(av,index)=>{
+  // console.log("clicked",av);
+   setUrl(av);
+   setActiveIndex(index);
+}
 
   useEffect(() => {
     setOpacity(isActive ? 1 : 0);
@@ -125,6 +129,20 @@ const ContentCategory = ({ setUrl }) => {
                     />
                   </div>
                 ))}
+
+              {["Menu 2", "Menu 2", "Menu 2", "Menu 2", "Menu 2","Menu 2", "Menu 2", "Menu 2", "Menu 2", "Menu 2"].map((icon, index) => (
+                          <ToggleItem
+                            key={icon}
+                            icon={icon}
+                            // isFocused={focusedIndex === index}
+                            isActiveIndex={activeIndex === index} 
+                            onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",index)}
+                          >
+                            {index}
+                          </ToggleItem>
+                        ))}
+
+                 
               </VerticalList>
             </div>
           </HorizontalList>

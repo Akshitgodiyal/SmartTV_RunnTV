@@ -1,0 +1,26 @@
+#category-filter .item{
+    height: 39px;
+    line-height: 39px;
+    color: #f1f1f1;
+    font-size: 25px;
+    box-sizing: border-box;
+    cursor: default;
+    cursor: pointer;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    border-radius: 9px;
+    border:1px solid transparent;
+}
+#category-filter .item-focus{
+ 
+    border:1px solid #fff;
+    background-color: transparent;
+    color:#fff !important;
+}
+#category-filter{ 
+    .active{
+        background-color: white;
+        color: red !important;
+        margin: 0px 0px 5px 0px;
+    }
+}

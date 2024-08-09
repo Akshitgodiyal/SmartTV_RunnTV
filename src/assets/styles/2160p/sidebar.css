@@ -1,0 +1,9 @@
+#sidebarComponent .item {
+    border-bottom: 2px solid transparent;
+    padding: 24px;
+    font-size: 30px;
+    color: #fff;
+}
+#sidebarComponent .item.active{
+    border-bottom: 2px solid #fff;
+}
