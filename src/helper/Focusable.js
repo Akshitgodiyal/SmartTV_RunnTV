@@ -102,11 +102,16 @@ class Focusable extends Component {
   }
 
   blur() {
+
     if (this.props.onBlur) {
+
       this.props.onBlur(this.indexInParent, this.context.navigationComponent);
+
     }
-    this.setState({ isFocused: false });
+
   }
+
+
 
   nextChild(focusedIndex) {
     if (this.children.length === focusedIndex + 1) {
