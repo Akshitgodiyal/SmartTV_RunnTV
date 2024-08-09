@@ -42,11 +42,10 @@ const List = (props) => {
         }
   
         // Ensure the last element is fully visible
-        if (index == items.length - 1) {
-  
+        if (index === items.length - 1) {
           setTimeout(() => {
             contentRef.current.scrollTo({
-              left: itemRect.left - containerRect.left + contentRef.current.scrollLeft ,
+              left: itemRect.left - containerRect.left + contentRef.current.scrollLeft,
               behavior: "smooth",
             });
             const lastItem = items[items.length - 1];
@@ -58,25 +57,18 @@ const List = (props) => {
   
     setLastFocus(index);
   };
+
   const { hlsLink, setHlsLink } = useContext(VideoContext);
-  const abc=(av)=>{
-    // console.log("clicked",av);
-    props.setUrl(av);
-  }
+
+  const handleItemClick = (url) => {
+    props.setUrl(url);
+  };
 
   return (
     <div
-      className={
-        "contentgroup " +
-        props.layout +
-        " " +
-        (props.visible ? "" : "fading-out")
-      }
+      className={`contentgroup ${props.layout} ${props.visible ? "" : "fading-out"} ${props.isActive ? "active-list" : ""}`}
     >
-      <div
-        className="content"
-        ref={contentRef}
-      >
+      <div className="content" ref={contentRef}>
         <HorizontalList
           className="hz-list"
           style={{ overflow: "", display: "block" }}
@@ -86,7 +78,7 @@ const List = (props) => {
         >
           {props.assets.map((asset, i) => (
             <ToggleItem
-            onEnter={() => abc("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
+              onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
               key={i}
               assetinfo={asset}
               parentNav={props.parentNav}

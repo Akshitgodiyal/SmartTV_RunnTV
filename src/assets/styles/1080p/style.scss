@@ -172,9 +172,9 @@ body {
 
 
  .horizontal .item { 
-  width: 350px !important;
+  width: 40% ;
   border: 2px solid transparent;
-  height: 80px;
+  height:5rem;
   transition: width 0.2s ease-in-out; /* Added transition */
 }
 
@@ -186,9 +186,8 @@ body {
  .horizontal .item-focus { 
   border: 2px solid #fff;
   border-radius: 5px;
-  width: 495px !important;
-}
 
+}
 
  .animate {
   width: 25%;
@@ -200,6 +199,20 @@ body {
   width: 25%;
   padding-bottom: calc(30% + 80px);
 }
+
+
+display: block;
+  .active.flex {
+    .before-box{
+      height:7rem;
+    }
+    .item-focus,.item {  
+   width: 50% !important;
+   height:7rem;
+ }}
+
+
+
 }
 .contentgroup {
   width: 100%;

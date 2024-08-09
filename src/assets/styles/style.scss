@@ -172,7 +172,7 @@ body {
 
 
  .horizontal .item { 
-  width: 350px !important;
+  width:33% !important;
   border: 2px solid transparent;
   height: 80px;
   transition: width 0.2s ease-in-out; /* Added transition */
@@ -186,9 +186,14 @@ body {
  .horizontal .item-focus { 
   border: 2px solid #fff;
   border-radius: 5px;
-  width: 495px !important;
-}
 
+}
+#content{
+
+ .active.flex, .item-focus,.item {
+  width: 45% !important;
+}
+}
 
  .animate {
   width: 25%;
