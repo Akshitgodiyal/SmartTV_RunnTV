@@ -140,6 +140,9 @@ body {
   color: black !important;
   background-color: white !important;
 }
+
+
+
 #content {
   height: 100%;
   position: relative;
@@ -149,8 +152,7 @@ body {
   white-space: nowrap;
   font-size: 0;
   overflow: hidden;
-  margin: -8px;
-  margin-top: -5px;
+
 }
 
  h1 {
@@ -175,9 +177,10 @@ body {
  .horizontal .item { 
   width: 40% ;
   border: 2px solid transparent;
-  height:5rem;
+  height:80px;
   transition: width 0.2s ease-in-out; /* Added transition */
 }
+
 
  .item-focus {
   transition: width 0.2s ease-in-out, border 0.2s ease-in-out; /* Added transition */
@@ -205,16 +208,23 @@ body {
 display: block;
   .active.flex {
     .before-box{
-      height:7rem;
+      
+    height:116px;
     }
     .item-focus,.item {  
    width: 50% !important;
-   height:7rem;
+   height:116px;
  }}
 
 
 
 }
+
+
+
+
+
+
 .contentgroup {
   width: 100%;
   z-index: 2;
@@ -274,12 +284,13 @@ display: block;
 }
 
 #category-filter{
-  max-height: 490px;
+ height: 500px;
   scroll-behavior: smooth;
   overflow-y: hidden;
+  margin: 6px;
 }
 .filter {
-  max-height: 490px;
+ height: 500px;
   scroll-behavior: smooth;
   overflow-y: hidden;
   padding-left: 3%;

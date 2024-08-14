@@ -22,8 +22,8 @@ const PlayerControls = () => {
         id="player-controls"
       >
         <ToggleItem className="bg-blue-900" icon="user">
-          {" "}
-          Menu 1{" "}
+         
+          Menu 1
         </ToggleItem>
         <ToggleItem className="bg-blue-900" icon="user">
           {" "}

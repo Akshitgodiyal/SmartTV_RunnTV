@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Focusable, VerticalList } from "../helper/react-navigation";
+import { VideoContext } from "../utility/context";
 
-const ToggleItem = ({ icon, children, isFocused, onFocus,onEnterDown,isActiveIndex }) => {
-
+const ToggleItem = ({ icon, children, isFocused, onFocus, onEnterDown, isActiveIndex }) => {
   return (
     <Focusable onFocus={onFocus} onEnterDown={onEnterDown}>
-      <div className={"item " + (isFocused ? "item-focus" : "")+" " +(isActiveIndex?"active":"")}>
+      <div className={`item ${isFocused ? "item-focus" : ""} ${isActiveIndex ? "active" : ""}`}>
         {children}
       </div>
     </Focusable>
@@ -13,9 +13,12 @@ const ToggleItem = ({ icon, children, isFocused, onFocus,onEnterDown,isActiveInd
 };
 
 const Sidebar = () => {
-  const [focusedIndex, setFocusedIndex] = useState(0); // State to track the selected index
-  const [activeIndex, setActiveIndex] = useState(0); 
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeItemName, setActiveItemName] = useState("user");
+  const { setsidebarActive } = useContext(VideoContext);
   const content1 = useRef(null);
+  const items = ["user", "search", "home", "star", "music"];
 
   const handleSetActive = (status, index) => {
     if (status && content1.current) {
@@ -33,14 +36,18 @@ const Sidebar = () => {
     }
   };
 
+
+
   const onFocus = (index) => {
-    setFocusedIndex(index); // Update the selected index on focus
-    handleSetActive(true, index);
-    localStorage.setItem("ACTIVE_COMPONENT", "sidebarComponent");
+    setFocusedIndex(index);
+    handleSetActive(true, index);   
+     localStorage.setItem("ACTIVE_COMPONENT", "sidebarComponent");
   };
 
   const onEnterDown = (index) => {
-    setActiveIndex(index); 
+    setActiveIndex(index);
+    setsidebarActive(items[index])
+
     localStorage.setItem("ACTIVE_COMPONENT", "sidebarComponent");
   };
 
@@ -65,20 +72,23 @@ const Sidebar = () => {
           onFocus={(index) => onFocus(index)}
           onBlur={() => handleSetActive(false)}
           retainLastFocus={true}
-          id="sidebarComponent" 
+          id="sidebarComponent"
         >
-          {["user", "search", "home", "star", "music"].map((icon, index) => (
+          {items.map((icon, index) => (
             <ToggleItem
               key={icon}
               icon={icon}
               isFocused={focusedIndex === index}
-              isActiveIndex={activeIndex === index} 
-              onEnterDown={() => onEnterDown(index)} 
+              isActiveIndex={activeIndex === index}
+              onEnterDown={() => onEnterDown(index)}
             >
               {`${index + 1}`}
             </ToggleItem>
           ))}
         </VerticalList>
+      </div>
+      <div id="active-item-name">
+        <p>Active Item: {activeItemName}</p>
       </div>
     </div>
   );
