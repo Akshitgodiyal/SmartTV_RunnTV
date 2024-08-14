@@ -6,7 +6,7 @@
     box-sizing: border-box;
     cursor: default;
     cursor: pointer;
-    text-align: center;
+    /* text-align: center; */
     margin: 0px 0px 0px 0px;
     border-radius: 5px;
     border:1px solid transparent;
@@ -20,7 +20,8 @@
 #category-filter{
     .active{
         background-color: white;
-        color: red !important;
+        color: black !important;
         margin: 0px 0px 6px 0px;
+        font-weight: 600;
     }
 }
