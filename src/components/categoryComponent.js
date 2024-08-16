@@ -140,16 +140,16 @@ const changeFocusTo = (index) => {
                     retainLastFocus={true}
                   >
                     {[
+                      "Menu 1",
                       "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
+                      "Menu 3",
+                      "Menu 4",
+                      "Menu 5",
+                      "Menu 6",
+                      "Menu 7",
+                      "Menu 8",
+                      "Menu 9",
+                      "Menu 10",
                     ].map((icon, index) => (
                       
                       <ToggleItem
