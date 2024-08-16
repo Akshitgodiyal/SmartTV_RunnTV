@@ -54,8 +54,9 @@ const DiscoverScreen = ({ setUrl, show }) => {
       // properly focused
 setTimeout(() => {
   if(firstSectionRef){
-
-    firstSectionRef.focus();
+    localStorage.setItem("screenLoaded",true);
+    firstSectionRef.click();
+    localStorage.setItem("screenLoaded",false);
   }
 }, 200);
 
