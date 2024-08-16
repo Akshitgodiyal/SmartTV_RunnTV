@@ -23,7 +23,7 @@ const ContentCategory = ({ setUrl,show,forceFocus }) => {
   // eslint-disable-next-line
   const [lists, setLists] = useState(data);
 
- const handleSetActive = (status, index,forceFocus) => {
+ const handleSetActive = (status, index) => {
   setActive(status);
 
   if (status && content1.current) {
@@ -140,21 +140,21 @@ const changeFocusTo = (index) => {
                     retainLastFocus={true}
                   >
                     {[
-                      "Menu 1",
                       "Menu 2",
-                      "Menu 3",
-                      "Menu 4",
-                      "Menu 5",
-                      "Menu 6",
-                      "Menu 7",
-                      "Menu 8",
-                      "Menu 9",
-                      "Menu 10",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
+                      "Menu 2",
                     ].map((icon, index) => (
                       
                       <ToggleItem
            
-                        key={index}
+                        key={icon}
                         icon={icon}
                         // isFocused={focusedIndex === index}
                         isActiveIndex={activeIndex === index}
@@ -189,14 +189,13 @@ const changeFocusTo = (index) => {
               >
                 {lists.map((list, i) => (
                   <div
-                    className={i == activeListIndex ? "active flex" : "flex "}
+                    className={i === activeListIndex ? "active flex" : "flex "}
                     key={i}
                   >
                     <div className="before-box text-white mt-[6px] mr-3 bg-gray-200 w-[130px] h-[78px] text-center -ml-5">
                       hello
                     </div>
                     <List
-                    forceFocus={ i == 0 && forceFocus}
                       setUrl={setUrl}
                       title={list.title}
                       layout={list.layout}

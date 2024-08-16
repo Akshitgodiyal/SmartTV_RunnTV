@@ -81,14 +81,13 @@ const List = (props) => {
           onBlur={() => setLastFocus(null)}
           retainLastFocus={true}
         >
-          {props.assets.map((asset, index) => (
+          {props.assets.map((asset, i) => (
             <ToggleItem
             forceFocus={props.forceFocus}
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
-              key={index}
+              key={i}
               assetinfo={asset}
               parentNav={props.parentNav}
-              index={index}
             />
           ))}
         </HorizontalList>

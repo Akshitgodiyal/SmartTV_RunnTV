@@ -77,7 +77,6 @@ const Carousel = forwardRef((props) => {
         >
           {props.assets.map((asset, index) => (
             <ToggleItem
-            forceFocus={props.forceFocus}
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
          id={props.id}
               key={index}

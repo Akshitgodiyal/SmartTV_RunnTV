@@ -5,14 +5,14 @@ import { VideoContext } from "../../utility/context.js";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import Carousel from "../carousel/index.js";
 import ToggleItem from "../carousel/Toggleitem.js";
-const DiscoverScreen = ({ setUrl, show ,forceFocus}) => {
+const DiscoverScreen = ({ setUrl, show }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
 
   const containerRef = useRef(null);
-  const firstSectionRef = useRef(null); // Ref for the first section
+
   const sectionRefs = {
-    slider: useRef(null),
     streaming: useRef(null),
+    slider: useRef(null),
     categories: useRef(null),
     genres: useRef(null),
     channels: useRef(null),
@@ -20,16 +20,13 @@ const DiscoverScreen = ({ setUrl, show ,forceFocus}) => {
   };
 
   const scrollToSection = (ref, isFirst = false) => {
-    if (containerRef.current && ref.current) {
-      const containerTop = containerRef.current.getBoundingClientRect().top;
-      const sectionTop = ref.current.getBoundingClientRect().top;
-  
-
-
-  
+    if (containerRef.current) {
       if (isFirst) {
         containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
+      } else if (ref.current) {
+        const containerTop = containerRef.current.getBoundingClientRect().top;
+        const sectionTop = ref.current.getBoundingClientRect().top;
+
         containerRef.current.scrollBy({
           top: sectionTop - containerTop,
           behavior: "smooth",
@@ -37,34 +34,29 @@ const DiscoverScreen = ({ setUrl, show ,forceFocus}) => {
       }
     }
   };
-  
+
   const handleFocus = (section) => {
     setActiveListIndex(section);
-    scrollToSection(sectionRefs[section], section === "slider");
-    if (section === "slider") {
+    scrollToSection(sectionRefs[section], section === "streaming");
+    if (section === "streaming") {
       localStorage.setItem("ACTIVE_COMPONENT", "discover");
     } else {
       localStorage.setItem("ACTIVE_COMPONENT", "");
     }
   };
+  let firstSectionRef = document.getElementById("firstSectionRef");
 
   useEffect(() => {
     if (show) {
-      handleFocus("streaming"); // Focus the section and ensure the Carousel is 
+      handleFocus("slider"); // Focus the section and ensure the Carousel is
       // properly focused
-setTimeout(() => {
-  if(firstSectionRef){
-    localStorage.setItem("screenLoaded",true);
-    firstSectionRef.click();
-    localStorage.setItem("screenLoaded",false);
-  }
-}, 200);
-
-  
+      setTimeout(() => {
+        if (firstSectionRef) {
+          firstSectionRef.forceFocus();
+        }
+      }, 1000);
     }
-  }, [show,firstSectionRef]);
-
- 
+  }, [show, firstSectionRef]);
 
   return (
     <div
@@ -89,15 +81,12 @@ setTimeout(() => {
                 retainLastFocus={true}
               >
                 <div
-                 ref={sectionRefs.slider}
                   id="discover"
                   className="mb-[50px]"
                   tabIndex={-1} // Make it focusable
                 >
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
                   <Carousel
-                  forceFocus={forceFocus}
-                  id={firstSectionRef}
                     setUrl={setUrl}
                     title={categories.title}
                     layout={categories.layout}
@@ -108,7 +97,7 @@ setTimeout(() => {
                     onFocus={() => handleFocus("slider")}
                   />
                 </div>
-                <div  ref={sectionRefs.streaming} className="mb-[50px]">
+                <div className="mb-[50px]">
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
