@@ -48,15 +48,20 @@ const DiscoverScreen = ({ setUrl, show }) => {
 
   useEffect(() => {
     if (show) {
-      handleFocus("slider"); // Focus the section and ensure the Carousel is
+      handleFocus("streaming"); // Focus the section and ensure the Carousel is 
       // properly focused
-      setTimeout(() => {
-        if (firstSectionRef) {
-          firstSectionRef.forceFocus();
-        }
-      }, 1000);
+setTimeout(() => {
+  if(firstSectionRef){
+    localStorage.setItem("screenLoaded",true);
+    firstSectionRef.click();
+    localStorage.setItem("screenLoaded",false);
+  }
+}, 200);
+
+  
     }
-  }, [show, firstSectionRef]);
+  }, [show,firstSectionRef]);
+
 
   return (
     <div
@@ -73,7 +78,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
           <div className="text-white text-lg"> Welcome </div>
         </div>
         <div className="w-full">
-          <HorizontalList id="discoverelement" retainLastFocus={true}>
+          <HorizontalList retainLastFocus={true}>
             <div style={{ width: "100%", float: "left", overflowY: "auto" }}>
               <VerticalList
                 navDefault={show}

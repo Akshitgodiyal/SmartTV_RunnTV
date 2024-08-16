@@ -26,13 +26,6 @@ const ToggleItem = (props) => {
 
   const renderContent = () => {
     switch (props.type) {
-      case "slider":
-        return (
-          <div  ref={props.index == 0 && props.id} id={props.index == 0 && "firstSectionRef"} className={"item w-[100%] h-[688px] " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
-            
-            <i className={"fa fa-" + props.icon} /> {props.children}
-          </div>
-        );
       case "Streaming":
         return (
           <div id={props.index == 0 && "firstSectionRef"} className={"item w-[240px] h-[320px] " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>

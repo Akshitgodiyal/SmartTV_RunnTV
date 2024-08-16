@@ -12,7 +12,7 @@ import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { IconStarFilled } from "@tabler/icons-react";
 
-const ContentCategory = ({ setUrl,show,forceFocus }) => {
+const ContentCategory = ({ setUrl,show }) => {
   const { isActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
