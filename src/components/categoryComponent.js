@@ -11,7 +11,7 @@ import ToggleItem from "./ToogleItem.js";
 import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { IconStarFilled } from "@tabler/icons-react";
-
+import { globals } from "../global.js";
 const ContentCategory = ({ setUrl,show }) => {
   const { isActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -100,8 +100,23 @@ const changeFocusTo = (index) => {
 
   const onFocus = (index, component) => {
     handleSetActive(true, index);
-    localStorage.setItem("ACTIVE_COMPONENT", component);
+    localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
+ 
+
+  useEffect(() => {
+    if (show) { 
+      setTimeout(() => {
+        let firstSectionRef = document.getElementById("defaultFocused");
+        if (firstSectionRef) {
+          localStorage.setItem("screenLoaded", true);
+          firstSectionRef.click();
+          localStorage.setItem("screenLoaded", false);
+          localStorage.setItem(globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content);
+        }
+      }, 400);
+    }
+  }, [show]);
 
   return (
     <div
@@ -128,14 +143,13 @@ const changeFocusTo = (index) => {
 
 
             </div>
-          <HorizontalList retainLastFocus={true}>
-          
+          <HorizontalList retainLastFocus={true}> 
             <div  style={{ width: "20%", float: "left" }}>
               <div id="category-filter-div" className={active ? "focused " : ""}>
                 <div id="category-filter" ref={content1}>
                   <VerticalList
-                    id="filterComponent"
-                    onFocus={(index) => onFocus(index, "filterComponent")}
+                    id={globals.COMPONENT_NAME.Category_Filter}
+                    onFocus={(index) => onFocus(index,globals.COMPONENT_NAME.Category_Filter)}
                     onBlur={(index) => handleSetActive(false, index)}
                     retainLastFocus={true}
                   >
@@ -164,10 +178,9 @@ const changeFocusTo = (index) => {
                             index
                           )
                         }
+                        index={index}
                        
                       >
-               
-
                         {index}
                       </ToggleItem>
                     ))}
@@ -181,10 +194,10 @@ const changeFocusTo = (index) => {
               ref={content2}
             >
               <VerticalList
-                id="content"
+                id={globals.COMPONENT_NAME.Content}
                 retainLastFocus={true}
                 navDefault={show}
-                onFocus={(index) => onFocus(index, "content")}
+                onFocus={(index) => onFocus(index,globals.COMPONENT_NAME.Content)}
                 onBlur={(index) => handleSetActive(false, index)}
               >
                 {lists.map((list, i) => (
@@ -204,6 +217,7 @@ const changeFocusTo = (index) => {
                       visible={true}
                       isActive={i === activeListIndex}
                       parentNav="home-div-nav"
+                      isFirstList={i===0?true:false}
                     />
                   </div>
                 ))}

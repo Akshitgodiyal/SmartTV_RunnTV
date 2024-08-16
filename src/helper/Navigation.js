@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VerticalList from './VerticalList.js';
-
+import { globals } from '../global.js';
 const reverseDirection = {
   'up': 'down',
   'down': 'up',
@@ -100,11 +100,11 @@ class Navigation extends Component {
 
   preventLeft(direction, current) {
     let prevent = false;
-    const activeComponent = localStorage.getItem("ACTIVE_COMPONENT") || null;
+    const activeComponent = localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
 
     if (direction === "left") {
       switch (activeComponent) {
-        case "player-controls":
+        case globals.COMPONENT_NAME.Player_Control:
           if (current && current.indexInParent === 0) {
             prevent = true;
           }
@@ -119,11 +119,11 @@ class Navigation extends Component {
   }
   preventTop(direction, current) {
     let prevent = false;
-    const activeComponent = localStorage.getItem("ACTIVE_COMPONENT") || null;
+    const activeComponent = localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
 
     if (direction == "up") {
       switch (activeComponent) {
-        case "discover":
+        case globals.COMPONENT_NAME.Discover:
           if (current) {
             prevent = true;
           }

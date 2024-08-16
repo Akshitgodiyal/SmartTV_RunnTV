@@ -87,6 +87,7 @@ const List = (props) => {
               key={i}
               assetinfo={asset}
               parentNav={props.parentNav}
+              isFirstItem={props.isFirstList && i==0?true:false}
             />
           ))}
         </HorizontalList>
