@@ -9,12 +9,15 @@ import Login from "../login";
 
 function OverScreens({ setUrl }) {
   const { sidebarActive } = useContext(VideoContext);
-  if(sidebarActive === "user"){
-    return(<ContentCategory show={sidebarActive === "user"} setUrl={setUrl} />) 
-  }else if(sidebarActive === "search"){
-    return(<DiscoverScreen show={sidebarActive === "search"} setUrl={setUrl} />)
-  }
-  
+
+  return (
+    <>
+    { sidebarActive == "user" ? <ContentCategory show={sidebarActive == "user"} setUrl={setUrl} />:sidebarActive == "search"?
+      <DiscoverScreen show={sidebarActive == "search"} setUrl={setUrl} />:sidebarActive == "history" ?
+      <WatchHistory show={sidebarActive == "history"} setUrl={setUrl} />:sidebarActive == "star"?
+      <Login show={sidebarActive == "star"} setUrl={setUrl} /> :null}
+    </>
+  );
 }
 
 export default OverScreens;

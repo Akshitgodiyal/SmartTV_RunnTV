@@ -45,7 +45,7 @@ const Sidebar = () => {
 
 
   const onFocus = (index) => {
-    debugger;
+
    // setFocusedIndex(index);
     handleSetActive(true, index);   
      localStorage.setItem("ACTIVE_COMPONENT", "sidebarComponent");

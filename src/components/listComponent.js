@@ -83,7 +83,7 @@ const List = (props) => {
         >
           {props.assets.map((asset, i) => (
             <ToggleItem
-            forceFocus={props.forceFocus}
+          
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
               key={i}
               assetinfo={asset}
