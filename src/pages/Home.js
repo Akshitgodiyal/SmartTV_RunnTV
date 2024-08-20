@@ -7,9 +7,7 @@ import OverScreens from "../components/OverScreens/OverScreens.js";
 
 
 const Home = () => {
-  const playerRef = useRef(null);
-  const [url, setUrl] = useState("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8");
-
+ 
   return (
     <Navigation id="home-div-nav" active={true}>
       <div className="active-component">
@@ -17,8 +15,8 @@ const Home = () => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              <Player url={url} ref={playerRef} />
-              <OverScreens setUrl={setUrl} />
+              {/* <Player url={url} ref={playerRef} /> */}
+              <OverScreens  />
             </VerticalList>
           </div>
         </HorizontalList>

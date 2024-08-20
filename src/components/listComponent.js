@@ -1,9 +1,7 @@
 import React, {  useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
-import ToggleItem from "./ToogleItem";
-import { VideoContext } from "../utility/context.js";
-
-const List = (props) => {
+import ToggleItem from "./ToogleItem"; 
+const List = (props=[]) => {
   const contentRef = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
 
@@ -68,8 +66,9 @@ const List = (props) => {
   const handleItemClick = (url) => {
     props.setUrl(url);
   };
-
+ 
   return (
+
     <div
       className={`contentgroup ${props.layout} ${props.visible ? "" : "fading-out"} ${props.isActive ? "active-list" : ""}`}
     >
@@ -81,9 +80,10 @@ const List = (props) => {
           onBlur={() => setLastFocus(null)}
           retainLastFocus={true}
         >
-          {props.assets.map((asset, i) => (
+          {props && props.assets && props.assets.map((asset, i) => (
+            
             <ToggleItem
-              onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
+              onEnter={() => handleItemClick(props.playUrl)}
               key={i}
               assetinfo={asset}
               parentNav={props.parentNav}
