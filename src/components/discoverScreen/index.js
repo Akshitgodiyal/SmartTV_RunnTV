@@ -96,7 +96,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
                   <Carousel
      
-                  id={firstSectionRef}
+                 
                     setUrl={setUrl}
                     title={categories.title}
                     layout={categories.layout}

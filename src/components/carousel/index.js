@@ -78,7 +78,7 @@ const Carousel = forwardRef((props) => {
           {props.assets.map((asset, index) => (
             <ToggleItem
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
-         id={props.id}
+        
               key={index}
               index={index}
               assetinfo={asset}
