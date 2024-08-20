@@ -14,7 +14,7 @@ import { VideoContext } from '../../utility/context';
 
   return ( 
     <div> 
-        <HlsPlayer url={"url"}  />
+        <HlsPlayer url={url}  />
         <PlayerControls />
         
     </div>

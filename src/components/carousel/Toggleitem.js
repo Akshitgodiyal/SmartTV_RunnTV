@@ -28,7 +28,7 @@ const ToggleItem = (props) => {
     switch (props.type) {
       case "slider":
         return (
-          <div   className={"item w-[100%] h-[688px] " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
+          <div  id={props.index == 0 && "firstSectionRef"} className={"item w-[100%] h-[688px] " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
             
             <i className={"fa fa-" + props.icon} /> {props.children}
           </div>
