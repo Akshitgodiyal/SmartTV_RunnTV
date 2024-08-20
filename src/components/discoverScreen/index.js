@@ -49,6 +49,20 @@ const DiscoverScreen = ({ setUrl, show }) => {
   };
 
 
+  
+  useEffect(() => {
+    if (show) {
+      handleFocus("slider"); // Focus the section and ensure the Carousel is
+      // properly focused
+      setTimeout(() => {
+        if (firstSectionRef) {
+          localStorage.setItem("screenLoaded", true);
+          firstSectionRef.click();
+          localStorage.setItem("screenLoaded", false);
+        }
+      }, 200);
+    }
+  }, [show, firstSectionRef]);
  
 
   return (

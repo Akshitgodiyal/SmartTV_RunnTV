@@ -137,12 +137,11 @@ class Focusable extends Component {
     if (this.context.navigationComponent.currentFocusedPath.includes(this)) {
       return;
     }
-    // if (localStorage.getItem("screenLoaded") === "true") {
-    //   this.context.navigationComponent.focus(this);
-    //   return;
-    // }
-    // Trigger focus when clicked
-    this.context.navigationComponent.focus(this);
+    if (localStorage.getItem("screenLoaded") === "true") {
+      this.context.navigationComponent.focus(this);
+      return;
+    }
+ 
 
     // Also trigger the onEnterDown event when clicked
     if (this.props.onEnterDown) {
