@@ -1,7 +1,47 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import HorizontalList from "../../helper/HorizontalList";
-import ToggleItem from "../ToogleItem"; // Fix the import if needed
+
 import { VideoContext } from "../../utility/context";
+import Focusable from "../../helper/Focusable";
+
+const ToggleItem = (props) => {
+  const [active, setActive] = useState(false);
+
+  const assetClick = () => {
+    var cc = localStorage.getItem("activeNav");
+    if (cc !== props.parentNav) {
+      return;
+    }
+ 
+    if (props.onClick) {
+      props.onClick(props.assetinfo);
+    }
+  };
+
+  const onKeyDown = () => {
+    assetClick();
+    if (props.onEnter) {
+      props.onEnter();  // Call the passed callback function
+    }
+  };
+
+  return (
+    <Focusable
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}
+      onEnterDown={onKeyDown}
+      onClick={onKeyDown}
+    >
+      <div id={props.id}  className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
+        <i className={"fa fa-" + props.icon} /> {props.children}
+      </div>
+    </Focusable>
+  );
+};
+
+
+
+
 const PlayerControls = () => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const handleSetActive = (status, index) => {
@@ -21,7 +61,7 @@ const PlayerControls = () => {
         retainLastFocus={true}
         id="player-controls"
       >
-        <ToggleItem className="bg-blue-900" icon="user">
+        <ToggleItem   id="playercontrol" className="bg-blue-900" icon="user">
          
           Menu 1
         </ToggleItem>

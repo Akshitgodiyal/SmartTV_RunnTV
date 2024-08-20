@@ -29,7 +29,7 @@ const ToggleItem = (props) => {
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
     >
-      <div className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
+      <div id={props.index == 0 && props.firstid &&"firstMenuRef"}  className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
         <i className={"fa fa-" + props.icon} /> {props.children}
       </div>
     </Focusable>

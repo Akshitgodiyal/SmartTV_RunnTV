@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import {
+import Navigation, {
   Focusable,
   HorizontalList,
   VerticalList,
@@ -14,6 +14,7 @@ import { IconStarFilled } from "@tabler/icons-react";
 
 const ContentCategory = ({ setUrl,show }) => {
   const { isActive } = useContext(VideoContext);
+  const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [opacity, setOpacity] = useState(1);
@@ -89,7 +90,7 @@ const changeFocusTo = (index) => {
   
 
   const abc = (av, index) => {
-    // console.log("clicked",av);
+
     setUrl(av);
     setActiveIndex(index);
   };
@@ -102,6 +103,32 @@ const changeFocusTo = (index) => {
     handleSetActive(true, index);
     localStorage.setItem("ACTIVE_COMPONENT", component);
   };
+
+
+ 
+
+
+
+
+  useEffect(() => {
+    let firstMenuRef = document.getElementById("firstMenuRef");
+   
+    
+    if (show) {
+
+      setTimeout(() => {
+
+        if (firstMenuRef) {
+          
+          localStorage.setItem("screenLoaded", true);
+         
+          firstMenuRef.click();
+          localStorage.setItem("screenLoaded", false);
+        }
+      }, 200);
+    }
+  }, [show, sidebarActive ]);
+
 
   return (
     <div
@@ -196,6 +223,8 @@ const changeFocusTo = (index) => {
                       hello
                     </div>
                     <List
+                    firstid="firstMenuRef"
+                   index={i}
                       setUrl={setUrl}
                       title={list.title}
                       layout={list.layout}
