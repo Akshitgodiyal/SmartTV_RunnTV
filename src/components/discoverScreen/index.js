@@ -9,7 +9,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
 
   const containerRef = useRef(null);
-  const firstSectionRef = useRef(null); // Ref for the first section
+
   const sectionRefs = {
     slider: useRef(null),
     streaming: useRef(null),
@@ -48,7 +48,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
     }
   };
 
-
+  let firstSectionRef = document.getElementById("firstSectionRef");
   
   useEffect(() => {
     if (show) {
