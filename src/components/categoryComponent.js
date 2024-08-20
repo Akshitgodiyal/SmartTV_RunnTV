@@ -12,7 +12,7 @@ import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { IconStarFilled } from "@tabler/icons-react";
 
-const ContentCategory = ({ setUrl,show }) => {
+const ContentCategory = ({ setUrl, show }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -24,70 +24,70 @@ const ContentCategory = ({ setUrl,show }) => {
   // eslint-disable-next-line
   const [lists, setLists] = useState(data);
 
- const handleSetActive = (status, index) => {
-  setActive(status);
+  const handleSetActive = (status, index) => {
+    setActive(status);
 
-  if (status && content1.current) {
-    const items = content1.current.getElementsByClassName("item");
-    const container = content1.current;
+    if (status && content1.current) {
+      const items = content1.current.getElementsByClassName("item");
+      const container = content1.current;
 
-    if (items[index]) {
-      const rect = items[index].getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+      if (items[index]) {
+        const rect = items[index].getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
 
-      const isAbove = rect.top < containerRect.top;
-      const isBelow = rect.bottom > containerRect.bottom;
+        const isAbove = rect.top < containerRect.top;
+        const isBelow = rect.bottom > containerRect.bottom;
 
-      if (isAbove || isBelow) {
-        let scrollAmount;
-        if (index === items.length - 1) {
-          // Special handling for the last item
-          scrollAmount = rect.bottom - containerRect.bottom;
-        } else {
-          scrollAmount = rect.top - containerRect.top - containerRect.height / 2 + rect.height / 2;
+        if (isAbove || isBelow) {
+          let scrollAmount;
+          if (index === items.length - 1) {
+            // Special handling for the last item
+            scrollAmount = rect.bottom - containerRect.bottom;
+          } else {
+            scrollAmount = rect.top - containerRect.top - containerRect.height / 2 + rect.height / 2;
+          }
+          container.scrollTop += scrollAmount;
         }
-        container.scrollTop += scrollAmount;
       }
     }
-  }
-};
+  };
 
-const changeFocusTo = (index) => {
-  setActiveListIndex(index);
-  setActive(index !== null);
+  const changeFocusTo = (index) => {
+    setActiveListIndex(index);
+    setActive(index !== null);
 
-  if (content2.current) {
-    const items = content2.current.getElementsByClassName("contentgroup");
-    const container = content2.current;
+    if (content2.current) {
+      const items = content2.current.getElementsByClassName("contentgroup");
+      const container = content2.current;
 
-    if (items[index]) {
-      const rect = items[index].getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+      if (items[index]) {
+        const rect = items[index].getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
 
-      const isAbove = rect.top < containerRect.top;
-      const isBelow = rect.bottom > containerRect.bottom;
+        const isAbove = rect.top < containerRect.top;
+        const isBelow = rect.bottom > containerRect.bottom;
 
-      if (isAbove || isBelow) {
-        let scrollAmount;
-        const itemHeight = rect.height;
-        const containerHeight = containerRect.height;
+        if (isAbove || isBelow) {
+          let scrollAmount;
+          const itemHeight = rect.height;
+          const containerHeight = containerRect.height;
 
-        if (index === items.length - 1) {
-          // Special handling for the last item in content2
-          scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
-        } else if (index==3) {
-          // Special handling for the last 5 items
-          scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
-        } else {
-          scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+          if (index === items.length - 1) {
+            // Special handling for the last item in content2
+            scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+          } else if (index == 3) {
+            // Special handling for the last 5 items
+            scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+          } else {
+            scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+          }
+          container.scrollTop += scrollAmount;
         }
-        container.scrollTop += scrollAmount;
       }
     }
-  }
-};
+  };
 
-  
+
 
   const abc = (av, index) => {
 
@@ -105,29 +105,29 @@ const changeFocusTo = (index) => {
   };
 
 
- 
 
 
 
 
-  useEffect(() => {
-    let firstMenuRef = document.getElementById("firstMenuRef");
-   
-    
-    if (show) {
 
-      setTimeout(() => {
+  // useEffect(() => {
+  //   let firstMenuRef = document.getElementById("firstMenuRef");
 
-        if (firstMenuRef) {
-          
-          localStorage.setItem("screenLoaded", true);
-         
-          firstMenuRef.click();
-          localStorage.setItem("screenLoaded", false);
-        }
-      }, 200);
-    }
-  }, [show, sidebarActive ]);
+
+  //   if (show) {
+
+  //     setTimeout(() => {
+
+  //       if (firstMenuRef) {
+
+  //         localStorage.setItem("screenLoaded", true);
+
+  //         firstMenuRef.click();
+  //         localStorage.setItem("screenLoaded", false);
+  //       }
+  //     }, 200);
+  //   }
+  // }, [show, sidebarActive]);
 
 
   return (
@@ -145,19 +145,19 @@ const changeFocusTo = (index) => {
           <div className="text-white text-lg"> Kid content </div>
         </div>
         <div className="w-full">
-        <div className="flex my-5 w-full justtify-center">
-              <img
-                className="w-15 m-auto"
-                src={upArrow}
-                alt="Logo"
+          <div className="flex my-5 w-full justtify-center">
+            <img
+              className="w-15 m-auto"
+              src={upArrow}
+              alt="Logo"
 
-              />
+            />
 
 
-            </div>
+          </div>
           <HorizontalList retainLastFocus={true}>
-          
-            <div  style={{ width: "20%", float: "left" }}>
+
+            <div style={{ width: "20%", float: "left" }}>
               <div id="category-filter-div" className={active ? "focused " : ""}>
                 <div id="category-filter" ref={content1}>
                   <VerticalList
@@ -178,9 +178,9 @@ const changeFocusTo = (index) => {
                       "Menu 2",
                       "Menu 2",
                     ].map((icon, index) => (
-                      
+
                       <ToggleItem
-           
+
                         key={icon}
                         icon={icon}
                         // isFocused={focusedIndex === index}
@@ -191,9 +191,9 @@ const changeFocusTo = (index) => {
                             index
                           )
                         }
-                       
+
                       >
-               
+
 
                         {index}
                       </ToggleItem>
@@ -223,8 +223,8 @@ const changeFocusTo = (index) => {
                       hello
                     </div>
                     <List
-                    firstid="firstMenuRef"
-                   index={i}
+                      firstid="firstMenuRef"
+                      index={i}
                       setUrl={setUrl}
                       title={list.title}
                       layout={list.layout}

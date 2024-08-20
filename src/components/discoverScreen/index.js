@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import { HorizontalList, VerticalList } from "../../helper/react-navigation";
+import { Grid, HorizontalList, VerticalList } from "../../helper/react-navigation";
 import { categories } from "../../data.js";
 import { VideoContext } from "../../utility/context.js";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
@@ -23,10 +23,10 @@ const DiscoverScreen = ({ setUrl, show }) => {
     if (containerRef.current && ref.current) {
       const containerTop = containerRef.current.getBoundingClientRect().top;
       const sectionTop = ref.current.getBoundingClientRect().top;
-  
 
 
-  
+
+
       if (isFirst) {
         containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
       } else {
@@ -37,7 +37,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
       }
     }
   };
-  
+
   const handleFocus = (section) => {
     setActiveListIndex(section);
     scrollToSection(sectionRefs[section], section === "slider");
@@ -49,7 +49,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
   };
 
   let firstSectionRef = document.getElementById("firstSectionRef");
-  
+
   useEffect(() => {
     if (show) {
       handleFocus("slider"); // Focus the section and ensure the Carousel is
@@ -63,7 +63,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
       }, 200);
     }
   }, [show, firstSectionRef]);
- 
+
 
   return (
     <div
@@ -88,15 +88,15 @@ const DiscoverScreen = ({ setUrl, show }) => {
                 retainLastFocus={true}
               >
                 <div
-                 ref={sectionRefs.slider}
+                  ref={sectionRefs.slider}
                   id="discover"
                   className="mb-[50px]"
                   tabIndex={-1} // Make it focusable
                 >
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
                   <Carousel
-     
-                 
+
+
                     setUrl={setUrl}
                     title={categories.title}
                     layout={categories.layout}
@@ -107,7 +107,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                     onFocus={() => handleFocus("slider")}
                   />
                 </div>
-                <div  ref={sectionRefs.streaming} className="mb-[50px]">
+                <div ref={sectionRefs.streaming} className="mb-[50px]">
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
@@ -122,7 +122,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                 </div>
                 <div ref={sectionRefs.categories} className="mb-[50px] w-full">
                   <div className="text-white text-[32px]">Categories</div>
-                  <VerticalList
+                  {/* <VerticalList
                     retainLastFocus={true}
                     onFocus={() => handleFocus("categories")}
                   >
@@ -148,7 +148,30 @@ const DiscoverScreen = ({ setUrl, show }) => {
                         />
                       ))}
                     </HorizontalList>
-                  </VerticalList>
+                  </VerticalList> */}
+
+                  <Grid
+                    retainLastFocus={true}
+                    onFocus={() => handleFocus("categories")}
+                    columns={7}
+                    rows={2}
+                  >
+                    {categories.assets.map((asset, i) => (
+                      <ToggleItem
+                        type="Categories"
+                        key={i}
+                        assetinfo={asset}
+                        parentNav={"first-row"}
+                        className="bg-blue-900"
+                      />
+                    ))}
+
+
+                  </Grid>
+
+
+
+
                 </div>
 
                 <div ref={sectionRefs.genres} className="mb-[50px]">
