@@ -158,7 +158,7 @@ const ContentCategory = ({ show }) => {
       <Player url={url} ref={playerRef} />
 
       <div
-        className={`mainbox bg-black bg-opacity-75 ${show ? "" : "hidden"}`}
+        className={`mainbox  ${show ? "" : "hidden"}`}
         style={{ position: "absolute", top: "0", opacity: opacity }}
       >
         <div className="flex flex-col justify-between h-full">

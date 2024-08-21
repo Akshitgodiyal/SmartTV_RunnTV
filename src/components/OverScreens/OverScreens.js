@@ -7,12 +7,13 @@ import HorizontalList from "../../helper/HorizontalList";
 
 function OverScreens({ setUrl }) {
   const { sidebarActive } = useContext(VideoContext);
-  if(sidebarActive === "user"){
-    return(<ContentCategory show={sidebarActive === "user"} setUrl={setUrl} />) 
-  }else if(sidebarActive === "search"){
-    return(<DiscoverScreen show={sidebarActive === "search"} setUrl={setUrl} />)
+  if (sidebarActive === "tv") {
+    return <ContentCategory show={sidebarActive === "tv"} setUrl={setUrl} />;
+  } else if (sidebarActive === "discover") {
+    return (
+      <DiscoverScreen show={sidebarActive === "discover"} setUrl={setUrl} />
+    );
   }
-  
 }
 
 export default OverScreens;

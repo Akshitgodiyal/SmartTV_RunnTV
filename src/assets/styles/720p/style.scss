@@ -18,46 +18,34 @@ body {
   height: 100%;
 }
 
-#sidebar {
+#side_bar {
   position: absolute;
   /* left: -300px; */
   top: 0;
-  width: 45px;
-  height: 100%;
-  background-color: #000 !important;
-  box-shadow: 2px 0 20px 0 black;
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
-  transition: left 0.5s, background-color 0.3s;
-  background-color: rgba(255, 255, 255, 0.1);
+  width: 64.0032px;
+  height: 100%; 
+  background-color: rgba(16, 17, 19, 1)  !important;  
+  display: flex;    
   z-index: 100;
 }
 
-#sidebar:hover {
+#side_bar:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-#sidebar.focused {
+#side_bar.focused {
   left: 0;
 }
 
-#icons { 
-  transition: opacity 0.5s;
-  z-index: 10;
-}
+ 
+#sidebarComponent{
+  position: absolute;
+  top: 106.672px !important;
+  left: 16.6675px;
+width: 31.3349px;
+ }
 
-#icons div {
-  text-align: center;
-  margin: 7px 0;
-}
-
-#icons .fa {
-  color: #ccc;
-  font-size: 15px;
-}
-
-#sidebar.focused #icons {
+#side_bar.focused #icons {
   opacity: 0;
 }
 
@@ -75,7 +63,7 @@ body {
   padding-top: 70px;
 }
 
-#sidebar.focused #menu {
+#side_bar.focused #menu {
   opacity: 1;
 }
 
@@ -96,15 +84,15 @@ body {
 }
 
 .item-focus {
-  background-color: white;
-  color: red !important;
+  border: 1.32px solid white;
+  border-bottom: 2px solid #fff !important;
 } 
 
 #menu .item .fa {
   width: 40px;
 }
 
-#sidebar.focused #menu .item {
+#side_bar.focused #menu .item {
   display: block;
 }
 
@@ -112,7 +100,8 @@ body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 40px 40px 0 80px;
+  padding: 0px 0px 0 64.0032px;
+  background-color:  rgba(0, 0, 0, 0.68)
 }
 
 #search-box-placeholder {

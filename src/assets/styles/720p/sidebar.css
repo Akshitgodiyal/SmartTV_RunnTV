@@ -1,9 +1,18 @@
 #sidebarComponent .item {
-    border-bottom: 2px solid transparent;
-    padding: 8px;
-    font-size: 10px;
-    color: #fff;
+    border-bottom: 2px solid transparent; 
+  
+    padding-bottom: 10.0005px;
+    padding-top: 10.0005px;
+    margin-top: 16.6675px;
+    margin-bottom: 16.6675px;
 }
 #sidebarComponent .item.active{
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid rgba(210, 47, 38, 1);
+}
+#sidebarComponent .item img{
+    width:24.0012px;
+    height: 24.0012px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

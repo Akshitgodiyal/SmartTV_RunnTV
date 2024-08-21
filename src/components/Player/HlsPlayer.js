@@ -25,7 +25,7 @@ const HlsPlayer = forwardRef(({ url }, ref) => {
   useEffect(() => {
 
     if(url){
-      playVideo();
+      // playVideo();
     }
    
   },[url]); 
