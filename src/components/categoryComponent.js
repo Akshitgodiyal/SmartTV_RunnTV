@@ -15,6 +15,7 @@ import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import Player from "../components/Player/Player.js";
+import _icon from "../assets/images/Icon.png";
 const ContentCategory = ({ show }) => {
   const { isActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -188,48 +189,44 @@ const ContentCategory = ({ show }) => {
                       {[
                       {
                         id: "Featured",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Favourites",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Movies",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Entertainment",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Shows",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Short Films",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Kids",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "Performance",
-                        icon: "tvImage",
+                        icon: _icon,
                       },
                       {
                         id: "tv",
-                        icon: "tvImage",
-                      },
-                      {
-                        id: "tv",
-                        icon: "tvImage",
-                      },
+                        icon: _icon,
+                      } 
                       ].map((icon, index) => (
                         <ToggleItem
                           key={icon.id}
-                          icon={icon.id} 
+                          icon={icon.icon} 
                           isActiveIndex={activeIndex === index}
                           onEnter={() =>
                             abc(
@@ -239,7 +236,7 @@ const ContentCategory = ({ show }) => {
                           }
                           index={index}
                         >
-                          {icon.id}
+                          {icon.id} 
                         </ToggleItem>
                       ))}
                     </VerticalList>
@@ -248,7 +245,7 @@ const ContentCategory = ({ show }) => {
               </div>
               <div
                 className="filter"
-                style={{ width: "80%", float: "left", overflowY: "auto" }}
+                style={{ width: "84%", float: "left", overflowY: "auto" }}
                 ref={content2}
               >
                 {lists && lists.length > 0 ? (

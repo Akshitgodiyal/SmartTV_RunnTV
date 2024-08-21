@@ -1,20 +1,31 @@
-#sidebarComponent .item {
+#sidebarComponent .item{
+    display: flex;
+    color: #fff;
+}
+#sidebarComponent .item-focus { 
+    border: none;   
+}
+#sidebarComponent .item .itemdiv{
+    display: none;
+}
+#side_bar.focused #sidebarComponent .item .itemdiv{
+    display: block;
+}
+#sidebarComponent .item img,#sidebarComponent .item .itemdiv{
     border: 4px solid transparent;   
     padding-bottom: 30px;
     padding-top: 30px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
-#sidebarComponent .item.active{
+#sidebarComponent .item.active img{
     border-bottom: 4px solid rgba(210, 47, 38, 1);
 }
-#sidebarComponent .item-focus { 
+#sidebarComponent .item-focus img{ 
     border: 4px solid transparent; 
     border-bottom: 4px solid #fff !important;
 }
 #sidebarComponent .item img{
-    width: 72px;
-    height: 72px;
     display: block;
     margin-left: auto;
     margin-right: auto;

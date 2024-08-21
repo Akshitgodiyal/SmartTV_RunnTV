@@ -32,7 +32,8 @@ const ToggleItem = (props) => {
     >
       
       <div id={props.isFirstItem?"defaultFocused":""} className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
-        <i className={"fa fa-" + props.icon} /> {props.children}
+      {props.icon? <img src={props.icon} alt="" />:""}
+      {props.children}
       </div>
     </Focusable>
   );

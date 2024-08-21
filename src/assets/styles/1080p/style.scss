@@ -29,7 +29,8 @@ body {
 }
  
 #side_bar.focused {
-  left: 0;
+  width: 100%;
+  background-color: rgb(16 17 19 / 69%) !important;
 }
 
  #sidebarComponent{

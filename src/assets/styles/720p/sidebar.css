@@ -1,4 +1,14 @@
-#sidebarComponent .item {
+#sidebarComponent .item{
+    display: flex;
+    color: #fff;
+}
+#sidebarComponent .item-focus { 
+    border: none;   
+}
+#side_bar.focused #sidebarComponent .item .itemdiv{
+    display: block;
+}
+#sidebarComponent .item img,#sidebarComponent .item .itemdiv{
     border: 2px solid transparent;  
     border-bottom: 2px solid transparent;  
     padding-bottom: 10.0005px;
@@ -6,16 +16,16 @@
     margin-top: 16.6675px;
     margin-bottom: 16.6675px;
 }
-#sidebarComponent .item.active{
+#sidebarComponent .item.active img{
     border-bottom: 2px solid rgba(210, 47, 38, 1);
 }
-#sidebarComponent .item-focus { 
+#sidebarComponent .item-focus img{ 
     border: 2px solid transparent;  
     border-bottom: 2px solid #fff !important;
 }
 #sidebarComponent .item img{
-    width:24.0012px;
-    height: 24.0012px;
+    /* width:24.0012px;
+    height: 24.0012px; */
     display: block;
     margin-left: auto;
     margin-right: auto;

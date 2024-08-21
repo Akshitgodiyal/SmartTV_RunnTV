@@ -16,6 +16,13 @@
   line-height: 21.3344px;
   color: rgba(217, 217, 217, 1)
 }
+#category-filter .item img {
+    height: 18px;
+    width: 21px;
+    object-fit: cover;
+    float: inline-start;
+    margin-right: 13px;
+}
 #category-filter .item-focus{
     border:1.32px solid #fff !important;
     background-color: transparent;

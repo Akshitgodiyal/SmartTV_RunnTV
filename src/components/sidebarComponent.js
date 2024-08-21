@@ -37,7 +37,7 @@ const Sidebar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeItemName, setActiveItemName] = useState("tv");
   const { setsidebarActive } = useContext(VideoContext);
-
+  const [active, setActive] = useState(false);
   const content1 = useRef(null);
   const items = [
     {
@@ -59,6 +59,7 @@ const Sidebar = () => {
   ];
 
   const handleSetActive = (status, index) => {
+    setActive(status);
     setFocusedIndex(status);
     if (status && content1.current) {
       const items = content1.current.getElementsByClassName("item");
@@ -93,7 +94,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div id="side_bar">
+    <div id="side_bar" className={active?"focused":""}>
       <div ref={content1}>
         <VerticalList
           onFocus={(index) => onFocus(index)}
@@ -108,7 +109,8 @@ const Sidebar = () => {
               isActiveIndex={activeIndex === index}
               onEnterDown={() => onEnterDown(index)}
             >
-              <img src={icon.icon} alt={icon.id}></img>
+              <img src={icon.icon} alt={icon.id} style={{float:"left"}}></img>
+              <div className="itemdiv"  >defgertsfgfb</div>
             </ToggleItem>
           ))}
         </VerticalList>
