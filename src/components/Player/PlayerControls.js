@@ -32,7 +32,7 @@ const ToggleItem = (props) => {
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
     >
-      <div id={props.id}  className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
+      <div id={props.fid}  className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
         <i className={"fa fa-" + props.icon} /> {props.children}
       </div>
     </Focusable>
@@ -61,7 +61,7 @@ const PlayerControls = () => {
         retainLastFocus={true}
         id="player-controls"
       >
-        <ToggleItem   id="playercontrol" className="bg-blue-900" icon="user">
+        <ToggleItem   fid="" className="bg-blue-900" icon="user">
          
           Menu 1
         </ToggleItem>

@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem";
 import { VideoContext } from "../utility/context.js";
@@ -11,17 +11,17 @@ const List = (props) => {
     if (lastFocus === index) {
       return;
     }
-  
+
     if (props.onFocus) {
       props.onFocus();
     }
-  
+
     if (contentRef.current) {
       const items = contentRef.current.getElementsByClassName("item");
       const item = items[index];
       const containerRect = contentRef.current.getBoundingClientRect();
       const itemRect = item.getBoundingClientRect();
-  
+
       if (itemRect) {
         // Horizontal scroll
         if (itemRect.left < containerRect.left || itemRect.right > containerRect.right) {
@@ -31,7 +31,7 @@ const List = (props) => {
             inline: itemRect.right > containerRect.right ? "end" : "start",
           });
         }
-  
+
         // Vertical scroll
         if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
           item.scrollIntoView({
@@ -40,7 +40,7 @@ const List = (props) => {
             block: itemRect.bottom > containerRect.bottom ? "end" : "start",
           });
         }
-  
+
         // Ensure the last element is fully visible
         if (index === items.length - 1) {
           setTimeout(() => {
@@ -50,16 +50,16 @@ const List = (props) => {
             });
             const lastItem = items[items.length - 1];
             lastItem.style.marginRight = '0';
-          }, 200); 
+          }, 200);
         }
 
 
 
 
-        
+
       }
     }
-  
+
     setLastFocus(index);
   };
 
@@ -83,8 +83,8 @@ const List = (props) => {
         >
           {props.assets.map((asset, i) => (
             <ToggleItem
-            firstid={props.index == 0 }
-          index={i}
+              firstid={props.index == 0}
+              index={i}
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
               key={i}
               assetinfo={asset}
