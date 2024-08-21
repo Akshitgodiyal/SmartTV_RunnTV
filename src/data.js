@@ -670,5 +670,19 @@ export const data= [
         type: "VOD",
         url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
       },
+      {
+        name: "ABC",
+        image:
+          "https://farm3.staticflickr.com/2220/1572613671_7311098b76_z_d.jpg",
+        type: "VOD",
+        url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
+      },
+      {
+        name: "ABC",
+        image:
+          "https://farm9.staticflickr.com/8505/8441256181_4e98d8bff5_z_d.jpg",
+        type: "VOD",
+        url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
+      },
     ],
   }

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./assets/base.js"; 
 import SplashScreen from "../src/pages/splashScreen.js";
 import Home from "./pages/Home.js";
- 
-
+import './applicationsdk.js';
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
