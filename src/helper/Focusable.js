@@ -122,8 +122,7 @@ class Focusable extends Component {
   previousChild(focusedIndex) {
     if (focusedIndex - 1 < 0) {
       return null;
-    }
-
+    } 
     return this.children[focusedIndex - 1];
   }
 
@@ -132,7 +131,7 @@ class Focusable extends Component {
   }
 
   handleClick = () => {
-    if (this.context.navigationComponent.currentFocusedPath.includes(this)) {
+    if (this.context.navigationComponent.currentFocusedPath && this.context.navigationComponent.currentFocusedPath.includes(this)) {
       return;
     }
     if (localStorage.getItem("screenLoaded") === "true") {

@@ -11,8 +11,11 @@ import ToggleItem from "./ToogleItem.js";
 import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { IconStarFilled } from "@tabler/icons-react";
-
-const ContentCategory = ({ setUrl, show }) => {
+import { globals } from "../global.js";
+import ApiHelper from "../helper/ApiHelper.js";
+import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
+import Player from "../components/Player/Player.js";
+const ContentCategory = ({ show }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -21,8 +24,11 @@ const ContentCategory = ({ setUrl, show }) => {
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
+  const playerRef = useRef(null);
+  const [url, setUrl] = useState("");
+
   // eslint-disable-next-line
-  const [lists, setLists] = useState(data);
+  const [lists, setLists] = useState([]);
 
   const handleSetActive = (status, index) => {
     setActive(status);
@@ -87,10 +93,7 @@ const ContentCategory = ({ setUrl, show }) => {
     }
   };
 
-
-
   const abc = (av, index) => {
-
     setUrl(av);
     setActiveIndex(index);
   };
@@ -101,8 +104,39 @@ const ContentCategory = ({ setUrl, show }) => {
 
   const onFocus = (index, component) => {
     handleSetActive(true, index);
-    localStorage.setItem("ACTIVE_COMPONENT", component);
+    localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
+  function fetchData() {
+    try {
+      const headers = { PARTNER_CODE: "ALL" };
+      ApiHelper.get(globals.API_URL.GET_CHANNEL_EPG, headers).then((result) => {
+        var channelList = mapChannelEpg(result);
+        setUrl(channelList[0].playUrl);
+        setLists(channelList);
+        SetInitialFocus();
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      //setLoading(false);
+    }
+  }
+  function SetInitialFocus(){
+    setTimeout(() => {
+      let firstSectionRef = document.getElementById("defaultFocused");
+      if (firstSectionRef) {
+        localStorage.setItem("screenLoaded", true);
+        firstSectionRef.click();
+        localStorage.setItem("screenLoaded", false);
+        localStorage.setItem( globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content);
+      }
+    }, 50);
+  }
+  useEffect(() => {
+    if (show) {
+      fetchData();
+    }
+  }, [show]);
 
 
 
@@ -131,117 +165,118 @@ const ContentCategory = ({ setUrl, show }) => {
 
 
   return (
-    <div
-      className={`mainbox bg-black bg-opacity-75 ${show ? "" : "hidden"}`}
+    <VerticalList retainLastFocus={true}>
+      <Player url={url} ref={playerRef} />
 
-      style={{ position: "absolute", top: "0", opacity: opacity, }}
-    >
-
-
-      <div className="flex flex-col justify-between h-full">
-
-        <div className="w-100 *:">
-          <img className="w-40" src={logo} alt="Logo" />
-          <div className="text-white text-lg"> Kid content </div>
-        </div>
-        <div className="w-full">
-          <div className="flex my-5 w-full justtify-center">
-            <img
-              className="w-15 m-auto"
-              src={upArrow}
-              alt="Logo"
-
-            />
-
-
+      <div
+        className={`mainbox bg-black bg-opacity-75 ${show ? "" : "hidden"}`}
+        style={{ position: "absolute", top: "0", opacity: opacity }}
+      >
+        <div className="flex flex-col justify-between h-full">
+          <div className="w-100 *:">
+            <img className="w-40" src={logo} alt="Logo" />
+            <div className="text-white text-lg"> Kid content </div>
           </div>
-          <HorizontalList retainLastFocus={true}>
-
-            <div style={{ width: "20%", float: "left" }}>
-              <div id="category-filter-div" className={active ? "focused " : ""}>
-                <div id="category-filter" ref={content1}>
-                  <VerticalList
-                    id="filterComponent"
-                    onFocus={(index) => onFocus(index, "filterComponent")}
-                    onBlur={(index) => handleSetActive(false, index)}
-                    retainLastFocus={true}
-                  >
-                    {[
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                      "Menu 2",
-                    ].map((icon, index) => (
-
-                      <ToggleItem
-
-                        key={icon}
-                        icon={icon}
-                        // isFocused={focusedIndex === index}
-                        isActiveIndex={activeIndex === index}
-                        onEnter={() =>
-                          abc(
-                            "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-                            index
-                          )
-                        }
-
-                      >
-
-
-                        {index}
-                      </ToggleItem>
-                    ))}
-                  </VerticalList>
+          <div className="w-full">
+            <div className="flex my-5 w-full justtify-center">
+              <img className="w-15 m-auto" src={upArrow} alt="Logo" />
+            </div>
+            <HorizontalList retainLastFocus={true}>
+              <div style={{ width: "20%", float: "left" }}>
+                <div
+                  id="category-filter-div"
+                  className={active ? "focused " : ""}
+                >
+                  <div id="category-filter" ref={content1}>
+                    <VerticalList
+                      id={globals.COMPONENT_NAME.Category_Filter}
+                      onFocus={(index) =>
+                        onFocus(index, globals.COMPONENT_NAME.Category_Filter)
+                      }
+                      onBlur={(index) => handleSetActive(false, index)}
+                      retainLastFocus={true}
+                    >
+                      {[
+                        "Menu 1",
+                        "Menu 2",
+                        "Menu 3",
+                        "Menu 4",
+                        "Menu 5",
+                        "Menu 6",
+                        "Menu 7",
+                        "Menu 8",
+                        "Menu 9",
+                        "Menu 10",
+                      ].map((icon, index) => (
+                        <ToggleItem
+                          key={icon}
+                          icon={icon}
+                          // isFocused={focusedIndex === index}
+                          isActiveIndex={activeIndex === index}
+                          onEnter={() =>
+                            abc(
+                              "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+                              index
+                            )
+                          }
+                          index={index}
+                        >
+                          {index}
+                        </ToggleItem>
+                      ))}
+                    </VerticalList>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="filter"
-              style={{ width: "80%", float: "left", overflowY: "auto" }}
-              ref={content2}
-            >
-              <VerticalList
-                id="content"
-                retainLastFocus={true}
-                navDefault={show}
-                onFocus={(index) => onFocus(index, "content")}
-                onBlur={(index) => handleSetActive(false, index)}
+              <div
+                className="filter"
+                style={{ width: "80%", float: "left", overflowY: "auto" }}
+                ref={content2}
               >
-                {lists.map((list, i) => (
-                  <div
-                    className={i === activeListIndex ? "active flex" : "flex "}
-                    key={i}
+                {lists && lists.length > 0 ? (
+                  <VerticalList
+                    id={globals.COMPONENT_NAME.Content}
+                    retainLastFocus={true}
+                    navDefault={show}
+                    onFocus={(index) =>
+                      onFocus(index, globals.COMPONENT_NAME.Content)
+                    }
+                    onBlur={(index) => handleSetActive(false, index)}
                   >
-                    <div className="before-box text-white mt-[6px] mr-3 bg-gray-200 w-[130px] h-[78px] text-center -ml-5">
-                      hello
-                    </div>
-                    <List
-                      firstid="firstMenuRef"
-                      index={i}
-                      setUrl={setUrl}
-                      title={list.title}
-                      layout={list.layout}
-                      assets={list.assets}
-                      onFocus={() => changeFocusTo(i)}
-                      visible={true}
-                      isActive={i === activeListIndex}
-                      parentNav="home-div-nav"
-                    />
-                  </div>
-                ))}
-              </VerticalList>
-            </div>
-          </HorizontalList>
+                    {lists?.map((list, i) => (
+                      <div
+                        className={
+                          i === activeListIndex ? "active flex" : "flex "
+                        }
+                        key={i}
+                      >
+                        <div className="before-box text-white mt-[6px] mr-3 bg-gray-200 w-[130px] h-[78px] text-center -ml-5">
+                          {list.title}
+                        </div>
+                        <List
+                          setUrl={setUrl}
+                          title={list.title}
+                          layout={list.layout}
+                          assets={list.schedules}
+                          playUrl={list.playUrl}
+                          onFocus={() => changeFocusTo(i)}
+                          visible={true}
+                          isActive={i === activeListIndex}
+                          parentNav="home-div-nav"
+                          isFirstList={i === 0 ? true : false}
+                        />
+                      </div>
+                    ))}
+                  </VerticalList>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            </HorizontalList>
+          </div>
         </div>
       </div>
-    </div>
+    </VerticalList>
   );
 };
 

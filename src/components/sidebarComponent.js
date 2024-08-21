@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Focusable, VerticalList } from "../helper/react-navigation";
 import { VideoContext } from "../utility/context";
-
+import { globals } from "../global";
 const ToggleItem = ({ icon, children, isFocused, onFocus, onEnterDown, isActiveIndex }) => {
   const [active, setActive] = useState(false);
   return (
@@ -45,28 +45,24 @@ const Sidebar = () => {
 
 
   const onFocus = (index) => {
-
-   // setFocusedIndex(index);
     handleSetActive(true, index);   
-     localStorage.setItem("ACTIVE_COMPONENT", "sidebarComponent");
+    localStorage.setItem(globals.ACTIVE_COMPONENT,globals.COMPONENT_NAME.Sidebar);
   };
 
   const onEnterDown = (index) => {
     setActiveIndex(index);
     setsidebarActive(items[index])
-
-    localStorage.setItem("ACTIVE_COMPONENT", "sidebarComponent");
+    localStorage.setItem(globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Sidebar);
   };
 
   return (
     <div id="sidebar">
-      
       <div id="icons" ref={content1}>
         <VerticalList
           onFocus={(index) => onFocus(index)}
           onBlur={() => handleSetActive(false)}
           retainLastFocus={true}
-          id="sidebarComponent"
+          id={globals.COMPONENT_NAME.Sidebar}
         >
           {items.map((icon, index) => (
             <ToggleItem

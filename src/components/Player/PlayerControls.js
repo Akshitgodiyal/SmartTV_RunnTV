@@ -2,46 +2,7 @@ import React, { useContext, useState } from "react";
 import HorizontalList from "../../helper/HorizontalList";
 
 import { VideoContext } from "../../utility/context";
-import Focusable from "../../helper/Focusable";
-
-const ToggleItem = (props) => {
-  const [active, setActive] = useState(false);
-
-  const assetClick = () => {
-    var cc = localStorage.getItem("activeNav");
-    if (cc !== props.parentNav) {
-      return;
-    }
- 
-    if (props.onClick) {
-      props.onClick(props.assetinfo);
-    }
-  };
-
-  const onKeyDown = () => {
-    assetClick();
-    if (props.onEnter) {
-      props.onEnter();  // Call the passed callback function
-    }
-  };
-
-  return (
-    <Focusable
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
-      onEnterDown={onKeyDown}
-      onClick={onKeyDown}
-    >
-      <div id={props.fid}  className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
-        <i className={"fa fa-" + props.icon} /> {props.children}
-      </div>
-    </Focusable>
-  );
-};
-
-
-
-
+import { globals } from "../../global";
 const PlayerControls = () => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const handleSetActive = (status, index) => {
@@ -49,7 +10,10 @@ const PlayerControls = () => {
   };
   const onFocus = (index) => {
     handleSetActive(false, index);
-    localStorage.setItem("ACTIVE_COMPONENT","player-controls");
+    localStorage.setItem(
+      globals.ACTIVE_COMPONENT,
+      globals.COMPONENT_NAME.Player_Control
+    );
   };
 
   return (
@@ -59,17 +23,11 @@ const PlayerControls = () => {
         onBlur={(index) => handleSetActive(true, index)}
         className="w-full justify-center gap-3 items-center text-2xl flex"
         retainLastFocus={true}
-        id="player-controls"
+        id={globals.COMPONENT_NAME.Player_Control}
       >
-        <ToggleItem   fid="" className="bg-blue-900" icon="user">
-         
-          Menu 1
-        </ToggleItem>
-        <ToggleItem className="bg-blue-900" icon="user">
-          {" "}
-          Menu 2{" "}
-        </ToggleItem>
-        <ToggleItem icon="user">Menu 3</ToggleItem>
+        <ToggleItem className="bg-blue-900"> Menu 1 </ToggleItem>
+        <ToggleItem className="bg-blue-900"> Menu 2 </ToggleItem>
+        <ToggleItem className="bg-blue-900">Menu 3</ToggleItem>
       </HorizontalList>
     </div>
   );

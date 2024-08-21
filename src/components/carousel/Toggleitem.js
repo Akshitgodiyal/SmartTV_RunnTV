@@ -42,7 +42,7 @@ const ToggleItem = (props) => {
         );
       case "Categories":
         return (
-          <div className={"  item my-3 rounded-md w-[231.43px] h-[166px] " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
+          <div className={"  item my-3 rounded-md w-[227.43px] h-[166px] " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
             <i className={"fa fa-" + props.icon} /> {props.children}
           </div>
         );

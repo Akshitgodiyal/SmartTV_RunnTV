@@ -1,10 +1,16 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import { Grid, HorizontalList, VerticalList } from "../../helper/react-navigation";
+import {
+  HorizontalList,
+  VerticalList,
+  Grid,
+  Focusable,
+} from "../../helper/react-navigation";
 import { categories } from "../../data.js";
 import { VideoContext } from "../../utility/context.js";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import Carousel from "../carousel/index.js";
 import ToggleItem from "../carousel/Toggleitem.js";
+import { globals } from "../../global.js";
 const DiscoverScreen = ({ setUrl, show }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
 
@@ -44,7 +50,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
     if (section === "slider") {
       localStorage.setItem("ACTIVE_COMPONENT", "discover");
     } else {
-      localStorage.setItem("ACTIVE_COMPONENT", "");
+      localStorage.setItem(globals.ACTIVE_COMPONENT, "");
     }
   };
 
@@ -63,7 +69,6 @@ const DiscoverScreen = ({ setUrl, show }) => {
       }, 200);
     }
   }, [show, firstSectionRef]);
-
 
   return (
     <div
@@ -131,7 +136,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                         <ToggleItem
                           type="Categories"
                           key={i}
-                          assetinfo={asset}
+                          assetinfo={i}
                           parentNav={"first-row"}
                           className="bg-blue-900"
                         />
