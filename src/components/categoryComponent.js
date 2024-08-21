@@ -171,7 +171,7 @@ const ContentCategory = ({ show }) => {
               <img className="w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
             <HorizontalList retainLastFocus={true}>
-              <div style={{ width: "20%", float: "left" }}>
+              <div className="category-filter">
                 <div
                   id="category-filter-div"
                   className={active ? "focused " : ""}
@@ -186,21 +186,50 @@ const ContentCategory = ({ show }) => {
                       retainLastFocus={true}
                     >
                       {[
-                        "Menu 1",
-                        "Menu 2",
-                        "Menu 3",
-                        "Menu 4",
-                        "Menu 5",
-                        "Menu 6",
-                        "Menu 7",
-                        "Menu 8",
-                        "Menu 9",
-                        "Menu 10",
+                      {
+                        id: "Featured",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Favourites",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Movies",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Entertainment",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Shows",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Short Films",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Kids",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "Performance",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "tv",
+                        icon: "tvImage",
+                      },
+                      {
+                        id: "tv",
+                        icon: "tvImage",
+                      },
                       ].map((icon, index) => (
                         <ToggleItem
-                          key={icon}
-                          icon={icon}
-                          // isFocused={focusedIndex === index}
+                          key={icon.id}
+                          icon={icon.id} 
                           isActiveIndex={activeIndex === index}
                           onEnter={() =>
                             abc(
@@ -210,7 +239,7 @@ const ContentCategory = ({ show }) => {
                           }
                           index={index}
                         >
-                          {index}
+                          {icon.id}
                         </ToggleItem>
                       ))}
                     </VerticalList>

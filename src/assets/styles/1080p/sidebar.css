@@ -1,5 +1,5 @@
 #sidebarComponent .item {
-    border-bottom: 2px solid transparent;  
+    border: 2px solid transparent;   
     padding-bottom: 15px;
     padding-top: 15px;
     margin-top: 25px;
@@ -8,6 +8,10 @@
 #sidebarComponent .item.active{
     border-bottom: 2px solid rgba(210, 47, 38, 1);
 }
+#sidebarComponent .item-focus { 
+    border: 2px solid transparent;  
+    border-bottom: 2px solid #fff !important;
+  }
 #sidebarComponent .item img{
     width: 36px;
     height: 36px;
