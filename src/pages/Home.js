@@ -7,7 +7,7 @@ import OverScreens from "../components/OverScreens/OverScreens.js";
 
 
 const Home = () => {
- 
+  const [url, setUrl] = useState("");
   return (
     <Navigation id="home-div-nav" active={true}>
       <div className="active-component">
@@ -15,8 +15,8 @@ const Home = () => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              {/* <Player url={url} ref={playerRef} /> */}
-              <OverScreens  />
+              <Player url={url}  />
+              <OverScreens setUrl={setUrl}  />
             </VerticalList>
           </div>
         </HorizontalList>

@@ -128,6 +128,11 @@ class Navigation extends Component {
             prevent = true;
           }
           break;
+        case "player-controls":
+          if (current) {
+            prevent = true;
+          }
+          break;
         default:
           prevent = false;
           break;

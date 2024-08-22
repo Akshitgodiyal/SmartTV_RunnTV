@@ -3,11 +3,10 @@ import HlsPlayer from "./HlsPlayer";
 import PlayerControls from "./PlayerControls";
 import { VideoContext } from "../../utility/context";
 
-function Player({ url }) {
+function Player({ url,poster }) {
   return (
     <div>
-      {/* <HlsPlayer url={url} /> */}
-      {/* <PlayerControls /> */}
+      <HlsPlayer url={url} poster={poster}/>
     </div>
   );
 }

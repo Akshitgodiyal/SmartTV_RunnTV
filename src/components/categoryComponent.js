@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import {
+import Navigation, {
   Focusable,
   HorizontalList,
   VerticalList,
@@ -17,17 +17,20 @@ import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 
 import Player from "../components/Player/Player.js";
+import bg from "../assets/images/logo.aaf739805db645e7a37b.png";
+import { img_cloudfront } from "../utility/constant.js";
 import _icon from "../assets/images/Icon.png";
-const ContentCategory = ({ show }) => {
+const ContentCategory = ({ show, setUrl }) => {
   const { isActive } = useContext(VideoContext);
+  const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState();
   const [opacity, setOpacity] = useState(1);
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
-  const playerRef = useRef(null);
-  const [url, setUrl] = useState("");
+
+
 
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
@@ -113,6 +116,8 @@ const ContentCategory = ({ show }) => {
   };
 
   const abc = (av, index) => {
+    console.log("addada");
+
     setUrl(av);
     setActiveIndex(index);
   };
@@ -177,18 +182,18 @@ const ContentCategory = ({ show }) => {
 
   return (
     <VerticalList retainLastFocus={true}>
-      <Player url={url} ref={playerRef} />
+
 
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
-        style={{ position: "absolute", top: "0", opacity: opacity }}
+        style={{ position: "absolute", top: "0", opacity: opacity ,  zIndex:opacity == 1 ? 1 : -1}}
       >
         <div className="flex flex-col justify-between h-full">
           <div className="w-100 *:">
             <img className="w-40" src={logo} alt="Logo" />
             <div className="text-white text-lg"> Kid content </div>
           </div>
-          <div className="w-full">
+          <div className="w-full margintop" >
             <div className="flex my-5 w-full justtify-center">
               <img className="w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
@@ -228,8 +233,8 @@ const ContentCategory = ({ show }) => {
                 </div>
               </div>
               <div
-                className="filter"
-                style={{ width: "84%", float: "left", overflowY: "auto" }}
+                className="h-[500px] scroll-hidden"
+                style={{ width: "83%", float: "left", overflowY: "auto" }}
                 ref={content2}
               >
                 {lists && lists.length > 0 ? (
@@ -245,25 +250,43 @@ const ContentCategory = ({ show }) => {
                     {lists?.map((list, i) => (
                       <div
                         className={
-                          i === activeListIndex ? "active flex" : "flex "
+                          i === activeListIndex
+                            ? "active flex rounded-md "
+                            : "flex  rounded-md"
                         }
                         key={i}
                       >
-                        <div className="before-box text-white mt-[6px] mr-3 bg-gray-200 w-[130px] h-[78px] text-center -ml-5">
-                          {list.title}
+                        <div className="before-box   flex justify-between  items-center  mr-3 w-[145px] h-[80px] text-center ">
+                          <div className=" text-[20px] text-white p-1">101</div>
+                          <div
+                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${i === activeListIndex ? "" : ""
+                              } `}
+                          >
+                            <img
+                              className={`items-center ${i === activeListIndex
+                                  ? "w-[100px] h-[84px]"
+                                  : "w-[76px] h-[64px]"
+                                } `}
+                              src={img_cloudfront + list?.image?.logo?.tv}
+                              alt="Logo"
+                            />
+                          </div>
                         </div>
-                        <List
-                          setUrl={setUrl}
-                          title={list.title}
-                          layout={list.layout}
-                          assets={list.schedules}
-                          playUrl={list.playUrl}
-                          onFocus={() => changeFocusTo(i)}
-                          visible={true}
-                          isActive={i === activeListIndex}
-                          parentNav="home-div-nav"
-                          isFirstList={i === 0 ? true : false}
-                        />
+                        <div
+                          className="filter">
+                          <List
+                            setUrl={setUrl}
+                            title={list.title}
+                            layout={list.layout}
+                            assets={list.schedules}
+                            playUrl={list.playUrl}
+                            onFocus={() => changeFocusTo(i)}
+                            visible={true}
+                            isActive={i === activeListIndex}
+                            parentNav="home-div-nav"
+                            isFirstList={i === 0 ? true : false}
+                          />
+                        </div>
                       </div>
                     ))}
                   </VerticalList>

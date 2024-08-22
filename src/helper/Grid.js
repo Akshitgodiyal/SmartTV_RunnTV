@@ -11,43 +11,43 @@ class Grid extends Focusable {
     if (direction !== 'up' && direction !== 'down') {
       return super.getNextFocus(direction, this.indexInParent);
     }
-
+  
     let nextFocus = null;
     if (direction === 'up') {
       nextFocus = this.previousChild(focusedIndex);
     } else if (direction === 'down') {
       nextFocus = this.nextChild(focusedIndex);
     }
-
+  
     if (!nextFocus) {
       return super.getNextFocus(direction, this.indexInParent);
     }
-
+  
     if (!nextFocus.isContainer()) {
       return null;
     }
-
+  
     const currentPath = this.context.navigationComponent.currentFocusedPath;
-
     const row = nextFocus.indexInParent;
+  
+    // Determine the column; if it's beyond the number of children in the row, use the last column
     let column = currentPath[currentPath.indexOf(this) + 2].indexInParent;
-
-    if (this.children[row].children.length <= column) {
-      column = this.children[row].children.length;
+    if (column >= this.children[row].children.length) {
+      column = this.children[row].children.length - 1;
     }
-
+  
     const next = this.children[row].children[column];
     if (next.isContainer()) {
       if (next.hasChildren()) {
         return next.getDefaultFocus();
-      }
-      else {
+      } else {
         return this.getNextFocus(direction, nextFocus.indexInParent);
       }
     }
-
+  
     return next;
   }
+  
 
   render() {
     let grid = new Array(this.props.rows);

@@ -1,42 +1,45 @@
-import React, { useState, useRef, useImperativeHandle, forwardRef, useContext, useEffect } from "react";
+import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { VideoContext } from "../../utility/context";
-import PlayerControls from "./PlayerControls";
+import bg from "../../assets/images/tvbg.png";
 
 const HlsPlayer = forwardRef(({ url }, ref) => {
-  const playerRef = useRef();
-  const buttonRef = useRef(null);
+  const playerRef = useRef(null);
 
 
   useImperativeHandle(ref, () => ({
-    focusButton: () => {
-      if (buttonRef.current) {
-        buttonRef.current.focus();
+    playVideo: () => {
+      if (playerRef.current) {
+        playerRef.current.play().catch((error) => {
+          console.error("Playback failed:", error);
+        });
       }
     },
   }));
-  const playVideo = () => {
-    if (playerRef.current) {
-      setTimeout(
-        playerRef.current.play()
-        ,100)
-    }
-  };
-  useEffect(() => {
+console.log(url);
 
-    if(url){
-      // playVideo();
-    }
-   
-  },[url]); 
+
+  // useEffect(() => {
+  //   if (url && playerRef.current) {
+  //     ref.current.playVideo();
+  //   }
+  // }, [url, ref]);
+
   return (
-    <div style={{ zIndex: "0" }} className="player-wrapper"> 
+    <div style={{ zIndex: "0" }} className="player-wrapper">
       <ReactHlsPlayer
         className="video-player"
-        playerRef={playerRef}
-        src={url} 
+        id="player"
+        ref={playerRef}
+        src={url}
         width="100%"
         height="auto"
+        poster={bg}
+        muted={false}
+        playsInline
+        controls={true}
+        autoPlay
+       
       />
     </div>
   );

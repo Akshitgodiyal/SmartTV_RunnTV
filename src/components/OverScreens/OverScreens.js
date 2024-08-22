@@ -1,14 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { VideoContext } from "../../utility/context";
 import ContentCategory from "../categoryComponent";
-import VerticalList from "../../helper/VerticalList";
 import DiscoverScreen from "../discoverScreen";
-import HorizontalList from "../../helper/HorizontalList";
+import WatchHistory from "../historyScreen";
+import Login from "../login";
+import PlayerControls from "../Player/PlayerControls";
 
 function OverScreens({ setUrl }) {
   const { sidebarActive } = useContext(VideoContext);
+  useEffect(() => {
+    if (sidebarActive === "user") {
+      setTimeout(() => {
+        const firstMenuRef = document.getElementById("firstMenuRef");
+        if (firstMenuRef) {
+          localStorage.setItem("screenLoaded", true);
+          firstMenuRef.click();
+          localStorage.setItem("screenLoaded", false);
+        }
+      }, 20);
+    }
+  }, [sidebarActive]);
   if (sidebarActive === "tv") {
-    return <ContentCategory show={sidebarActive === "tv"} setUrl={setUrl} />;
+   
+    return( 
+    <>
+      <PlayerControls />
+    <ContentCategory show={sidebarActive === "tv"} setUrl={setUrl} />
+    </>
+  );
   } else if (sidebarActive === "discover") {
     return (
       <DiscoverScreen show={sidebarActive === "discover"} setUrl={setUrl} />
