@@ -14,12 +14,14 @@ import { IconStarFilled } from "@tabler/icons-react";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
+import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
+
 import Player from "../components/Player/Player.js";
 import _icon from "../assets/images/Icon.png";
 const ContentCategory = ({ show }) => {
   const { isActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState();
   const [opacity, setOpacity] = useState(1);
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
@@ -29,6 +31,7 @@ const ContentCategory = ({ show }) => {
 
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
+  const [homeCategory, setHomeCategory] = useState([]);
 
   const handleSetActive = (status, index) => {
     setActive(status);
@@ -137,19 +140,37 @@ const ContentCategory = ({ show }) => {
       //setLoading(false);
     }
   }
-  function SetInitialFocus(){
+  function fetchCategory() {
+    try {
+      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
+        (result) => { 
+          var category = mapFilterCategory(result);
+          setHomeCategory && setHomeCategory(category);
+        }
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      //setLoading(false);
+    }
+  }
+  function SetInitialFocus() {
     setTimeout(() => {
       let firstSectionRef = document.getElementById("defaultFocused");
       if (firstSectionRef) {
         localStorage.setItem("screenLoaded", true);
         firstSectionRef.click();
         localStorage.setItem("screenLoaded", false);
-        localStorage.setItem( globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content);
+        localStorage.setItem(
+          globals.ACTIVE_COMPONENT,
+          globals.COMPONENT_NAME.Content
+        );
       }
     }, 50);
   }
   useEffect(() => {
     if (show) {
+      fetchCategory();
       fetchData();
     }
   }, [show]);
@@ -186,47 +207,10 @@ const ContentCategory = ({ show }) => {
                       onBlur={(index) => handleSetActive(false, index)}
                       retainLastFocus={true}
                     >
-                      {[
-                      {
-                        id: "Featured",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Favourites",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Movies",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Entertainment",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Shows",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Short Films",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Kids",
-                        icon: _icon,
-                      },
-                      {
-                        id: "Performance",
-                        icon: _icon,
-                      },
-                      {
-                        id: "tv",
-                        icon: _icon,
-                      } 
-                      ].map((icon, index) => (
+                      {homeCategory.map((category, index) => (
                         <ToggleItem
-                          key={icon.id}
-                          icon={icon.icon} 
+                          key={category.name} 
+                          images={category.images} 
                           isActiveIndex={activeIndex === index}
                           onEnter={() =>
                             abc(
@@ -236,7 +220,7 @@ const ContentCategory = ({ show }) => {
                           }
                           index={index}
                         >
-                          {icon.id} 
+                          {category.name}
                         </ToggleItem>
                       ))}
                     </VerticalList>
