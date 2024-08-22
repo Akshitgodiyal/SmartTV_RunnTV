@@ -143,82 +143,7 @@ body {
 
 
 
-#content {
-  height: 100%;
-  position: relative;
 
-
-.content {
-  white-space: nowrap;
-  font-size: 0;
-  overflow: hidden;
-
-}
-
- h1 {
-  font-size: 30px;
-  height: 80px;
-  padding: 0;
-  margin: 0;
-  line-height: 80px;
-}
-
- .item {
-  display: inline-block;
-  /* width: 200px; */
-  /* height: 200px;  */
-  background-color: #666;
-  font-size: 1rem;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-
- .horizontal .item { 
-  width: 40% ;
-  border: 2px solid transparent;
-  height:80px;
-  transition: width 0.2s ease-in-out; /* Added transition */
-}
-
-
- .item-focus {
-  transition: width 0.2s ease-in-out, border 0.2s ease-in-out; /* Added transition */
-} 
-
- .vertical .item-focus, 
- .horizontal .item-focus { 
-  border: 2px solid #fff;
-  border-radius: 5px;
-
-}
-
- .animate {
-  width: 25%;
-  padding-bottom: 0;
-  transition: padding-bottom 0.3s ease;
-}
-
- .placeholder {
-  width: 25%;
-  padding-bottom: calc(30% + 80px);
-}
-
-
-display: block;
-  .active.flex {
-    .before-box{
-      
-    height:116px;
-    }
-    .item-focus,.item {  
-   width: 50% !important;
-   height:116px;
- }}
-
-
-
-}
 
 
 
@@ -230,8 +155,8 @@ display: block;
   z-index: 2;
   opacity: 1;
   transition: all 0.5s ease-in-out;
-  margin-bottom: 24px;
-  margin-top: 6px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .contentgroup.fading-out {
@@ -290,10 +215,10 @@ display: block;
   margin: 6px;
 }
 .filter {
- height: 500px;
+
   scroll-behavior: smooth;
   overflow-y: hidden;
-  padding-left: 3%;
+  
 }
 
 
@@ -307,3 +232,8 @@ display: block;
   scrollbar-width: none;  
 } 
 
+.scroll-hidden{
+
+ -ms-overflow-style: none; 
+  scrollbar-width: none;  
+}

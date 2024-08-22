@@ -15,7 +15,9 @@ import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import Player from "../components/Player/Player.js";
-const ContentCategory = ({ show }) => {
+import bg from "../assets/images/logo.aaf739805db645e7a37b.png";
+import { img_cloudfront } from "../utility/constant.js";
+const ContentCategory = ({ show, setUrl }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -24,8 +26,8 @@ const ContentCategory = ({ show }) => {
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
-  const playerRef = useRef(null);
-  const [url, setUrl] = useState("");
+
+
 
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
@@ -50,7 +52,11 @@ const ContentCategory = ({ show }) => {
             // Special handling for the last item
             scrollAmount = rect.bottom - containerRect.bottom;
           } else {
-            scrollAmount = rect.top - containerRect.top - containerRect.height / 2 + rect.height / 2;
+            scrollAmount =
+              rect.top -
+              containerRect.top -
+              containerRect.height / 2 +
+              rect.height / 2;
           }
           container.scrollTop += scrollAmount;
         }
@@ -80,12 +86,24 @@ const ContentCategory = ({ show }) => {
 
           if (index === items.length - 1) {
             // Special handling for the last item in content2
-            scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+            scrollAmount =
+              rect.top -
+              containerRect.top -
+              containerHeight / 2 +
+              itemHeight / 2;
           } else if (index == 3) {
             // Special handling for the last 5 items
-            scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+            scrollAmount =
+              rect.top -
+              containerRect.top -
+              containerHeight / 2 +
+              itemHeight / 2;
           } else {
-            scrollAmount = rect.top - containerRect.top - containerHeight / 2 + itemHeight / 2;
+            scrollAmount =
+              rect.top -
+              containerRect.top -
+              containerHeight / 2 +
+              itemHeight / 2;
           }
           container.scrollTop += scrollAmount;
         }
@@ -94,6 +112,8 @@ const ContentCategory = ({ show }) => {
   };
 
   const abc = (av, index) => {
+    console.log("addada");
+
     setUrl(av);
     setActiveIndex(index);
   };
@@ -121,14 +141,17 @@ const ContentCategory = ({ show }) => {
       //setLoading(false);
     }
   }
-  function SetInitialFocus(){
+  function SetInitialFocus() {
     setTimeout(() => {
       let firstSectionRef = document.getElementById("defaultFocused");
       if (firstSectionRef) {
         localStorage.setItem("screenLoaded", true);
         firstSectionRef.click();
         localStorage.setItem("screenLoaded", false);
-        localStorage.setItem( globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content);
+        localStorage.setItem(
+          globals.ACTIVE_COMPONENT,
+          globals.COMPONENT_NAME.Content
+        );
       }
     }, 50);
   }
@@ -138,40 +161,14 @@ const ContentCategory = ({ show }) => {
     }
   }, [show]);
 
-
-
-
-
-
-
-  // useEffect(() => {
-  //   let firstMenuRef = document.getElementById("firstMenuRef");
-
-
-  //   if (show) {
-
-  //     setTimeout(() => {
-
-  //       if (firstMenuRef) {
-
-  //         localStorage.setItem("screenLoaded", true);
-
-  //         firstMenuRef.click();
-  //         localStorage.setItem("screenLoaded", false);
-  //       }
-  //     }, 200);
-  //   }
-  // }, [show, sidebarActive]);
-
-
   return (
     <VerticalList retainLastFocus={true}>
-      <Player url={url} ref={playerRef} />
+
 
       <div
         className={`mainbox bg-black bg-opacity-75 ${show ? "" : "hidden"}`}
-        style={{ position: "absolute", top: "0", opacity: opacity }}
-      >
+        style={{ position: "absolute", top: "0", opacity: opacity,  zIndex:opacity == 1 ? 1 : -1}}
+      > 
         <div className="flex flex-col justify-between h-full">
           <div className="w-100 *:">
             <img className="w-40" src={logo} alt="Logo" />
@@ -182,7 +179,7 @@ const ContentCategory = ({ show }) => {
               <img className="w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
             <HorizontalList retainLastFocus={true}>
-              <div style={{ width: "20%", float: "left" }}>
+              <div style={{ width: "15%", float: "left" }}>
                 <div
                   id="category-filter-div"
                   className={active ? "focused " : ""}
@@ -229,8 +226,8 @@ const ContentCategory = ({ show }) => {
                 </div>
               </div>
               <div
-                className="filter"
-                style={{ width: "80%", float: "left", overflowY: "auto" }}
+                className="h-[500px] scroll-hidden"
+                style={{ width: "85%", float: "left", overflowY: "auto" }}
                 ref={content2}
               >
                 {lists && lists.length > 0 ? (
@@ -246,25 +243,43 @@ const ContentCategory = ({ show }) => {
                     {lists?.map((list, i) => (
                       <div
                         className={
-                          i === activeListIndex ? "active flex" : "flex "
+                          i === activeListIndex
+                            ? "active flex rounded-md "
+                            : "flex  rounded-md"
                         }
                         key={i}
                       >
-                        <div className="before-box text-white mt-[6px] mr-3 bg-gray-200 w-[130px] h-[78px] text-center -ml-5">
-                          {list.title}
+                        <div className="before-box   flex justify-between  items-center  mr-3 w-[145px] h-[80px] text-center ">
+                          <div className=" text-[20px] text-white p-1">101</div>
+                          <div
+                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${i === activeListIndex ? "" : ""
+                              } `}
+                          >
+                            <img
+                              className={`items-center ${i === activeListIndex
+                                  ? "w-[100px] h-[84px]"
+                                  : "w-[76px] h-[64px]"
+                                } `}
+                              src={img_cloudfront + list?.image?.logo?.tv}
+                              alt="Logo"
+                            />
+                          </div>
                         </div>
-                        <List
-                          setUrl={setUrl}
-                          title={list.title}
-                          layout={list.layout}
-                          assets={list.schedules}
-                          playUrl={list.playUrl}
-                          onFocus={() => changeFocusTo(i)}
-                          visible={true}
-                          isActive={i === activeListIndex}
-                          parentNav="home-div-nav"
-                          isFirstList={i === 0 ? true : false}
-                        />
+                        <div
+                          className="filter">
+                          <List
+                            setUrl={setUrl}
+                            title={list.title}
+                            layout={list.layout}
+                            assets={list.schedules}
+                            playUrl={list.playUrl}
+                            onFocus={() => changeFocusTo(i)}
+                            visible={true}
+                            isActive={i === activeListIndex}
+                            parentNav="home-div-nav"
+                            isFirstList={i === 0 ? true : false}
+                          />
+                        </div>
                       </div>
                     ))}
                   </VerticalList>

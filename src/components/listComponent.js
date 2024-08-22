@@ -48,7 +48,7 @@ const List = (props=[]) => {
             });
             const lastItem = items[items.length - 1];
             lastItem.style.marginRight = '0';
-          }, 200);
+          }, 20);
         }
 
 
@@ -64,6 +64,8 @@ const List = (props=[]) => {
 
 
   const handleItemClick = (url) => {
+    // console.log("ASdasdasdad");
+    
     props.setUrl(url);
   };
  
@@ -83,6 +85,7 @@ const List = (props=[]) => {
           {props && props.assets && props.assets.map((asset, i) => (
             
             <ToggleItem
+            activeListIndex={props.isActive}
             firstid={props.index == 0}
             index={i}
               onEnter={() => handleItemClick(props.playUrl)}

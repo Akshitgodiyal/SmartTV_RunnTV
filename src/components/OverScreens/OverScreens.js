@@ -18,7 +18,7 @@ function OverScreens({ setUrl }) {
           firstMenuRef.click();
           localStorage.setItem("screenLoaded", false);
         }
-      }, 0);
+      }, 20);
     }
   }, [sidebarActive]);
 
@@ -26,7 +26,7 @@ function OverScreens({ setUrl }) {
     <>
       {sidebarActive === "user" && (
         <>
-          <PlayerControls />
+            <PlayerControls />
           <ContentCategory show={true} setUrl={setUrl} />
         </>
       )}

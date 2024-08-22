@@ -3,6 +3,7 @@ import HorizontalList from "../../helper/HorizontalList";
 
 import { VideoContext } from "../../utility/context";
 import { globals } from "../../global";
+import ToggleItem from "../ToogleItem";
 const PlayerControls = () => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const handleSetActive = (status, index) => {

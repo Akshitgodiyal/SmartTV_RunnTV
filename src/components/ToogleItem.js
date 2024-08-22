@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navigation, { Focusable } from "../helper/react-navigation.js";
-
+import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
+import { img_cloudfront } from "../utility/constant.js";
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
 
@@ -9,7 +10,7 @@ const ToggleItem = (props) => {
     if (cc !== props.parentNav) {
       return;
     }
- 
+
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
@@ -18,23 +19,90 @@ const ToggleItem = (props) => {
   const onKeyDown = () => {
     assetClick();
     if (props.onEnter) {
-      props.onEnter();  // Call the passed callback function
+      props.onEnter(); // Call the passed callback function
     }
   };
 
+  const AgeRatingComponent = ({ ageRating }) => (
+    <div>{ageRating?.split(/[-\s]/)[0]}</div>
+  );
+  const TimeComponent = ({ startTime }) => (
+    <div>
+      {new Date(startTime).toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })}
+    </div>
+  );
+  const EndTimeComponent = ({ startTime, durationSeconds }) => (
+    <div>
+      {new Date(startTime + durationSeconds * 1000).toLocaleTimeString(
+        "en-GB",
+        { hour: "2-digit", minute: "2-digit" }
+      )}
+    </div>
+  );
+
   return (
-  
     <Focusable
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
-      onEnterDown={onKeyDown}
-      onClick={onKeyDown}
+    onFocus={() => setActive(true)}
+    onBlur={() => setActive(false)}
+    onEnterDown={onKeyDown}
+    onClick={onKeyDown}
+  >
+
+    <div
+     
+      id={props.isFirstItem ? "defaultFocused" : ""}
+      className={`item   h-[116px] ${
+        active ? "item-focus" : ""
+      } ${props.isActiveIndex ? "active" : ""}`}
     >
-      
-      <div id={props.isFirstItem?"defaultFocused":""} className={"item " + (active ? "item-focus" : "")+" "+(props.isActiveIndex?"active":"")}>
-        <i className={"fa fa-" + props.icon} /> {props.children}
-      </div>
-    </Focusable>
+      {props.parentNav === "home-div-nav" ? (
+        <div className="flex justify-between items-center h-full">
+          <div className="text-white pl-[14px] w-[400px]  h-full"  style={{
+        background:`${props.index == 0 && "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"}` ,
+      }}>
+            <div className="text-[24px] font-medium truncate w-[50%]">
+              {props.assetinfo?.programName}
+            </div>
+            <div className="flex text-[16px] font-medium gap-1">
+              <AgeRatingComponent ageRating={props.assetinfo?.ageRating} /> |{" "}
+              <TimeComponent startTime={props.assetinfo?.startTime} />-
+              <EndTimeComponent
+                startTime={props.assetinfo?.startTime}
+                durationSeconds={props.assetinfo?.durationSeconds}
+              />
+            </div>
+            {props.activeListIndex && (
+              <div
+                className="font-normal text-[16px] w-[465px] text-[#C9C9C9] break-words overflow-hidden"
+                style={{
+                  lineHeight: "1.5",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  whiteSpace: "normal",
+                }}
+              >
+                {props.assetinfo?.description
+                  ?.split(" ")
+                  .slice(0, 35)
+                  .join(" ")}
+              </div>
+            )}
+          </div>
+          {props.activeListIndex && (
+            <div className="flex justify-center mx-1 bg-sky-500 bg-opacity-75 w-[160px] h-[88px] rounded-md">
+              <img className="items-center" src={img_cloudfront+props.assetinfo?.infoImages?.tv} alt="Logo" />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>Filter</div>
+      )}
+    </div>
+  </Focusable>
   );
 };
 
