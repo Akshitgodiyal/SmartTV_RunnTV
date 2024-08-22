@@ -45,8 +45,8 @@ const Carousel = forwardRef((props) => {
         // Ensure the last element is fully visible
         if (index === items.length - 1) {
           setTimeout(() => {
-            contentRef.current.scrollTo({
-              left: itemRect.left - containerRect.left + contentRef.current.scrollLeft,
+            contentRef?.current.scrollTo({
+              left: itemRect?.left - containerRect?.left + contentRef?.current.scrollLeft,
               behavior: "smooth",
             });
             const lastItem = items[items.length - 1];
@@ -78,7 +78,7 @@ const Carousel = forwardRef((props) => {
           {props.assets.map((asset, index) => (
             <ToggleItem
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
-         
+        
               key={index}
               index={index}
               assetinfo={asset}

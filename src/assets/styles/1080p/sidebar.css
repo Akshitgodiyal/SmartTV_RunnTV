@@ -1,9 +1,41 @@
-#sidebarComponent .item {
-    border-bottom: 2px solid transparent;
-    padding: 12px;
-    font-size: 18px;
+#sidebarComponent .item{
+    display: flex;
     color: #fff;
 }
-#sidebarComponent .item.active{
-    border-bottom: 2px solid #fff;
+#sidebarComponent .item .itemdiv{
+   visibility: hidden;
+    border: 3px solid transparent;   
+    padding-bottom: 15px;
+    padding-top: 5px;
+    margin-top: 11px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+}
+#side_bar.focused #sidebarComponent .item .itemdiv{
+visibility: visible;
+}
+#sidebarComponent .item img{
+    float: left;
+    border: 3px solid transparent;   
+    padding-bottom: 15px;
+    padding-top: 5px;
+    margin-top: 5px;
+    margin-bottom:10px;
+}
+#sidebarComponent .item.active img{
+    border-bottom: 3px solid rgba(210, 47, 38, 1);
+} 
+#sidebarComponent .item-focus { 
+    border: none;   
+}
+#sidebarComponent .item-focus img{ 
+    border: 3px solid transparent;  
+    border-bottom: 3px solid #fff !important;
+}
+#sidebarComponent .item img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -28,7 +28,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  transition: left 0.5s, background-color 0.3s;
+ // transition: left 0.5s, background-color 0.3s;
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 100;
 }
@@ -47,8 +47,7 @@ body {
   z-index: 10;
 }
 
-#icons div {
-  // text-align: center;
+#icons div { 
   margin: 30px 0;
 }
 
@@ -69,7 +68,7 @@ body {
   left: 0;
   top: 0;
   opacity: 0;
-  transition: opacity 0.5s;
+  // transition: opacity 0.5s;
   box-sizing: border-box;
   overflow: hidden;
   padding-top: 70px;
@@ -175,11 +174,11 @@ body {
   width:33% !important;
   border: 2px solid transparent;
   height: 80px;
-  transition: width 0.2s ease-in-out; /* Added transition */
+  //transition: width 0.2s ease-in-out; /* Added transition */
 }
 
  .item-focus {
-  transition: width 0.2s ease-in-out, border 0.2s ease-in-out; /* Added transition */
+  //transition: width 0.2s ease-in-out, border 0.2s ease-in-out; /* Added transition */
 } 
 
  .vertical .item-focus, 
@@ -198,7 +197,7 @@ body {
  .animate {
   width: 25%;
   padding-bottom: 0;
-  transition: padding-bottom 0.3s ease;
+ // transition: padding-bottom 0.3s ease;
 }
 
  .placeholder {
@@ -210,7 +209,7 @@ body {
   width: 100%;
   z-index: 2;
   opacity: 1;
-  transition: all 0.5s ease-in-out;
+ // transition: all 0.5s ease-in-out;
   margin-bottom: 24px;
   margin-top: 6px;
 }

@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import HorizontalList from "../../helper/HorizontalList";
-import ToggleItem from "../ToogleItem"; // Fix the import if needed
+
 import { VideoContext } from "../../utility/context";
 import { globals } from "../../global";
+import ToggleItem from "../ToogleItem";
 const PlayerControls = () => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const handleSetActive = (status, index) => {

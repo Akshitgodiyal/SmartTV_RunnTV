@@ -1,0 +1,138 @@
+.category-filter{
+  width: 280px;
+  float: left;
+  padding: 14px;
+}
+
+#category-filter .item{
+  height: 60px;
+  /* text-align: center; */
+  /* margin: 0px 0px 0px 0px; */
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding: 15px 12px 14px 12px;
+  font-size: 21px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 28px;
+  color: rgba(217, 217, 217, 1);
+  }
+  #category-filter .item img {
+    height: auto;
+    width: 30px;
+    object-fit: cover;
+    float: inline-start;
+    margin-right: 10px;
+}
+  #category-filter .item-focus{
+    border:2px solid #fff !important;
+    background-color: transparent;
+    color: rgba(19, 19, 20, 1) !important;
+    font-weight: bold;
+    background-color: rgba(230, 230, 230, 1);
+  }
+#category-filter{
+    .active{
+      font-size: 21px;
+      background-color: rgba(230, 230, 230, 1);
+      color: rgba(19, 19, 20, 1) !important; 
+      font-weight: bold;
+        margin: 6px 0px 6px 0px; 
+        border:2px solid transparent;
+    } 
+}
+
+#content {
+  height: 100%;
+  position: relative;
+
+
+  .content {
+    white-space: nowrap;
+    font-size: 0;
+    overflow: hidden;
+
+  }
+
+  h1 {
+    font-size: 30px;
+
+    padding: 0;
+    margin: 0;
+
+  }
+
+  .item {
+    display: inline-block;
+    width: 664px;
+    height: 80px;
+    background: #00000073;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-right: 2px;
+    cursor: pointer;
+  }
+
+
+  .horizontal .item {
+
+
+    border: 2px solid transparent;
+
+    //transition: width 0.002s ease-in-out;
+    /* Added transition */
+  }
+
+
+  .item-focus {
+    //transition: width 0.002s ease-in-out, border 0.002s ease-in-out;
+    /* Added transition */
+  }
+
+  .vertical .item-focus,
+  .horizontal .item-focus {
+    border-radius: 5px;
+    border: 2px solid;
+    border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+    border-image-slice: 1;
+    /* Ensures the gradient fills the entire border */
+
+  }
+
+
+  .animate {
+    width: 25%;
+    padding-bottom: 0;
+    //transition: padding-bottom 0.003s ease;
+  }
+
+  .placeholder {
+    width: 25%;
+    padding-bottom: calc(30% + 80px);
+  }
+
+
+  display: block;
+
+  .active.flex {
+    background: black;
+    margin-bottom: 1px;
+
+    .before-box {
+      padding: 0px;
+      background: transparent;
+      height: 116px;
+    }
+
+    .item-focus,
+    .item {
+      width: 665px !important;
+      height: 116px;
+    }
+  } 
+}
+#content .before-box .items-center img{
+  width: auto !important;
+  height: auto  !important;
+  max-height: 40px;
+}

@@ -17,6 +17,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
   const containerRef = useRef(null);
 
   const sectionRefs = {
+    slider: useRef(null),
     streaming: useRef(null),
     categories: useRef(null),
     genres: useRef(null),
@@ -25,13 +26,16 @@ const DiscoverScreen = ({ setUrl, show }) => {
   };
 
   const scrollToSection = (ref, isFirst = false) => {
-    if (containerRef.current) {
+    if (containerRef.current && ref.current) {
+      const containerTop = containerRef.current.getBoundingClientRect().top;
+      const sectionTop = ref.current.getBoundingClientRect().top;
+
+
+
+
       if (isFirst) {
         containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (ref.current) {
-        const containerTop = containerRef.current.getBoundingClientRect().top;
-        const sectionTop = ref.current.getBoundingClientRect().top;
-
+      } else {
         containerRef.current.scrollBy({
           top: sectionTop - containerTop,
           behavior: "smooth",
@@ -42,18 +46,19 @@ const DiscoverScreen = ({ setUrl, show }) => {
 
   const handleFocus = (section) => {
     setActiveListIndex(section);
-    scrollToSection(sectionRefs[section], section === "streaming");
-    if (section === "streaming") {
-      localStorage.setItem(globals.ACTIVE_COMPONENT,globals.COMPONENT_NAME.Discover);
+    scrollToSection(sectionRefs[section], section === "slider");
+    if (section === "slider") {
+      localStorage.setItem("ACTIVE_COMPONENT", "discover");
     } else {
       localStorage.setItem(globals.ACTIVE_COMPONENT, "");
     }
   };
+
   let firstSectionRef = document.getElementById("firstSectionRef");
 
   useEffect(() => {
     if (show) {
-      handleFocus("streaming"); // Focus the section and ensure the Carousel is
+      handleFocus("slider"); // Focus the section and ensure the Carousel is
       // properly focused
       setTimeout(() => {
         if (firstSectionRef) {
@@ -72,12 +77,15 @@ const DiscoverScreen = ({ setUrl, show }) => {
       ref={containerRef}
     >
       <div className="flex flex-col h-full">
-        <div className="w-100">
+        <div
+          className="w-100 absolute top-10
+         p-4 z-10"
+        >
           <img className="w-40" src={logo} alt="Logo" />
           <div className="text-white text-lg"> Welcome </div>
         </div>
         <div className="w-full">
-          <HorizontalList retainLastFocus={true}>
+          <HorizontalList id="discoverelement" retainLastFocus={true}>
             <div style={{ width: "100%", float: "left", overflowY: "auto" }}>
               <VerticalList
                 navDefault={show}
@@ -85,10 +93,26 @@ const DiscoverScreen = ({ setUrl, show }) => {
                 retainLastFocus={true}
               >
                 <div
+                  ref={sectionRefs.slider}
                   id="discover"
                   className="mb-[50px]"
                   tabIndex={-1} // Make it focusable
                 >
+                  {/* <div className="text-white text-[32px]">Streaming Now</div> */}
+                  <Carousel
+
+
+                    setUrl={setUrl}
+                    title={categories.title}
+                    layout={categories.layout}
+                    assets={categories.assets}
+                    visible={true}
+                    parentNav="home-div-nav"
+                    type="slider"
+                    onFocus={() => handleFocus("slider")}
+                  />
+                </div>
+                <div ref={sectionRefs.streaming} className="mb-[50px]">
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
@@ -101,18 +125,14 @@ const DiscoverScreen = ({ setUrl, show }) => {
                     onFocus={() => handleFocus("streaming")}
                   />
                 </div>
-
                 <div ref={sectionRefs.categories} className="mb-[50px] w-full">
                   <div className="text-white text-[32px]">Categories</div>
-
-                  <Grid
-                    rows={2}
-                    columns={7}
+                  {/* <VerticalList
                     retainLastFocus={true}
                     onFocus={() => handleFocus("categories")}
                   >
-                    {categories.assets.map((v, i) => {
-                      return (
+                    <HorizontalList>
+                      {categories.assets.slice(0, 7).map((asset, i) => (
                         <ToggleItem
                           type="Categories"
                           key={i}
@@ -120,9 +140,43 @@ const DiscoverScreen = ({ setUrl, show }) => {
                           parentNav={"first-row"}
                           className="bg-blue-900"
                         />
-                      );
-                    })}
+                      ))}
+                    </HorizontalList>
+                    <HorizontalList>
+                      {categories.assets.slice(7).map((asset, i) => (
+                        <ToggleItem
+                          type="Categories"
+                          key={i}
+                          assetinfo={asset}
+                          parentNav={"second-row"}
+                          className="bg-blue-900"
+                        />
+                      ))}
+                    </HorizontalList>
+                  </VerticalList> */}
+
+                  <Grid
+                    retainLastFocus={true}
+                    onFocus={() => handleFocus("categories")}
+                    columns={7}
+                    rows={2}
+                  >
+                    {categories.assets.map((asset, i) => (
+                      <ToggleItem
+                        type="Categories"
+                        key={i}
+                        assetinfo={asset}
+                        parentNav={"first-row"}
+                        className="bg-blue-900"
+                      />
+                    ))}
+
+
                   </Grid>
+
+
+
+
                 </div>
 
                 <div ref={sectionRefs.genres} className="mb-[50px]">

@@ -1,27 +1,43 @@
+.category-filter{
+    width:  186.676px;
+    float:left ;
+    padding: 9.3338px;
+  }
 #category-filter .item{
-    height: 39px;
-    line-height: 39px;
-    color: #f1f1f1;
-    font-size: 25px;
-    box-sizing: border-box;
-    cursor: default;
-    cursor: pointer;
-    text-align: center;
-    margin: 0px 0px 0px 0px;
-    border-radius: 9px;
-    border:1px solid transparent;
+    height: 40.002px;
+    /* text-align: center; */
+    /* margin: 0px 0px 0px 0px; */
+    border-radius: 5.3336px;
+    border: 1.32px solid transparent;
+    padding: 11.3338px 8.0004px 9.3338px 8.0004px;
+    font-size: 15.0008px;
+    font-family: "Roboto";
+    font-weight: 500;
+    line-height: 15.3344px;
+    color: rgba(217, 217, 217, 1);
+}
+#category-filter .item img {
+    height: auto;
+    width: 16px;
+    object-fit: cover;
+    float: inline-start;
+    margin-right: 8px;
 }
 #category-filter .item-focus{
- 
-    border:3px solid #fff !important;
+    border:1.32px solid #fff !important;
     background-color: transparent;
-    color:#fff !important;
+    background-color: rgba(230, 230, 230, 1);
+    color: rgba(19, 19, 20, 1) !important; 
+    font-weight: bold;
 }
 #category-filter{ 
     .active{
-        background-color: #ffffff82;
-        color: red !important;
-        margin: 0px 0px 5px 0px;
-        border:3px solid transparent;
-    }
+        
+        font-size: 18.6676px;
+        background-color: rgba(230, 230, 230, 1);
+        color: rgba(19, 19, 20, 1) !important; 
+        margin: 5px 0px 5px 0px;
+        font-weight: bold;
+        border:1.32px solid transparent;
+    } 
 }
