@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
-import ToggleItem from "./ToogleItem"; 
-const List = (props=[]) => {
+import ToggleItem from "./ToogleItem";
+const List = (props = []) => {
   const contentRef = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
 
@@ -22,7 +22,10 @@ const List = (props=[]) => {
 
       if (itemRect) {
         // Horizontal scroll
-        if (itemRect.left < containerRect.left || itemRect.right > containerRect.right) {
+        if (
+          itemRect.left < containerRect.left ||
+          itemRect.right > containerRect.right
+        ) {
           item.scrollIntoView({
             behavior: "smooth",
             block: "nearest",
@@ -31,7 +34,10 @@ const List = (props=[]) => {
         }
 
         // Vertical scroll
-        if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
+        if (
+          itemRect.top < containerRect.top ||
+          itemRect.bottom > containerRect.bottom
+        ) {
           item.scrollIntoView({
             behavior: "smooth",
             inline: "nearest",
@@ -43,11 +49,14 @@ const List = (props=[]) => {
         if (index === items.length - 1) {
           setTimeout(() => {
             contentRef.current.scrollTo({
-              left: itemRect.left - containerRect.left + contentRef.current.scrollLeft,
+              left:
+                itemRect.left -
+                containerRect.left +
+                contentRef.current.scrollLeft,
               behavior: "smooth",
             });
             const lastItem = items[items.length - 1];
-            lastItem.style.marginRight = '0';
+            lastItem.style.marginRight = "0";
           }, 5);
         }
       }
@@ -56,18 +65,17 @@ const List = (props=[]) => {
     setLastFocus(index);
   };
 
-
-
   const handleItemClick = (url) => {
     // console.log("ASdasdasdad");
-    
+
     props.setUrl(url);
   };
- 
-  return (
 
+  return (
     <div
-      className={`contentgroup ${props.layout} ${props.visible ? "" : "fading-out"} ${props.isActive ? "active-list" : ""}`}
+      className={`contentgroup ${props.layout} ${
+        props.visible ? "" : "fading-out"
+      } ${props.isActive ? "active-list" : ""}`}
     >
       <div className="content" ref={contentRef}>
         <HorizontalList
@@ -76,20 +84,24 @@ const List = (props=[]) => {
           onFocus={(index) => onFocus(index)}
           onBlur={() => setLastFocus(null)}
           retainLastFocus={true}
+         // preventDown={props.preventDown}
+          id={"HorizontalList_"+props.id +props.title }
         >
-          {props && props.assets && props.assets.map((asset, i) => (
-            
-            <ToggleItem
-            activeListIndex={props.isActive}
-            firstid={props.index == 0}
-            index={i}
-              onEnter={() => handleItemClick(props.playUrl)}
-              key={i}
-              assetinfo={asset}
-              parentNav={props.parentNav}
-              isFirstItem={props.isFirstList && i==0?true:false}
-            />
-          ))}
+          {props &&
+            props.assets &&
+            props.assets.map((asset, i) => (
+              <ToggleItem
+                activeListIndex={props.isActive}
+                firstid={props.index == 0}
+                index={i}
+                onEnter={() => handleItemClick(props.playUrl)}
+                key={i}
+                assetinfo={asset}
+                parentNav={props.parentNav}
+                isFirstItem={props.isFirstList && i == 0 ? true : false}
+                // preventDown={props.preventDown}
+              />
+            ))}
         </HorizontalList>
       </div>
     </div>
