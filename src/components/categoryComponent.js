@@ -189,9 +189,21 @@ const ContentCategory = ({ show, setUrl }) => {
         style={{ position: "absolute", top: "0", opacity: opacity ,  zIndex:opacity == 1 ? 1 : -1}}
       >
         <div className="flex flex-col justify-between h-full">
-          <div className="w-100 *:">
+          <div className=" mx-[48px] my-[59px]">
             <img className="w-40" src={logo} alt="Logo" />
-            <div className="text-white text-lg"> Kid content </div>
+            <div className="text-white text-lg border-l-4 border-red-500  pl-1"> 
+              
+              <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
+
+              Rated U/a - 13+
+              </div>
+              <div className="px-2 text-[22px]">
+
+              Kid content 
+              </div>
+              
+              
+              </div>
           </div>
           <div className="w-full margintop" >
             <div className="flex my-5 w-full justtify-center">
