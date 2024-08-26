@@ -172,12 +172,31 @@ class Focusable extends Component {
       this.context.navigationComponent.focus(this);
     }
   }
-
+  resetFocusData() {
+   
+    this.treePath = [];
+    this.children = [];
+ 
+   
+    this.setState({
+      focusTo: null,
+      isFocused: false,
+    });
+ 
+   
+    if (this.focusableId) {
+      this.context.navigationComponent.removeFocusableId(this.focusableId);
+    }
+ 
+    this.focusableId = null;
+    this.lastFocusChild = null;
+  }
+ 
   componentWillUnmount() {
+    this.resetFocusData();
     if (this.context.parentFocusable) {
       this.getParent().removeChild(this);
     }
-
     this.focusableId = null;
   }
 
