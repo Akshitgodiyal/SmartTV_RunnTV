@@ -188,11 +188,11 @@
 }
 
 
-#content .before-box .items-center img {
-
-  max-height: 40px;
+#content .before-box .items-center img{
+  width: auto !important;
+  height: auto  !important;
+  max-height: 40px !important;
 }
-
 
 .programs-list {
   height: 500px;
