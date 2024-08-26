@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem"; 
-const List = (props=[]) => {
+
+const List = (props) => {
   const contentRef = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
 
@@ -21,56 +22,47 @@ const List = (props=[]) => {
       const itemRect = item.getBoundingClientRect();
 
       if (itemRect) {
-        // Horizontal scroll
-        if (itemRect.left < containerRect.left || itemRect.right > containerRect.right) {
-          item.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: itemRect.right > containerRect.right ? "end" : "start",
-          });
-        }
+        // Handle scrolling using requestAnimationFrame
+        requestAnimationFrame(() => {
+          // Horizontal scroll
+          if (itemRect.left < containerRect.left || itemRect.right > containerRect.right) {
+            item.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: itemRect.right > containerRect.right ? "end" : "start",
+            });
+          }
 
-        // Vertical scroll
-        if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
-          item.scrollIntoView({
-            behavior: "smooth",
-            inline: "nearest",
-            block: itemRect.bottom > containerRect.bottom ? "end" : "start",
-          });
-        }
+          // Vertical scroll
+          if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
+            item.scrollIntoView({
+              behavior: "smooth",
+              inline: "nearest",
+              block: itemRect.bottom > containerRect.bottom ? "end" : "start",
+            });
+          }
 
-        // Ensure the last element is fully visible
-        if (index === items.length - 1) {
-          setTimeout(() => {
+          // Ensure the last element is fully visible
+          if (index === items.length - 1) {
             contentRef.current.scrollTo({
               left: itemRect.left - containerRect.left + contentRef.current.scrollLeft,
               behavior: "smooth",
             });
             const lastItem = items[items.length - 1];
             lastItem.style.marginRight = '0';
-          }, 20);
-        }
-
-
-
-
-
+          }
+        });
       }
     }
 
     setLastFocus(index);
   };
 
-
-
   const handleItemClick = (url) => {
-    // console.log("ASdasdasdad");
-    
     props.setUrl(url);
   };
- 
-  return (
 
+  return (
     <div
       className={`contentgroup ${props.layout} ${props.visible ? "" : "fading-out"} ${props.isActive ? "active-list" : ""}`}
     >
@@ -82,17 +74,16 @@ const List = (props=[]) => {
           onBlur={() => setLastFocus(null)}
           retainLastFocus={true}
         >
-          {props && props.assets && props.assets.map((asset, i) => (
-            
+          {props.assets && props.assets.map((asset, i) => (
             <ToggleItem
-            activeListIndex={props.isActive}
-            firstid={props.index == 0}
-            index={i}
+              activeListIndex={props.isActive}
+              firstid={props.index === 0}
+              index={i}
               onEnter={() => handleItemClick(props.playUrl)}
               key={i}
               assetinfo={asset}
               parentNav={props.parentNav}
-              isFirstItem={props.isFirstList && i==0?true:false}
+              isFirstItem={props.isFirstList && i === 0}
             />
           ))}
         </HorizontalList>

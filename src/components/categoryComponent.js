@@ -258,7 +258,7 @@ const ContentCategory = ({ show, setUrl }) => {
                             <img
                               className={`items-center ${i === activeListIndex
                                   ? "w-[100px] h-[84px]"
-                                  : "w-[76px] h-[64px]"
+                                  : "w-[76px] h-[auto]"
                                 } `}
                               src={img_cloudfront + list?.image?.logo?.tv}
                               alt="Logo"
