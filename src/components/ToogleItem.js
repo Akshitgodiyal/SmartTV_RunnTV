@@ -49,10 +49,9 @@ const ToggleItem = (props) => {
     onBlur={() => setActive(false)}
     onEnterDown={onKeyDown}
     onClick={onKeyDown}
-  >
-
-    <div
-     
+    // preventDown={props.preventDown}
+  > 
+    <div 
       id={props.isFirstItem ? "defaultFocused" : ""}
       className={`item   h-[116px] ${
         active ? "item-focus" : ""

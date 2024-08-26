@@ -30,8 +30,6 @@ const ContentCategory = ({ show, setUrl }) => {
   const content1 = useRef(null);
   const content2 = useRef(null);
 
-
-
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
@@ -115,11 +113,29 @@ const ContentCategory = ({ show, setUrl }) => {
     }
   };
 
-  const abc = (av, index) => {
-    console.log("addada");
-
-    setUrl(av);
+  const loadCategoryData = (category, index) => {
     setActiveIndex(index);
+    const headers = {
+      PARTNER_CODE: "ALL",
+      userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+    };
+    ApiHelper.get(
+      globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
+      headers
+    ).then((result) => {
+      if (result && result.length > 0) {
+        var channelList = mapChannelEpg(result);
+        localStorage.setItem("preventHorizontalId","HorizontalList_"+channelList[channelList.length-1].id+channelList[channelList.length-1].title);
+        if(channelList.length>1){
+          localStorage.setItem("nextAPI_Fire","HorizontalList_"+channelList[channelList.length-2].id+channelList[channelList.length-1].title)
+        }else{
+          localStorage.setItem("nextAPI_Fire","HorizontalList_"+channelList[channelList.length-1].id+channelList[channelList.length-1].title)
+        }
+        setUrl(channelList[0].playUrl);
+        setLists(channelList);
+        SetInitialFocus();
+      }
+    });
   };
 
   useEffect(() => {
@@ -132,12 +148,16 @@ const ContentCategory = ({ show, setUrl }) => {
   };
   function fetchData() {
     try {
-      const headers = { PARTNER_CODE: "ALL" };
+      const headers = {
+        PARTNER_CODE: "ALL",
+      };
       ApiHelper.get(globals.API_URL.GET_CHANNEL_EPG, headers).then((result) => {
-        var channelList = mapChannelEpg(result);
-        setUrl(channelList[0].playUrl);
-        setLists(channelList);
-        SetInitialFocus();
+        if (result && result.length > 0) {
+          var channelList = mapChannelEpg(result);
+          setUrl(channelList[0].playUrl);
+          setLists(channelList);
+          SetInitialFocus();
+        }
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -148,9 +168,12 @@ const ContentCategory = ({ show, setUrl }) => {
   function fetchCategory() {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
-        (result) => { 
-          var category = mapFilterCategory(result);
+        (result) => {
+          var _result=result.filter(cate => cate.active === true);
+          var category = mapFilterCategory(_result);
           setHomeCategory && setHomeCategory(category);
+          //====load data from first filter===//
+          loadCategoryData(category[0],0) 
         }
       );
     } catch (error) {
@@ -176,17 +199,19 @@ const ContentCategory = ({ show, setUrl }) => {
   useEffect(() => {
     if (show) {
       fetchCategory();
-      fetchData();
+      //fetchData();
     }
   }, [show]);
-
   return (
     <VerticalList retainLastFocus={true}>
-
-
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
-        style={{ position: "absolute", top: "0", opacity: opacity ,  zIndex:opacity == 1 ? 1 : -1}}
+        style={{
+          position: "absolute",
+          top: "0",
+          opacity: opacity,
+          zIndex: opacity == 1 ? 1 : -1,
+        }}
       >
         <div className="flex flex-col justify-between h-full">
           <div className=" mx-[48px] my-[59px]">
@@ -205,7 +230,7 @@ const ContentCategory = ({ show, setUrl }) => {
               
               </div>
           </div>
-          <div className="w-full margintop" >
+          <div className="w-full margintop">
             <div className="flex my-5 w-full justtify-center">
               <img className="w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
@@ -218,23 +243,16 @@ const ContentCategory = ({ show, setUrl }) => {
                   <div id="category-filter" ref={content1}>
                     <VerticalList
                       id={globals.COMPONENT_NAME.Category_Filter}
-                      onFocus={(index) =>
-                        onFocus(index, globals.COMPONENT_NAME.Category_Filter)
-                      }
+                      onFocus={(index) => onFocus(index, globals.COMPONENT_NAME.Category_Filter)  }
                       onBlur={(index) => handleSetActive(false, index)}
                       retainLastFocus={true}
                     >
                       {homeCategory.map((category, index) => (
                         <ToggleItem
-                          key={category.name} 
-                          images={category.images} 
+                          key={category.name}
+                          images={category.images}
                           isActiveIndex={activeIndex === index}
-                          onEnter={() =>
-                            abc(
-                              "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-                              index
-                            )
-                          }
+                          onEnter={() => loadCategoryData(category, index)}
                           index={index}
                         >
                           {category.name}
@@ -271,22 +289,25 @@ const ContentCategory = ({ show, setUrl }) => {
                         <div className="before-box   flex justify-between  items-center  mr-3 w-[145px] h-[80px] text-center ">
                           <div className=" text-[20px] text-white p-1">101</div>
                           <div
-                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${i === activeListIndex ? "" : ""
-                              } `}
+                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${
+                              i === activeListIndex ? "" : ""
+                            } `}
                           >
                             <img
-                              className={`items-center ${i === activeListIndex
+                              className={`items-center ${
+                                i === activeListIndex
                                   ? "w-[100px] h-[84px]"
-                                  : "w-[76px] h-[auto]"
-                                } `}
+                                  : "w-[76px] h-[64px]"
+                              } `}
                               src={img_cloudfront + list?.image?.logo?.tv}
                               alt="Logo"
                             />
                           </div>
                         </div>
-                        <div
-                          className="filter">
+                        <div className="filter">
+                          
                           <List
+                            id={list.id}
                             setUrl={setUrl}
                             title={list.title}
                             layout={list.layout}
@@ -297,6 +318,7 @@ const ContentCategory = ({ show, setUrl }) => {
                             isActive={i === activeListIndex}
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
+                            //preventDown={(lists.length - 1) === i ? true : false}
                           />
                         </div>
                       </div>
