@@ -9,6 +9,7 @@ export const globals={
         Player_Control:"player-controls"
     },
     API_URL:{ 
-        GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg"
+        GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg",
+        GET_HOME_PAGE_CATEGORY: localStorage.getItem("IsKidsSafe")=="true"?BASE_URL +"genre/filters/kidSafe":BASE_URL +"genre/filters"
     }
 }

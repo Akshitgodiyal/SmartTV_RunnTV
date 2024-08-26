@@ -14,14 +14,17 @@ import { IconStarFilled } from "@tabler/icons-react";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
+import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
+
 import Player from "../components/Player/Player.js";
 import bg from "../assets/images/logo.aaf739805db645e7a37b.png";
 import { img_cloudfront } from "../utility/constant.js";
+import _icon from "../assets/images/Icon.png";
 const ContentCategory = ({ show, setUrl }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState();
   const [opacity, setOpacity] = useState(1);
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
@@ -31,6 +34,7 @@ const ContentCategory = ({ show, setUrl }) => {
 
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
+  const [homeCategory, setHomeCategory] = useState([]);
 
   const handleSetActive = (status, index) => {
     setActive(status);
@@ -141,6 +145,20 @@ const ContentCategory = ({ show, setUrl }) => {
       //setLoading(false);
     }
   }
+  function fetchCategory() {
+    try {
+      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
+        (result) => { 
+          var category = mapFilterCategory(result);
+          setHomeCategory && setHomeCategory(category);
+        }
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      //setLoading(false);
+    }
+  }
   function SetInitialFocus() {
     setTimeout(() => {
       let firstSectionRef = document.getElementById("defaultFocused");
@@ -157,6 +175,7 @@ const ContentCategory = ({ show, setUrl }) => {
   }
   useEffect(() => {
     if (show) {
+      fetchCategory();
       fetchData();
     }
   }, [show]);
@@ -166,20 +185,20 @@ const ContentCategory = ({ show, setUrl }) => {
 
 
       <div
-        className={`mainbox bg-black bg-opacity-75 ${show ? "" : "hidden"}`}
-        style={{ position: "absolute", top: "0", opacity: opacity,  zIndex:opacity == 1 ? 1 : -1}}
-      > 
+        className={`mainbox  ${show ? "" : "hidden"}`}
+        style={{ position: "absolute", top: "0", opacity: opacity ,  zIndex:opacity == 1 ? 1 : -1}}
+      >
         <div className="flex flex-col justify-between h-full">
           <div className="w-100 *:">
             <img className="w-40" src={logo} alt="Logo" />
             <div className="text-white text-lg"> Kid content </div>
           </div>
-          <div className="w-full">
+          <div className="w-full margintop" >
             <div className="flex my-5 w-full justtify-center">
               <img className="w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
             <HorizontalList retainLastFocus={true}>
-              <div style={{ width: "15%", float: "left" }}>
+              <div className="category-filter">
                 <div
                   id="category-filter-div"
                   className={active ? "focused " : ""}
@@ -193,22 +212,10 @@ const ContentCategory = ({ show, setUrl }) => {
                       onBlur={(index) => handleSetActive(false, index)}
                       retainLastFocus={true}
                     >
-                      {[
-                        "Menu 1",
-                        "Menu 2",
-                        "Menu 3",
-                        "Menu 4",
-                        "Menu 5",
-                        "Menu 6",
-                        "Menu 7",
-                        "Menu 8",
-                        "Menu 9",
-                        "Menu 10",
-                      ].map((icon, index) => (
+                      {homeCategory.map((category, index) => (
                         <ToggleItem
-                          key={icon}
-                          icon={icon}
-                          // isFocused={focusedIndex === index}
+                          key={category.name} 
+                          images={category.images} 
                           isActiveIndex={activeIndex === index}
                           onEnter={() =>
                             abc(
@@ -218,7 +225,7 @@ const ContentCategory = ({ show, setUrl }) => {
                           }
                           index={index}
                         >
-                          {index}
+                          {category.name}
                         </ToggleItem>
                       ))}
                     </VerticalList>
@@ -227,7 +234,7 @@ const ContentCategory = ({ show, setUrl }) => {
               </div>
               <div
                 className="h-[500px] scroll-hidden"
-                style={{ width: "85%", float: "left", overflowY: "auto" }}
+                style={{ width: "83%", float: "left", overflowY: "auto" }}
                 ref={content2}
               >
                 {lists && lists.length > 0 ? (

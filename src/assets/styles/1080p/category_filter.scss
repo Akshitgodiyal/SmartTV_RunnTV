@@ -1,32 +1,45 @@
-#category-filter .item {
+.category-filter{
+  width: 280px;
+  float: left;
+  padding: 14px;
+}
+
+#category-filter .item{
   height: 60px;
-  line-height: 60px;
-  color: #f1f1f1;
-  font-size: 25px;
-  box-sizing: border-box;
-  cursor: default;
-  cursor: pointer;
-  text-align: center;
-  margin: 0px 0px 0px 0px;
-  border-radius: 5px;
-  border: 1px solid transparent;
-
-}
-
-#category-filter .item-focus {
-  border: 4px solid #fff !important;
-  background-color: transparent;
-  color: #fff !important;
-}
-
-#category-filter {
-  .active {
-    background-color: #ffffff82;
-    color: black !important;
-    margin: 0px 0px 6px 0px;
-    font-weight: 600;
-    border: 4px solid transparent;
+  /* text-align: center; */
+  /* margin: 0px 0px 0px 0px; */
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding: 15px 12px 14px 12px;
+  font-size: 21px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 28px;
+  color: rgba(217, 217, 217, 1);
   }
+  #category-filter .item img {
+    height: auto;
+    width: 30px;
+    object-fit: cover;
+    float: inline-start;
+    margin-right: 10px;
+}
+  #category-filter .item-focus{
+    border:2px solid #fff !important;
+    background-color: transparent;
+    color: rgba(19, 19, 20, 1) !important;
+    font-weight: bold;
+    background-color: rgba(230, 230, 230, 1);
+  }
+#category-filter{
+    .active{
+      font-size: 21px;
+      background-color: rgba(230, 230, 230, 1);
+      color: rgba(19, 19, 20, 1) !important; 
+      font-weight: bold;
+        margin: 6px 0px 6px 0px; 
+        border:2px solid transparent;
+    } 
 }
 
 #content {
@@ -66,13 +79,13 @@
 
     border: 2px solid transparent;
 
-    transition: width 0.002s ease-in-out;
+    //transition: width 0.002s ease-in-out;
     /* Added transition */
   }
 
 
   .item-focus {
-    transition: width 0.002s ease-in-out, border 0.002s ease-in-out;
+    //transition: width 0.002s ease-in-out, border 0.002s ease-in-out;
     /* Added transition */
   }
 
@@ -90,7 +103,7 @@
   .animate {
     width: 25%;
     padding-bottom: 0;
-    transition: padding-bottom 0.003s ease;
+    //transition: padding-bottom 0.003s ease;
   }
 
   .placeholder {
@@ -116,8 +129,10 @@
       width: 665px !important;
       height: 116px;
     }
-  }
-
-
-
+  } 
+}
+#content .before-box .items-center img{
+  width: auto !important;
+  height: auto  !important;
+  max-height: 40px;
 }

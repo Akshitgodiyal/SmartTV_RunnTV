@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navigation, { Focusable } from "../helper/react-navigation.js";
 import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
-import { img_cloudfront } from "../utility/constant.js";
+import { img_cloudfront,img_cloudfront1 } from "../utility/constant.js";
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
 
@@ -99,7 +99,10 @@ const ToggleItem = (props) => {
           )}
         </div>
       ) : (
-        <div>Filter</div>
+        <div>
+             {props.images? <img src={active || props.isActiveIndex?img_cloudfront1+ props.images.enabledIcon.tv:img_cloudfront1+props.images.disabledIcon.tv} alt={props.children} />:""}
+             {props.children}
+        </div>
       )}
     </div>
   </Focusable>

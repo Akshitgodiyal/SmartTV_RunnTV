@@ -8,7 +8,6 @@ import PlayerControls from "../Player/PlayerControls";
 
 function OverScreens({ setUrl }) {
   const { sidebarActive } = useContext(VideoContext);
-
   useEffect(() => {
     if (sidebarActive === "user") {
       setTimeout(() => {
@@ -21,26 +20,19 @@ function OverScreens({ setUrl }) {
       }, 20);
     }
   }, [sidebarActive]);
-
-  return (
+  if (sidebarActive === "tv") {
+   
+    return( 
     <>
-      {sidebarActive === "user" && (
-        <>
-            <PlayerControls />
-          <ContentCategory show={true} setUrl={setUrl} />
-        </>
-      )}
-      {sidebarActive === "search" && (
-        <DiscoverScreen show={true} setUrl={setUrl} />
-      )}
-      {sidebarActive === "history" && (
-        <WatchHistory show={true} setUrl={setUrl} />
-      )}
-      {sidebarActive === "star" && (
-        <Login show={true} setUrl={setUrl} />
-      )}
+      <PlayerControls />
+    <ContentCategory show={sidebarActive === "tv"} setUrl={setUrl} />
     </>
   );
+  } else if (sidebarActive === "discover") {
+    return (
+      <DiscoverScreen show={sidebarActive === "discover"} setUrl={setUrl} />
+    );
+  }
 }
 
 export default OverScreens;
