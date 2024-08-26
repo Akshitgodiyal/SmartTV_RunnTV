@@ -1,47 +1,3 @@
-.category-filter{
-  width: 280px;
-  float: left;
-  padding: 14px;
-}
-
-#category-filter .item{
-  height: 60px;
-  /* text-align: center; */
-  /* margin: 0px 0px 0px 0px; */
-  border-radius: 8px;
-  border: 2px solid transparent;
-  padding: 15px 12px 14px 12px;
-  font-size: 21px;
-  font-family: "Roboto";
-  font-weight: 500;
-  line-height: 28px;
-  color: rgba(217, 217, 217, 1);
-  }
-  #category-filter .item img {
-    height: auto;
-    width: 30px;
-    object-fit: cover;
-    float: inline-start;
-    margin-right: 10px;
-}
-  #category-filter .item-focus{
-    border:2px solid #fff !important;
-    background-color: transparent;
-    color: rgba(19, 19, 20, 1) !important;
-    font-weight: bold;
-    background-color: rgba(230, 230, 230, 1);
-  }
-#category-filter{
-    .active{
-      font-size: 21px;
-      background-color: rgba(230, 230, 230, 1);
-      color: rgba(19, 19, 20, 1) !important; 
-      font-weight: bold;
-        margin: 6px 0px 6px 0px; 
-        border:2px solid transparent;
-    } 
-}
-
 #content {
   height: 100%;
   position: relative;
@@ -84,10 +40,7 @@
   }
 
 
-  .item-focus {
-    //transition: width 0.002s ease-in-out, border 0.002s ease-in-out;
-    /* Added transition */
-  }
+
 
   .vertical .item-focus,
   .horizontal .item-focus {
@@ -119,6 +72,8 @@
     margin-bottom: 1px;
 
     .before-box {
+      width: 145px;
+      height: 80px;
       padding: 0px;
       background: transparent;
       height: 116px;
@@ -129,9 +84,72 @@
       width: 665px !important;
       height: 116px;
     }
-  } 
+  }
 }
-#content .before-box .items-center img{
+
+.program-list {
+  width: 400px;
+
+
+  .program-name {
+    font-size: 24px;
+    width: 400px;
+  }
+
+  .detail {
+
+    font-size: 16px;
+  }
+
+  .program-image {
+    img {
+      width: 160px;
+      height: 88px;
+
+    }
+
+
+  }
+
+  .focus-program {
+    width: 465px;
+    font-size: 16px;
+  }
+
+}
+
+.before-box {
+
+  .img-box {
+
+    width: 120px;
+    height: 80px;
+
+
+    img.active-img {
+
+      width: 100px;
+      height: 84px;
+    }
+
+    img.deactive-img {
+      width: 76px;
+      height: 64px;
+    }
+
+  }
+}
+
+
+#content .before-box .items-center img {
 
   max-height: 40px;
+}
+
+
+.programs-list {
+  height: 500px;
+  width: 83%;
+  float: left;
+  overflow-y: auto;
 }

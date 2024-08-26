@@ -17,8 +17,17 @@ const PlayerControls = () => {
     );
   };
 
+
   return (
-    <div className="flex justify-center absolute bottom-0 right-40 bg-sky-500 bg-opacity-50 w-[80%] h-[10%] m-auto z-80">
+    <div
+    style={{
+      
+      opacity: isActive ? 0 : 1,
+      zIndex: isActive  ? -1 : 1,
+    }}
+  
+    
+    className="flex justify-center absolute bottom-0 right-40 bg-sky-500 bg-opacity-50 w-[80%] h-[10%] m-auto z-80">
       <HorizontalList
         onFocus={(index) => onFocus(index)}
         onBlur={(index) => handleSetActive(true, index)}

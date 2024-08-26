@@ -29,7 +29,7 @@ const ContentCategory = ({ show, setUrl }) => {
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
-
+const [rating, setRating] = useState("");
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
@@ -67,6 +67,8 @@ const ContentCategory = ({ show, setUrl }) => {
   };
 
   const changeFocusTo = (index) => {
+   
+    
     setActiveListIndex(index);
     setActive(index !== null);
 
@@ -138,6 +140,7 @@ const ContentCategory = ({ show, setUrl }) => {
     });
   };
 
+
   useEffect(() => {
     setOpacity(isActive ? 1 : 0);
   }, [isActive]);
@@ -202,6 +205,8 @@ const ContentCategory = ({ show, setUrl }) => {
       //fetchData();
     }
   }, [show]);
+
+  
   return (
     <VerticalList retainLastFocus={true}>
       <div
@@ -220,7 +225,7 @@ const ContentCategory = ({ show, setUrl }) => {
               
               <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
 
-              Rated U/a - 13+
+             Rated {rating}
               </div>
               <div className="px-2 text-[22px]">
 
@@ -263,8 +268,8 @@ const ContentCategory = ({ show, setUrl }) => {
                 </div>
               </div>
               <div
-                className="h-[500px] scroll-hidden"
-                style={{ width: "83%", float: "left", overflowY: "auto" }}
+                className="scroll-hidden programs-list"
+              
                 ref={content2}
               >
                 {lists && lists.length > 0 ? (
@@ -286,19 +291,18 @@ const ContentCategory = ({ show, setUrl }) => {
                         }
                         key={i}
                       >
-                        <div className="before-box   flex justify-between  items-center  mr-3 w-[145px] h-[80px] text-center ">
+                        <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
                           <div className=" text-[20px] text-white p-1">101</div>
                           <div
-                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${
+                            className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
                               i === activeListIndex ? "" : ""
                             } `}
                           >
                             <img
-                              className={`items-center ${
-                                i === activeListIndex
-                                  ? "w-[100px] h-[84px]"
-                                  : "w-[76px] h-[64px]"
-                              } `}
+                            className={
+                              "items-center " + (i === activeListIndex ? "active-img" : "deactive-img")
+                            }
+                            
                               src={img_cloudfront + list?.image?.logo?.tv}
                               alt="Logo"
                             />
@@ -319,6 +323,7 @@ const ContentCategory = ({ show, setUrl }) => {
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
                             //preventDown={(lists.length - 1) === i ? true : false}
+                            setRating={setRating}
                           />
                         </div>
                       </div>

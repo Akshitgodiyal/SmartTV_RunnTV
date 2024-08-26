@@ -1,0 +1,123 @@
+#content {
+  height: 100%;
+  position: relative;
+
+  .content {
+    white-space: nowrap;
+    font-size: 0;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 20px; /* 30px * 0.6667 */
+    padding: 0;
+    margin: 0;
+  }
+
+  .item {
+    display: inline-block;
+    width: 443px; /* 664px * 0.6667 */
+    height: 53px; /* 80px * 0.6667 */
+    background: #00000073;
+    border-radius: 4px; /* 6px * 0.6667 */
+    font-size: 0.6667rem; /* 1rem * 0.6667 */
+    margin-right: 1.33px; /* 2px * 0.6667 */
+    cursor: pointer;
+  }
+
+  .horizontal .item {
+    border: 1.33px solid transparent; /* 2px * 0.6667 */
+  }
+
+  .vertical .item-focus,
+  .horizontal .item-focus {
+    border-radius: 3.33px; /* 5px * 0.6667 */
+    border: 1.33px solid;
+    border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+    border-image-slice: 1;
+  }
+
+  .animate {
+    width: 16.67%; /* 25% * 0.6667 */
+    padding-bottom: 0;
+  }
+
+  .placeholder {
+    width: 16.67%; /* 25% * 0.6667 */
+    padding-bottom: calc(20% + 53px); /* calc(30% * 0.6667 + 80px * 0.6667) */
+  }
+
+  display: block;
+
+  .active.flex {
+    background: black;
+    margin-bottom: 0.67px; /* 1px * 0.6667 */
+
+    .before-box {
+      width: 97px; /* 145px * 0.6667 */
+      height: 53px; /* 80px * 0.6667 */
+      padding: 0px;
+      background: transparent;
+      height: 77px; /* 116px * 0.6667 */
+    }
+
+    .item-focus,
+    .item {
+      width: 443px; /* 665px * 0.6667 */
+      height: 77px; /* 116px * 0.6667 */
+    }
+  }
+}
+
+.program-list {
+  width: 267px; /* 400px * 0.6667 */
+
+  .program-name {
+    font-size: 16px; /* 24px * 0.6667 */
+    width: 267px; /* 400px * 0.6667 */
+  }
+
+  .detail {
+    font-size: 11px; /* 16px * 0.6667 */
+  }
+
+  .program-image {
+    img {
+      width: 107px; /* 160px * 0.6667 */
+      height: 59px; /* 88px * 0.6667 */
+    }
+  }
+
+  .focus-program {
+    width: 310px; 
+    font-size: 10px;
+  }
+}
+
+.before-box {
+  .img-box {
+    width: 80px; /* 120px * 0.6667 */
+    height: 53px; /* 80px * 0.6667 */
+
+    img.active-img {
+      width: 67px; /* 100px * 0.6667 */
+      height: 56px; /* 84px * 0.6667 */
+    }
+
+    img.deactive-img {
+      width: 51px; /* 76px * 0.6667 */
+      height: 43px; /* 64px * 0.6667 */
+    }
+  }
+}
+
+#content .before-box .items-center img {
+  max-height: 27px; /* 40px * 0.6667 */
+}
+
+.programs-list {
+  height: 333px; 
+  width: 80% ;
+  float: left;
+  overflow-y: auto;
+}

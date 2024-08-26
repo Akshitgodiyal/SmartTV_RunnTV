@@ -1,7 +1,7 @@
 import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { VideoContext } from "../../utility/context";
-import bg from "../../assets/images/tvbg.png";
+import bg from "../../assets/images/tvbg.jpg";
 
 const HlsPlayer = forwardRef(({ url }, ref) => {
   const playerRef = useRef(null);
@@ -16,14 +16,15 @@ const HlsPlayer = forwardRef(({ url }, ref) => {
       }
     },
   }));
-console.log(url);
+// console.log(url);
 
 
-  // useEffect(() => {
-  //   if (url && playerRef.current) {
-  //     ref.current.playVideo();
-  //   }
-  // }, [url, ref]);
+
+  useEffect(() => {
+    if (url && playerRef.current) {
+      ref.current.playVideo();
+    }
+  }, [url, ref]);
 
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
@@ -37,7 +38,7 @@ console.log(url);
         poster={bg}
         muted={false}
         playsInline
-        controls={true}
+        controls={false}
         autoPlay
        
       />
