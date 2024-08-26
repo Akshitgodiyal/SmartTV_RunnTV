@@ -22,7 +22,7 @@ class VerticalList extends Focusable {
     }
 
     if (!nextFocus) {
-      return super.getNextFocus(direction, this.indexInParent);
+       return super.getNextFocus(direction, this.indexInParent);
     }
 
     if (nextFocus.isContainer()) {

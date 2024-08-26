@@ -127,13 +127,29 @@ const [rating, setRating] = useState("");
     ).then((result) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result);
-        localStorage.setItem("preventHorizontalId","HorizontalList_"+channelList[channelList.length-1].id+channelList[channelList.length-1].title);
-        if(channelList.length>1){
-          localStorage.setItem("nextAPI_Fire","HorizontalList_"+channelList[channelList.length-2].id+channelList[channelList.length-1].title)
-        }else{
-          localStorage.setItem("nextAPI_Fire","HorizontalList_"+channelList[channelList.length-1].id+channelList[channelList.length-1].title)
-        }
-        setUrl(channelList[0].playUrl);
+        // localStorage.setItem(
+        //   "preventHorizontalId",
+        //   "HorizontalList_" +
+        //     channelList[channelList.length - 1].id +
+        //     channelList[channelList.length - 1].title
+        // );
+        // if (channelList.length > 1) {
+        //   localStorage.setItem(
+        //     "nextAPI_Fire",
+        //     "HorizontalList_" +
+        //       channelList[channelList.length - 2].id +
+        //       channelList[channelList.length - 1].title
+        //   );
+        // } else {
+        //   localStorage.setItem(
+        //     "nextAPI_Fire",
+        //     "HorizontalList_" +
+        //       channelList[channelList.length - 1].id +
+        //       channelList[channelList.length - 1].title
+        //   );
+        // }
+        // setUrl(channelList[0].playUrl);
+       // setLists([]);
         setLists(channelList);
         SetInitialFocus();
       }
@@ -169,14 +185,14 @@ const [rating, setRating] = useState("");
     }
   }
   function fetchCategory() {
-    try {
+    try { 
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
         (result) => {
-          var _result=result.filter(cate => cate.active === true);
+          var _result = result.filter((cate) => cate.active === true);
           var category = mapFilterCategory(_result);
           setHomeCategory && setHomeCategory(category);
           //====load data from first filter===//
-          loadCategoryData(category[0],0) 
+          loadCategoryData(category[0], 0);
         }
       );
     } catch (error) {
@@ -208,7 +224,7 @@ const [rating, setRating] = useState("");
 
   
   return (
-    <VerticalList retainLastFocus={true}>
+    <VerticalList  id ="contantData" retainLastFocus={true}>
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
         style={{
@@ -248,7 +264,9 @@ const [rating, setRating] = useState("");
                   <div id="category-filter" ref={content1}>
                     <VerticalList
                       id={globals.COMPONENT_NAME.Category_Filter}
-                      onFocus={(index) => onFocus(index, globals.COMPONENT_NAME.Category_Filter)  }
+                      onFocus={(index) =>
+                        onFocus(index, globals.COMPONENT_NAME.Category_Filter)
+                      }
                       onBlur={(index) => handleSetActive(false, index)}
                       retainLastFocus={true}
                     >
@@ -309,7 +327,6 @@ const [rating, setRating] = useState("");
                           </div>
                         </div>
                         <div className="filter">
-                          
                           <List
                             id={list.id}
                             setUrl={setUrl}
@@ -321,16 +338,17 @@ const [rating, setRating] = useState("");
                             visible={true}
                             isActive={i === activeListIndex}
                             parentNav="home-div-nav"
-                            isFirstList={i === 0 ? true : false}
-                            //preventDown={(lists.length - 1) === i ? true : false}
-                            setRating={setRating}
+                            isFirstList={i === 0 ? true : false} 
                           />
                         </div>
                       </div>
                     ))}
                   </VerticalList>
                 ) : (
-                  <div></div>
+                  <div>
+                   {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
+
+                  </div>
                 )}
               </div>
             </HorizontalList>

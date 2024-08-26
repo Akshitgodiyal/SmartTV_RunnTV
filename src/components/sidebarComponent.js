@@ -13,8 +13,9 @@ const ToggleItem = ({
   onFocus,
   onEnterDown,
   isActiveIndex,
+  focusedIndex
 }) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(0);
   return (
     <Focusable
       onFocus={() => setActive(true)}
@@ -33,28 +34,42 @@ const ToggleItem = ({
 };
 
 const Sidebar = () => {
-  const [focusedIndex, setFocusedIndex] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [focusedIndex, setFocusedIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(1);
   const [activeItemName, setActiveItemName] = useState("tv");
   const { setsidebarActive } = useContext(VideoContext);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
     {
+      id: "login",
+      label: "login",
+      icon: "",
+    },
+    {
       id: "tv",
+      label: "Home",
       icon: tvImage,
     },
     {
       id: "discover",
+      label: "Discover",
       icon: discoverImage,
     },
     {
       id: "eye",
+      label: "Watchlist",
       icon: eyeImage,
     },
     {
       id: "search",
+      label: "Search",
       icon: searchImage,
+    },
+    {
+      id: "Exit",
+      label: "Exit",
+      icon: "",
     },
   ];
 
@@ -94,7 +109,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div id="side_bar" className={active?"focused":""}>
+    <div id="side_bar" className={active ? "focused" : ""}>
       <div ref={content1}>
         <VerticalList
           onFocus={(index) => onFocus(index)}
@@ -108,9 +123,14 @@ const Sidebar = () => {
               icon={icon}
               isActiveIndex={activeIndex === index}
               onEnterDown={() => onEnterDown(index)}
+              focusedIndex={focusedIndex=== index}
             >
-              <img src={icon.icon} alt={icon.id} style={{float:"left"}}></img>
-              <div className="itemdiv"  >defgertsfgfb</div>
+              <img
+                src={icon.icon}
+                alt={icon.id}
+                style={{ float: "left" }}
+              ></img>
+              <div className="itemdiv">{icon.label}</div>
             </ToggleItem>
           ))}
         </VerticalList>
