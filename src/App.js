@@ -6,11 +6,8 @@ import './applicationsdk.js';
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
-
   useEffect(() => {
-
     const splashTimeout = setTimeout(() => {
-      //  console.log(context);
       setShowSplash(false); // Hide the splash screen after 1 second
     }, 1000);
 
@@ -23,14 +20,10 @@ const App = () => {
   if (showSplash) {
     return <SplashScreen />;
   }
-
   return (
     <>
       <Home />
-      <div id="main-div"></div>
-      <div id="playerDiv"></div>
     </>
   );
 };
-
 export default App;

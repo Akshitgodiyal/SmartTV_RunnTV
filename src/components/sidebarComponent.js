@@ -16,6 +16,11 @@ const ToggleItem = ({
   focusedIndex
 }) => {
   const [active, setActive] = useState(0);
+  // useEffect(()=>{ 
+  //   if(focusedIndex){
+  //     setActive(true);
+  //   }
+  // },[focusedIndex])
   return (
     <Focusable
       onFocus={() => setActive(true)}
@@ -119,11 +124,11 @@ const Sidebar = () => {
         >
           {items.map((icon, index) => (
             <ToggleItem
-              key={icon}
+              key={icon.id}
               icon={icon}
               isActiveIndex={activeIndex === index}
               onEnterDown={() => onEnterDown(index)}
-              focusedIndex={focusedIndex=== index}
+              focusedIndex={activeIndex=== index}
             >
               <img
                 src={icon.icon}
@@ -135,9 +140,9 @@ const Sidebar = () => {
           ))}
         </VerticalList>
       </div>
-      <div id="active-item-name">
+      {/* <div id="active-item-name">
         <p>Active Item: {activeItemName}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

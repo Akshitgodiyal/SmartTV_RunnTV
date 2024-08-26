@@ -125,29 +125,6 @@ const ContentCategory = ({ show, setUrl }) => {
     ).then((result) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result);
-        // localStorage.setItem(
-        //   "preventHorizontalId",
-        //   "HorizontalList_" +
-        //     channelList[channelList.length - 1].id +
-        //     channelList[channelList.length - 1].title
-        // );
-        // if (channelList.length > 1) {
-        //   localStorage.setItem(
-        //     "nextAPI_Fire",
-        //     "HorizontalList_" +
-        //       channelList[channelList.length - 2].id +
-        //       channelList[channelList.length - 1].title
-        //   );
-        // } else {
-        //   localStorage.setItem(
-        //     "nextAPI_Fire",
-        //     "HorizontalList_" +
-        //       channelList[channelList.length - 1].id +
-        //       channelList[channelList.length - 1].title
-        //   );
-        // }
-        // setUrl(channelList[0].playUrl);
-       // setLists([]);
         setLists(channelList);
         SetInitialFocus();
       }

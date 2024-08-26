@@ -5,8 +5,6 @@ import bg from "../../assets/images/tvbg.png";
 
 const HlsPlayer = forwardRef(({ url }, ref) => {
   const playerRef = useRef(null);
-
-
   useImperativeHandle(ref, () => ({
     playVideo: () => {
       if (playerRef.current) {
@@ -15,16 +13,7 @@ const HlsPlayer = forwardRef(({ url }, ref) => {
         });
       }
     },
-  }));
-console.log(url);
-
-
-  // useEffect(() => {
-  //   if (url && playerRef.current) {
-  //     ref.current.playVideo();
-  //   }
-  // }, [url, ref]);
-
+  }));  
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
       <ReactHlsPlayer
@@ -34,7 +23,7 @@ console.log(url);
         src={url}
         width="100%"
         height="auto"
-        poster={bg}
+      //  poster={bg}
         muted={false}
         playsInline
         controls={true}
