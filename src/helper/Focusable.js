@@ -19,6 +19,27 @@ class Focusable extends Component {
     super(props, context);
   }
 
+  resetFocusData() {
+    // Clear tree path and children
+    this.treePath = [];
+    this.children = [];
+
+    // Reset focus-related states
+    this.setState({
+      focusTo: null,
+      isFocused: false,
+    });
+
+    // Reset context-related focusable IDs
+    if (this.focusableId) {
+      this.context.navigationComponent.removeFocusableId(this.focusableId);
+    }
+
+    // Clear focusableId and lastFocusChild
+    this.focusableId = null;
+    this.lastFocusChild = null;
+  }
+
   isContainer() {
     return false;
   }
@@ -39,8 +60,7 @@ class Focusable extends Component {
   removeChild(child) {
     this.context.navigationComponent.removeFocusableId(child.focusableId);
 
-    const currentFocusedPath =
-      this.context.navigationComponent.currentFocusedPath;
+    const currentFocusedPath = this.context.navigationComponent.currentFocusedPath;
     if (!currentFocusedPath) {
       return;
     }
@@ -55,7 +75,6 @@ class Focusable extends Component {
     if (this.lastFocusChild && this.props.retainLastFocus) {
       return this.lastFocusChild;
     }
-
     return 0;
   }
 
@@ -67,7 +86,6 @@ class Focusable extends Component {
     if (!this.getParent()) {
       return null;
     }
-
     return this.getParent().getNextFocus(direction, focusedIndex);
   }
 
@@ -76,10 +94,8 @@ class Focusable extends Component {
       if (this.hasChildren()) {
         return this.children[this.getDefaultChild()].getDefaultFocus();
       }
-
       return null;
     }
-
     return this;
   }
 
@@ -115,14 +131,13 @@ class Focusable extends Component {
     if (this.children.length === focusedIndex + 1) {
       return null;
     }
-
     return this.children[focusedIndex + 1];
   }
 
   previousChild(focusedIndex) {
     if (focusedIndex - 1 < 0) {
       return null;
-    } 
+    }
     return this.children[focusedIndex - 1];
   }
 

@@ -45,9 +45,8 @@ const List = (props = []) => {
           });
         }
 
-        // Ensure the last element is fully visible
-        if (index === items.length - 1) {
-          setTimeout(() => {
+          // Ensure the last element is fully visible
+          if (index === items.length - 1) {
             contentRef.current.scrollTo({
               left:
                 itemRect.left -
@@ -57,10 +56,12 @@ const List = (props = []) => {
             });
             const lastItem = items[items.length - 1];
             lastItem.style.marginRight = "0";
-          }, 5);
+        
         }
       }
     }
+
+
 
     setLastFocus(index);
   };
@@ -100,6 +101,7 @@ const List = (props = []) => {
                 parentNav={props.parentNav}
                 isFirstItem={props.isFirstList && i == 0 ? true : false}
                 // preventDown={props.preventDown}
+                setRating={props.setRating}
               />
             ))}
         </HorizontalList>

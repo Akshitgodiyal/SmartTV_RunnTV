@@ -29,7 +29,7 @@ const ContentCategory = ({ show, setUrl }) => {
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
-
+const [rating, setRating] = useState("");
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
@@ -67,6 +67,8 @@ const ContentCategory = ({ show, setUrl }) => {
   };
 
   const changeFocusTo = (index) => {
+   
+    
     setActiveListIndex(index);
     setActive(index !== null);
 
@@ -130,6 +132,7 @@ const ContentCategory = ({ show, setUrl }) => {
       }
     });
   };
+
 
   useEffect(() => {
     setOpacity(isActive ? 1 : 0);
@@ -195,6 +198,8 @@ const ContentCategory = ({ show, setUrl }) => {
       //fetchData();
     }
   }, [show]);
+
+  
   return (
     <VerticalList  id ="contantData" retainLastFocus={true}>
       <div
@@ -207,9 +212,21 @@ const ContentCategory = ({ show, setUrl }) => {
         }}
       >
         <div className="flex flex-col justify-between h-full">
-          <div className="w-100 *:">
+          <div className=" mx-[48px] my-[59px]">
             <img className="w-40" src={logo} alt="Logo" />
-            <div className="text-white text-lg"> Kid content </div>
+            <div className="text-white text-lg border-l-4 border-red-500  pl-1"> 
+              
+              <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
+
+             Rated {rating}
+              </div>
+              <div className="px-2 text-[22px]">
+
+              Kid content 
+              </div>
+              
+              
+              </div>
           </div>
           <div className="w-full margintop">
             <div className="flex my-5 w-full justtify-center">
@@ -246,8 +263,8 @@ const ContentCategory = ({ show, setUrl }) => {
                 </div>
               </div>
               <div
-                className="h-[500px] scroll-hidden"
-                style={{ width: "83%", float: "left", overflowY: "auto" }}
+                className="scroll-hidden programs-list"
+              
                 ref={content2}
               >
                 {lists && lists.length > 0 ? (
@@ -269,19 +286,18 @@ const ContentCategory = ({ show, setUrl }) => {
                         }
                         key={i}
                       >
-                        <div className="before-box   flex justify-between  items-center  mr-3 w-[145px] h-[80px] text-center ">
+                        <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
                           <div className=" text-[20px] text-white p-1">101</div>
                           <div
-                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${
+                            className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
                               i === activeListIndex ? "" : ""
                             } `}
                           >
                             <img
-                              className={`items-center ${
-                                i === activeListIndex
-                                  ? "w-[100px] h-[84px]"
-                                  : "w-[76px] h-[64px]"
-                              } `}
+                            className={
+                              "items-center " + (i === activeListIndex ? "active-img" : "deactive-img")
+                            }
+                            
                               src={img_cloudfront + list?.image?.logo?.tv}
                               alt="Logo"
                             />
