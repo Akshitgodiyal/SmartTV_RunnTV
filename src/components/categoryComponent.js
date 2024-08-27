@@ -1,25 +1,18 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import Navigation, {
-  Focusable,
+import  {
   HorizontalList,
   VerticalList,
 } from "../helper/react-navigation";
-import { data } from "../data.js";
 import List from "./listComponent.js";
 import { VideoContext } from "../utility/context.js";
 import ToggleItem from "./ToogleItem.js";
 import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
-import { IconStarFilled } from "@tabler/icons-react";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
-
-import Player from "../components/Player/Player.js";
-import bg from "../assets/images/logo.aaf739805db645e7a37b.png";
 import { img_cloudfront } from "../utility/constant.js";
-import _icon from "../assets/images/Icon.png";
 import LoaderScreen from '../pages/loader.js'
 const ContentCategory = ({ show, setUrl }) => {
   const { isActive } = useContext(VideoContext);
@@ -94,7 +87,7 @@ const ContentCategory = ({ show, setUrl }) => {
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } else if (index == 3) {
+          } else if (index === 3) {
             // Special handling for the last 5 items
             scrollAmount =
               rect.top -
@@ -148,25 +141,6 @@ const ContentCategory = ({ show, setUrl }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
-  function fetchData() {
-    try {
-      const headers = {
-        PARTNER_CODE: "ALL",
-      };
-      ApiHelper.get(globals.API_URL.GET_CHANNEL_EPG, headers).then((result) => {
-        if (result && result.length > 0) {
-          var channelList = mapChannelEpg(result);
-          setUrl(channelList[0].playUrl);
-          setLists(channelList);
-          SetInitialFocus();
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      //setLoading(false);
-    }
-  }
   function fetchCategory() {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
@@ -224,9 +198,7 @@ const ContentCategory = ({ show, setUrl }) => {
 
   return (
     <>
-      <LoaderScreen show={showloader} /> 
- 
-   
+    <LoaderScreen show={showloader} /> 
     <VerticalList id="contantData" retainLastFocus={true}>
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
@@ -234,7 +206,7 @@ const ContentCategory = ({ show, setUrl }) => {
           position: "absolute",
           top: "0",
           opacity: opacity,
-          zIndex: opacity == 1 ? 1 : -1,
+          zIndex: opacity === 1 ? 1 : -1,
         }}
       >
         <div className="flex flex-col justify-between h-full">
