@@ -99,7 +99,7 @@ const ToggleItem = (props) => {
           </div>
         ) : (
           <div>
-            {props.images ? <img src={active || props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} /> : ""}
+            {props.images ? <img src={active?img_cloudfront1 + props.images.disabledIcon.tv: props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} /> : ""}
             {props.children}
           </div>
         )}

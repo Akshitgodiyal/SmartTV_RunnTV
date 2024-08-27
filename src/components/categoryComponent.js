@@ -20,6 +20,7 @@ import Player from "../components/Player/Player.js";
 import bg from "../assets/images/logo.aaf739805db645e7a37b.png";
 import { img_cloudfront } from "../utility/constant.js";
 import _icon from "../assets/images/Icon.png";
+import LoaderScreen from '../pages/loader.js'
 const ContentCategory = ({ show, setUrl }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
@@ -33,7 +34,7 @@ const ContentCategory = ({ show, setUrl }) => {
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
-
+  const [showloader, setShowloader] = useState(true);
   const handleSetActive = (status, index) => {
     setActive(status);
 
@@ -114,6 +115,7 @@ const ContentCategory = ({ show, setUrl }) => {
   };
 
   const loadCategoryData = (category, index) => {
+    setShowloader(true);
     setUrl("");
     setActiveIndex(index);
     const headers = {
@@ -129,6 +131,11 @@ const ContentCategory = ({ show, setUrl }) => {
         setUrl(channelList[0].playUrl);
         setLists(channelList);
         SetInitialFocus();
+
+      }else{
+        setUrl("");
+        setLists([]);
+        setShowloader(false);
       }
     });
   };
@@ -188,8 +195,9 @@ const ContentCategory = ({ show, setUrl }) => {
           globals.ACTIVE_COMPONENT,
           globals.COMPONENT_NAME.Content
         );
+        setShowloader(false);
       }
-    }, 50);
+    }, 400);
   }
   useEffect(() => {
     if (show) {
@@ -215,6 +223,10 @@ const ContentCategory = ({ show, setUrl }) => {
   }, [show]);
 
   return (
+    <>
+      <LoaderScreen show={showloader} /> 
+ 
+   
     <VerticalList id="contantData" retainLastFocus={true}>
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
@@ -337,6 +349,7 @@ const ContentCategory = ({ show, setUrl }) => {
         </div>
       </div>
     </VerticalList>
+    </>
   );
 };
 

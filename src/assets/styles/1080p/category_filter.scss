@@ -27,9 +27,9 @@
   #category-filter .item-focus{
     border:2px solid #fff !important;
     background-color: transparent;
-    color: rgba(19, 19, 20, 1) !important;
+    color: rgba(217, 217, 217, 1);
     font-weight: bold;
-    background-color: rgba(230, 230, 230, .38);
+    background-color: transparent;
   }
 #category-filter{
     .active{
@@ -41,7 +41,8 @@
         border:2px solid transparent;
     } 
     .item-focus.active{
-      background-color: rgba(230, 230, 230, .38);
+      color: rgba(217, 217, 217, 1) !important;
+      background-color: transparent;
     }
 }
 
@@ -199,4 +200,6 @@
   width: 83%;
   float: left;
   overflow-y: auto;
+  padding-top: 21px;
+  padding-left: 18px;
 }

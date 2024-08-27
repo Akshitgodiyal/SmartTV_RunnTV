@@ -40,8 +40,8 @@
   }
   
   .animated-circle {
-    width: 400px;
-    height: 400px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background-color: transparent;
     border: 10px solid rgba(255, 255, 255, 0.3);
