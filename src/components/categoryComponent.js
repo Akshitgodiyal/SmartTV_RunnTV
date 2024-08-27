@@ -1,26 +1,20 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import Navigation, {
-  Focusable,
+import  {
   HorizontalList,
   VerticalList,
 } from "../helper/react-navigation";
-import { data } from "../data.js";
 import List from "./listComponent.js";
 import { VideoContext } from "../utility/context.js";
 import ToggleItem from "./ToogleItem.js";
 import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
-import { IconStarFilled } from "@tabler/icons-react";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
-
-import Player from "../components/Player/Player.js";
-import bg from "../assets/images/logo.aaf739805db645e7a37b.png";
 import { img_cloudfront } from "../utility/constant.js";
-import _icon from "../assets/images/Icon.png";
-const ContentCategory = ({ show, setUrl }) => {
+import LoaderScreen from '../pages/loader.js'
+const ContentCategory = ({ show, setUrl,setPoster }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -33,7 +27,7 @@ const ContentCategory = ({ show, setUrl }) => {
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
-
+  const [showloader, setShowloader] = useState(true);
   const handleSetActive = (status, index) => {
     setActive(status);
 
@@ -93,7 +87,7 @@ const ContentCategory = ({ show, setUrl }) => {
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } else if (index == 3) {
+          } else if (index === 3) {
             // Special handling for the last 5 items
             scrollAmount =
               rect.top -
@@ -114,7 +108,9 @@ const ContentCategory = ({ show, setUrl }) => {
   };
 
   const loadCategoryData = (category, index) => {
+    setShowloader(true);
     setUrl("");
+    setPoster("")
     setActiveIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
@@ -127,8 +123,15 @@ const ContentCategory = ({ show, setUrl }) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result);
         setUrl(channelList[0].playUrl);
+        debugger;
+        setPoster(channelList[0].baseSourceLocation + channelList[0].image.poster.tv);
         setLists(channelList);
         SetInitialFocus();
+
+      }else{
+        setUrl("");
+        setLists([]);
+        setShowloader(false);
       }
     });
   };
@@ -141,25 +144,6 @@ const ContentCategory = ({ show, setUrl }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
-  function fetchData() {
-    try {
-      const headers = {
-        PARTNER_CODE: "ALL",
-      };
-      ApiHelper.get(globals.API_URL.GET_CHANNEL_EPG, headers).then((result) => {
-        if (result && result.length > 0) {
-          var channelList = mapChannelEpg(result);
-          setUrl(channelList[0].playUrl);
-          setLists(channelList);
-          SetInitialFocus();
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      //setLoading(false);
-    }
-  }
   function fetchCategory() {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
@@ -188,8 +172,9 @@ const ContentCategory = ({ show, setUrl }) => {
           globals.ACTIVE_COMPONENT,
           globals.COMPONENT_NAME.Content
         );
+        setShowloader(false);
       }
-    }, 50);
+    }, 400);
   }
   useEffect(() => {
     if (show) {
@@ -215,6 +200,8 @@ const ContentCategory = ({ show, setUrl }) => {
   }, [show]);
 
   return (
+    <>
+    <LoaderScreen show={showloader} /> 
     <VerticalList id="contantData" retainLastFocus={true}>
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
@@ -222,7 +209,7 @@ const ContentCategory = ({ show, setUrl }) => {
           position: "absolute",
           top: "0",
           opacity: opacity,
-          zIndex: opacity == 1 ? 1 : -1,
+          zIndex: opacity === 1 ? 1 : -1,
         }}
       >
         <div className="flex flex-col justify-between h-full">
@@ -337,6 +324,7 @@ const ContentCategory = ({ show, setUrl }) => {
         </div>
       </div>
     </VerticalList>
+    </>
   );
 };
 
