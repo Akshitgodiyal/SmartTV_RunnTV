@@ -93,15 +93,20 @@ const ToggleItem = (props) => {
             </div>
             {props.activeListIndex && (
               <div className="program-image flex justify-center mx-1 bg-sky-500 bg-opacity-75  rounded-md">
-                <img className="items-center" src={img_cloudfront + props.assetinfo?.infoImages?.tv} alt="Logo" />
+                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages?.tv} alt="Logo" />
               </div>
             )}
           </div>
         ) : (
-          <div>
-            {props.images ? <img src={active || props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} /> : ""}
+          <div className="flex justify-start items-center categories ">
+            {props.images ?
+          
+            <img  src={active || props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} />
+            
+           : ""}
             {props.children}
-          </div>
+              </div>
+          
         )}
       </div>
     </Focusable>

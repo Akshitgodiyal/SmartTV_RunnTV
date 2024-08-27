@@ -235,9 +235,9 @@ const ContentCategory = ({ show, setUrl }) => {
               <div className="px-2 text-[22px]">Kid content</div>
             </div>
           </div>
-          <div className="w-full margintop">
+          <div className="w-full">
             <div className="flex my-5 w-full justtify-center">
-              <img className="w-15 m-auto" src={upArrow} alt="Logo" />
+              <img className=" w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
             <HorizontalList retainLastFocus={true}>
               <div className="category-filter">

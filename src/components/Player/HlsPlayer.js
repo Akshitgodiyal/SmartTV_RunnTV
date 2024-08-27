@@ -23,6 +23,7 @@ const HlsPlayer = forwardRef(({ url }, ref) => {
       ref.current.playVideo();
     }
   }, [url, ref]);
+console.log("url",url);
 
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
