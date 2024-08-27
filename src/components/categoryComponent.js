@@ -29,7 +29,7 @@ const ContentCategory = ({ show, setUrl }) => {
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
-const [rating, setRating] = useState("");
+  const [rating, setRating] = useState("");
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
@@ -67,8 +67,6 @@ const [rating, setRating] = useState("");
   };
 
   const changeFocusTo = (index) => {
-   
-    
     setActiveListIndex(index);
     setActive(index !== null);
 
@@ -116,6 +114,7 @@ const [rating, setRating] = useState("");
   };
 
   const loadCategoryData = (category, index) => {
+    setUrl("");
     setActiveIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
@@ -127,12 +126,12 @@ const [rating, setRating] = useState("");
     ).then((result) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result);
+        setUrl(channelList[0].playUrl);
         setLists(channelList);
         SetInitialFocus();
       }
     });
   };
-
 
   useEffect(() => {
     setOpacity(isActive ? 1 : 0);
@@ -162,7 +161,7 @@ const [rating, setRating] = useState("");
     }
   }
   function fetchCategory() {
-    try { 
+    try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
         (result) => {
           var _result = result.filter((cate) => cate.active === true);
@@ -194,14 +193,29 @@ const [rating, setRating] = useState("");
   }
   useEffect(() => {
     if (show) {
-      fetchCategory();
-      //fetchData();
+      var getCategory =localStorage.getItem("filterCategory")? JSON.parse(localStorage.getItem("filterCategory")):null;
+      if (getCategory) {
+        var category = mapFilterCategory(getCategory);
+        setHomeCategory && setHomeCategory(category);
+        var getCategoryResult =localStorage.getItem("filterCategoryResult")? JSON.parse(localStorage.getItem("filterCategoryResult")):null;
+        if (getCategoryResult) {
+          var channelList = mapChannelEpg(getCategoryResult);
+          //setUrl(channelList[0].playUrl);
+          setActiveIndex(0);
+          setLists(channelList);
+          SetInitialFocus();
+        }else{
+          loadCategoryData(category[0], 0);
+        }
+      
+      } else {
+        fetchCategory();
+      }
     }
   }, [show]);
 
-  
   return (
-    <VerticalList  id ="contantData" retainLastFocus={true}>
+    <VerticalList id="contantData" retainLastFocus={true}>
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
         style={{
@@ -214,19 +228,12 @@ const [rating, setRating] = useState("");
         <div className="flex flex-col justify-between h-full">
           <div className=" mx-[48px] my-[59px]">
             <img className="w-40" src={logo} alt="Logo" />
-            <div className="text-white text-lg border-l-4 border-red-500  pl-1"> 
-              
+            <div className="text-white text-lg border-l-4 border-red-500  pl-1">
               <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
-
-             Rated {rating}
+                Rated {rating}
               </div>
-              <div className="px-2 text-[22px]">
-
-              Kid content 
-              </div>
-              
-              
-              </div>
+              <div className="px-2 text-[22px]">Kid content</div>
+            </div>
           </div>
           <div className="w-full margintop">
             <div className="flex my-5 w-full justtify-center">
@@ -262,11 +269,7 @@ const [rating, setRating] = useState("");
                   </div>
                 </div>
               </div>
-              <div
-                className="scroll-hidden programs-list"
-              
-                ref={content2}
-              >
+              <div className="scroll-hidden programs-list" ref={content2}>
                 {lists && lists.length > 0 ? (
                   <VerticalList
                     id={globals.COMPONENT_NAME.Content}
@@ -294,10 +297,12 @@ const [rating, setRating] = useState("");
                             } `}
                           >
                             <img
-                            className={
-                              "items-center " + (i === activeListIndex ? "active-img" : "deactive-img")
-                            }
-                            
+                              className={
+                                "items-center " +
+                                (i === activeListIndex
+                                  ? "active-img"
+                                  : "deactive-img")
+                              }
                               src={img_cloudfront + list?.image?.logo?.tv}
                               alt="Logo"
                             />
@@ -315,7 +320,7 @@ const [rating, setRating] = useState("");
                             visible={true}
                             isActive={i === activeListIndex}
                             parentNav="home-div-nav"
-                            isFirstList={i === 0 ? true : false} 
+                            isFirstList={i === 0 ? true : false}
                           />
                         </div>
                       </div>
@@ -323,8 +328,7 @@ const [rating, setRating] = useState("");
                   </VerticalList>
                 ) : (
                   <div>
-                   {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
-
+                    {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
                   </div>
                 )}
               </div>
