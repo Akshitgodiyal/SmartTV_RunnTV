@@ -4,23 +4,25 @@
 }
 #sidebarComponent .item .itemdiv{
     visibility: hidden;
-     border: 2px solid transparent;   
-     padding-bottom: 10.0005px;
-     padding-top: 10.0005px;
-     margin-top: 20.6675px;
-     margin-bottom: 5.6675px;
-     margin-left: 7.6675px;
+    border: 2px solid transparent;
+    padding-bottom: 8.0005px;
+    padding-top: 0.0005px;
+    margin-top: 10.6675px;
+    margin-bottom: 5.6675px;
+    margin-left: 7.6675px;
  }
  #side_bar.focused #sidebarComponent .item .itemdiv{
   visibility: visible;
  }
 #sidebarComponent .item img{
-    border: 2px solid transparent;  
-    border-bottom: 2px solid transparent;  
+    border: 2px solid transparent;
+    border-bottom: 2px solid transparent;
     padding-bottom: 10.0005px;
-    padding-top: 10.0005px;
-    margin-top: 16.6675px;
+    padding-top: 0.0005px;
+    margin-top: 10.6675px;
     margin-bottom: 5.6675px;
+    width: 35px;
+    height: 35px;
 }
 #sidebarComponent .item.active img{
     border-bottom: 2px solid rgba(210, 47, 38, 1);

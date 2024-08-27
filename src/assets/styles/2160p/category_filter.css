@@ -25,7 +25,7 @@
 }
   #category-filter .item-focus{ 
     border:8px solid #fff !important; 
-    background-color: rgba(230, 230, 230, 1);
+    background-color: rgba(230, 230, 230, .38);
     color: rgba(19, 19, 20, 1) !important; 
     font-weight: bold;
 }
@@ -38,4 +38,7 @@
         color: rgba(19, 19, 20, 1) !important; 
         font-weight: bold;
     } 
+    .item-focus.active{
+      background-color: rgba(230, 230, 230, .68);
+    }
 }

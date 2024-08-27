@@ -120,68 +120,7 @@ width: 31.3349px;
   color: black !important;
   background-color: white !important;
 }
-#content {
-  height: 100%;
-  position: relative;
 
-
-.content {
-  white-space: nowrap;
-  font-size: 0;
-  overflow: hidden;
-  margin: -8px;
-  margin-top: -5px;
-}
-
- h1 {
-  font-size: 30px;
-  height: 80px;
-  padding: 0;
-  margin: 0;
-  line-height: 80px;
-}
-
- .item {
-  display: inline-block;
-  /* width: 200px; */
-  /* height: 200px;  */
-  background-color: #666;
-  font-size: 1rem;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-
- .horizontal .item { 
-  width: 203px !important;
-  border: 2px solid transparent;
-  height: 50px;
-  transition: width 0.2s ease-in-out;
-}
-
- .item-focus {
-  transition: width 0.2s ease-in-out, border 0.2s ease-in-out; /* Added transition */
-} 
-
- .vertical .item-focus, 
- .horizontal .item-focus { 
-  border: 2px solid #fff;
-  border-radius: 5px;
-  width: 245px !important;
-}
-
-
- .animate {
-  width: 25%;
-  padding-bottom: 0;
-  transition: padding-bottom 0.3s ease;
-}
-
- .placeholder {
-  width: 25%;
-  padding-bottom: calc(30% + 80px);
-}
-}
 .contentgroup {
   width: 100%;
   z-index: 2;

@@ -29,9 +29,7 @@ const ContentCategory = ({ show, setUrl }) => {
   const [activeListIndex, setActiveListIndex] = useState(null); // Track active list index
   const content1 = useRef(null);
   const content2 = useRef(null);
-
-
-
+  const [rating, setRating] = useState("");
   // eslint-disable-next-line
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
@@ -115,11 +113,24 @@ const ContentCategory = ({ show, setUrl }) => {
     }
   };
 
-  const abc = (av, index) => {
-    console.log("addada");
-
-    setUrl(av);
+  const loadCategoryData = (category, index) => {
+    setUrl("");
     setActiveIndex(index);
+    const headers = {
+      PARTNER_CODE: "ALL",
+      userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+    };
+    ApiHelper.get(
+      globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
+      headers
+    ).then((result) => {
+      if (result && result.length > 0) {
+        var channelList = mapChannelEpg(result);
+        setUrl(channelList[0].playUrl);
+        setLists(channelList);
+        SetInitialFocus();
+      }
+    });
   };
 
   useEffect(() => {
@@ -132,12 +143,16 @@ const ContentCategory = ({ show, setUrl }) => {
   };
   function fetchData() {
     try {
-      const headers = { PARTNER_CODE: "ALL" };
+      const headers = {
+        PARTNER_CODE: "ALL",
+      };
       ApiHelper.get(globals.API_URL.GET_CHANNEL_EPG, headers).then((result) => {
-        var channelList = mapChannelEpg(result);
-        setUrl(channelList[0].playUrl);
-        setLists(channelList);
-        SetInitialFocus();
+        if (result && result.length > 0) {
+          var channelList = mapChannelEpg(result);
+          setUrl(channelList[0].playUrl);
+          setLists(channelList);
+          SetInitialFocus();
+        }
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -148,9 +163,12 @@ const ContentCategory = ({ show, setUrl }) => {
   function fetchCategory() {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
-        (result) => { 
-          var category = mapFilterCategory(result);
+        (result) => {
+          var _result = result.filter((cate) => cate.active === true);
+          var category = mapFilterCategory(_result);
           setHomeCategory && setHomeCategory(category);
+          //====load data from first filter===//
+          loadCategoryData(category[0], 0);
         }
       );
     } catch (error) {
@@ -175,25 +193,49 @@ const ContentCategory = ({ show, setUrl }) => {
   }
   useEffect(() => {
     if (show) {
-      fetchCategory();
-      fetchData();
+      var getCategory =localStorage.getItem("filterCategory")? JSON.parse(localStorage.getItem("filterCategory")):null;
+      if (getCategory) {
+        var category = mapFilterCategory(getCategory);
+        setHomeCategory && setHomeCategory(category);
+        var getCategoryResult =localStorage.getItem("filterCategoryResult")? JSON.parse(localStorage.getItem("filterCategoryResult")):null;
+        if (getCategoryResult) {
+          var channelList = mapChannelEpg(getCategoryResult);
+          //setUrl(channelList[0].playUrl);
+          setActiveIndex(0);
+          setLists(channelList);
+          SetInitialFocus();
+        }else{
+          loadCategoryData(category[0], 0);
+        }
+      
+      } else {
+        fetchCategory();
+      }
     }
   }, [show]);
 
   return (
-    <VerticalList retainLastFocus={true}>
-
-
+    <VerticalList id="contantData" retainLastFocus={true}>
       <div
         className={`mainbox  ${show ? "" : "hidden"}`}
-        style={{ position: "absolute", top: "0", opacity: opacity ,  zIndex:opacity == 1 ? 1 : -1}}
+        style={{
+          position: "absolute",
+          top: "0",
+          opacity: opacity,
+          zIndex: opacity == 1 ? 1 : -1,
+        }}
       >
         <div className="flex flex-col justify-between h-full">
-          <div className="w-100 *:">
+          <div className=" mx-[48px] my-[59px]">
             <img className="w-40" src={logo} alt="Logo" />
-            <div className="text-white text-lg"> Kid content </div>
+            <div className="text-white text-lg border-l-4 border-red-500  pl-1">
+              <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
+                Rated {rating}
+              </div>
+              <div className="px-2 text-[22px]">Kid content</div>
+            </div>
           </div>
-          <div className="w-full margintop" >
+          <div className="w-full margintop">
             <div className="flex my-5 w-full justtify-center">
               <img className="w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
@@ -214,15 +256,10 @@ const ContentCategory = ({ show, setUrl }) => {
                     >
                       {homeCategory.map((category, index) => (
                         <ToggleItem
-                          key={category.name} 
-                          images={category.images} 
+                          key={category.name}
+                          images={category.images}
                           isActiveIndex={activeIndex === index}
-                          onEnter={() =>
-                            abc(
-                              "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-                              index
-                            )
-                          }
+                          onEnter={() => loadCategoryData(category, index)}
                           index={index}
                         >
                           {category.name}
@@ -232,11 +269,7 @@ const ContentCategory = ({ show, setUrl }) => {
                   </div>
                 </div>
               </div>
-              <div
-                className="h-[500px] scroll-hidden"
-                style={{ width: "83%", float: "left", overflowY: "auto" }}
-                ref={content2}
-              >
+              <div className="scroll-hidden programs-list" ref={content2}>
                 {lists && lists.length > 0 ? (
                   <VerticalList
                     id={globals.COMPONENT_NAME.Content}
@@ -256,25 +289,28 @@ const ContentCategory = ({ show, setUrl }) => {
                         }
                         key={i}
                       >
-                        <div className="before-box   flex justify-between  items-center  mr-3 w-[145px] h-[80px] text-center ">
+                        <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
                           <div className=" text-[20px] text-white p-1">101</div>
                           <div
-                            className={`rounded-md flex justify-center items-center  bg-black bg-opacity-75 w-[120px] h-[80px] ${i === activeListIndex ? "" : ""
-                              } `}
+                            className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
+                              i === activeListIndex ? "" : ""
+                            } `}
                           >
                             <img
-                              className={`items-center ${i === activeListIndex
-                                  ? "w-[100px] h-[84px]"
-                                  : "w-[76px] h-[64px]"
-                                } `}
+                              className={
+                                "items-center " +
+                                (i === activeListIndex
+                                  ? "active-img"
+                                  : "deactive-img")
+                              }
                               src={img_cloudfront + list?.image?.logo?.tv}
                               alt="Logo"
                             />
                           </div>
                         </div>
-                        <div
-                          className="filter">
+                        <div className="filter">
                           <List
+                            id={list.id}
                             setUrl={setUrl}
                             title={list.title}
                             layout={list.layout}
@@ -291,7 +327,9 @@ const ContentCategory = ({ show, setUrl }) => {
                     ))}
                   </VerticalList>
                 ) : (
-                  <div></div>
+                  <div>
+                    {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
+                  </div>
                 )}
               </div>
             </HorizontalList>
