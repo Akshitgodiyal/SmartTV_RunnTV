@@ -10,12 +10,16 @@ import OverScreens from "../components/OverScreens/OverScreens.js";
 
 const Home = () => {
   const [url, setUrl] = useState("");
+  const [poster, setPoster] = useState("");
   useEffect(() => {
     var getCategoryResult = localStorage.getItem("filterCategoryResult")
       ? JSON.parse(localStorage.getItem("filterCategoryResult"))
       : null;
     if (getCategoryResult) {
-      setTimeout(setUrl(getCategoryResult[0].playUrl), 1000);
+      setPoster(getCategoryResult[0].baseSourceLocation + getCategoryResult[0].images.poster.tv);
+      setTimeout(function(){ 
+        setUrl(getCategoryResult[0].playUrl);;
+      },1500);
     }
   }, []);
 
@@ -26,8 +30,8 @@ const Home = () => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              <Player url={url} />
-              <OverScreens setUrl={setUrl} />
+              <Player url={url}  poster={poster}/>
+              <OverScreens setUrl={setUrl} setPoster={setPoster} />
             </VerticalList>
           </div>
         </HorizontalList>

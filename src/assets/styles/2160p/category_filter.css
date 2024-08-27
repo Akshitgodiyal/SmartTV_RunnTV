@@ -10,7 +10,7 @@
   border-radius: 18px;
   border: 8px solid transparent;
   padding: 22px 15px 19px 10px;
-  font-size: 47px;
+  font-size: 45px;
   font-family: "Roboto";
   font-weight: 500;
   line-height: 57px;
@@ -25,20 +25,21 @@
 }
   #category-filter .item-focus{ 
     border:8px solid #fff !important; 
-    background-color: rgba(230, 230, 230, .38);
-    color: rgba(19, 19, 20, 1) !important; 
+    background-color: transparent;
+    color: rgba(217, 217, 217, 1);
     font-weight: bold;
 }
 #category-filter{ 
     .active{
-        font-size: 60px; 
+        font-size: 45px; 
         margin: 12px 0px 12px 0px;
-        border:16px solid transparent; 
+        border:8px solid transparent; 
         background-color: rgba(230, 230, 230, 1);
         color: rgba(19, 19, 20, 1) !important; 
         font-weight: bold;
     } 
     .item-focus.active{
-      background-color: rgba(230, 230, 230, .68);
+      color: rgba(217, 217, 217, 1) !important; 
+      background-color: transparent;
     }
 }

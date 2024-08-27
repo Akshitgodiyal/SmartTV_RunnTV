@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Navigation, { Focusable } from "../helper/react-navigation.js";
-import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
+import { Focusable } from "../helper/react-navigation.js";
 import { img_cloudfront, img_cloudfront1 } from "../utility/constant.js";
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
@@ -60,7 +59,7 @@ const ToggleItem = (props) => {
         {props.parentNav === "home-div-nav" ? (
           <div className=" program-list flex justify-between items-center h-full">
             <div className="text-white pl-[14px]  h-full" style={{
-              background: `${props.index == 0 && "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"}`,
+              background: `${props.index === 0 && "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"}`,
             }}>
               <div className="program-name font-medium truncate w-[50%]">
                 {props.assetinfo?.programName}
@@ -99,7 +98,7 @@ const ToggleItem = (props) => {
           </div>
         ) : (
           <div>
-            {props.images ? <img src={active || props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} /> : ""}
+            {props.images ? <img src={active?img_cloudfront1 + props.images.disabledIcon.tv: props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} /> : ""}
             {props.children}
           </div>
         )}
