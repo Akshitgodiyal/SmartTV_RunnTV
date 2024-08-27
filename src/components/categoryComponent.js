@@ -14,7 +14,7 @@ import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from '../pages/loader.js'
-const ContentCategory = ({ show, setUrl }) => {
+const ContentCategory = ({ show, setUrl,setPoster }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -110,6 +110,7 @@ const ContentCategory = ({ show, setUrl }) => {
   const loadCategoryData = (category, index) => {
     setShowloader(true);
     setUrl("");
+    setPoster("")
     setActiveIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
@@ -122,6 +123,8 @@ const ContentCategory = ({ show, setUrl }) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result);
         setUrl(channelList[0].playUrl);
+        debugger;
+        setPoster(channelList[0].baseSourceLocation + channelList[0].image.poster.tv);
         setLists(channelList);
         SetInitialFocus();
 
