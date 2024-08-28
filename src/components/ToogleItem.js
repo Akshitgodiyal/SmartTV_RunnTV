@@ -51,12 +51,13 @@ const ToggleItem = (props) => {
       onClick={onKeyDown}
     // preventDown={props.preventDown}
     >
-      <div
-        id={props.isFirstItem ? "defaultFocused" : ""}
-        className={`item   h-[116px] ${active ? "item-focus" : ""
-          } ${props.isActiveIndex ? "active" : ""}`}
-      >
-        {props.parentNav === "home-div-nav" ? (
+   
+        {props.parentNav == "home-div-nav" ? (
+             <div
+             id={props.isFirstItem ? "defaultFocused" : ""}
+             className={`item program-item  h-[116px] ${active ? "item-focus" : ""
+               } ${props.isActiveIndex ? "active" : ""}`}
+           >
           <div className=" program-list flex justify-between items-center h-full">
             <div className="text-white pl-[14px]  h-full" style={{
               background: `${props.index === 0 && "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"}`,
@@ -96,7 +97,13 @@ const ToggleItem = (props) => {
               </div>
             )}
           </div>
+          </div>
         ) : (
+          <div
+          id={props.isFirstItem ? "defaultFocused" : ""}
+          className={`item categories-item  h-[116px] ${active ? "item-focus" : ""
+            } ${props.isActiveIndex ? "active" : ""}`}
+        >
           <div className="flex justify-start items-center categories ">
             {props.images ?
           
@@ -105,9 +112,9 @@ const ToggleItem = (props) => {
            : ""}
             {props.children}
               </div>
-          
+              </div>
         )}
-      </div>
+    
     </Focusable>
   );
 };

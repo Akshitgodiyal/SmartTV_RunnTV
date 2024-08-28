@@ -32,7 +32,7 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
     setActive(status);
 
     if (status && content1.current) {
-      const items = content1.current.getElementsByClassName("item");
+      const items = content1.current.getElementsByClassName("categories-item");
       const container = content1.current;
 
       if (items[index]) {
@@ -80,21 +80,25 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
           const itemHeight = rect.height;
           const containerHeight = containerRect.height;
 
-          if (index === items.length - 1) {
+          if (index == items.length - 1) {
             // Special handling for the last item in content2
             scrollAmount =
               rect.top -
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } else if (index === 3) {
+          } 
+          
+          else if (index === 3) {
             // Special handling for the last 5 items
             scrollAmount =
               rect.top -
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } else {
+          }
+          
+          else {
             scrollAmount =
               rect.top -
               containerRect.top -
@@ -123,7 +127,7 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result);
         setUrl(channelList[0].playUrl);
-        debugger;
+   
         setPoster(channelList[0].baseSourceLocation + channelList[0].image.poster.tv);
         setLists(channelList);
         SetInitialFocus();
@@ -277,7 +281,7 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
                         key={i}
                       >
                         <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
-                          <div className=" text-[20px] text-white p-1">101</div>
+                          <div className="720p:text-[16px] 1080p:text-[20px] text-white p-1">101</div>
                           <div
                             className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
                               i === activeListIndex ? "" : ""

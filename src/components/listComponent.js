@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem";
 const List = (props = []) => {
-  const contentRef = useRef(null);
+  const contentRef3 = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
 
   const onFocus = (index) => {
@@ -13,11 +13,12 @@ const List = (props = []) => {
     if (props.onFocus) {
       props.onFocus();
     }
+console.log(index);
 
-    if (contentRef.current) {
-      const items = contentRef.current.getElementsByClassName("item");
+    if (contentRef3.current) {
+      const items = contentRef3.current.getElementsByClassName("program-item");
       const item = items[index];
-      const containerRect = contentRef.current.getBoundingClientRect();
+      const containerRect = contentRef3.current.getBoundingClientRect();
       const itemRect = item.getBoundingClientRect();
 
       if (itemRect) {
@@ -47,11 +48,11 @@ const List = (props = []) => {
 
           // Ensure the last element is fully visible
           if (index === items.length - 1) {
-            contentRef.current.scrollTo({
+            contentRef3.current.scrollTo({
               left:
                 itemRect.left -
                 containerRect.left +
-                contentRef.current.scrollLeft,
+                contentRef3.current.scrollLeft,
               behavior: "smooth",
             });
             const lastItem = items[items.length - 1];
@@ -78,7 +79,7 @@ const List = (props = []) => {
         props.visible ? "" : "fading-out"
       } ${props.isActive ? "active-list" : ""}`}
     >
-      <div className="content" ref={contentRef}>
+      <div className="content" ref={contentRef3}>
         <HorizontalList
           className="hz-list"
           style={{ overflow: "", display: "block" }}
