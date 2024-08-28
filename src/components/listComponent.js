@@ -66,10 +66,9 @@ const List = (props = []) => {
     setLastFocus(index);
   };
 
-  const handleItemClick = (url) => {
-    // console.log("ASdasdasdad");
-
-    props.setUrl(url);
+  const handleItemClick = (asset) => {
+    // console.log("ASdasdasdad"); 
+    props.setSelectedAsset(asset);
   };
 
   return (
@@ -95,7 +94,7 @@ const List = (props = []) => {
                 activeListIndex={props.isActive}
                 firstid={props.index == 0}
                 index={i}
-                onEnter={() => handleItemClick(props.playUrl)}
+                onEnter={() => handleItemClick(props.channel)}
                 key={i}
                 assetinfo={asset}
                 parentNav={props.parentNav}

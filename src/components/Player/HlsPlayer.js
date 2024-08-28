@@ -3,8 +3,10 @@ import ReactHlsPlayer from "react-hls-player";
 import { VideoContext } from "../../utility/context";
 import bg from "../../assets/images/tvbg.jpg";
 
-const HlsPlayer = React.forwardRef(({ url,poster }, ref) => {
- const playerRef = useRef(null);
+const HlsPlayer = React.forwardRef(({selectedAsset}, ref) => {
+const [url, setUrl] = useState("");
+const [poster, setPoster] = useState("");
+const playerRef = useRef(null);
   useImperativeHandle(ref, () => ({
     playVideo: () => {
       if (playerRef.current) {
@@ -15,14 +17,19 @@ const HlsPlayer = React.forwardRef(({ url,poster }, ref) => {
     },
   }));
 // console.log(url);
+// useEffect(() => {
+//   if (url && playerRef.current) {
+//     ref.current.playVideo();
+//   }
+// }, [url, ref]); 
 
-
-
-useEffect(() => {
-  if (url && playerRef.current) {
-    ref.current.playVideo();
+useEffect(()=>{
+  if(selectedAsset){
+    debugger;
+    setUrl(selectedAsset.playUrl);
+    setPoster(selectedAsset.baseSourceLocation +   selectedAsset.image.poster.tv );
   }
-}, [url, ref]); 
+},[selectedAsset])
 
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
