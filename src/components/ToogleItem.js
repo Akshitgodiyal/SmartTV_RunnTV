@@ -50,13 +50,13 @@ const ToggleItem = (props) => {
       onClick={onKeyDown}
       // preventDown={props.preventDown}
     >
-      <div
-        id={props.isFirstItem ? "defaultFocused" : ""}
-        className={`item   h-[116px] ${active ? "item-focus" : ""} ${
-          props.isActiveIndex ? "active" : ""
-        }`}
-      >
-        {props.parentNav === "home-div-nav" ? (
+   
+        {props.parentNav == "home-div-nav" ? (
+             <div
+             id={props.isFirstItem ? "defaultFocused" : ""}
+             className={`item program-item  h-[116px] ${active ? "item-focus" : ""
+               } ${props.isActiveIndex ? "active" : ""}`}
+           >
           <div className=" program-list flex justify-between items-center h-full">
             <div
               className="text-white pl-[14px]  h-full"
@@ -98,34 +98,35 @@ const ToggleItem = (props) => {
             </div>
             {props.activeListIndex && (
               <div className="program-image flex justify-center mx-1 bg-sky-500 bg-opacity-75  rounded-md">
-                <img
-                  className="items-center"
-                   src={img_cloudfront + props.assetinfo?.infoImages?.tv}
-                  alt="Logo"
-                />
+                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages?.tv} alt="Logo" />
               </div>
             )}
           </div>
-        ) : (
-          <div>
-            {props.images ? (
-              <img
-                src={
-                  active
-                    ? img_cloudfront1 + props.images.disabledIcon.tv
-                    : props.isActiveIndex
-                    ? img_cloudfront1 + props.images.enabledIcon.tv
-                    : img_cloudfront1 + props.images.disabledIcon.tv
-                }
-                alt={props.children}
-              />
-            ) : (
-              ""
-            )}
-            {props.children}
           </div>
+        ) : (
+          <div
+          id={props.isFirstItem ? "defaultFocused" : ""}
+          className={`item categories-item  h-[116px] ${active ? "item-focus" : ""
+            } ${props.isActiveIndex ? "active" : ""}`}
+        >
+          <div className="flex justify-start items-center categories ">
+            {props.images ?
+          
+            <img   src={
+              active
+                ? img_cloudfront1 + props.images.disabledIcon.tv
+                : props.isActiveIndex
+                ? img_cloudfront1 + props.images.enabledIcon.tv
+                : img_cloudfront1 + props.images.disabledIcon.tv
+            }
+            alt={props.children} />
+            
+           : ""}
+            {props.children}
+              </div>
+              </div>
         )}
-      </div>
+    
     </Focusable>
   );
 };

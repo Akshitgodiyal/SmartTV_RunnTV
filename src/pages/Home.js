@@ -7,6 +7,7 @@ import Navigation, {
 } from "../helper/react-navigation.js";
 import Player from "../components/Player/Player.js";
 import OverScreens from "../components/OverScreens/OverScreens.js";
+import { mapChannel } from "../helper/mapper/mapChannelEpg.js";
 
 const Home = () => { 
   const [selectedAsset, setSelectedAsset] = useState("");
@@ -14,7 +15,7 @@ const Home = () => {
     var getCategoryResult = localStorage.getItem("filterCategoryResult")
       ? JSON.parse(localStorage.getItem("filterCategoryResult"))
       : null;
-    if (getCategoryResult) { 
+    if (getCategoryResult) {  
       setSelectedAsset(getCategoryResult[0]);
     }
   }, []);
@@ -27,7 +28,7 @@ const Home = () => {
             <Sidebar />
             <VerticalList retainLastFocus={true}>
               <Player selectedAsset={selectedAsset} />
-              <OverScreens setSelectedAsset={setSelectedAsset}/>
+              <OverScreens selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}/>
             </VerticalList>
           </div>
         </HorizontalList>
