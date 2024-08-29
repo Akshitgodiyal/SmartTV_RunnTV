@@ -17,9 +17,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
   };
   const onFocus = (index, Control) => {
     handleSetActive(false, index);
-    debugger;
-    console.log(Control);
-    localStorage.setItem(globals.ACTIVE_COMPONENT,  globals.COMPONENT_NAME.Player_Control);
+    localStorage.setItem(globals.ACTIVE_COMPONENT, Control);
   };
   useLayoutEffect(() => {
     if (selectedAsset) {
@@ -46,7 +44,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
     >
       <VerticalList>
         <HorizontalList
-          onFocus={(index) => onFocus(index)}
+          onFocus={(index) => onFocus(index, globals.COMPONENT_NAME.Player_Control)}
           onBlur={(index) => handleSetActive(true, index)}
           className="w-full justify-center gap-3 items-center text-2xl flex"
           retainLastFocus={true}
@@ -55,7 +53,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
           <ToggleItem className="bg-blue-900">Seek Bar </ToggleItem>
         </HorizontalList>
         <HorizontalList
-          onFocus={(index) => onFocus(index)}
+          onFocus={(index) => onFocus(index, globals.COMPONENT_NAME.Player_Control)}
           onBlur={(index) => handleSetActive(true, index)}
           className="w-full justify-center gap-3 items-center text-2xl flex"
           retainLastFocus={true}
