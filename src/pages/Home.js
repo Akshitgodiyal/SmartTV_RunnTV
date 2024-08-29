@@ -11,6 +11,20 @@ import { mapChannel } from "../helper/mapper/mapChannelEpg.js";
 
 const Home = () => { 
   const [selectedAsset, setSelectedAsset] = useState("");
+  const [currentTime, setCurrentTime] = useState(0);
+  const [bufferedEnd, setBufferedEnd] = useState(0);
+  const handleTimeUpdate = (time) => {
+    setCurrentTime(time);
+};
+
+const handleBufferUpdate = (bufferEnd) => {
+    setBufferedEnd(bufferEnd);
+};
+
+const handleSeek = (time) => {
+    const player = document.querySelector('video');
+    player.currentTime = time;
+};
   useEffect(() => {
     var getCategoryResult = localStorage.getItem("filterCategoryResult")
       ? JSON.parse(localStorage.getItem("filterCategoryResult"))
@@ -27,8 +41,13 @@ const Home = () => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              <Player selectedAsset={selectedAsset} />
-              <OverScreens selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}/>
+              <Player selectedAsset={selectedAsset} onTimeUpdate={handleTimeUpdate}
+                onBufferUpdate={handleBufferUpdate} />
+              <OverScreens selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}
+                  bufferedEnd={bufferedEnd}
+                  currentTime={currentTime}
+                  onSeek={handleSeek}
+              />
             </VerticalList>
           </div>
         </HorizontalList>

@@ -108,7 +108,7 @@ const ToggleItem = (props) => {
         ) : (
           <div
           id={props.isFirstItem ? "defaultFocused" : ""}
-          className={`item categories-item  h-[116px] ${active ? "item-focus" : ""
+          className={`item categories-item   ${active ? "item-focus" : ""
             } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
         >
           <div className="flex justify-start items-center categories ">

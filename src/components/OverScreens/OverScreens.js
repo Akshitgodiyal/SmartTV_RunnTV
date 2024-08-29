@@ -6,7 +6,7 @@ import WatchHistory from "../historyScreen";
 import Login from "../login";
 import PlayerControls from "../Player/PlayerControls";
 
-function OverScreens({selectedAsset, setSelectedAsset }) {
+function OverScreens({selectedAsset, setSelectedAsset,bufferedEnd,currentTime,onSeek }) {
   const { sidebarActive } = useContext(VideoContext);
   useEffect(() => {
     if (sidebarActive === "user") {
@@ -24,7 +24,9 @@ function OverScreens({selectedAsset, setSelectedAsset }) {
    
     return( 
     <>
-      <PlayerControls selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} />
+      <PlayerControls selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} bufferedEnd={bufferedEnd}
+                currentTime={currentTime}
+                onSeek={onSeek} />
       <ContentCategory show={sidebarActive === "tv"} setSelectedAsset={setSelectedAsset} />
     </>
   );
