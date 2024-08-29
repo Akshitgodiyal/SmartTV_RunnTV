@@ -13,7 +13,7 @@ const List = (props = []) => {
     if (props.onFocus) {
       props.onFocus();
     }
-console.log(index);
+
 
     if (contentRef3.current) {
       const items = contentRef3.current.getElementsByClassName("program-item");
@@ -68,7 +68,7 @@ console.log(index);
   };
 
   const handleItemClick = (url) => {
-    // console.log("ASdasdasdad");
+  
 
     props.setUrl(url);
   };

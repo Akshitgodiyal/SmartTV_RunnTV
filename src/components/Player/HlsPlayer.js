@@ -1,11 +1,8 @@
-import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect } from "react";
+import React, { useRef, useImperativeHandle, forwardRef, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
-import { VideoContext } from "../../utility/context";
-import bg from "../../assets/images/tvbg.jpg";
 
 const HlsPlayer = forwardRef(({ url, poster }, ref) => {
   const playerRef = useRef(null);
-
   useImperativeHandle(ref, () => ({
     playVideo: () => {
       if (playerRef.current) {
@@ -22,28 +19,49 @@ const HlsPlayer = forwardRef(({ url, poster }, ref) => {
   }));
 
   useEffect(() => {
-    if (url && playerRef.current) {
-      ref.current.playVideo();
-      // Unmute the video after a brief delay
-      setTimeout(() => {
-        playerRef.current.muted = false;
-      }, 500);
+    const player = playerRef.current;
+
+    if (url && player) {
+      const handlePlay = () => {
+        console.log("Video started");
+
+        // Attempt to unmute the video after it starts playing
+        setTimeout(() => {
+          try {
+            player.muted = false;
+            console.log("Video unmuted");
+
+            // Attempt to resume playback after unmuting (this may still fail on some browsers)
+            player.play().catch((error) => {
+              console.error("Playback failed after unmuting:", error);
+            });
+          } catch (error) {
+            console.error("Failed to unmute:", error);
+          }
+        }, 500); // Adjust this delay as needed
+      };
+
+      player.addEventListener("play", handlePlay);
+
+      return () => {
+        player.removeEventListener("play", handlePlay);
+      };
     }
-  }, [url, ref]);
+  }, [url]);
 
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
       <ReactHlsPlayer
         className="video-player"
         id="player"
-        ref={playerRef}
+        playerRef={playerRef}
         src={url}
         width="100%"
         height="auto"
         poster={poster}
-        muted={true} // Mute the video by default for autoplay
+        muted={true} // Start muted to comply with autoplay policies
         playsInline
-        controls={false}
+        controls={true}
         autoPlay={true} // Autoplay the video
       />
     </div>

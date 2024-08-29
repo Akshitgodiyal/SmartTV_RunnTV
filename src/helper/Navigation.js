@@ -122,10 +122,17 @@ class Navigation extends Component {
     const activeComponent =
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
 
-    if (direction === "left") {
+    if (direction == "left") {
+      console.log(activeComponent,current,current.indexInParent );
+      
       switch (activeComponent) {
         case globals.COMPONENT_NAME.Player_Control:
           if (current && current.indexInParent === 0) {
+            prevent = true;
+          }
+          break;
+        case globals.COMPONENT_NAME.Player_Detail:
+          if (current ) {
             prevent = true;
           }
           break;
