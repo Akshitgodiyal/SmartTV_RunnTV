@@ -70,7 +70,7 @@ useEffect(()=>{
         poster={poster}
         muted={true} // Start muted to comply with autoplay policies
         playsInline
-        controls={true}
+        controls={false}
         autoPlay={true} // Autoplay the video
       />
     </div>
