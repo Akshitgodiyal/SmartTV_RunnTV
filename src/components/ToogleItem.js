@@ -42,14 +42,13 @@ const ToggleItem = (props) => {
     </div>
   );
 
-
   return (
     <Focusable
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
-    // preventDown={props.preventDown}
+      // preventDown={props.preventDown}
     >
    
         {props.parentNav == "home-div-nav" ? (
@@ -59,9 +58,15 @@ const ToggleItem = (props) => {
                } ${props.isActiveIndex ? "active" : ""}`}
            >
           <div className=" program-list flex justify-between items-center h-full">
-            <div className="text-white pl-[14px]  h-full" style={{
-              background: `${props.index === 0 && "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"}`,
-            }}>
+            <div
+              className="text-white pl-[14px]  h-full"
+              style={{
+                background: `${
+                  props.index === 0 &&
+                  "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
+                }`,
+              }}
+            >
               <div className="program-name font-medium truncate w-[50%]">
                 {props.assetinfo?.programName}
               </div>
@@ -107,7 +112,14 @@ const ToggleItem = (props) => {
           <div className="flex justify-start items-center categories ">
             {props.images ?
           
-            <img  src={active || props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} />
+            <img   src={
+              active
+                ? img_cloudfront1 + props.images.disabledIcon.tv
+                : props.isActiveIndex
+                ? img_cloudfront1 + props.images.enabledIcon.tv
+                : img_cloudfront1 + props.images.disabledIcon.tv
+            }
+            alt={props.children} />
             
            : ""}
             {props.children}

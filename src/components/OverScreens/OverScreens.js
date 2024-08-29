@@ -6,7 +6,7 @@ import WatchHistory from "../historyScreen";
 import Login from "../login";
 import PlayerControls from "../Player/PlayerControls";
 
-function OverScreens({ setUrl,setPoster }) {
+function OverScreens({selectedAsset, setSelectedAsset }) {
   const { sidebarActive } = useContext(VideoContext);
   useEffect(() => {
     if (sidebarActive === "user") {
@@ -24,15 +24,14 @@ function OverScreens({ setUrl,setPoster }) {
    
     return( 
     <>
-      <PlayerControls />
-    <ContentCategory show={sidebarActive === "tv"} setUrl={setUrl} setPoster={setPoster} />
+      <PlayerControls selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} />
+      <ContentCategory show={sidebarActive === "tv"} setSelectedAsset={setSelectedAsset} />
     </>
   );
   } else if (sidebarActive === "discover") {
     return (
-      <DiscoverScreen show={sidebarActive === "discover"} setUrl={setUrl}  setPoster={setPoster}/>
+      <DiscoverScreen show={sidebarActive === "discover"} setSelectedAsset={setSelectedAsset}/>
     );
   }
 }
-
 export default OverScreens;

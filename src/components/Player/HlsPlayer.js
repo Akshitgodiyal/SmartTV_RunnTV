@@ -1,9 +1,11 @@
-import React, { useRef, useImperativeHandle, forwardRef, useEffect } from "react";
+import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect,useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
 
-const HlsPlayer = forwardRef(({ url, poster }, ref) => {
-  const playerRef = useRef(null);
-  useImperativeHandle(ref, () => ({
+const HlsPlayer = React.forwardRef(({selectedAsset}, ref) => {
+const [url, setUrl] = useState("");
+const [poster, setPoster] = useState("");
+const playerRef = useRef();
+useImperativeHandle(ref, () => ({
     playVideo: () => {
       if (playerRef.current) {
         playerRef.current
@@ -16,7 +18,14 @@ const HlsPlayer = forwardRef(({ url, poster }, ref) => {
           });
       }
     },
-  }));
+  })); 
+
+useEffect(()=>{
+  if(selectedAsset){ 
+    setUrl(selectedAsset.playUrl);
+    setPoster(selectedAsset.baseSourceLocation +   selectedAsset.image.poster.tv );
+  }
+},[selectedAsset])
 
   useEffect(() => {
     const player = playerRef.current;

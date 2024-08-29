@@ -10,11 +10,11 @@ import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
-import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
+import { mapChannelEpg,mapChannel } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from '../pages/loader.js'
-const ContentCategory = ({ show, setUrl,setPoster }) => {
+const ContentCategory = ({ show, setSelectedAsset }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -114,8 +114,7 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
 
   const loadCategoryData = (category, index) => {
     setShowloader(true);
-    setUrl("");
-    setPoster("")
+   // setSelectedAsset(null);
     setActiveIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
@@ -124,17 +123,17 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
     ApiHelper.get(
       globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
       headers
-    ).then((result) => {
+    ).then((result) => { 
       if (result && result.length > 0) {
-        var channelList = mapChannelEpg(result);
-        setUrl(channelList[0].playUrl);
-   
-        setPoster(channelList[0].baseSourceLocation + channelList[0].image.poster.tv);
+        var channelList = mapChannelEpg(result); 
+        localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
+        debugger;
+        setSelectedAsset(channelList[0]);
         setLists(channelList);
-        SetInitialFocus();
-
+        SetInitialFocus(); 
       }else{
-        setUrl("");
+        localStorage.setItem("filterCategoryResult", null);
+        setSelectedAsset(null);
         setLists([]);
         setShowloader(false);
       }
@@ -189,10 +188,10 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
         setHomeCategory && setHomeCategory(category);
         var getCategoryResult =localStorage.getItem("filterCategoryResult")? JSON.parse(localStorage.getItem("filterCategoryResult")):null;
         if (getCategoryResult) {
-          var channelList = mapChannelEpg(getCategoryResult);
+          // var channelList = mapChannelEpg(getCategoryResult);
           //setUrl(channelList[0].playUrl);
           setActiveIndex(0);
-          setLists(channelList);
+          setLists(getCategoryResult);
           SetInitialFocus();
         }else{
           loadCategoryData(category[0], 0);
@@ -303,17 +302,19 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
                         <div className="filter">
                           <List
                             id={list.id}
-                            setUrl={setUrl}
+                          //  setUrl={setUrl}
+                            setSelectedAsset={setSelectedAsset}  
                             title={list.title}
                             layout={list.layout}
                             assets={list.schedules}
                             playUrl={list.playUrl}
+                            channel={list}
                             onFocus={() => changeFocusTo(i)}
                             visible={true}
                             isActive={i === activeListIndex}
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
-                          />
+                           />
                         </div>
                       </div>
                     ))}

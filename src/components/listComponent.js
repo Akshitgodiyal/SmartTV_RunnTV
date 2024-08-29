@@ -14,7 +14,6 @@ const List = (props = []) => {
       props.onFocus();
     }
 
-
     if (contentRef3.current) {
       const items = contentRef3.current.getElementsByClassName("program-item");
       const item = items[index];
@@ -96,13 +95,13 @@ const List = (props = []) => {
                 activeListIndex={props.isActive}
                 firstid={props.index == 0}
                 index={i}
-                onEnter={() => handleItemClick(props.playUrl)}
+                onEnter={() => handleItemClick(props.channel)}
                 key={i}
                 assetinfo={asset}
                 parentNav={props.parentNav}
                 isFirstItem={props.isFirstList && i == 0 ? true : false}
                 // preventDown={props.preventDown}
-                setRating={props.setRating}
+                setRating={props.setRating} 
               />
             ))}
         </HorizontalList>
