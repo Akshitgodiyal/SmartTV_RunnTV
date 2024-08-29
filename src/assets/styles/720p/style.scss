@@ -201,7 +201,16 @@ width: 31.3349px;
   margin-top: 290px;
   position: absolute;
 }
+
+
 .disabled-button{
   display: none;
+}
+.seek-bar{
+  width: 900px;
+}
+#seekbar .item-focus{
+  height: auto;
+    border: none;
 }
 

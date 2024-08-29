@@ -1,7 +1,7 @@
 import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect,useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
 
-const HlsPlayer = React.forwardRef(({selectedAsset}, ref) => {
+const HlsPlayer = React.forwardRef(({selectedAsset, onTimeUpdate, onBufferUpdate }, ref) => {
 const [url, setUrl] = useState("");
 const [poster, setPoster] = useState("");
 const playerRef = useRef();
@@ -28,8 +28,7 @@ useEffect(()=>{
 },[selectedAsset])
 
   useEffect(() => {
-    const player = playerRef.current;
-
+    const player = playerRef.current; 
     if (url && player) {
       const handlePlay = () => {
         console.log("Video started");
@@ -58,6 +57,32 @@ useEffect(()=>{
     }
   }, [url]);
 
+  useEffect(() => {
+    const player = playerRef.current; 
+    const handleTimeUpdate = () => {
+        if (onTimeUpdate) {
+            onTimeUpdate(player.currentTime);
+        }
+    };
+
+    const handleBufferUpdate = () => {
+        if (onBufferUpdate) {
+            const buffer = player.buffered;
+            if (buffer.length > 0) {
+                const bufferedEnd = buffer.end(buffer.length - 1);
+                onBufferUpdate(bufferedEnd);
+            }
+        }
+    };
+    player.addEventListener('timeupdate', handleTimeUpdate);
+    player.addEventListener('progress', handleBufferUpdate);
+
+    return () => {
+        player.removeEventListener('timeupdate', handleTimeUpdate);
+        player.removeEventListener('progress', handleBufferUpdate);
+    };
+  }, [onTimeUpdate, onBufferUpdate]);
+
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
       <ReactHlsPlayer
@@ -72,6 +97,7 @@ useEffect(()=>{
         playsInline
         controls={false}
         autoPlay={true} // Autoplay the video
+        liveSyncPosition={-5} // Live sync to the edge, with a delay of 5 seconds
       />
     </div>
   );
