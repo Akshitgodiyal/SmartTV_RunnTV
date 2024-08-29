@@ -14,7 +14,7 @@ import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from '../pages/loader.js'
-const ContentCategory = ({ show, setUrl,setPoster }) => {
+const ContentCategory = ({ show, setSelectedAsset }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -31,8 +31,9 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
   const handleSetActive = (status, index) => {
     setActive(status);
 
+
     if (status && content1.current) {
-      const items = content1.current.getElementsByClassName("item");
+      const items = content1.current.getElementsByClassName("categories-item");
       const container = content1.current;
 
       if (items[index]) {
@@ -80,21 +81,25 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
           const itemHeight = rect.height;
           const containerHeight = containerRect.height;
 
-          if (index === items.length - 1) {
+          if (index == items.length - 1) {
             // Special handling for the last item in content2
             scrollAmount =
               rect.top -
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } else if (index === 3) {
+          } 
+          
+          else if (index === 3) {
             // Special handling for the last 5 items
             scrollAmount =
               rect.top -
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } else {
+          }
+          
+          else {
             scrollAmount =
               rect.top -
               containerRect.top -
@@ -109,8 +114,7 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
 
   const loadCategoryData = (category, index) => {
     setShowloader(true);
-    setUrl("");
-    setPoster("")
+   // setSelectedAsset(null);
     setActiveIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
@@ -119,17 +123,16 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
     ApiHelper.get(
       globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
       headers
-    ).then((result) => {
+    ).then((result) => { 
       if (result && result.length > 0) {
-        var channelList = mapChannelEpg(result);
-        setUrl(channelList[0].playUrl);
-        debugger;
-        setPoster(channelList[0].baseSourceLocation + channelList[0].image.poster.tv);
+        var channelList = mapChannelEpg(result); 
+        localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
+        setSelectedAsset(channelList[0]);
         setLists(channelList);
-        SetInitialFocus();
-
+        SetInitialFocus(); 
       }else{
-        setUrl("");
+        localStorage.setItem("filterCategoryResult", null);
+        setSelectedAsset(null);
         setLists([]);
         setShowloader(false);
       }
@@ -184,10 +187,8 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
         setHomeCategory && setHomeCategory(category);
         var getCategoryResult =localStorage.getItem("filterCategoryResult")? JSON.parse(localStorage.getItem("filterCategoryResult")):null;
         if (getCategoryResult) {
-          var channelList = mapChannelEpg(getCategoryResult);
-          //setUrl(channelList[0].playUrl);
           setActiveIndex(0);
-          setLists(channelList);
+          setLists(getCategoryResult);
           SetInitialFocus();
         }else{
           loadCategoryData(category[0], 0);
@@ -222,9 +223,9 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
               <div className="px-2 text-[22px]">Kid content</div>
             </div>
           </div>
-          <div className="w-full margintop">
+          <div className="w-full">
             <div className="flex my-5 w-full justtify-center">
-              <img className="w-15 m-auto" src={upArrow} alt="Logo" />
+              <img className=" w-15 m-auto" src={upArrow} alt="Logo" />
             </div>
             <HorizontalList retainLastFocus={true}>
               <div className="category-filter">
@@ -263,9 +264,9 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
                     retainLastFocus={true}
                     navDefault={show}
                     onFocus={(index) =>
-                      onFocus(index, globals.COMPONENT_NAME.Content)
+                      localStorage.setItem(globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content)
                     }
-                    onBlur={(index) => handleSetActive(false, index)}
+                    // onBlur={(index) => handleSetActive(false, index)}
                   >
                     {lists?.map((list, i) => (
                       <div
@@ -277,7 +278,7 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
                         key={i}
                       >
                         <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
-                          <div className=" text-[20px] text-white p-1">101</div>
+                          <div className="720p:text-[16px] 1080p:text-[20px] text-white p-1">101</div>
                           <div
                             className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
                               i === activeListIndex ? "" : ""
@@ -298,17 +299,19 @@ const ContentCategory = ({ show, setUrl,setPoster }) => {
                         <div className="filter">
                           <List
                             id={list.id}
-                            setUrl={setUrl}
+                          //  setUrl={setUrl}
+                            setSelectedAsset={setSelectedAsset}  
                             title={list.title}
                             layout={list.layout}
                             assets={list.schedules}
                             playUrl={list.playUrl}
+                            channel={list}
                             onFocus={() => changeFocusTo(i)}
                             visible={true}
                             isActive={i === activeListIndex}
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
-                          />
+                           />
                         </div>
                       </div>
                     ))}

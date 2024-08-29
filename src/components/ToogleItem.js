@@ -19,7 +19,7 @@ const ToggleItem = (props) => {
     assetClick();
     if (props.onEnter) {
       props.onEnter(); // Call the passed callback function
-    }
+    } 
   };
 
   const AgeRatingComponent = ({ ageRating }) => (
@@ -42,25 +42,33 @@ const ToggleItem = (props) => {
     </div>
   );
 
-
   return (
     <Focusable
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
-    // preventDown={props.preventDown}
+      disabled={props.disabled}
+      parentId={props.parentId}
+      allowedDirection={props.allowedDirection}
     >
-      <div
-        id={props.isFirstItem ? "defaultFocused" : ""}
-        className={`item   h-[116px] ${active ? "item-focus" : ""
-          } ${props.isActiveIndex ? "active" : ""}`}
-      >
-        {props.parentNav === "home-div-nav" ? (
+   
+        {props.parentNav == "home-div-nav" ? (
+             <div
+             id={props.isFirstItem ? "defaultFocused" : ""}
+             className={`item program-item  h-[116px] ${active ? "item-focus" : ""
+               } ${props.isActiveIndex ? "active" : ""}`}
+           >
           <div className=" program-list flex justify-between items-center h-full">
-            <div className="text-white pl-[14px]  h-full" style={{
-              background: `${props.index === 0 && "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"}`,
-            }}>
+            <div
+              className="text-white pl-[14px]  h-full"
+              style={{
+                background: `${
+                  props.index === 0 &&
+                  "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
+                }`,
+              }}
+            >
               <div className="program-name font-medium truncate w-[50%]">
                 {props.assetinfo?.programName}
               </div>
@@ -92,17 +100,35 @@ const ToggleItem = (props) => {
             </div>
             {props.activeListIndex && (
               <div className="program-image flex justify-center mx-1 bg-sky-500 bg-opacity-75  rounded-md">
-                <img className="items-center" src={img_cloudfront + props.assetinfo?.infoImages?.tv} alt="Logo" />
+                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages?.tv} alt="Logo" />
               </div>
             )}
           </div>
-        ) : (
-          <div>
-            {props.images ? <img src={active?img_cloudfront1 + props.images.disabledIcon.tv: props.isActiveIndex ? img_cloudfront1 + props.images.enabledIcon.tv : img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} /> : ""}
-            {props.children}
           </div>
+        ) : (
+          <div
+          id={props.isFirstItem ? "defaultFocused" : ""}
+          className={`item categories-item  h-[116px] ${active ? "item-focus" : ""
+            } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
+        >
+          <div className="flex justify-start items-center categories ">
+            {props.images ?
+          
+            <img   src={
+              active
+                ? img_cloudfront1 + props.images.disabledIcon.tv
+                : props.isActiveIndex
+                ? img_cloudfront1 + props.images.enabledIcon.tv
+                : img_cloudfront1 + props.images.disabledIcon.tv
+            }
+            alt={props.children} />
+            
+           : ""}
+            {props.children}
+              </div>
+              </div>
         )}
-      </div>
+    
     </Focusable>
   );
 };

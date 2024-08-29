@@ -5,9 +5,9 @@ import Home from "./pages/Home.js";
 import "./applicationsdk.js";
 import { globals } from "./global.js";
 import ApiHelper from "./helper/ApiHelper.js";
+import { mapChannelEpg } from "./helper/mapper/mapChannelEpg.js";
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
-
   function fetchCategory() {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
@@ -32,7 +32,8 @@ const App = () => {
         headers
       ).then((result) => {
         if (result && result.length > 0) {
-          localStorage.setItem("filterCategoryResult", JSON.stringify(result));
+          var channelList = mapChannelEpg(result);
+          localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
         }else{
           localStorage.setItem("filterCategoryResult", null);
         }

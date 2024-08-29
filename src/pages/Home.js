@@ -7,19 +7,16 @@ import Navigation, {
 } from "../helper/react-navigation.js";
 import Player from "../components/Player/Player.js";
 import OverScreens from "../components/OverScreens/OverScreens.js";
+import { mapChannel } from "../helper/mapper/mapChannelEpg.js";
 
-const Home = () => {
-  const [url, setUrl] = useState("");
-  const [poster, setPoster] = useState("");
+const Home = () => { 
+  const [selectedAsset, setSelectedAsset] = useState("");
   useEffect(() => {
     var getCategoryResult = localStorage.getItem("filterCategoryResult")
       ? JSON.parse(localStorage.getItem("filterCategoryResult"))
       : null;
-    if (getCategoryResult) {
-      setPoster(getCategoryResult[0].baseSourceLocation + getCategoryResult[0].images.poster.tv);
-      setTimeout(function(){ 
-        setUrl(getCategoryResult[0].playUrl);;
-      },1500);
+    if (getCategoryResult) {  
+      setSelectedAsset(getCategoryResult[0]);
     }
   }, []);
 
@@ -30,8 +27,8 @@ const Home = () => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              <Player url={url}  poster={poster}/>
-              <OverScreens setUrl={setUrl} setPoster={setPoster} />
+              <Player selectedAsset={selectedAsset} />
+              <OverScreens selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}/>
             </VerticalList>
           </div>
         </HorizontalList>
