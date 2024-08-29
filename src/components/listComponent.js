@@ -66,8 +66,10 @@ const List = (props = []) => {
     setLastFocus(index);
   };
 
-  const handleItemClick = (asset) => {
-    props.setSelectedAsset(asset);
+  const handleItemClick = (url) => {
+  
+
+    props.setUrl(url);
   };
 
   return (

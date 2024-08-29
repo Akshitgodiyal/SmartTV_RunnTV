@@ -4,6 +4,8 @@ import HorizontalList from "../../helper/HorizontalList";
 import { VideoContext } from "../../utility/context";
 import { globals } from "../../global";
 import ToggleItem from "../ToogleItem";
+import discover from "../../assets/images/discover.png";
+import ControlToggle from "./ControlToggle";
 import VerticalList from "../../helper/VerticalList";
 import { mapChannel } from "../../helper/mapper/mapChannelEpg";
 const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
@@ -13,11 +15,12 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
   const handleSetActive = (status, index) => {
     setIsActive(status);
   };
-  const onFocus = (index) => {
+  const onFocus = (index,Control) => {
     handleSetActive(false, index);
+    console.log(Control);
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
-      globals.COMPONENT_NAME.Player_Control
+      Control
     );
   };
   useLayoutEffect (() => {
@@ -35,17 +38,15 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
   }, [selectedAsset]);
 
   return (
-    <div
-      style={{ opacity: isActive ? 0 : 1, zIndex: isActive ? -1 : 1 }}
-      className="flex justify-center absolute bottom-0 right-40 bg-sky-500 bg-opacity-50 w-[80%] h-[20%] m-auto z-80"
-    >
-      <VerticalList>
-        <HorizontalList
-          onFocus={(index) => onFocus(index)}
-          onBlur={(index) => handleSetActive(true, index)}
-          className="w-full justify-center gap-3 items-center text-2xl flex"
-          retainLastFocus={true}
-          id={globals.COMPONENT_NAME.Player_Control}
+    <div style={{ opacity: isActive ? 0 : 1,  zIndex: isActive  ? -1 : 1, }} className="flex justify-center absolute bottom-0 right-40 bg-sky-500 bg-opacity-50 w-[80%] h-[20%] m-auto z-80">
+     
+     <VerticalList>
+        <HorizontalList 
+        onFocus={(index) => onFocus(index)}
+        onBlur={(index) => handleSetActive(true, index)}
+        className="w-full justify-center gap-3 items-center text-2xl flex"
+        retainLastFocus={true}
+        id={globals.COMPONENT_NAME.Player_Control}
         >
           <ToggleItem className="bg-blue-900">Seek Bar </ToggleItem>
         </HorizontalList>
@@ -63,6 +64,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
         </HorizontalList>
       </VerticalList>
     </div>
+   
   );
 };
 

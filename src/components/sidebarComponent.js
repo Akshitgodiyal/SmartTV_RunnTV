@@ -43,6 +43,7 @@ const Sidebar = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const [activeItemName, setActiveItemName] = useState("tv");
   const { setsidebarActive } = useContext(VideoContext);
+  const { isActive, setIsActive } = useContext(VideoContext);
   const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
@@ -114,7 +115,15 @@ const Sidebar = () => {
   };
 
   return (
-    <div id="side_bar" className={active ? "focused" : ""}>
+    <div id="side_bar" className={active ? "focused" : ""}
+    style={{
+      opacity: isActive ? 1 : 0,
+      zIndex: isActive ? 2 : -1,
+    }}
+    
+    
+    
+    >
       <div ref={content1}>
         <VerticalList
           onFocus={(index) => onFocus(index)}

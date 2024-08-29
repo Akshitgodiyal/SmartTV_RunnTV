@@ -31,6 +31,7 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
   const handleSetActive = (status, index) => {
     setActive(status);
 
+
     if (status && content1.current) {
       const items = content1.current.getElementsByClassName("categories-item");
       const container = content1.current;
@@ -263,9 +264,9 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
                     retainLastFocus={true}
                     navDefault={show}
                     onFocus={(index) =>
-                      onFocus(index, globals.COMPONENT_NAME.Content)
+                      localStorage.setItem(globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content)
                     }
-                    onBlur={(index) => handleSetActive(false, index)}
+                    // onBlur={(index) => handleSetActive(false, index)}
                   >
                     {lists?.map((list, i) => (
                       <div
