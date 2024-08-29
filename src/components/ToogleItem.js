@@ -19,7 +19,7 @@ const ToggleItem = (props) => {
     assetClick();
     if (props.onEnter) {
       props.onEnter(); // Call the passed callback function
-    }
+    } 
   };
 
   const AgeRatingComponent = ({ ageRating }) => (
@@ -48,7 +48,9 @@ const ToggleItem = (props) => {
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
-      // preventDown={props.preventDown}
+      disabled={props.disabled}
+      parentId={props.parentId}
+      allowedDirection={props.allowedDirection}
     >
    
         {props.parentNav == "home-div-nav" ? (
@@ -107,7 +109,7 @@ const ToggleItem = (props) => {
           <div
           id={props.isFirstItem ? "defaultFocused" : ""}
           className={`item categories-item  h-[116px] ${active ? "item-focus" : ""
-            } ${props.isActiveIndex ? "active" : ""}`}
+            } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
         >
           <div className="flex justify-start items-center categories ">
             {props.images ?

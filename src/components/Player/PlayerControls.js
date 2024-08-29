@@ -1,12 +1,15 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect,useLayoutEffect  } from "react";
 import HorizontalList from "../../helper/HorizontalList";
 
 import { VideoContext } from "../../utility/context";
 import { globals } from "../../global";
 import ToggleItem from "../ToogleItem";
 import VerticalList from "../../helper/VerticalList";
-const PlayerControls = ({selectedAsset,setSelectedAsset}) => { 
-  const { isActive, setIsActive } = useContext(VideoContext); 
+import { mapChannel } from "../../helper/mapper/mapChannelEpg";
+const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
+  const { isActive, setIsActive } = useContext(VideoContext);
+  const [previousChannel, setPreviousChannel] = useState(null);
+  const [nextChannel, setNextChannel] = useState(null);
   const handleSetActive = (status, index) => {
     setIsActive(status);
   };
@@ -17,53 +20,48 @@ const PlayerControls = ({selectedAsset,setSelectedAsset}) => {
       globals.COMPONENT_NAME.Player_Control
     );
   };
-  useEffect(()=>{
-    console.log(selectedAsset)
-   debugger;
-  },[selectedAsset])
+  useLayoutEffect (() => {
+    if (selectedAsset) {
+      var getCategoryResult = localStorage.getItem("filterCategoryResult")
+        ? JSON.parse(localStorage.getItem("filterCategoryResult"))
+        : null;
+      if (getCategoryResult) {
+        getCategoryResult[selectedAsset.previousChannelIndex] ?
+        setPreviousChannel(getCategoryResult[selectedAsset.previousChannelIndex]):setPreviousChannel();
+        getCategoryResult[selectedAsset.nextChannelIndex] ?
+        setNextChannel(getCategoryResult[selectedAsset.nextChannelIndex]):setNextChannel();
+      }
+    }
+  }, [selectedAsset]);
 
   return (
-    <div style={{ opacity: isActive ? 0 : 1,  zIndex: isActive  ? -1 : 1, }} className="flex justify-center absolute bottom-0 right-40 bg-sky-500 bg-opacity-50 w-[80%] h-[20%] m-auto z-80">
-     
-     <VerticalList>
-        <HorizontalList 
-        onFocus={(index) => onFocus(index)}
-        onBlur={(index) => handleSetActive(true, index)}
-        className="w-full justify-center gap-3 items-center text-2xl flex"
-        retainLastFocus={true}
-        id={globals.COMPONENT_NAME.Player_Control}
+    <div
+      style={{ opacity: isActive ? 0 : 1, zIndex: isActive ? -1 : 1 }}
+      className="flex justify-center absolute bottom-0 right-40 bg-sky-500 bg-opacity-50 w-[80%] h-[20%] m-auto z-80"
+    >
+      <VerticalList>
+        <HorizontalList
+          onFocus={(index) => onFocus(index)}
+          onBlur={(index) => handleSetActive(true, index)}
+          className="w-full justify-center gap-3 items-center text-2xl flex"
+          retainLastFocus={true}
+          id={globals.COMPONENT_NAME.Player_Control}
         >
-        <ToggleItem className="bg-blue-900">Seek Bar </ToggleItem>
+          <ToggleItem className="bg-blue-900">Seek Bar </ToggleItem>
         </HorizontalList>
-        <HorizontalList 
-        onFocus={(index) => onFocus(index)}
-        onBlur={(index) => handleSetActive(true, index)}
-        className="w-full justify-center gap-3 items-center text-2xl flex"
-        retainLastFocus={true}
-        id={globals.COMPONENT_NAME.Player_Control}
+        <HorizontalList
+          onFocus={(index) => onFocus(index)}
+          onBlur={(index) => handleSetActive(true, index)}
+          className="w-full justify-center gap-3 items-center text-2xl flex"
+          retainLastFocus={true}
+          id={globals.COMPONENT_NAME.Player_Control}
         >
-<>
-    {/* {selectedAsset.previousChannel && (
-        <ToggleItem
-            className="bg-blue-900"
-            onEnter={() => setSelectedAsset(selectedAsset.previousChannel)}
-        >
-            Prev
-        </ToggleItem>
-    )}
-
-    {selectedAsset.nextChannel && (
-        <ToggleItem
-            className="bg-blue-900"
-            onEnter={() => setSelectedAsset(selectedAsset.nextChannel)}
-        >
-            Next
-        </ToggleItem>
-    )} */}
-</>
+          <> 
+          <ToggleItem allowedDirection={"right"} parentId={globals.COMPONENT_NAME.Player_Control} disabled={previousChannel?false:true} className={previousChannel?"":"disabled-button"}  onEnter={() => setSelectedAsset(previousChannel)} >Prev</ToggleItem> 
+          <ToggleItem allowedDirection={"left"} parentId={globals.COMPONENT_NAME.Player_Control} disabled={nextChannel?false:true} className={nextChannel?"":"disabled-button"}  onEnter={() => setSelectedAsset(nextChannel)}>Next </ToggleItem> 
+          </>
         </HorizontalList>
-     </VerticalList>
-      
+      </VerticalList>
     </div>
   );
 };
