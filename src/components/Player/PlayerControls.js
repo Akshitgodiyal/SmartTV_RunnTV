@@ -20,10 +20,10 @@ const PlayerControls = () => {
       Control
     );
   };
-  useEffect(()=>{
-    console.log(selectedAsset)
-   debugger;
-  },[selectedAsset])
+  // useEffect(()=>{
+  //   console.log(selectedAsset)
+  //  debugger;
+  // },[selectedAsset])
 
   return (
 <div
@@ -43,14 +43,7 @@ const PlayerControls = () => {
           id={globals.COMPONENT_NAME.Player_Control}
         >
         <ToggleItem className="bg-blue-900">Seek Bar </ToggleItem>
-        </HorizontalList>
-        <HorizontalList
-       onFocus={(index) => onFocus(index,globals.COMPONENT_NAME.Player_Control)}
-          onBlur={(index) => handleSetActive(true, index)}
-          retainLastFocus={true}
-          className="w-full justify-center gap-3 items-center text-2xl flex"
-          id={globals.COMPONENT_NAME.Player_Control}
-        >
+      
 <>
     {/* {selectedAsset.previousChannel && (
         <ToggleItem
