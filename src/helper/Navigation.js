@@ -37,7 +37,7 @@ class Navigation extends Component {
     };
 
     const direction = this.props.keyMapping[evt.keyCode];
-
+    let currentFocusedPath = this.currentFocusedPath;
     if (!direction) {
       if (evt.keyCode === this.props.keyMapping["enter"]) {
         if (this.currentFocusedPath) {
@@ -51,10 +51,13 @@ class Navigation extends Component {
           }
         }
       }
+      if(this.getLastFromPath(this.currentFocusedPath).props.disabled){ 
+        this.focusNext(this.getLastFromPath(this.currentFocusedPath).props.allowedDirection, currentFocusedPath);
+      }
       return;
     }
 
-    let currentFocusedPath = this.currentFocusedPath;
+    
 
     if (!currentFocusedPath || currentFocusedPath.length === 0) {
       currentFocusedPath = this.lastFocusedPath;
@@ -82,6 +85,7 @@ class Navigation extends Component {
       case "enter-down":
         if (element.props.onEnterDown)
           element.props.onEnterDown(evtProps, this);
+        
         break;
       default:
         return false;
@@ -97,23 +101,20 @@ class Navigation extends Component {
     }
     if (this.preventTop(direction, current)) {
     }
-    // if (
-    //   direction === "down" &&
-    //   current &&
-    //   current.context &&
-    //   current.context.parentFocusable &&
-    //   current.context.parentFocusable.props &&
-    //   current.context.parentFocusable.props.id
-    // ) {
-    //   if(localStorage.getItem("preventHorizontalId") && localStorage.getItem("preventHorizontalId") == current.context.parentFocusable.props.id){
-    //     return;
-    //   } 
-    // }
-
     const next = current.getNextFocusFrom(direction);
     if (next) {
       this.lastDirection = direction;
       this.focus(next);
+      if (next.props.disabled) {
+        const nextRight = next.getNextFocusFrom("right");
+        if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+          this.focus(nextRight);
+        }
+        const nextLeft = next.getNextFocusFrom("left");
+        if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+          this.focus(nextLeft);
+        } 
+      }
     }
   }
 

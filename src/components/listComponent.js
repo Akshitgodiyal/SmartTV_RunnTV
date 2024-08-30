@@ -67,9 +67,7 @@ const List = (props = []) => {
   };
 
   const handleItemClick = (url) => {
-  
-
-    props.setUrl(url);
+    props.setSelectedAsset(url);
   };
 
   return (
@@ -100,7 +98,7 @@ const List = (props = []) => {
                 assetinfo={asset}
                 parentNav={props.parentNav}
                 isFirstItem={props.isFirstList && i == 0 ? true : false}
-                // preventDown={props.preventDown}
+                //preventDown={props.preventDown}
                 setRating={props.setRating} 
               />
             ))}

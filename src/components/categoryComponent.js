@@ -10,7 +10,7 @@ import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
-import { mapChannelEpg,mapChannel } from "../helper/mapper/mapChannelEpg.js";
+import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from '../pages/loader.js'
@@ -127,7 +127,6 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
       if (result && result.length > 0) {
         var channelList = mapChannelEpg(result); 
         localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
-        debugger;
         setSelectedAsset(channelList[0]);
         setLists(channelList);
         SetInitialFocus(); 
@@ -188,8 +187,6 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
         setHomeCategory && setHomeCategory(category);
         var getCategoryResult =localStorage.getItem("filterCategoryResult")? JSON.parse(localStorage.getItem("filterCategoryResult")):null;
         if (getCategoryResult) {
-          // var channelList = mapChannelEpg(getCategoryResult);
-          //setUrl(channelList[0].playUrl);
           setActiveIndex(0);
           setLists(getCategoryResult);
           SetInitialFocus();

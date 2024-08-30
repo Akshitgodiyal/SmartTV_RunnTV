@@ -302,3 +302,15 @@ body {
   background-color: white;
   color: red !important;
 }
+
+
+.disabled-button{
+  display: none;
+}
+.seek-bar{
+  width: 2800px;
+}
+#seekbar .item-focus{
+  height: auto;
+    border: none;
+}
