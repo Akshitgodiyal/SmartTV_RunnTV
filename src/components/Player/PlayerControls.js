@@ -35,6 +35,9 @@ const PlayerControls = () => {
       >
      
      <VerticalList>
+
+
+      
      <HorizontalList
        onFocus={(index) => onFocus(index,globals.COMPONENT_NAME.Player_Control)}
           onBlur={(index) => handleSetActive(true, index)}

@@ -75,7 +75,7 @@ const Carousel = forwardRef((props) => {
           onBlur={() => setLastFocus(null)}
           retainLastFocus={true}
         >
-          {props.assets.map((asset, index) => (
+          {props.assets?.map((asset, index) => (
             <ToggleItem
               onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
         

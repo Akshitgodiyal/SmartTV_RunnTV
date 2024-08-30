@@ -123,7 +123,7 @@ class Navigation extends Component {
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
 
     if (direction == "left") {
-      console.log(activeComponent,current,current.indexInParent );
+
       
       switch (activeComponent) {
         case globals.COMPONENT_NAME.Player_Control:
@@ -297,6 +297,7 @@ Navigation.defaultProps = {
     39: "right",
     40: "down",
     enter: 13,
+    back: 27,
   },
 };
 

@@ -14,6 +14,54 @@ import { globals } from "../../global.js";
 const DiscoverScreen = ({ setUrl, show }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
 
+  const [themes, setThemes] = useState([]);
+  const [language, setlanguage] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [genre, setGenre] = useState([]);
+  const [streamingNow, setStreamingNow] = useState([]);
+
+  useEffect(() => {
+    if (show) {
+      var themeList = localStorage.getItem("themeList")
+        ? JSON.parse(localStorage.getItem("themeList"))
+        : null;
+
+      var languageList = localStorage.getItem("languageList")
+        ? JSON.parse(localStorage.getItem("languageList"))
+        : null;
+
+      var category = localStorage.getItem("category")
+        ? JSON.parse(localStorage.getItem("category"))
+        : null;
+
+      var genreList = localStorage.getItem("genreList")
+        ? JSON.parse(localStorage.getItem("genreList"))
+        : null;
+
+      var streamingNow = localStorage.getItem("streamingNow")
+        ? JSON.parse(localStorage.getItem("streamingNow"))
+        : null;
+
+      if (themeList) {
+        setThemes(themeList);
+      }
+      if (languageList) {
+        setlanguage(languageList);
+      }
+      if (category) {
+        setCategory(category);
+      }
+      if (genreList) {
+        setGenre(genreList);
+      }
+      if (streamingNow) {
+        setStreamingNow(streamingNow);
+      }
+    }
+  }, [show]);
+
+  
+
   const containerRef = useRef(null);
 
   const sectionRefs = {
@@ -29,9 +77,6 @@ const DiscoverScreen = ({ setUrl, show }) => {
     if (containerRef.current && ref.current) {
       const containerTop = containerRef.current.getBoundingClientRect().top;
       const sectionTop = ref.current.getBoundingClientRect().top;
-
-
-
 
       if (isFirst) {
         containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
@@ -54,21 +99,29 @@ const DiscoverScreen = ({ setUrl, show }) => {
     }
   };
 
-  let firstSectionRef = document.getElementById("firstSectionRef");
+ 
 
+  const firstSection = document.getElementById("firstSection");
+
+  
   useEffect(() => {
-    if (show) {
-      handleFocus("slider"); // Focus the section and ensure the Carousel is
-      // properly focused
+
+    if (show ) {
+      
+      handleFocus("slider"); // Focus the section and ensure the 
+  
       setTimeout(() => {
-        if (firstSectionRef) {
+        let firstSection = document.getElementById("firstSection");
+        
+
+        if (firstSection) {
           localStorage.setItem("screenLoaded", true);
-          firstSectionRef.click();
+          firstSection.click();
           localStorage.setItem("screenLoaded", false);
         }
-      }, 200);
+      }, 300);
     }
-  }, [show, firstSectionRef]);
+  }, [show, firstSection != null]);
 
   return (
     <div
@@ -77,14 +130,14 @@ const DiscoverScreen = ({ setUrl, show }) => {
       ref={containerRef}
     >
       <div className="flex flex-col h-full">
-        <div
+        {/* <div
           className="w-100 absolute top-10
          p-4 z-10"
         >
           <img className="w-40" src={logo} alt="Logo" />
           <div className="text-white text-lg"> Welcome </div>
-        </div>
-        <div className="w-full">
+        </div> */}
+        <div className="w-full  pl-[24px] 1080p:pl-[24px]">
           <HorizontalList id="discoverelement" retainLastFocus={true}>
             <div style={{ width: "100%", float: "left", overflowY: "auto" }}>
               <VerticalList
@@ -95,17 +148,14 @@ const DiscoverScreen = ({ setUrl, show }) => {
                 <div
                   ref={sectionRefs.slider}
                   id="discover"
-                  className="mb-[50px]"
+                  className="mb-[50px]  pr-[24px] 1080p:pr-[24px]"
                   tabIndex={-1} // Make it focusable
                 >
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
                   <Carousel
-
-
                     setUrl={setUrl}
-                    title={categories.title}
-                    layout={categories.layout}
-                    assets={categories.assets}
+              
+                    assets={themes}
                     visible={true}
                     parentNav="home-div-nav"
                     type="slider"
@@ -116,9 +166,8 @@ const DiscoverScreen = ({ setUrl, show }) => {
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
-                    title={categories.title}
-                    layout={categories.layout}
-                    assets={categories.assets}
+                   
+                    assets={streamingNow}
                     visible={true}
                     parentNav="home-div-nav"
                     type="Streaming"
@@ -127,33 +176,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                 </div>
                 <div ref={sectionRefs.categories} className="mb-[50px] w-full">
                   <div className="text-white text-[32px]">Categories</div>
-                  {/* <VerticalList
-                    retainLastFocus={true}
-                    onFocus={() => handleFocus("categories")}
-                  >
-                    <HorizontalList>
-                      {categories.assets.slice(0, 7).map((asset, i) => (
-                        <ToggleItem
-                          type="Categories"
-                          key={i}
-                          assetinfo={i}
-                          parentNav={"first-row"}
-                          className="bg-blue-900"
-                        />
-                      ))}
-                    </HorizontalList>
-                    <HorizontalList>
-                      {categories.assets.slice(7).map((asset, i) => (
-                        <ToggleItem
-                          type="Categories"
-                          key={i}
-                          assetinfo={asset}
-                          parentNav={"second-row"}
-                          className="bg-blue-900"
-                        />
-                      ))}
-                    </HorizontalList>
-                  </VerticalList> */}
+              
 
                   <Grid
                     retainLastFocus={true}
@@ -161,7 +184,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                     columns={7}
                     rows={2}
                   >
-                    {categories.assets.map((asset, i) => (
+                    {category?.map((asset, i) => (
                       <ToggleItem
                         type="Categories"
                         key={i}
@@ -170,22 +193,15 @@ const DiscoverScreen = ({ setUrl, show }) => {
                         className="bg-blue-900"
                       />
                     ))}
-
-
                   </Grid>
-
-
-
-
                 </div>
 
                 <div ref={sectionRefs.genres} className="mb-[50px]">
                   <div className="text-white text-[32px]">Genres</div>
                   <Carousel
                     setUrl={setUrl}
-                    title={categories.title}
-                    layout={categories.layout}
-                    assets={categories.assets}
+                    
+                    assets={genre}
                     visible={true}
                     parentNav="home-div-nav"
                     type="Genres"
@@ -197,8 +213,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                   <div className="text-white text-[32px]">Channels</div>
                   <Carousel
                     setUrl={setUrl}
-                    title={categories.title}
-                    layout={categories.layout}
+                   
                     assets={categories.assets}
                     visible={true}
                     parentNav="home-div-nav"
@@ -211,9 +226,8 @@ const DiscoverScreen = ({ setUrl, show }) => {
                   <div className="text-white text-[32px]">Language</div>
                   <Carousel
                     setUrl={setUrl}
-                    title={categories.title}
-                    layout={categories.layout}
-                    assets={categories.assets}
+                   
+                    assets={language}
                     visible={true}
                     parentNav="home-div-nav"
                     type="Language"

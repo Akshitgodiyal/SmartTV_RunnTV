@@ -46,9 +46,64 @@ const App = () => {
     
    
   };
-
+  function fetchAllDiscoverPageData() {
+    const headers = {
+      "content-type": "application/json",
+      "partner_code": "ALL",
+      "user_id": "26-6E-B9-8F-47-8A"
+    };
+  
+    const apiEndpoints = [
+      
+      {
+        key: "themeList",
+        url: "http://13.126.110.199:9002/runtv/v1/theme/getThemeList",
+        headers: headers
+      },
+      {
+        key: "streamingNow",
+        url: "http://13.126.110.199:9002/runtv/v1/schedule/getEpgByStreamingNow",
+        headers: headers
+      },
+      {
+        key: "category",
+        url: "http://13.126.110.199:9002/runtv/v1/category/getCategoryList",
+        headers: headers
+      },
+      {
+        key: "genreList",
+        url: "http://13.126.110.199:9002/runtv/v1/genre/getGenreList",
+        headers: headers
+      },
+      {
+        key: "languageList",
+        url: "http://13.126.110.199:9002/runtv/v1/language",
+        headers: headers
+      }
+    ];
+  
+    const apiCalls = apiEndpoints.map(endpoint => 
+      ApiHelper.get(endpoint.url, endpoint.headers)
+    );
+  
+    Promise.all(apiCalls)
+      .then((results) => {
+        results.forEach((result, index) => {
+          localStorage.setItem(apiEndpoints[index].key, JSON.stringify(result));
+        });
+  
+        
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        // Clear localStorage on error to avoid using partial data
+      });
+  }
+  
   useEffect(() => {
+
     fetchCategory();
+    fetchAllDiscoverPageData();
     const splashTimeout = setTimeout(() => {
       setShowSplash(false); // Hide the splash screen after 1 second
     }, 1000);

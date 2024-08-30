@@ -19,51 +19,59 @@ const ControlToggle = (props) => {
   const onKeyDown = () => {
     assetClick();
     if (props.onEnter) {
-      props.onEnter();  // Call the passed callback function
+      props.onEnter(); // Call the passed callback function
     }
   };
-
 
   const renderContent = () => {
     switch (props.type) {
       case "PlayerControl":
         return (
-            <div className={"item " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
+          <div
+            className={
+              "item " +
+              (active ? "item-focus" : "") +
+              " " +
+              (props.isActiveIndex ? "active" : "")
+            }
+          >
             <i className={"fa fa-" + props.icon} /> {props.children}
           </div>
-      
         );
       case "detaildata":
         return (
-            <div className={"w-[max-content] flex justify-start items-center categories  py-2 px-4 bg-transparent " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
+          <div
+            className={
+              "w-[max-content] flex justify-start items-center categories  py-2 px-4 bg-transparent " +
+              (active ? "item-focus" : "") +
+              " " +
+              (props.isActiveIndex ? "active" : "")
+            }
+          >
             <img className="w-[24px] mr-[16px]" src={discover} />
-             <div className="text-[24px] text-white">
- 
-             {props.children}
- </div>
-           </div>
+            <div className="text-[24px] text-white">{props.children}</div>
+          </div>
         );
-    
+
       default:
         return (
-          <div className={"w-[max-content] flex justify-start items-center categories  py-2 px-4 bg-transparent " + (active ? "item-focus" : "") + " " + (props.isActiveIndex ? "active" : "")}>
-           <img className="w-[24px] mr-[16px]" src={props?.images} />
-            <div className="text-[24px] text-white">
-
-            {props.children}
-</div>
+          <div
+            className={
+              "w-[max-content] flex justify-start items-center categories  py-2 px-4 bg-transparent " +
+              (active ? "item-focus" : "") +
+              " " +
+              (props.isActiveIndex ? "active" : "")
+            }
+          >
+            <img className="w-[24px] mr-[16px]" src={props?.images} />
+            <div className="text-[24px] text-white">{props.children}</div>
           </div>
-
-
-
-
         );
     }
   };
 
   return (
     <Focusable
-   
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}

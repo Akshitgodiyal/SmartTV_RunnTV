@@ -203,6 +203,8 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
     }
   }, [show]);
 
+
+  
   return (
     <>
     <LoaderScreen show={showloader} /> 
