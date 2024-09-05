@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import VerticalList from "./VerticalList.js";
 import { globals } from "../global.js";
+import { scrolling } from "../components/privacy/privacyPage.js";
 const reverseDirection = {
   up: "down",
   down: "up",
@@ -38,7 +39,22 @@ class Navigation extends Component {
 
     const direction = this.props.keyMapping[evt.keyCode];
     let currentFocusedPath = this.currentFocusedPath;
+
+    if (evt.keyCode == 8) {
+      if (this.currentFocusedPath) {
+        
+
+        // Trigger the back event on the focused component
+        if (this.fireEvent(this.getLastFromPath(this.currentFocusedPath), "back")) {
+          return preventDefault();
+        }
+      }
+    }
     if (!direction) {
+    
+
+
+
       if (evt.keyCode === this.props.keyMapping["enter"]) {
         if (this.currentFocusedPath) {
           if (
@@ -87,6 +103,9 @@ class Navigation extends Component {
           element.props.onEnterDown(evtProps, this);
         
         break;
+        case "back":
+          if (element.handleBack) element.handleBack();
+          break;
       default:
         return false;
     }
@@ -101,21 +120,98 @@ class Navigation extends Component {
     }
     if (this.preventTop(direction, current)) {
     }
-    const next = current.getNextFocusFrom(direction);
-    if (next) {
-      this.lastDirection = direction;
-      this.focus(next);
-      if (next.props.disabled) {
-        const nextRight = next.getNextFocusFrom("right");
-        if (nextRight && next.props.parentId === nextRight.props.parentId) { 
-          this.focus(nextRight);
+    if (this.preventDown(direction, current)) {
+    }
+
+    
+    
+    const activeComponent =
+    localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+    
+    // console.log(activeComponent,globals.COMPONENT_NAME.scroll_item,direction);
+    if(activeComponent === globals.COMPONENT_NAME.scroll_item){
+      const result = scrolling(direction);
+
+      if (result === "Reached bottom") {
+        const next = current.getNextFocusFrom(direction);
+        if (next) {
+          this.lastDirection = direction;
+          this.focus(next);
+          if (next.props.disabled) {
+            const nextRight = next.getNextFocusFrom("right");
+            if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+              this.focus(nextRight);
+            }
+            const nextLeft = next.getNextFocusFrom("left");
+            if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+              this.focus(nextLeft);
+            } 
+          }
         }
-        const nextLeft = next.getNextFocusFrom("left");
-        if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
-          this.focus(nextLeft);
-        } 
+      } else if (result === "Reached top") {
+        const next = current.getNextFocusFrom(direction);
+        if (next) {
+          this.lastDirection = direction;
+          this.focus(next);
+          if (next.props.disabled) {
+            const nextRight = next.getNextFocusFrom("right");
+            if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+              this.focus(nextRight);
+            }
+            const nextLeft = next.getNextFocusFrom("left");
+            if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+              this.focus(nextLeft);
+            } 
+          }
+        }
+      } else {
+        
+      if(direction == "up" || direction == "down"){
+
+        // console.log(result); // "Scrolling up", "Scrolling down", or "Invalid direction"
+      }else{
+        const next = current.getNextFocusFrom(direction);
+      if (next) {
+        this.lastDirection = direction;
+        this.focus(next);
+        if (next.props.disabled) {
+          const nextRight = next.getNextFocusFrom("right");
+          if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+            this.focus(nextRight);
+          }
+          const nextLeft = next.getNextFocusFrom("left");
+          if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+            this.focus(nextLeft);
+          } 
+        }
+      }
+      }
+        
       }
     }
+    else{
+      const next = current.getNextFocusFrom(direction);
+      if (next) {
+        this.lastDirection = direction;
+        this.focus(next);
+        if (next.props.disabled) {
+          const nextRight = next.getNextFocusFrom("right");
+          if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+            this.focus(nextRight);
+          }
+          const nextLeft = next.getNextFocusFrom("left");
+          if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+            this.focus(nextLeft);
+          } 
+        }
+      }
+    }
+    
+    
+  
+
+
+    
   }
 
   preventLeft(direction, current) {
@@ -157,7 +253,32 @@ class Navigation extends Component {
             prevent = true;
           }
           break;
-        case "player-controls":
+          case globals.COMPONENT_NAME.Player_Control:
+          if (current) {
+            prevent = true;
+          }
+          case globals.COMPONENT_NAME.scroll_item:
+          if (current) {
+            prevent = true;
+          }
+          break;
+        default:
+          prevent = false;
+          break;
+      }
+    }
+
+    return prevent;
+  }
+  preventDown(direction, current) {
+    let prevent = false;
+    const activeComponent =
+      localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+
+    if (direction == "up") {
+      switch (activeComponent) {
+      
+          case globals.COMPONENT_NAME.scroll_item:
           if (current) {
             prevent = true;
           }
@@ -297,8 +418,8 @@ Navigation.defaultProps = {
     38: "up",
     39: "right",
     40: "down",
-    enter: 13,
-    back: 27,
+    13: "enter",
+     8 : "back",
   },
 };
 

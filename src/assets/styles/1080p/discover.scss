@@ -64,3 +64,94 @@ color:#9E9C9C;
 
     }
 }
+
+
+
+.slider-box{
+    width: 720px;
+height:212px;
+
+margin-top:396px;
+margin-left: 248px;
+padding: 40px ;
+
+border-radius: 8px ;
+
+background: linear-gradient(290.01deg, rgba(255, 255, 255, 0.08) 42.6%, rgba(255, 255, 255, 0) 103.07%);
+border: 1px solid;
+
+border-image-source: radial-gradient(69.43% 69.43% at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%),
+
+radial-gradient(9.48% 467.39% at 50% 50%, rgba(126, 129, 227, 0.3) 0%, rgba(126, 129, 227, 0.12) 100%),
+
+radial-gradient(54.8% 53% at 50% 50%, rgba(21, 21, 21, 0.3) 0%, rgba(21, 21, 21, 0) 100%);
+
+
+
+.slider-title{
+ 
+font-size: 44px;
+font-weight: 500;
+line-height: 44px;
+text-align: left;
+
+}
+.slider-text{
+
+   
+    font-size: 24px;
+    font-weight: 400;
+  
+    text-align: left;
+    color: #BEBEBE;
+    
+
+}
+
+
+}
+
+.slider-item {
+    width: 100% !important;
+    height: 688px !important;
+  
+  }
+.streaming-item {
+    width: 240px ;
+    height: 320px;
+    .streaming-title{
+
+        font-size: 20px;
+    }
+}
+
+
+.category-item {
+    width: 227.43px;
+    height: 166px;
+
+}
+
+
+.genre-item {
+    width: 254px;
+    height: 166px;
+
+}
+
+
+.channel-item {
+    width: 254px;
+    height: 244px;
+}
+
+
+.language-item {
+    width: 224px;
+    height: 80px;
+}
+
+
+.default-item {
+    padding: 5px;
+}

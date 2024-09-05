@@ -33,31 +33,50 @@ const ToggleItem = (props) => {
         return (
           <div
             id={props.index === 0 ? "firstSection" : null}
-            className={`item w-[100%] h-[688px] ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
+            className={`item  slider-item   ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
             style={{
               backgroundImage: `url(${img_cloudfront1 + props.assetinfo?.images?.tv})`,
               backgroundSize: "cover",
-              backgroundPosition: "contain",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images?.tv ? "#6457578c" : null,
             }}
           >
-            {/* {props.children} */}
+            <div className="slider-box">
+              <div className="slider-title text-white">
+                {props.assetinfo?.name}
+              </div>
+              <div className="slider-text"
+                style={{
+                  lineHeight: "1.5",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  whiteSpace: "normal",
+                }}
+              >
+                {props.assetinfo?.description}
+              </div>
+
+            </div>
           </div>
         );
       case "Streaming":
         return (
           <div
-            className={`item w-[240px] h-[320px] ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
+            className={`item streaming-item ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
             style={{
               backgroundImage: `url(${props.assetinfo?.baseSourceLocation + props.assetinfo?.images.poster.tv})`,
-              backgroundSize: "cover",
-              backgroundPosition: "contain",
+              backgroundSize: "contain",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images.poster?.tv ? "#6457578c" : null,
             }}
           >
-            <i className={`fa fa-${props.icon}`} /> {props.children}
+            <div className="bg-red-500 streaming-title text-white px-2">
+
+              {props.assetinfo.title}
+            </div>
           </div>
         );
       case "Categories":
@@ -65,12 +84,12 @@ const ToggleItem = (props) => {
           <div
             style={{
               backgroundImage: `url(${img_cloudfront1 + props.assetinfo?.images.tv})`,
-              backgroundSize: "cover",
-              backgroundPosition: "contain",
+              backgroundSize: "contain",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images.poster?.tv ? "#6457578c" : null,
             }}
-            className={`item my-3 rounded-md w-[227.43px] h-[166px] ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
+            className={`item my-3 rounded-md category-item  ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
           >
             <div className="category-title flex justify-center items-center w-full h-full">
               {props.assetinfo?.name}
@@ -82,12 +101,12 @@ const ToggleItem = (props) => {
           <div
             style={{
               backgroundImage: `url(${img_cloudfront1 + props.assetinfo?.images.tv})`,
-              backgroundSize: "cover",
-              backgroundPosition: "contain",
+              backgroundSize: "contain",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images?.tv ? "#6457578c" : null,
             }}
-            className={`item my-3 rounded-md w-[254px] h-[166px] ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
+            className={`item my-3 rounded-md genre-item ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
           >
             <div className="category-title flex items-end w-full h-full">
               <div className="px-2 py-1" style={{ background: "linear-gradient(180deg, rgba(48, 48, 42, 0.62) 9.38%, rgba(144, 144, 144, 0.72) 100%)" }}>
@@ -98,7 +117,7 @@ const ToggleItem = (props) => {
         );
       case "Channels":
         return (
-          <div className={`item my-3 rounded-md w-[254px] h-[244px] ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}>
+          <div className={`item my-3 rounded-md channel-item ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}>
             <div className="Channels">
               <div className="channel-image-box flex justify-center bg-black items-center ">
                 <img className="bg-white" />
@@ -124,21 +143,21 @@ const ToggleItem = (props) => {
           <div
             style={{
               backgroundImage: `url(${img_cloudfront1 + props.assetinfo?.posterImagePath.tv})`,
-              backgroundSize: "cover",
-              backgroundPosition: "contain",
+              backgroundSize: "contain",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images?.tv ? "#6457578c" : null,
             }}
-            className={`item my-3 rounded-md w-[170px] h-[80px] ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
+            className={`item my-3 rounded-md language-item  ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
           >
-            <div className="category-title flex justify-center items-center w-full h-full">
+            <div className="category-title flex justify-start px-3 items-center w-full h-full">
               {props.assetinfo?.name}
             </div>
           </div>
         );
       default:
         return (
-          <div className={`item ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}>
+          <div className={`item  default-item ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}>
             <i className={`fa fa-${props.icon}`} /> {props.children}
           </div>
         );

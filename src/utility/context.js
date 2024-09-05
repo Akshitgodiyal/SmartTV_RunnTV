@@ -5,6 +5,7 @@ const VideoContext = createContext();
 const MyProvider = ({ children }) => {
   const [sidebarActive, setsidebarActive] = useState("tv");
   const [isActive, setIsActive] = useState("tv");
+  const [currentTime, setCurrentTime] = useState(0);
 
   const handleSetIsActive = useCallback((status) => {
     setIsActive(status);
@@ -17,6 +18,8 @@ const MyProvider = ({ children }) => {
         setsidebarActive,
         isActive,
         setIsActive: handleSetIsActive,
+        setCurrentTime,
+        currentTime
       }}
     >
       {children}

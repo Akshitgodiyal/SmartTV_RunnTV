@@ -1,6 +1,13 @@
-import React from 'react'
+
+import React, { useContext, useState, useEffect, useLayoutEffect } from "react";
+
+import discover from "../../assets/images/discover.png";
+
+import ControlToggle from "../Player/ControlToggle";
 
 function ProgramDetail() {
+
+
   return (
     <div className="absolute top-0 right-0 text-white m-[100px]">
     <div className="w-[460px] h-[770px]  text-white p-4 rounded-md">

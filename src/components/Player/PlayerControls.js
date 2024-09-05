@@ -9,8 +9,10 @@ import ControlToggle from "./ControlToggle";
 import VerticalList from "../../helper/VerticalList";
 import { mapChannel } from "../../helper/mapper/mapChannelEpg";
 import downArrow from "../../assets/images/downArrow.png"
-const PlayerControls = ({ selectedAsset, setSelectedAsset,bufferedEnd, currentTime, onSeek  }) => {
+import ProgramDetail from "../programDetail.js/ProgramDetail";
+const PlayerControls = ({ selectedAsset, setSelectedAsset,bufferedEnd,  onSeek  }) => {
   const { isActive, setIsActive } = useContext(VideoContext);
+  const { currentTime } = useContext(VideoContext);
   const [previousChannel, setPreviousChannel] = useState(null);
   const [nextChannel, setNextChannel] = useState(null);
   const [value, setValue] = useState(0);
@@ -51,10 +53,23 @@ const handleSeekChange = (e) => {
 };
 
   return (
+    <>
+    <VerticalList
+      onFocus={(index) => onFocus(index, globals.COMPONENT_NAME.Player_Detail)}
+      onBlur={(index) => handleSetActive(true, index)}
+      className="w-full justify-center gap-3 items-center text-2xl flex"
+      retainLastFocus={true}
+      id={globals.COMPONENT_NAME.Player_Detail}
+      style={{ opacity: isActive ? 0 : 1, zIndex: isActive ? -1 : 1 }}
+    >
+      <ProgramDetail />
+    </VerticalList>
     <div
       style={{ opacity: isActive ? 0 : 1, zIndex: isActive ? -1 : 1 }}
       className="flex justify-center absolute bottom-2 right-40  w-[80%] h-[16%] m-auto z-80"
     >
+
+
       <VerticalList>
         <HorizontalList
           onFocus={(index) => onFocus(index, globals.COMPONENT_NAME.Player_Control)}
@@ -124,6 +139,7 @@ const handleSeekChange = (e) => {
         
       </VerticalList>
     </div>
+    </>
   );
 };
 

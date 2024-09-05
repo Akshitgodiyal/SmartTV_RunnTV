@@ -14,6 +14,8 @@ import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from '../pages/loader.js'
+
+
 const ContentCategory = ({ show, setSelectedAsset }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
@@ -310,7 +312,7 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
                             channel={list}
                             onFocus={() => changeFocusTo(i)}
                             visible={true}
-                            isActive={i === activeListIndex}
+                            isActive={i == activeListIndex}
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
                            />

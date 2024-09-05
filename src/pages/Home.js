@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import Sidebar from "../components/sidebarComponent.js";
 import ContentCategory from "../components/categoryComponent.js";
 import Navigation, {
@@ -8,10 +8,11 @@ import Navigation, {
 import Player from "../components/Player/Player.js";
 import OverScreens from "../components/OverScreens/OverScreens.js";
 import { mapChannel } from "../helper/mapper/mapChannelEpg.js";
+import { VideoContext } from "../utility/context.js";
 
 const Home = () => { 
   const [selectedAsset, setSelectedAsset] = useState("");
-  const [currentTime, setCurrentTime] = useState(0);
+  const { currentTime ,setCurrentTime} = useContext(VideoContext);
   const [bufferedEnd, setBufferedEnd] = useState(0);
   const handleTimeUpdate = (time) => {
     setCurrentTime(time);

@@ -106,6 +106,7 @@ const Sidebar = () => {
   };
 
   const onEnterDown = (index) => {
+      
     setActiveIndex(index);
     setsidebarActive(items[index].id);
     localStorage.setItem(

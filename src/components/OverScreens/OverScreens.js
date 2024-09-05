@@ -5,9 +5,12 @@ import DiscoverScreen from "../discoverScreen";
 import WatchHistory from "../historyScreen";
 import Login from "../login";
 import PlayerControls from "../Player/PlayerControls";
+import PrivacyPage from "../privacy/privacyPage";
 
-function OverScreens({selectedAsset, setSelectedAsset,bufferedEnd,currentTime,onSeek }) {
+
+function OverScreens({selectedAsset, setSelectedAsset,bufferedEnd,onSeek }) {
   const { sidebarActive } = useContext(VideoContext);
+
   useEffect(() => {
     if (sidebarActive === "user") {
       setTimeout(() => {
@@ -20,19 +23,38 @@ function OverScreens({selectedAsset, setSelectedAsset,bufferedEnd,currentTime,on
       }, 20);
     }
   }, [sidebarActive]);
-  if (sidebarActive === "tv") {
+
+
+
+
+  if (sidebarActive == "tv") {
    
     return( 
     <>
       <PlayerControls selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} bufferedEnd={bufferedEnd}
-                currentTime={currentTime}
+                
                 onSeek={onSeek} />
+
+
+
+
       <ContentCategory show={sidebarActive === "tv"} setSelectedAsset={setSelectedAsset} />
     </>
   );
-  } else if (sidebarActive === "discover") {
+  } 
+  else if (sidebarActive === "discover") {
     return (
       <DiscoverScreen show={sidebarActive === "discover"} setSelectedAsset={setSelectedAsset}/>
+    );
+  }
+  else if (sidebarActive === "search") {
+    return (
+      <PrivacyPage show={sidebarActive == "search"} />
+    );
+  }
+  else if (sidebarActive === "login") {
+    return (
+      <Login show={sidebarActive == "login"} />
     );
   }
 }

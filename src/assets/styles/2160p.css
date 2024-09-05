@@ -4,4 +4,8 @@
 @import "./2160p/splash.css";
 @import "./2160p/sidebar.css";
 @import "./2160p/style.scss";
+@import "./2160p/category_filter.scss";
 @import "./2160p/category_filter.css";
+@import "./2160p/dynamic-content.scss";
+@import "./2160p/discover.scss";
+@import "./2160p/login.scss";

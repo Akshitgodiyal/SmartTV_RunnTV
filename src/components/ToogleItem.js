@@ -42,12 +42,18 @@ const ToggleItem = (props) => {
     </div>
   );
 
+  const handleBackButton = () => {
+    console.log("Back button pressed!");
+  };
+
+
   return (
     <Focusable
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
+      onBack={handleBackButton} 
       disabled={props.disabled}
       parentId={props.parentId}
       allowedDirection={props.allowedDirection}
@@ -100,7 +106,7 @@ const ToggleItem = (props) => {
             </div>
             {props.activeListIndex && (
               <div className="program-image flex justify-center mx-1 bg-sky-500 bg-opacity-75  rounded-md">
-                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages?.tv} alt="Logo" />
+                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages.tv} alt="Logo" />
               </div>
             )}
           </div>

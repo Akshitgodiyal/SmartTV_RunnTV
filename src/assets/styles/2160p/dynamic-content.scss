@@ -1,0 +1,66 @@
+
+
+#dynamic-content {
+    height: 100%;
+    position: relative;
+  
+  
+  .content {
+    white-space: nowrap;
+    font-size: 0;
+    overflow: hidden;
+  
+  }
+  
+   h1 {
+    font-size: 30px;
+    height: 80px;
+    padding: 0;
+    margin: 0;
+    line-height: 80px;
+  }
+  
+   .item {
+    display: inline-block;
+    background-color: #666;
+    font-size: 1rem;
+    margin-right: 40px;
+    cursor: pointer;
+  }
+  
+  
+   .horizontal .item, .vertical .item { 
+   
+    border: 4px solid transparent;
+
+    transition: width 0.001s ease-in-out; /* Added transition */
+  }
+  
+  
+   .item-focus {
+    transition: width 0.001s ease-in-out, border 0.002s ease-in-out; /* Added transition */
+    border: 4px solid #fff;
+  } 
+  
+   .vertical .item-focus, 
+   .horizontal .item-focus { 
+    border: 4px solid #fff;
+    border-radius: 10px;
+  
+  }
+  
+   .animate {
+    width: 25%;
+    padding-bottom: 0;
+    transition: padding-bottom 0.3s ease;
+  }
+  
+   .placeholder {
+    width: 25%;
+    padding-bottom: calc(30% + 80px);
+  }
+  
+
+  
+  
+  }

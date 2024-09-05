@@ -1,0 +1,135 @@
+/* General Styles */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--container-padding);
+
+    .logo {
+        width: var(--logo-width);
+    }
+}
+
+.left-section,
+.right-section {
+    display: flex;
+    flex-direction: column;
+    height: var(--section-height);
+    padding: var(--section-padding);
+    background-color: #1A1A1A;
+    border-right: 1px solid #333;
+}
+
+.left-section {
+    width: var(--left-width);
+}
+
+.right-section {
+    width: var(--right-width);
+}
+
+.divider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divider-line {
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #888, transparent);
+}
+
+.or-text {
+    position: relative;
+    z-index: 10;
+    padding: 16px; /* 8px * 2 */
+    color: #888;
+    background-color: black;
+    font-size: var(--or-text-size);
+}
+
+.steps {
+    color: white;
+    text-align: center;
+    margin-bottom: var(--steps-margin-bottom);
+    font-size: var(--steps-font-size);
+}
+
+.qr-code,
+.code-box {
+    padding: var(--qr-code-padding);
+    color: white;
+    border-radius: var(--qr-code-border-radius);
+    
+}
+.scanner-img {
+    width: 503.9px !important; /* 251.95px * 2 */
+    height: 480px !important; /* 240px * 2 */
+}
+
+
+
+.code-input-container {
+    margin: 60px; /* 30px * 2 */
+    display: flex;
+    justify-content: center;
+    gap: var(--code-input-gap);
+}
+
+.code-box {
+    border: 1px solid white;
+    color: white;
+    font-size: var(--code-box-font-size);
+    padding: var(--code-box-padding);
+    border-radius: var(--code-box-border-radius);
+}
+
+.skip-button {
+    width: var(--skip-button-width);
+    margin: auto;
+    margin-top: var(--skip-button-margin-top);
+
+    .skip-text {
+        color: white;
+        padding: var(--skip-button-padding);
+        font-size: var(--skip-button-font-size);
+        border-radius: var(--skip-button-border-radius);
+    }
+}
+
+/* Font Sizes */
+.font-size-24 {
+    font-size: var(--font-size-48);
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+:root {
+    --container-padding: 120px 288px; /* 60px * 2 and 144px * 2 */
+    --logo-width: 20rem; /* 10rem * 2 */
+    --section-height: 1568px; /* 784px * 2 */
+    --section-padding: 84px; /* 42px * 2 */
+    --left-width: 50%;
+    --right-width: 50%;
+    --or-text-size: 2rem; /* 1rem * 2 */
+    --steps-margin-bottom: 2rem; /* 1rem * 2 */
+    --steps-font-size: 4rem; /* 2rem * 2 */
+    --qr-code-padding: 2rem; /* 1rem * 2 */
+    --qr-code-border-radius: 1rem; /* 0.5rem * 2 */
+    --code-input-gap: 1.5rem; /* 0.75rem * 2 */
+    --code-box-font-size: 6rem; /* 3rem * 2 */
+    --code-box-padding: 64px 80px; /* 32px * 2 and 40px * 2 */
+    --code-box-border-radius: 1rem; /* 0.5rem * 2 */
+    --skip-button-width: 476px; /* 238px * 2 */
+    --skip-button-margin-top: 2.5rem; /* 1.25rem * 2 */
+    --skip-button-padding: 1rem 2rem; /* 0.5rem * 2 and 1rem * 2 */
+    --skip-button-font-size: 3rem; /* 1.5rem * 2 */
+    --skip-button-border-radius: 1rem; /* 0.5rem * 2 */
+    --font-size-48: 48px; /* 24px * 2 */
+}

@@ -1,78 +1,105 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Focusable, HorizontalList } from "../../helper/react-navigation";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
+import scanner from "../../assets/images/scaaner.png";
 import { IconStarFilled } from "@tabler/icons-react";
- // Import your Focusable component
-
-function Login({ setUrl, show }) {
+import ControlToggle from "../CommonToggle";
 
 
-  // Handler for when a tab gains focus
+function Login({ show }) {
+  let datasection = document.getElementById("logincomp");
+  console.log("datasection", datasection);
+
+  useEffect(() => {
+    if (show) {
+      setTimeout(() => {
+        let datasection = document.getElementById("logincomp");
+
+        if (datasection) {
+          localStorage.setItem("screenLoaded", true);
+          datasection.click();
+          localStorage.setItem("screenLoaded", false);
+        }
+      }, 300);
+    }
+  }, [show, datasection != null]);
 
   return (
     <div
-      className={`mainbox overflow-y-auto bg-black ${show ? "" : "hidden"}`}
-      style={{ position: "absolute", top: "0", left: "0", right: "0", bottom: "0" }}
+      className={`mainbox    overflow-y-auto bg-black ${show ? "" : "hidden"}`}
+      style={{ position: "absolute", top: "0" }}
     >
-      <div className="flex flex-col h-full">
-        <div className="w-full p-4">
-          <img className="w-40" src={logo} alt="Logo" />
-          <div className="text-white text-lg">Welcome</div>
+      <div className="container">
+        <div className="w-full py-5">
+          <img className="logo" src={logo} alt="Logo" />
         </div>
 
-        <div className="flex-grow h-full">
-          <HorizontalList retainLastFocus={true}>
-       
-      <div className="flex bg-gray-800 h-full rounded-lg shadow-lg">
-        {/* Left Side: QR Code */}
-        <div className="flex flex-col p-6 items-center justify-center h-full w-1/2 border-r border-gray-600">
-          <h2 className="text-white text-lg font-bold mb-4">Sign in by Scanning QR Code</h2>
-          <div className="bg-white p-4 rounded-md">
-            <img src="/path-to-your-qr-code.png" alt="QR Code" className="w-32 h-32" />
+        <div className="flex h-full rounded-lg shadow-lg gap-2">
+          <div className="left-section">
+            <div className="flex flex-col items-center justify-center">
+              <div className="steps">Sign in by Scanning QR Code</div>
+              <div className="qr-code">
+                <img className="scanner-img" src={scanner} alt="QR Code" />
+              </div>
+            </div>
+
+            <div className="space-y-8 mt-4">
+              <div className="text-white">
+                <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 1</div>
+                <div className="font-size-24 text-[#FFFFFF]">Open Left Menu In The RunnTV Mobile App</div>
+              </div>
+              <div className="text-white">
+                <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 2</div>
+                <div className="font-size-24 text-[#FFFFFF]">Click on Activate TV</div>
+              </div>
+              <div className="text-white">
+                <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 3</div>
+                <div className="font-size-24 text-[#FFFFFF]">Scan the above QR Code to Login and enjoy your Runn TV experience</div>
+              </div>
+            </div>
           </div>
-          <div className="text-white mt-4">
-            <p>Step 1</p>
-            <p className="text-sm text-gray-400">Open Left Menu In The RunnTV Mobile App</p>
-            <p>Step 2</p>
-            <p className="text-sm text-gray-400">Click On Activate TV</p>
-            <p>Step 3</p>
-            <p className="text-sm text-gray-400">Scan the above QR Code to Login and enjoy your Runn TV experience</p>
+
+          <div className="divider-container">
+            <div className="divider-line"></div>
+            <span className="or-text">OR</span>
+          </div>
+
+          <div className="right-section">
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-white steps font-bold mb-4">Using Mobile/Web browser</div>
+            </div>
+            <div className="text-white space-y-8">
+              <div className="text-white">
+                <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 1</div>
+                <div className="font-size-24 text-[#FFFFFF]">Visit runn.tv/login on your web/Mobile browser</div>
+              </div>
+              <div className="text-white">
+                <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 2</div>
+                <div className="font-size-24 text-[#FFFFFF]">Authenticate with your credentials</div>
+              </div>
+              <div className="text-white">
+                <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 3</div>
+                <div className="font-size-24 text-[#FFFFFF]">Enter the below code to login</div>
+              </div>
+            </div>
+            <div className="code-input-container">
+              <div className="code-box">A</div>
+              <div className="code-box">2</div>
+              <div className="code-box">3</div>
+              <div className="code-box">C</div>
+              <div className="code-box">5</div>
+            </div>
+            <div className="text-white">
+              <div className="font-size-24 text-[#FFFFFF] opacity-75">Step 4</div>
+              <div className="font-size-24 text-[#FFFFFF]">Once the code is entered, this screen will refresh and TV will be ready to watch</div>
+            </div>
           </div>
         </div>
 
-        {/* Right Side: Code Input */}
-        <div className="flex flex-col items-center justify-center h-full w-1/2">
-          <h2 className="text-white text-lg font-bold mb-4">Using Mobile/Web browser</h2>
-          <div className="text-white">
-            <p>Step 1</p>
-            <p className="text-sm text-gray-400">Visit Runn.Tv/Login On Your Web/Mobile Browser</p>
-            <p>Step 2</p>
-            <p className="text-sm text-gray-400">Authenticate With Your Credentials</p>
-            <p>Step 3</p>
-            <p className="text-sm text-gray-400">Enter The Below Code To Login</p>
-          </div>
-          <div className="flex space-x-2 mt-4">
-            <div className="text-gray-800 bg-white p-4 rounded-lg text-lg font-bold">A</div>
-            <div className="text-gray-800 bg-white p-4 rounded-lg text-lg font-bold">2</div>
-            <div className="text-gray-800 bg-white p-4 rounded-lg text-lg font-bold">3</div>
-            <div className="text-gray-800 bg-white p-4 rounded-lg text-lg font-bold">C</div>
-            <div className="text-gray-800 bg-white p-4 rounded-lg text-lg font-bold">5</div>
-          </div>
-          <div className="text-white mt-4">
-            <p>Step 3</p>
-            <p className="text-sm text-gray-400">Once The Code Is Entered, This Screen Will Refresh And TV Will Be Ready To Watch</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Skip Button */}
-      <div className="absolute bottom-8">
-        <button className="bg-gray-700 text-white py-2 px-4 rounded-lg hover:bg-gray-600">Skip for now</button>
-      </div>
-  
-          </HorizontalList>
-
-         
+        <div className="skip-button">
+          <ControlToggle type={"data"} logincomp="logincomp">
+            <div className="skip-text">Skip for now</div>
+          </ControlToggle>
         </div>
       </div>
     </div>

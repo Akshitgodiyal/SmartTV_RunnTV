@@ -123,6 +123,10 @@ const DiscoverScreen = ({ setUrl, show }) => {
     }
   }, [show, firstSection != null]);
 
+const back =()=>{
+  
+}
+
   return (
     <div
       className={`mainbox overflow-y-auto bg-black ${show ? "" : "hidden"}`}
@@ -209,7 +213,7 @@ const DiscoverScreen = ({ setUrl, show }) => {
                   />
                 </div>
 
-                <div ref={sectionRefs.channels} className="mb-[50px]">
+                {/* <div ref={sectionRefs.channels} className="mb-[50px]">
                   <div className="text-white text-[32px]">Channels</div>
                   <Carousel
                     setUrl={setUrl}
@@ -220,10 +224,10 @@ const DiscoverScreen = ({ setUrl, show }) => {
                     type="Channels"
                     onFocus={() => handleFocus("channels")}
                   />
-                </div>
+                </div> */}
 
                 <div ref={sectionRefs.language} className="mb-[50px]">
-                  <div className="text-white text-[32px]">Language</div>
+                  <div className="text-white text-[32px] ">Language</div>
                   <Carousel
                     setUrl={setUrl}
                    

@@ -1,77 +1,77 @@
 
 
 #dynamic-content {
-    height: 100%;
-    position: relative;
-  
-  
-  .content {
-    white-space: nowrap;
-    font-size: 0;
-    overflow: hidden;
-  
-  }
-  
-   h1 {
-    font-size: 30px;
-    height: 80px;
-    padding: 0;
-    margin: 0;
-    line-height: 80px;
-  }
-  
-   .item {
-    display: inline-block;
-    background-color: #666;
-    font-size: 1rem;
-    margin-right: 20px;
-    cursor: pointer;
-  }
-  
-  
-   .horizontal .item, .vertical .item { 
-   
-    border: 2px solid transparent;
+  height: 100%;
+  position: relative;
 
-    transition: width 0.001s ease-in-out; /* Added transition */
-  }
-  
-  
-   .item-focus {
-    transition: width 0.001s ease-in-out, border 0.002s ease-in-out; /* Added transition */
-    border: 2px solid #fff;
-  } 
-  
-   .vertical .item-focus, 
-   .horizontal .item-focus { 
-    border: 2px solid #fff;
-    border-radius: 5px;
-  
-  }
-  
-   .animate {
-    width: 25%;
-    padding-bottom: 0;
-    transition: padding-bottom 0.3s ease;
-  }
-  
-   .placeholder {
-    width: 25%;
-    padding-bottom: calc(30% + 80px);
-  }
-  
-  
-  display: block;
-    .active.flex {
-      .before-box{
-        
-      height:116px;
-      }
-      .item-focus,.item {  
-     width: 50% !important;
-     height:116px;
-   }}
-  
-  
-  
-  }
+
+.content {
+  white-space: nowrap;
+  font-size: 0;
+  overflow: hidden;
+
+}
+
+ h1 {
+  font-size: 30px;
+  height: 80px;
+  padding: 0;
+  margin: 0;
+  line-height: 80px;
+}
+
+ .item {
+  display: inline-block;
+  background-color: #666;
+  font-size: 1rem;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+
+ .horizontal .item, .vertical .item { 
+ 
+  border: 2px solid transparent;
+
+  transition: width 0.001s ease-in-out; /* Added transition */
+}
+
+
+ .item-focus {
+  transition: width 0.001s ease-in-out, border 0.002s ease-in-out; /* Added transition */
+  border: 2px solid #fff;
+} 
+
+ .vertical .item-focus, 
+ .horizontal .item-focus { 
+  border: 2px solid #fff;
+  border-radius: 5px;
+
+}
+
+ .animate {
+  width: 25%;
+  padding-bottom: 0;
+  transition: padding-bottom 0.3s ease;
+}
+
+ .placeholder {
+  width: 25%;
+  padding-bottom: calc(30% + 80px);
+}
+
+
+display: block;
+  .active.flex {
+    .before-box{
+      
+    height:116px;
+    }
+    .item-focus,.item {  
+   width: 50% !important;
+   height:116px;
+ }}
+
+
+
+}

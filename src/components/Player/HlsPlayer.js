@@ -31,13 +31,13 @@ useEffect(()=>{
     const player = playerRef.current; 
     if (url && player) {
       const handlePlay = () => {
-        console.log("Video started");
+        // console.log("Video started");
 
         // Attempt to unmute the video after it starts playing
         setTimeout(() => {
           try {
             player.muted = false;
-            console.log("Video unmuted");
+            // console.log("Video unmuted");
 
             // Attempt to resume playback after unmuting (this may still fail on some browsers)
             player.play().catch((error) => {
@@ -46,7 +46,7 @@ useEffect(()=>{
           } catch (error) {
             console.error("Failed to unmute:", error);
           }
-        }, 500); // Adjust this delay as needed
+        }, 500); 
       };
 
       player.addEventListener("play", handlePlay);
