@@ -16,7 +16,7 @@ import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from '../pages/loader.js'
 
 
-const ContentCategory = ({ show, setSelectedAsset }) => {
+const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -253,6 +253,7 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
                           isActiveIndex={activeIndex === index}
                           onEnter={() => loadCategoryData(category, index)}
                           index={index}
+                          onBack={()=>backtohome()}
                         >
                           {category.name}
                         </ToggleItem>

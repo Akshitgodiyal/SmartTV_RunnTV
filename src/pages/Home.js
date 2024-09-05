@@ -9,23 +9,33 @@ import Player from "../components/Player/Player.js";
 import OverScreens from "../components/OverScreens/OverScreens.js";
 import { mapChannel } from "../helper/mapper/mapChannelEpg.js";
 import { VideoContext } from "../utility/context.js";
+import { globals } from "../global.js";
 
 const Home = () => { 
   const [selectedAsset, setSelectedAsset] = useState("");
-  const { currentTime ,setCurrentTime} = useContext(VideoContext);
-  const [bufferedEnd, setBufferedEnd] = useState(0);
-  const handleTimeUpdate = (time) => {
-    setCurrentTime(time);
-};
+  const { setsidebarActive } = useContext(VideoContext);
+  const {activeIndex, setActiveIndex } = useContext(VideoContext);
+  const { isActive, setIsActive } = useContext(VideoContext);
+  const showVideoSlider = () => {
+    
+    setIsActive(false)
+    setActiveIndex(1)
+    setsidebarActive("tv")
+    localStorage.setItem(
+      globals.ACTIVE_COMPONENT,
+      globals.COMPONENT_NAME.Sidebar
+    );
+    setTimeout(() => {
+      let datasection = document.getElementById("seekbarref");
 
-const handleBufferUpdate = (bufferEnd) => {
-    setBufferedEnd(bufferEnd);
-};
+      if (datasection) {
+        localStorage.setItem("screenLoaded", true);
+        datasection.click();
+        localStorage.setItem("screenLoaded", false);
+      }
+    }, 200);
+  }
 
-const handleSeek = (time) => {
-    const player = document.querySelector('video');
-    player.currentTime = time;
-};
   useEffect(() => {
     var getCategoryResult = localStorage.getItem("filterCategoryResult")
       ? JSON.parse(localStorage.getItem("filterCategoryResult"))
@@ -42,12 +52,13 @@ const handleSeek = (time) => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              <Player selectedAsset={selectedAsset} onTimeUpdate={handleTimeUpdate}
-                onBufferUpdate={handleBufferUpdate} />
-              <OverScreens selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}
-                  bufferedEnd={bufferedEnd}
-                  currentTime={currentTime}
-                  onSeek={handleSeek}
+              <Player selectedAsset={selectedAsset} 
+                // onBufferUpdate={handleBufferUpdate}
+                 />
+              <OverScreens backtohome={()=>showVideoSlider()} selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}
+                 
+               
+                  // onSeek={handleSeek}
               />
             </VerticalList>
           </div>

@@ -18,6 +18,7 @@ const ControlToggle = (props) => {
   };
 
   const onKeyDown = () => {
+    console.log("onKeyDown");
     
     assetClick();
     if (props.onEnter) {
@@ -66,6 +67,7 @@ const ControlToggle = (props) => {
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
+      onBack={() => props.onBack()}
     >
       {renderContent()}
     </Focusable>

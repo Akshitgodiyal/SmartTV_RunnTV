@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Focusable, HorizontalList } from "../../helper/react-navigation";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import scanner from "../../assets/images/scaaner.png";
 import { IconStarFilled } from "@tabler/icons-react";
 import ControlToggle from "../CommonToggle";
+import { globals } from "../../global";
+import { VideoContext } from "../../utility/context";
 
 
-function Login({ show }) {
+function Login({ show,backtohome }) {
   let datasection = document.getElementById("logincomp");
-  console.log("datasection", datasection);
+
 
   useEffect(() => {
     if (show) {
@@ -23,7 +25,18 @@ function Login({ show }) {
       }, 300);
     }
   }, [show, datasection != null]);
-
+  const { setsidebarActive } = useContext(VideoContext);
+  const {activeIndex, setActiveIndex } = useContext(VideoContext);
+  const showVideoSlider = () => {
+ 
+    setActiveIndex(1)
+    setsidebarActive("tv")
+    localStorage.setItem(
+      globals.ACTIVE_COMPONENT,
+      globals.COMPONENT_NAME.Sidebar
+    );
+ 
+  }
   return (
     <div
       className={`mainbox    overflow-y-auto bg-black ${show ? "" : "hidden"}`}
@@ -97,8 +110,12 @@ function Login({ show }) {
         </div>
 
         <div className="skip-button">
-          <ControlToggle type={"data"} logincomp="logincomp">
-            <div className="skip-text">Skip for now</div>
+          <ControlToggle    
+          onBack={() => backtohome()}
+         
+          
+          type={"data"} logincomp="logincomp">
+            <div className="skip-text" >Skip for now</div>
           </ControlToggle>
         </div>
       </div>

@@ -10,12 +10,16 @@ import VerticalList from "../../helper/VerticalList";
 import { mapChannel } from "../../helper/mapper/mapChannelEpg";
 import downArrow from "../../assets/images/downArrow.png"
 import ProgramDetail from "../programDetail.js/ProgramDetail";
-const PlayerControls = ({ selectedAsset, setSelectedAsset,bufferedEnd,  onSeek  }) => {
+const PlayerControls = ({ selectedAsset, setSelectedAsset   }) => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const { currentTime } = useContext(VideoContext);
+  const { bufferedEnd} = useContext(VideoContext);
   const [previousChannel, setPreviousChannel] = useState(null);
   const [nextChannel, setNextChannel] = useState(null);
   const [value, setValue] = useState(0);
+
+
+  
   const handleSetActive = (status, index) => {
     setIsActive(status);
   };
@@ -45,11 +49,14 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset,bufferedEnd,  onSeek  
     const percentage = (currentTime / bufferedEnd) * 100;
     setValue(percentage);
 }, [currentTime, bufferedEnd]);
-
+const handleSeek = (time) => {
+    const player = document.querySelector('video');
+    player.currentTime = time;
+};
 const handleSeekChange = (e) => {
     const newTime = (e.target.value / 100) * bufferedEnd;
     setValue(e.target.value);
-    onSeek(newTime);
+  handleSeek(newTime);
 };
 
   return (
@@ -79,7 +86,7 @@ const handleSeekChange = (e) => {
           id={globals.COMPONENT_NAME.Player_Control}
         >
           <div id="seekbar">
-              <ToggleItem className=""> 
+              <ToggleItem  parentNav="seekbar" className=""> 
               <input  type="range"  min="0"  max="100"  value={value} onChange={handleSeekChange} className="seek-bar"/>
               </ToggleItem>
           </div>
