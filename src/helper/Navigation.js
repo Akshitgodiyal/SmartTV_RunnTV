@@ -39,7 +39,6 @@ class Navigation extends Component {
 
     const direction = this.props.keyMapping[evt.keyCode];
     let currentFocusedPath = this.currentFocusedPath;
-
     if (evt.keyCode == 8) {
       if (this.currentFocusedPath) {
         
@@ -50,23 +49,25 @@ class Navigation extends Component {
         }
       }
     }
+    if (evt.keyCode === 13) {
+      if (this.currentFocusedPath) {
+        if (
+          !this.fireEvent(
+            this.getLastFromPath(this.currentFocusedPath),
+            "enter-down"
+          )
+        ) {
+          return preventDefault();
+        }
+      }
+    }
     if (!direction) {
+  
     
 
 
 
-      if (evt.keyCode === this.props.keyMapping["enter"]) {
-        if (this.currentFocusedPath) {
-          if (
-            !this.fireEvent(
-              this.getLastFromPath(this.currentFocusedPath),
-              "enter-down"
-            )
-          ) {
-            return preventDefault();
-          }
-        }
-      }
+    
       if(this.getLastFromPath(this.currentFocusedPath).props.disabled){ 
         this.focusNext(this.getLastFromPath(this.currentFocusedPath).props.allowedDirection, currentFocusedPath);
       }

@@ -11,7 +11,7 @@ import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import Carousel from "../carousel/index.js";
 import ToggleItem from "../carousel/Toggleitem.js";
 import { globals } from "../../global.js";
-const DiscoverScreen = ({ setUrl, show }) => {
+const DiscoverScreen = ({ setUrl, show,backtohome }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
 
   const [themes, setThemes] = useState([]);
@@ -157,7 +157,8 @@ const back =()=>{
                 >
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
                   <Carousel
-                    setUrl={setUrl}
+                      setUrl={setUrl}
+  backtohome={backtohome}
               
                     assets={themes}
                     visible={true}
@@ -169,7 +170,8 @@ const back =()=>{
                 <div ref={sectionRefs.streaming} className="mb-[50px]">
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
-                    setUrl={setUrl}
+                      setUrl={setUrl}
+  backtohome={backtohome}
                    
                     assets={streamingNow}
                     visible={true}
@@ -203,7 +205,8 @@ const back =()=>{
                 <div ref={sectionRefs.genres} className="mb-[50px]">
                   <div className="text-white text-[32px]">Genres</div>
                   <Carousel
-                    setUrl={setUrl}
+                      setUrl={setUrl}
+  backtohome={backtohome}
                     
                     assets={genre}
                     visible={true}
@@ -216,7 +219,8 @@ const back =()=>{
                 {/* <div ref={sectionRefs.channels} className="mb-[50px]">
                   <div className="text-white text-[32px]">Channels</div>
                   <Carousel
-                    setUrl={setUrl}
+                      setUrl={setUrl}
+  backtohome={backtohome}
                    
                     assets={categories.assets}
                     visible={true}
@@ -229,7 +233,8 @@ const back =()=>{
                 <div ref={sectionRefs.language} className="mb-[50px]">
                   <div className="text-white text-[32px] ">Language</div>
                   <Carousel
-                    setUrl={setUrl}
+                      setUrl={setUrl}
+  backtohome={backtohome}
                    
                     assets={language}
                     visible={true}

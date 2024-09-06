@@ -5,7 +5,7 @@ import discover from "../../assets/images/discover.png";
 
 import ControlToggle from "../Player/ControlToggle";
 
-function ProgramDetail() {
+function ProgramDetail({onBack}) {
 
 
   return (
@@ -63,23 +63,23 @@ function ProgramDetail() {
 
       <div className="mt-6 ">
   
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Add channel to favourite
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Add title to watchlist
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle  onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Episodes
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack}  type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Change the Audio
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Start Over
       </ControlToggle>

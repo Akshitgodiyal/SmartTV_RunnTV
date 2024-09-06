@@ -42,9 +42,7 @@ const ToggleItem = (props) => {
     </div>
   );
 
-  const handleBackButton = () => {
-    console.log("Back button pressed!");
-  };
+
 
 
   return (
@@ -53,7 +51,7 @@ const ToggleItem = (props) => {
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
-      onBack={handleBackButton} 
+      onBack={()=>props.onBack()} 
       disabled={props.disabled}
       parentId={props.parentId}
       allowedDirection={props.allowedDirection}
@@ -111,7 +109,10 @@ const ToggleItem = (props) => {
             )}
           </div>
           </div>
-        ) : (
+        ) : 
+        
+        !props.parentNav == "seekbar" ?
+         (
           <div
           id={props.isFirstItem ? "defaultFocused" : ""}
           className={`item categories-item   ${active ? "item-focus" : ""
@@ -133,7 +134,32 @@ const ToggleItem = (props) => {
             {props.children}
               </div>
               </div>
-        )}
+        ):
+        (
+          <div
+          id={"seekbarref"}
+          className={`item categories-item   ${active ? "item-focus" : ""
+            } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
+        >
+          <div className="flex justify-start items-center  ">
+            {props.images ?
+          
+            <img   src={
+              active
+                ? img_cloudfront1 + props.images.disabledIcon.tv
+                : props.isActiveIndex
+                ? img_cloudfront1 + props.images.enabledIcon.tv
+                : img_cloudfront1 + props.images.disabledIcon.tv
+            }
+            alt={props.children} />
+            
+           : ""}
+            {props.children}
+              </div>
+              </div>
+        )
+      
+      }
     
     </Focusable>
   );

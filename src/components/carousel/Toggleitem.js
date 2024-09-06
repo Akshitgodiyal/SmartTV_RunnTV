@@ -66,11 +66,11 @@ const ToggleItem = (props) => {
           <div
             className={`item streaming-item ${active ? "item-focus" : ""} ${props.isActiveIndex ? "active" : ""}`}
             style={{
-              backgroundImage: `url(${props.assetinfo?.baseSourceLocation + props.assetinfo?.images.poster.tv})`,
+              backgroundImage: `url(${props.assetinfo?.baseSourceLocation+props.assetinfo?.schedules[0]?.discoverImages?.tv})`,
               backgroundSize: "contain",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundColor: props.assetinfo.images.poster?.tv ? "#6457578c" : null,
+              backgroundColor: props.assetinfo?.schedules[0]?.discoverImages?.tv ? "#6457578c" : null,
             }}
           >
             <div className="bg-red-500 streaming-title text-white px-2">
@@ -170,6 +170,7 @@ const ToggleItem = (props) => {
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
+      onBack ={() => props.onBack()}
     >
       {renderContent()}
     </Focusable>

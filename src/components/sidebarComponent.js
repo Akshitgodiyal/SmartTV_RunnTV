@@ -40,10 +40,11 @@ const ToggleItem = ({
 
 const Sidebar = () => {
   const [focusedIndex, setFocusedIndex] = useState(1);
-  const [activeIndex, setActiveIndex] = useState(1);
+
   const [activeItemName, setActiveItemName] = useState("tv");
-  const { setsidebarActive } = useContext(VideoContext);
+  const {sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
+  const {activeIndex, setActiveIndex } = useContext(VideoContext);
   const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
@@ -96,7 +97,6 @@ const Sidebar = () => {
       }
     }
   };
-
   const onFocus = (index) => {
     handleSetActive(true, index);
     localStorage.setItem(

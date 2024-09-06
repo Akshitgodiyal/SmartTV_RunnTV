@@ -1,10 +1,13 @@
 import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect,useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
+import { VideoContext } from "../../utility/context";
 
-const HlsPlayer = React.forwardRef(({selectedAsset, onTimeUpdate, onBufferUpdate }, ref) => {
+const HlsPlayer = React.forwardRef(({selectedAsset }, ref) => {
 const [url, setUrl] = useState("");
 const [poster, setPoster] = useState("");
 const playerRef = useRef();
+const {  setBufferedEnd} = useContext(VideoContext);
+const {setCurrentTime} = useContext(VideoContext);
 useImperativeHandle(ref, () => ({
     playVideo: () => {
       if (playerRef.current) {
@@ -60,19 +63,19 @@ useEffect(()=>{
   useEffect(() => {
     const player = playerRef.current; 
     const handleTimeUpdate = () => {
-        if (onTimeUpdate) {
-            onTimeUpdate(player.currentTime);
-        }
+      
+            setCurrentTime(player.currentTime);
+       
     };
 
     const handleBufferUpdate = () => {
-        if (onBufferUpdate) {
+    
             const buffer = player.buffered;
             if (buffer.length > 0) {
                 const bufferedEnd = buffer.end(buffer.length - 1);
-                onBufferUpdate(bufferedEnd);
+                setBufferedEnd(bufferedEnd);
             }
-        }
+      
     };
     player.addEventListener('timeupdate', handleTimeUpdate);
     player.addEventListener('progress', handleBufferUpdate);
@@ -81,7 +84,7 @@ useEffect(()=>{
         player.removeEventListener('timeupdate', handleTimeUpdate);
         player.removeEventListener('progress', handleBufferUpdate);
     };
-  }, [onTimeUpdate, onBufferUpdate]);
+  }, []);
 
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">

@@ -3,12 +3,12 @@ import HlsPlayer from "./HlsPlayer";
 import PlayerControls from "./PlayerControls";
 import { VideoContext } from "../../utility/context";
 
-function Player({ selectedAsset,onTimeUpdate,onBufferUpdate }) {
+function Player({ selectedAsset }) {
   return (
     <div>
       <HlsPlayer selectedAsset={selectedAsset}
-      onTimeUpdate={onTimeUpdate}
-      onBufferUpdate={onBufferUpdate}
+    
+      
       />
     </div>
   );
