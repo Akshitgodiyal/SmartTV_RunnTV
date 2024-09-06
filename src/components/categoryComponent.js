@@ -107,8 +107,10 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
         }
       }
     }
-    if (index === lists.length - 2 
-      //||index === lists.length - 1
+    if (
+      index ===
+      lists.length - 2
+      ||index === lists.length - 1
     ) {
       setNextCategoryIndex(activeIndex + 1);
     }
@@ -121,7 +123,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
     // setNextCategoryIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
-      userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+      userid: globals.getUserId(),
     };
     ApiHelper.get(
       globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
@@ -152,7 +154,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
         setShowloader(true);
         const headers = {
           PARTNER_CODE: "ALL",
-          userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+          userid: globals.getUserId(),
         };
         ApiHelper.get(
           globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
@@ -161,7 +163,9 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
           if (result && result.length > 0) {
             var channelList = mapChannelEpg(result, nextCategoryIndex);
             setLists(lists.concat(channelList));
-            setShowloader(false);
+            setTimeout(() => {
+              setShowloader(false);
+            }, 1000);
           } else {
             setNextCategoryIndex(nextCategoryIndex + 1);
             setShowloader(false);

@@ -36,15 +36,22 @@ class Navigation extends Component {
       evt.stopPropagation();
       return false;
     };
-
+    var loaderScreen = document.getElementById("loaderScreen");
+    if (
+      loaderScreen &&
+      loaderScreen.style.display &&
+      loaderScreen.style.display === "flex"
+    ) {
+      return;
+    }
     const direction = this.props.keyMapping[evt.keyCode];
     let currentFocusedPath = this.currentFocusedPath;
     if (evt.keyCode == 8) {
       if (this.currentFocusedPath) {
-        
-
         // Trigger the back event on the focused component
-        if (this.fireEvent(this.getLastFromPath(this.currentFocusedPath), "back")) {
+        if (
+          this.fireEvent(this.getLastFromPath(this.currentFocusedPath), "back")
+        ) {
           return preventDefault();
         }
       }
@@ -61,20 +68,15 @@ class Navigation extends Component {
         }
       }
     }
-    if (!direction) {
-  
-    
-
-
-
-    
-      if(this.getLastFromPath(this.currentFocusedPath).props.disabled){ 
-        this.focusNext(this.getLastFromPath(this.currentFocusedPath).props.allowedDirection, currentFocusedPath);
+    if (evt.keyCode === 13) {
+      if (this.getLastFromPath(this.currentFocusedPath).props.disabled) {
+        this.focusNext(
+          this.getLastFromPath(this.currentFocusedPath).props.allowedDirection,
+          currentFocusedPath
+        );
       }
       return;
     }
-
-    
 
     if (!currentFocusedPath || currentFocusedPath.length === 0) {
       currentFocusedPath = this.lastFocusedPath;
@@ -102,11 +104,11 @@ class Navigation extends Component {
       case "enter-down":
         if (element.props.onEnterDown)
           element.props.onEnterDown(evtProps, this);
-        
+
         break;
-        case "back":
-          if (element.handleBack) element.handleBack();
-          break;
+      case "back":
+        if (element.handleBack) element.handleBack();
+        break;
       default:
         return false;
     }
@@ -124,13 +126,11 @@ class Navigation extends Component {
     if (this.preventDown(direction, current)) {
     }
 
-    
-    
     const activeComponent =
-    localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
-    
+      localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+
     // console.log(activeComponent,globals.COMPONENT_NAME.scroll_item,direction);
-    if(activeComponent === globals.COMPONENT_NAME.scroll_item){
+    if (activeComponent === globals.COMPONENT_NAME.scroll_item) {
       const result = scrolling(direction);
 
       if (result === "Reached bottom") {
@@ -140,13 +140,13 @@ class Navigation extends Component {
           this.focus(next);
           if (next.props.disabled) {
             const nextRight = next.getNextFocusFrom("right");
-            if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+            if (nextRight && next.props.parentId === nextRight.props.parentId) {
               this.focus(nextRight);
             }
             const nextLeft = next.getNextFocusFrom("left");
-            if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+            if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
               this.focus(nextLeft);
-            } 
+            }
           }
         }
       } else if (result === "Reached top") {
@@ -156,63 +156,56 @@ class Navigation extends Component {
           this.focus(next);
           if (next.props.disabled) {
             const nextRight = next.getNextFocusFrom("right");
-            if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+            if (nextRight && next.props.parentId === nextRight.props.parentId) {
               this.focus(nextRight);
             }
             const nextLeft = next.getNextFocusFrom("left");
-            if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+            if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
               this.focus(nextLeft);
-            } 
+            }
           }
         }
       } else {
-        
-      if(direction == "up" || direction == "down"){
-
-        // console.log(result); // "Scrolling up", "Scrolling down", or "Invalid direction"
-      }else{
-        const next = current.getNextFocusFrom(direction);
-      if (next) {
-        this.lastDirection = direction;
-        this.focus(next);
-        if (next.props.disabled) {
-          const nextRight = next.getNextFocusFrom("right");
-          if (nextRight && next.props.parentId === nextRight.props.parentId) { 
-            this.focus(nextRight);
+        if (direction == "up" || direction == "down") {
+          // console.log(result); // "Scrolling up", "Scrolling down", or "Invalid direction"
+        } else {
+          const next = current.getNextFocusFrom(direction);
+          if (next) {
+            this.lastDirection = direction;
+            this.focus(next);
+            if (next.props.disabled) {
+              const nextRight = next.getNextFocusFrom("right");
+              if (
+                nextRight &&
+                next.props.parentId === nextRight.props.parentId
+              ) {
+                this.focus(nextRight);
+              }
+              const nextLeft = next.getNextFocusFrom("left");
+              if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
+                this.focus(nextLeft);
+              }
+            }
           }
-          const nextLeft = next.getNextFocusFrom("left");
-          if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
-            this.focus(nextLeft);
-          } 
         }
       }
-      }
-        
-      }
-    }
-    else{
+    } else {
       const next = current.getNextFocusFrom(direction);
       if (next) {
         this.lastDirection = direction;
         this.focus(next);
         if (next.props.disabled) {
           const nextRight = next.getNextFocusFrom("right");
-          if (nextRight && next.props.parentId === nextRight.props.parentId) { 
+          if (nextRight && next.props.parentId === nextRight.props.parentId) {
             this.focus(nextRight);
           }
           const nextLeft = next.getNextFocusFrom("left");
-          if (nextLeft && next.props.parentId === nextLeft.props.parentId) { 
+          if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
             this.focus(nextLeft);
-          } 
+          }
         }
       }
     }
-    
-    
-  
-
-
-    
   }
 
   preventLeft(direction, current) {
@@ -221,8 +214,6 @@ class Navigation extends Component {
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
 
     if (direction == "left") {
-
-      
       switch (activeComponent) {
         case globals.COMPONENT_NAME.Player_Control:
           if (current && current.indexInParent === 0) {
@@ -230,7 +221,7 @@ class Navigation extends Component {
           }
           break;
         case globals.COMPONENT_NAME.Player_Detail:
-          if (current ) {
+          if (current) {
             prevent = true;
           }
           break;
@@ -254,11 +245,11 @@ class Navigation extends Component {
             prevent = true;
           }
           break;
-          case globals.COMPONENT_NAME.Player_Control:
+        case globals.COMPONENT_NAME.Player_Control:
           if (current) {
             prevent = true;
           }
-          case globals.COMPONENT_NAME.scroll_item:
+        case globals.COMPONENT_NAME.scroll_item:
           if (current) {
             prevent = true;
           }
@@ -278,8 +269,7 @@ class Navigation extends Component {
 
     if (direction == "up") {
       switch (activeComponent) {
-      
-          case globals.COMPONENT_NAME.scroll_item:
+        case globals.COMPONENT_NAME.scroll_item:
           if (current) {
             prevent = true;
           }
@@ -420,7 +410,7 @@ Navigation.defaultProps = {
     39: "right",
     40: "down",
     13: "enter",
-     8 : "back",
+    8: "back",
   },
 };
 
