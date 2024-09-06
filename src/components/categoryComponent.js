@@ -1,8 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import  {
-  HorizontalList,
-  VerticalList,
-} from "../helper/react-navigation";
+import { HorizontalList, VerticalList } from "../helper/react-navigation";
 import List from "./listComponent.js";
 import { VideoContext } from "../utility/context.js";
 import ToggleItem from "./ToogleItem.js";
@@ -13,8 +10,9 @@ import ApiHelper from "../helper/ApiHelper.js";
 import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
-import LoaderScreen from '../pages/loader.js'
-const ContentCategory = ({ show, setSelectedAsset }) => {
+import LoaderScreen from "../pages/loader.js";
+
+const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -28,9 +26,9 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
   const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
   const [showloader, setShowloader] = useState(true);
+  const [nextCategoryIndex, setNextCategoryIndex] = useState();
   const handleSetActive = (status, index) => {
     setActive(status);
-
 
     if (status && content1.current) {
       const items = content1.current.getElementsByClassName("categories-item");
@@ -88,18 +86,14 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          } 
-          
-          else if (index === 3) {
+          } else if (index === 3) {
             // Special handling for the last 5 items
             scrollAmount =
               rect.top -
               containerRect.top -
               containerHeight / 2 +
               itemHeight / 2;
-          }
-          
-          else {
+          } else {
             scrollAmount =
               rect.top -
               containerRect.top -
@@ -110,12 +104,16 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
         }
       }
     }
+    if (index === lists.length - 2) {
+      setNextCategoryIndex(nextCategoryIndex + 1);
+    }
   };
 
   const loadCategoryData = (category, index) => {
     setShowloader(true);
-   // setSelectedAsset(null);
+    // setSelectedAsset(null);
     setActiveIndex(index);
+    setNextCategoryIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
       userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
@@ -123,14 +121,17 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
     ApiHelper.get(
       globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
       headers
-    ).then((result) => { 
+    ).then((result) => {
       if (result && result.length > 0) {
-        var channelList = mapChannelEpg(result); 
-        localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
+        var channelList = mapChannelEpg(result);
+        localStorage.setItem(
+          "filterCategoryResult",
+          JSON.stringify(channelList)
+        );
         setSelectedAsset(channelList[0]);
         setLists(channelList);
-        SetInitialFocus(); 
-      }else{
+        SetInitialFocus();
+      } else {
         localStorage.setItem("filterCategoryResult", null);
         setSelectedAsset(null);
         setLists([]);
@@ -139,6 +140,37 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
     });
   };
 
+  const loadNextCategory = function () {
+    if (homeCategory.length > 0) {
+      if (nextCategoryIndex < homeCategory.length) {
+        var category = homeCategory[nextCategoryIndex];
+        setShowloader(true);
+        const headers = {
+          PARTNER_CODE: "ALL",
+          userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+        };
+        ApiHelper.get(
+          globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
+          headers
+        ).then((result) => {
+          if (result && result.length > 0) {
+            var channelList = mapChannelEpg(result);
+           setLists(lists.concat(channelList));
+            //setNextCategoryIndex(nextCategoryIndex+1)
+            setShowloader(false);
+          } else {
+            setNextCategoryIndex(nextCategoryIndex + 1);
+            setShowloader(false);
+          }
+        });
+      }
+    }
+  };
+  useEffect(() => {
+    if (nextCategoryIndex > 0) {
+      loadNextCategory();
+    }
+  }, [nextCategoryIndex]);
   useEffect(() => {
     setOpacity(isActive ? 1 : 0);
   }, [isActive]);
@@ -181,19 +213,23 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
   }
   useEffect(() => {
     if (show) {
-      var getCategory =localStorage.getItem("filterCategory")? JSON.parse(localStorage.getItem("filterCategory")):null;
+      var getCategory = localStorage.getItem("filterCategory")
+        ? JSON.parse(localStorage.getItem("filterCategory"))
+        : null;
       if (getCategory) {
         var category = mapFilterCategory(getCategory);
         setHomeCategory && setHomeCategory(category);
-        var getCategoryResult =localStorage.getItem("filterCategoryResult")? JSON.parse(localStorage.getItem("filterCategoryResult")):null;
+        var getCategoryResult = localStorage.getItem("filterCategoryResult")
+          ? JSON.parse(localStorage.getItem("filterCategoryResult"))
+          : null;
         if (getCategoryResult) {
           setActiveIndex(0);
+          setNextCategoryIndex(0);
           setLists(getCategoryResult);
           SetInitialFocus();
-        }else{
+        } else {
           loadCategoryData(category[0], 0);
         }
-      
       } else {
         fetchCategory();
       }
@@ -249,6 +285,7 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
                           isActiveIndex={activeIndex === index}
                           onEnter={() => loadCategoryData(category, index)}
                           index={index}
+                          onBack={()=>backtohome()}
                         >
                           {category.name}
                         </ToggleItem>
@@ -308,9 +345,10 @@ const ContentCategory = ({ show, setSelectedAsset }) => {
                             channel={list}
                             onFocus={() => changeFocusTo(i)}
                             visible={true}
-                            isActive={i === activeListIndex}
+                            isActive={i == activeListIndex}
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
+                            onBack={()=>backtohome()}
                            />
                         </div>
                       </div>

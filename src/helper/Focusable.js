@@ -162,6 +162,13 @@ class Focusable extends Component {
       this.props.onEnterDown();
     }
   };
+  handleBack = () => {
+ 
+    if (this.props.onBack) {
+      this.props.onBack(); // Trigger the onBack callback if provided
+    }
+  };
+  
 
   // React Methods
   getChildContext() {
@@ -236,6 +243,7 @@ class Focusable extends Component {
     this.updateChildrenOrder = false;
   }
 
+
   render() {
     const {
       focusId,
@@ -261,6 +269,7 @@ class Focusable extends Component {
         data-focusable-id={this.focusableId}
         onClick={this.handleClick} // Updated to handle mouse click
         className={focusClass}
+  
       />
     );
   }
@@ -283,6 +292,7 @@ Focusable.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onEnterDown: () => {},
+  onBack: () => {}, // Default back button handler
 };
 
 export default Focusable;

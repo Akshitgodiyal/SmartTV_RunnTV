@@ -1,6 +1,13 @@
-import React from 'react'
 
-function ProgramDetail() {
+import React, { useContext, useState, useEffect, useLayoutEffect } from "react";
+
+import discover from "../../assets/images/discover.png";
+
+import ControlToggle from "../Player/ControlToggle";
+
+function ProgramDetail({onBack}) {
+
+
   return (
     <div className="absolute top-0 right-0 text-white m-[100px]">
     <div className="w-[460px] h-[770px]  text-white p-4 rounded-md">
@@ -56,23 +63,23 @@ function ProgramDetail() {
 
       <div className="mt-6 ">
   
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Add channel to favourite
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Add title to watchlist
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle  onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Episodes
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack}  type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Change the Audio
       </ControlToggle>
-           <ControlToggle  type={"detaildata"} className="bg-blue-900 " image={discover}>
+           <ControlToggle onBack={onBack} type={"detaildata"} className="bg-blue-900 " image={discover}>
     
            Start Over
       </ControlToggle>

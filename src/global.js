@@ -6,8 +6,10 @@ export const globals={
         Category_Filter:"filterComponent",
         Content:"content",
         Discover:"discover",
+        Search:"search",
         Player_Control:"player-controls",
-        Player_Detail:"detail-data"
+        Player_Detail:"detail-data",
+        scroll_item:"scroll-data"
     },
     API_URL:{ 
         GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg",

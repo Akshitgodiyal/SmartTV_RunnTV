@@ -5,6 +5,10 @@ const VideoContext = createContext();
 const MyProvider = ({ children }) => {
   const [sidebarActive, setsidebarActive] = useState("tv");
   const [isActive, setIsActive] = useState("tv");
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [bufferedEnd, setBufferedEnd] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
 
   const handleSetIsActive = useCallback((status) => {
     setIsActive(status);
@@ -17,6 +21,11 @@ const MyProvider = ({ children }) => {
         setsidebarActive,
         isActive,
         setIsActive: handleSetIsActive,
+        setCurrentTime,
+        currentTime,
+        bufferedEnd, setBufferedEnd,
+        activeIndex, setActiveIndex,
+        fullscreen, setFullscreen
       }}
     >
       {children}

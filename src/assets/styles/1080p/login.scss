@@ -1,0 +1,135 @@
+/* General Styles */
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--container-padding);
+
+    .logo {
+        width: var(--logo-width);
+    }
+}
+
+.left-section,
+.right-section {
+    display: flex;
+    flex-direction: column;
+    height: var(--section-height);
+    padding: var(--section-padding);
+    background-color: #1A1A1A;
+    border-right: 1px solid #333;
+}
+
+.left-section {
+    width: var(--left-width);
+}
+
+.right-section {
+    width: var(--right-width);
+}
+
+.divider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divider-line {
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #888, transparent);
+}
+
+.or-text {
+    position: relative;
+    z-index: 10;
+    padding: 8px;
+    color: #888;
+    background-color: black;
+    font-size: var(--or-text-size);
+}
+
+.steps {
+    color: white;
+    text-align: center;
+    margin-bottom: var(--steps-margin-bottom);
+    font-size: var(--steps-font-size);
+}
+
+.qr-code,
+.code-box {
+    padding: var(--qr-code-padding);
+    color: white;
+    border-radius: var(--qr-code-border-radius);
+    
+    
+}
+.scanner-img{
+
+width: 251.95px;
+height: 240px;
+}
+
+.code-input-container {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    gap: var(--code-input-gap);
+}
+
+.code-box {
+    border: 1px solid white;
+    color: white;
+    font-size: var(--code-box-font-size);
+    padding: var(--code-box-padding);
+    border-radius: var(--code-box-border-radius);
+}
+
+.skip-button {
+    width: var(--skip-button-width);
+    margin: auto;
+    margin-top: var(--skip-button-margin-top);
+
+    .skip-text {
+        color: white;
+        padding: var(--skip-button-padding);
+        font-size: var(--skip-button-font-size);
+        border-radius: var(--skip-button-border-radius);
+    }
+}
+
+/* Font Sizes */
+.font-size-24 {
+    font-size: 24px;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+:root {
+    --container-padding: 60px 144px;
+    --logo-width: 10rem;
+    --section-height: 784px;
+    --section-padding: 42px;
+    --left-width: 50%;
+    --right-width: 50%;
+    --or-text-size: 1rem;
+    --steps-margin-bottom: 1rem;
+    --steps-font-size: 2rem;
+    --qr-code-padding: 1rem;
+    --qr-code-border-radius: 0.5rem;
+    --code-input-gap: 0.75rem;
+    --code-box-font-size: 3rem;
+    --code-box-padding: 32px 40px;
+    --code-box-border-radius: 0.5rem;
+    --skip-button-width: 238px;
+    --skip-button-margin-top: 1.25rem;
+    --skip-button-padding: 0.5rem 1rem;
+    --skip-button-font-size: 1.5rem;
+    --skip-button-border-radius: 0.5rem;
+}

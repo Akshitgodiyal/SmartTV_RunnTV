@@ -42,12 +42,16 @@ const ToggleItem = (props) => {
     </div>
   );
 
+
+
+
   return (
     <Focusable
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
+      onBack={()=>props.onBack()} 
       disabled={props.disabled}
       parentId={props.parentId}
       allowedDirection={props.allowedDirection}
@@ -61,7 +65,7 @@ const ToggleItem = (props) => {
            >
           <div className=" program-list flex justify-between items-center h-full">
             <div
-              className="text-white pl-[14px]  h-full"
+              className="text-white w-[80%] pl-[14px]  h-full"
               style={{
                 background: `${
                   props.index === 0 &&
@@ -100,12 +104,15 @@ const ToggleItem = (props) => {
             </div>
             {props.activeListIndex && (
               <div className="program-image flex justify-center mx-1 bg-sky-500 bg-opacity-75  rounded-md">
-                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages?.tv} alt="Logo" />
+                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages.tv} alt="Logo" />
               </div>
             )}
           </div>
           </div>
-        ) : (
+        ) : 
+        
+        !props.parentNav == "seekbar" ?
+         (
           <div
           id={props.isFirstItem ? "defaultFocused" : ""}
           className={`item categories-item   ${active ? "item-focus" : ""
@@ -127,7 +134,32 @@ const ToggleItem = (props) => {
             {props.children}
               </div>
               </div>
-        )}
+        ):
+        (
+          <div
+          id={"seekbarref"}
+          className={`item categories-item   ${active ? "item-focus" : ""
+            } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
+        >
+          <div className="flex justify-start items-center  ">
+            {props.images ?
+          
+            <img   src={
+              active
+                ? img_cloudfront1 + props.images.disabledIcon.tv
+                : props.isActiveIndex
+                ? img_cloudfront1 + props.images.enabledIcon.tv
+                : img_cloudfront1 + props.images.disabledIcon.tv
+            }
+            alt={props.children} />
+            
+           : ""}
+            {props.children}
+              </div>
+              </div>
+        )
+      
+      }
     
     </Focusable>
   );

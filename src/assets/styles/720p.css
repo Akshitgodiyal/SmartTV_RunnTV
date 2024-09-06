@@ -7,4 +7,10 @@
 @import "./720p/style.scss";
 @import "./720p/category_filter.css";
 @import "./720p/category_filter.scss";
+@import "./720p/discover.scss";
+@import "./720p/dynamic-content.scss";
+@import "./720p/login.scss";
+/* @import "./720p/player-control.scss"; */
+
+
 

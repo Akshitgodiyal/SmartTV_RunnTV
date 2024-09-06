@@ -1,10 +1,13 @@
 import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect,useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
+import { VideoContext } from "../../utility/context";
 
-const HlsPlayer = React.forwardRef(({selectedAsset, onTimeUpdate, onBufferUpdate }, ref) => {
+const HlsPlayer = React.forwardRef(({selectedAsset }, ref) => {
 const [url, setUrl] = useState("");
 const [poster, setPoster] = useState("");
 const playerRef = useRef();
+const {  setBufferedEnd} = useContext(VideoContext);
+const {setCurrentTime} = useContext(VideoContext);
 useImperativeHandle(ref, () => ({
     playVideo: () => {
       if (playerRef.current) {
@@ -31,13 +34,13 @@ useEffect(()=>{
     const player = playerRef.current; 
     if (url && player) {
       const handlePlay = () => {
-        console.log("Video started");
+        // console.log("Video started");
 
         // Attempt to unmute the video after it starts playing
         setTimeout(() => {
           try {
             player.muted = false;
-            console.log("Video unmuted");
+            // console.log("Video unmuted");
 
             // Attempt to resume playback after unmuting (this may still fail on some browsers)
             player.play().catch((error) => {
@@ -46,7 +49,7 @@ useEffect(()=>{
           } catch (error) {
             console.error("Failed to unmute:", error);
           }
-        }, 500); // Adjust this delay as needed
+        }, 500); 
       };
 
       player.addEventListener("play", handlePlay);
@@ -60,19 +63,19 @@ useEffect(()=>{
   useEffect(() => {
     const player = playerRef.current; 
     const handleTimeUpdate = () => {
-        if (onTimeUpdate) {
-            onTimeUpdate(player.currentTime);
-        }
+      
+            setCurrentTime(player.currentTime);
+       
     };
 
     const handleBufferUpdate = () => {
-        if (onBufferUpdate) {
+    
             const buffer = player.buffered;
             if (buffer.length > 0) {
                 const bufferedEnd = buffer.end(buffer.length - 1);
-                onBufferUpdate(bufferedEnd);
+                setBufferedEnd(bufferedEnd);
             }
-        }
+      
     };
     player.addEventListener('timeupdate', handleTimeUpdate);
     player.addEventListener('progress', handleBufferUpdate);
@@ -81,7 +84,7 @@ useEffect(()=>{
         player.removeEventListener('timeupdate', handleTimeUpdate);
         player.removeEventListener('progress', handleBufferUpdate);
     };
-  }, [onTimeUpdate, onBufferUpdate]);
+  }, []);
 
   return (
     <div style={{ zIndex: "0" }} className="player-wrapper">
