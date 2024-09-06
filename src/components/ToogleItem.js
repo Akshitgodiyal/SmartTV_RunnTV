@@ -65,7 +65,7 @@ const ToggleItem = (props) => {
            >
           <div className=" program-list flex justify-between items-center h-full">
             <div
-              className="text-white pl-[14px]  h-full"
+              className="text-white w-[80%] pl-[14px]  h-full"
               style={{
                 background: `${
                   props.index === 0 &&
