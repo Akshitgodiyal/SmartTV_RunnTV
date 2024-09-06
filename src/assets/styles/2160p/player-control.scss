@@ -1,0 +1,52 @@
+
+.disabled-button{
+    display: none;
+  }
+  .seek-bar{
+    width: 1600px;
+    background: #ffffff29; 
+    height: 4px;
+    border: none;
+  }
+  #seekbar .item-focus {
+    border: none;
+  }
+  #seekbar .item-focus .seek-bar{
+      background: #fff; 
+      height: 4px;
+      border: none;
+  }
+  #seekbar .seek-bar .filled{
+      height: 4px;
+    background:  rgba(227, 28, 60, 1);
+   }
+  .player-next-prev{
+    margin-top: 120px;
+    .item{
+      width: 30%;
+      height: 80px;
+      border: 2px solid transparent; 
+      background: rgba(0, 0, 0, 0.32);
+      border-radius: 8px;
+      color: #fff;
+    }
+    .item-focus{
+      border: 2px solid #fff; 
+    }
+    .channel-detail{
+      width: 70%;
+      margin-left: 2%;
+      margin-right: 2%;
+    }
+    .channel-image{
+      width: 20%;
+      margin-left: 2%;
+      margin-right: 2%;
+    }
+    .channel-image img{
+      height: 80px;
+      object-fit: contain;
+    }
+  }
+  
+   
