@@ -16,8 +16,9 @@ const Home = () => {
   const { setsidebarActive } = useContext(VideoContext);
   const {activeIndex, setActiveIndex } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
+  const { fullscreen, setFullscreen } = useContext(VideoContext);
   const showVideoSlider = () => {
-    
+    setFullscreen(false)
     setIsActive(false)
     setActiveIndex(1)
     setsidebarActive("tv")

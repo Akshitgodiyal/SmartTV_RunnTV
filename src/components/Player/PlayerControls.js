@@ -12,6 +12,8 @@ import downArrow from "../../assets/images/downArrow.png"
 import ProgramDetail from "../programDetail.js/ProgramDetail";
 const PlayerControls = ({ selectedAsset, setSelectedAsset   }) => {
   const { isActive, setIsActive } = useContext(VideoContext);
+  const { fullscreen, setFullscreen } = useContext(VideoContext);
+
   const { currentTime } = useContext(VideoContext);
   const { bufferedEnd} = useContext(VideoContext);
   const [previousChannel, setPreviousChannel] = useState(null);
@@ -20,11 +22,12 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset   }) => {
 
 
   
-  const handleSetActive = (status, index) => {
+  const handleSetActive = (status) => {
     setIsActive(status);
   };
   const onFocus = (index, Control) => {
     handleSetActive(false, index);
+    setFullscreen(false);
     localStorage.setItem(globals.ACTIVE_COMPONENT, Control);
   };
   useLayoutEffect(() => {
@@ -59,6 +62,20 @@ const handleSeekChange = (e) => {
   handleSeek(newTime);
 };
 
+const handlefullscreen =()=>{
+  
+  if(fullscreen == false){
+    setFullscreen(true)
+
+  }else{
+    setFullscreen(false)
+  }
+
+
+
+}
+
+
   return (
     <>
     <VerticalList
@@ -67,12 +84,12 @@ const handleSeekChange = (e) => {
       className="w-full justify-center gap-3 items-center text-2xl flex"
       retainLastFocus={true}
       id={globals.COMPONENT_NAME.Player_Detail}
-      style={{ opacity: isActive ? 0 : 1, zIndex: isActive ? -1 : 1 }}
+      style={{ opacity: isActive  ? 0 : fullscreen ? 0:1 , zIndex: isActive ? -1 : fullscreen ? -1:1 }}
     >
-      <ProgramDetail />
+      <ProgramDetail  onBack={()=>handlefullscreen()} />
     </VerticalList>
     <div
-      style={{ opacity: isActive ? 0 : 1, zIndex: isActive ? -1 : 1 }}
+      style={{ opacity: isActive  ? 0 : fullscreen ? 0:1, zIndex: isActive ? -1 : fullscreen ? -1:1}}
       className="flex justify-center absolute bottom-2 right-40  w-[80%] h-[16%] m-auto z-80"
     >
 
@@ -86,7 +103,7 @@ const handleSeekChange = (e) => {
           id={globals.COMPONENT_NAME.Player_Control}
         >
           <div id="seekbar">
-              <ToggleItem  parentNav="seekbar" className=""> 
+              <ToggleItem  onBack={()=>handlefullscreen()} parentNav="seekbar" className=""> 
               <input  type="range"  min="0"  max="100"  value={value} onChange={handleSeekChange} className="seek-bar"/>
               </ToggleItem>
           </div>
@@ -111,6 +128,7 @@ const handleSeekChange = (e) => {
                   : "disabled-button"
               }
               onEnter={() => setSelectedAsset(previousChannel)}
+              onBack={()=>handlefullscreen()}
             >
               <div className="channel-detail">pre</div>
               <div className="channel-image">
@@ -132,6 +150,7 @@ const handleSeekChange = (e) => {
                   : "disabled-button"
               }
               onEnter={() => setSelectedAsset(nextChannel)}
+              onBack={()=>handlefullscreen()}
             >
              
               <div className="channel-image">

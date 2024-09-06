@@ -316,6 +316,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
                             isActive={i == activeListIndex}
                             parentNav="home-div-nav"
                             isFirstList={i === 0 ? true : false}
+                            onBack={()=>backtohome()}
                            />
                         </div>
                       </div>
