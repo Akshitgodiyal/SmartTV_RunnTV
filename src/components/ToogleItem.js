@@ -103,7 +103,7 @@ const ToggleItem = (props) => {
               )}
             </div>
             {props.activeListIndex && (
-              <div className="program-image flex justify-center mx-1 bg-sky-500 bg-opacity-75  rounded-md">
+              <div className="program-image flex justify-center mx-1   rounded-md">
                 <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages.tv} alt="Logo" />
               </div>
             )}
