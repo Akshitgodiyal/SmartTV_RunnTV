@@ -32,7 +32,7 @@ const App = () => {
         headers
       ).then((result) => {
         if (result && result.length > 0) {
-          var channelList = mapChannelEpg(result);
+          var channelList = mapChannelEpg(result,index);
           localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
         }else{
           localStorage.setItem("filterCategoryResult", null);
