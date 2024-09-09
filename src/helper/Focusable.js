@@ -19,27 +19,6 @@ class Focusable extends Component {
     super(props, context);
   }
 
-  resetFocusData() {
-    // Clear tree path and children
-    this.treePath = [];
-    this.children = [];
-
-    // Reset focus-related states
-    this.setState({
-      focusTo: null,
-      isFocused: false,
-    });
-
-    // Reset context-related focusable IDs
-    if (this.focusableId) {
-      this.context.navigationComponent.removeFocusableId(this.focusableId);
-    }
-
-    // Clear focusableId and lastFocusChild
-    this.focusableId = null;
-    this.lastFocusChild = null;
-  }
-
   isContainer() {
     return false;
   }
