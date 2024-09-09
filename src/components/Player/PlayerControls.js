@@ -72,7 +72,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
 
   return (
     <>
-      {/* <VerticalList
+      <VerticalList
         onFocus={(index) =>
           onFocus(index, globals.COMPONENT_NAME.Player_Detail)
         }
@@ -86,7 +86,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
         }}
       >
         <ProgramDetail onBack={() => handlefullscreen()} />
-      </VerticalList> */}
+      </VerticalList>
       <div
         style={{
           opacity: isActive ? 0 : fullscreen ? 0 : 1,
