@@ -269,7 +269,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
             </div>
             <div className="w-full">
               <div className="flex my-5 w-full justtify-center">
-                <img className=" w-15 m-auto" src={upArrow} alt="Logo" />
+                <img id="upArrow" className=" w-15 m-auto" src={upArrow} alt="Logo" />
               </div>
               <HorizontalList retainLastFocus={true}>
                 <div className="category-filter">

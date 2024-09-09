@@ -6,10 +6,7 @@ import { VideoContext } from "../../utility/context";
 function Player({ selectedAsset }) {
   return (
     <div>
-      <HlsPlayer selectedAsset={selectedAsset}
-    
-      
-      />
+      <HlsPlayer selectedAsset={selectedAsset} />
     </div>
   );
 }
