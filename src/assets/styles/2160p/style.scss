@@ -23,9 +23,10 @@ body {
   top: 0;
   width: 96px;
   height: 100%;
-  background-color: rgba(16, 17, 19, 1)  !important;  
+  background-color: #101113 !important;  
   display: flex;    
   z-index: 100;
+  box-shadow: 2px 0px 16px 0px rgba(77, 77, 77, 0.16);
 }
  
 #side_bar.focused {

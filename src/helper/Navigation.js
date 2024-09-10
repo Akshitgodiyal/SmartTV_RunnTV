@@ -316,9 +316,8 @@ class Navigation extends Component {
       return;
     }
 
-    this.blur(next.treePath);
-    next.focus();
-
+    this.blur(next.treePath); 
+    next.focus(); 
     const lastPath = this.currentFocusedPath;
     this.currentFocusedPath = next.treePath;
     this.lastFocusedPath = lastPath;
