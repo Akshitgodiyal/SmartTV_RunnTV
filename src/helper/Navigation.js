@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import VerticalList from "./VerticalList.js";
 import { globals } from "../global.js";
 import { scrolling } from "../components/privacy/privacyPage.js";
+import { debounce } from "lodash"; // Import debounce from lodash
 const reverseDirection = {
   up: "down",
   down: "up",
@@ -19,7 +20,11 @@ class Navigation extends Component {
   root = null;
   focusableComponents = {};
   focusableIds = 0;
-
+  constructor(props) {
+    super(props);
+    // Debounce the onKeyDown function
+    this.onKeyDown = debounce(this.onKeyDown.bind(this), 100); // Adjust the delay as needed
+  }
   onKeyDown = (evt) => {
     if (
       this.pause ||
@@ -61,6 +66,12 @@ class Navigation extends Component {
         }
       }
     }
+
+
+
+
+
+
     if (!direction) {
   
     
@@ -128,6 +139,7 @@ class Navigation extends Component {
     
     const activeComponent =
     localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+    console.log("activeComponent",activeComponent);
     
     // console.log(activeComponent,globals.COMPONENT_NAME.scroll_item,direction);
     if(activeComponent === globals.COMPONENT_NAME.scroll_item){

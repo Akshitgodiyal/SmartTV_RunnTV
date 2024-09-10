@@ -193,7 +193,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      //setLoading(false);
+      // setLoading(false);
     }
   }
   function SetInitialFocus() {
@@ -209,7 +209,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
         );
         setShowloader(false);
       }
-    }, 400);
+    }, 300);
   }
   useEffect(() => {
     if (show) {
@@ -261,7 +261,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
           </div>
           <div className="w-full">
             <div className="flex my-5 w-full justtify-center">
-              <img className=" w-15 m-auto" src={upArrow} alt="Logo" />
+              <img className=" 1020p:w-15 720p:w-10 m-auto" src={upArrow} alt="Logo" />
             </div>
             <HorizontalList retainLastFocus={true}>
               <div className="category-filter">
@@ -347,7 +347,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
                             visible={true}
                             isActive={i == activeListIndex}
                             parentNav="home-div-nav"
-                            isFirstList={i === 0 ? true : false}
+                            isFirstList={i == 0 ? true : false}
                             onBack={()=>backtohome()}
                            />
                         </div>

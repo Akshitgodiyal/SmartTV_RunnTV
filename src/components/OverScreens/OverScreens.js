@@ -38,7 +38,7 @@ function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
         <PlayerControls
           selectedAsset={selectedAsset}
           setSelectedAsset={setSelectedAsset}
-          
+          backtohome={backtohome}
        
         />
 

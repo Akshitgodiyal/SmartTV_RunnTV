@@ -23,8 +23,8 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
   const handleSetActive = (status) => {
     setIsActive(status);
   };
-  const onFocus = (index, Control) => {
-    handleSetActive(false, index);
+  const onFocus = (Control) => {
+    handleSetActive(false);
     setFullscreen(false);
     localStorage.setItem(globals.ACTIVE_COMPONENT, Control);
   };
@@ -50,21 +50,27 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
     const percentage = (currentTime / bufferedEnd) * 100;
     setValue(percentage);
   }, [currentTime, bufferedEnd]);
-  const handleSeek = (time) => {
-    const player = document.querySelector("video");
-    player.currentTime = time;
-  };
-  const handleSeekChange = (e) => {
-    const newTime = (e.target.value / 100) * bufferedEnd;
-    setValue(e.target.value);
-    handleSeek(newTime);
-  };
- 
+
+
   const handlefullscreen = () => {
     if (fullscreen == false) {
       setFullscreen(true);
+     
     } else {
       setFullscreen(false);
+
+     handleSetActive(true);
+     let firstSectionRef = document.getElementById("defaultFocused");
+     if (firstSectionRef) {
+       localStorage.setItem("screenLoaded", true);
+       firstSectionRef.click();
+       localStorage.setItem("screenLoaded", false);
+       localStorage.setItem(
+         globals.ACTIVE_COMPONENT,
+         globals.COMPONENT_NAME.Content
+       );
+      
+     }
     }
   };
  
@@ -72,7 +78,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
     <>
       <VerticalList
         onFocus={(index) =>
-          onFocus(index, globals.COMPONENT_NAME.Player_Detail)
+          onFocus( globals.COMPONENT_NAME.Player_Detail)
         }
         onBlur={(index) => handleSetActive(true, index)}
         className="w-full justify-center gap-3 items-center text-2xl flex"
@@ -122,7 +128,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
                 disabled={previousChannel ? false : true}
                 className={
                   previousChannel
-                    ? "absolute bottom-10 left-[125px]"
+                    ? "absolute 720p:bottom-5 bottom-10 left-[125px]"
                     : "disabled-button"
                 }
                 onEnter={() => setSelectedAsset(previousChannel)}
@@ -143,8 +149,9 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
               </ToggleItem>
               <>
                 <img
+              
                   id="downArrow"
-                  className="absolute bottom-10"
+                  className="absolute 720p:bottom-5 bottom-10 1020p:w-15 720p:w-10"
                   src={downArrow}
                   alt="runnTV_downArrow"
                 ></img>
@@ -156,7 +163,7 @@ const PlayerControls = ({ selectedAsset, setSelectedAsset }) => {
                 disabled={nextChannel ? false : true}
                 className={
                   nextChannel
-                    ? "absolute bottom-10 right-[110px]"
+                    ? "absolute  720p:bottom-5 bottom-10 right-[110px]"
                     : "disabled-button"
                 }
                 onEnter={() => setSelectedAsset(nextChannel)}

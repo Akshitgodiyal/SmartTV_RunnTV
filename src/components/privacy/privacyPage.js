@@ -5,7 +5,7 @@ import ControlToggle from "./ControlToggle";
 import { globals } from "../../global";
 
 export const scrolling = (key) => {
-  
+
     const section = document.getElementById("scrollItem");
     if (!section) return "No section found";
 
@@ -36,7 +36,7 @@ export const scrolling = (key) => {
 }
 
 
-function PrivacyPage({ show }) {
+function PrivacyPage({ show, backtohome }) {
     const datasection = document.getElementById("datasection");
 
     useEffect(() => {
@@ -64,20 +64,20 @@ function PrivacyPage({ show }) {
             style={{ position: "absolute", top: "0" }}
         >
             <div className="py-5">
-            <div className="tnc-title">
-                                <div className="m-auto mt-5 text-center text-white text-[32px]">TERMS & CONDITIONS</div>
-                            </div>
-              
-                    {/* <VerticalList> */}
-                        <ControlToggle type={"data"} >
-                        <div className=" text-justify w-[90%] my-5 h-[80vh] 4k:h-[90vh] 720p:h-[70vh] m-auto mt-5 overflow-y-auto scroll-hidden " id="scrollItem"  >
-                           
-                            {demotext}
-                            </div>
-                        </ControlToggle>
+                <div className="tnc-title">
+                    <div className="m-auto mt-5 text-center text-white text-[32px]">TERMS & CONDITIONS</div>
+                </div>
 
-                    {/* </VerticalList> */}
-               
+                {/* <VerticalList> */}
+                <ControlToggle onBack={() => backtohome()} type={"data"} >
+                    <div className=" text-justify w-[90%] my-5 h-[80vh] 4k:h-[90vh] 720p:h-[70vh] m-auto mt-5 overflow-y-auto scroll-hidden " id="scrollItem"  >
+
+                        {demotext}
+                    </div>
+                </ControlToggle>
+
+                {/* </VerticalList> */}
+
                 {/* <VerticalList>
                         <ControlToggle type={"button"}  >
 
