@@ -201,7 +201,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      //setLoading(false);
+      // setLoading(false);
     }
   }
   function SetInitialFocus() {
@@ -217,7 +217,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
         );
         setShowloader(false);
       }
-    }, 400);
+    }, 300);
   }
   useEffect(() => {
     if (show) {

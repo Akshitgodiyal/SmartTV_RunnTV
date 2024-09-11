@@ -207,3 +207,8 @@ width: 31.3349px;
   display: none;
 } 
 
+.scroll-hidden{
+
+  -ms-overflow-style: none; 
+   scrollbar-width: none;  
+ }

@@ -9,7 +9,8 @@ export const globals={
         Search:"search",
         Player_Control:"player-controls",
         Player_Detail:"detail-data",
-        scroll_item:"scroll-data"
+        scroll_item:"scroll-data",
+        full_screen:"full-screen",
     },
     API_URL:{ 
         GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg",
