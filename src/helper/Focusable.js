@@ -19,27 +19,6 @@ class Focusable extends Component {
     super(props, context);
   }
 
-  resetFocusData() {
-    // Clear tree path and children
-    this.treePath = [];
-    this.children = [];
-
-    // Reset focus-related states
-    this.setState({
-      focusTo: null,
-      isFocused: false,
-    });
-
-    // Reset context-related focusable IDs
-    if (this.focusableId) {
-      this.context.navigationComponent.removeFocusableId(this.focusableId);
-    }
-
-    // Clear focusableId and lastFocusChild
-    this.focusableId = null;
-    this.lastFocusChild = null;
-  }
-
   isContainer() {
     return false;
   }
@@ -60,7 +39,8 @@ class Focusable extends Component {
   removeChild(child) {
     this.context.navigationComponent.removeFocusableId(child.focusableId);
 
-    const currentFocusedPath = this.context.navigationComponent.currentFocusedPath;
+    const currentFocusedPath =
+      this.context.navigationComponent.currentFocusedPath;
     if (!currentFocusedPath) {
       return;
     }
@@ -109,18 +89,16 @@ class Focusable extends Component {
     }
   }
 
-  focus() {
-    this.treePath.forEach((component) => {
-      if (component.props.onFocus) {
-        component.props.onFocus(
-          this.indexInParent,
-          this.context.navigationComponent
-        );
-      }
-    });
+  async focus() {
+    
+    for (const component of this.treePath) {
+     await component.props.onFocus(
+        this.indexInParent,
+        this.context.navigationComponent
+      );
+    } 
     this.setState({ isFocused: true });
   }
-
   blur() {
     if (this.props.onBlur) {
       this.props.onBlur(this.indexInParent, this.context.navigationComponent);
@@ -146,7 +124,10 @@ class Focusable extends Component {
   }
 
   handleClick = () => {
-    if (this.context.navigationComponent.currentFocusedPath && this.context.navigationComponent.currentFocusedPath.includes(this)) {
+    if (
+      this.context.navigationComponent.currentFocusedPath &&
+      this.context.navigationComponent.currentFocusedPath.includes(this)
+    ) {
       return;
     }
     if (localStorage.getItem("screenLoaded") === "true") {
@@ -163,12 +144,10 @@ class Focusable extends Component {
     }
   };
   handleBack = () => {
- 
     if (this.props.onBack) {
       this.props.onBack(); // Trigger the onBack callback if provided
     }
   };
-  
 
   // React Methods
   getChildContext() {
@@ -195,25 +174,22 @@ class Focusable extends Component {
     }
   }
   resetFocusData() {
-   
     this.treePath = [];
     this.children = [];
- 
-   
+
     this.setState({
       focusTo: null,
       isFocused: false,
     });
- 
-   
+
     if (this.focusableId) {
       this.context.navigationComponent.removeFocusableId(this.focusableId);
     }
- 
+
     this.focusableId = null;
     this.lastFocusChild = null;
   }
- 
+
   componentWillUnmount() {
     this.resetFocusData();
     if (this.context.parentFocusable) {
@@ -243,7 +219,6 @@ class Focusable extends Component {
     this.updateChildrenOrder = false;
   }
 
-
   render() {
     const {
       focusId,
@@ -269,7 +244,6 @@ class Focusable extends Component {
         data-focusable-id={this.focusableId}
         onClick={this.handleClick} // Updated to handle mouse click
         className={focusClass}
-  
       />
     );
   }

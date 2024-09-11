@@ -25,14 +25,14 @@ const App = () => {
     try {
       const headers = {
         PARTNER_CODE: "ALL",
-        userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+        userid:globals.getUserId(),
       };
       ApiHelper.get(
         globals.API_URL.GET_EPG_BY_FILTER_ID + category.categoryId,
         headers
       ).then((result) => {
         if (result && result.length > 0) {
-          var channelList = mapChannelEpg(result);
+          var channelList = mapChannelEpg(result,index);
           localStorage.setItem("filterCategoryResult", JSON.stringify(channelList));
         }else{
           localStorage.setItem("filterCategoryResult", null);
@@ -50,7 +50,8 @@ const App = () => {
     const headers = {
       "content-type": "application/json",
       "partner_code": "ALL",
-      "user_id": "26-6E-B9-8F-47-8A"
+     // "user_id": "26-6E-B9-8F-47-8A"
+      "user_id":globals.getUserId(),
     };
   
     const apiEndpoints = [

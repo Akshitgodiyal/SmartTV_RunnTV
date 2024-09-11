@@ -1,6 +1,0 @@
-#sidebarComponent .item {
-    border-bottom: 2px solid transparent;
-}
-#sidebarComponent .item .active{
-    border-bottom: 2px solid #fff;
-}

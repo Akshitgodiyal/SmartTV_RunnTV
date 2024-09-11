@@ -23,9 +23,10 @@ body {
   top: 0;
   width: 96px;
   height: 100%;
-  background-color: rgba(16, 17, 19, 1)  !important;  
+  background-color: #101113 !important;  
   display: flex;    
   z-index: 100;
+  box-shadow: 2px 0px 16px 0px rgba(77, 77, 77, 0.16);
 }
  
 #side_bar.focused {
@@ -48,7 +49,7 @@ body {
   left: 0;
   top: 0;
   opacity: 0;
-  transition: opacity 0.5s;
+
   box-sizing: border-box;
   overflow: hidden;
   padding-top: 70px;
@@ -132,7 +133,7 @@ body {
   width: 100%;
   z-index: 2;
   opacity: 1;
-  transition: all 0.005s ease-in-out;
+
   margin-bottom: 0px;
   margin-top: 0px;
 }
@@ -187,7 +188,7 @@ body {
 }
 
 #category-filter{
- height: 500px;
+
   scroll-behavior: smooth;
   overflow-y: hidden;
   margin: 6px;

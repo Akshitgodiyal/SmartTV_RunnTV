@@ -23,7 +23,7 @@
   .player-next-prev{
     margin-top: 120px;
     .item{
-      width: 30%;
+      width: 22%;
       height: 80px;
       border: 2px solid transparent; 
       background: rgba(0, 0, 0, 0.32);
@@ -47,6 +47,28 @@
       height: 80px;
       object-fit: contain;
     }
+    .next-prev-title{
+      color: #fff;
+      font-family: "Roboto";
+      font-size: 22px;
+      line-height: 19px;
+      margin-top: -2%;
+    }
+    
+    .next-prev-label{
+      color: #9E9C9C;
+      font-size:18px;
+      margin-top: 2%; 
+    }
+    .next-prev-label .prev,.next-prev-label .next{
+     display: flex;
+    }
+
+    .next-prev-label .prev img,.next-prev-label .next img{
+      width: 20px;
+      height: 19px;
+      margin: 2%;
+     }
   }
   
    

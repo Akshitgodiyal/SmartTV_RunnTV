@@ -24,9 +24,10 @@ body {
   top: 0;
   width: 64.0032px;
   height: 100%; 
-  background-color: rgba(16, 17, 19, 1)  !important;  
+  background-color: #101113 !important;  
   display: flex;    
   z-index: 100;
+  box-shadow: 2px 0px 16px 0px rgba(77, 77, 77, 0.16);
 }
 
  
@@ -201,16 +202,13 @@ width: 31.3349px;
   margin-top: 290px;
   position: absolute;
 }
-
-
+ 
 .disabled-button{
   display: none;
-}
-.seek-bar{
-  width: 900px;
-}
-#seekbar .item-focus{
-  height: auto;
-    border: none;
-}
+} 
 
+.scroll-hidden{
+
+  -ms-overflow-style: none; 
+   scrollbar-width: none;  
+ }

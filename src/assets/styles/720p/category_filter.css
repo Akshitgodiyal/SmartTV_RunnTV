@@ -1,4 +1,5 @@
 .category-filter{
+ 
     width:  186.676px;
     float:left ;
     padding: 9.3338px;
@@ -10,7 +11,7 @@
     border-radius: 5.3336px;
     border: 1.32px solid transparent;
     padding: 11.3338px 8.0004px 9.3338px 8.0004px;
-    font-size: 15.0008px;
+    font-size: 12.0008px;
     font-family: "Roboto";
     font-weight: 500;
     line-height: 15.3344px;
@@ -32,8 +33,7 @@
 }
 #category-filter{ 
     .active{
-        
-        font-size: 15.6676px;
+        font-size: 12.6676px;
         background-color: rgba(230, 230, 230, 1);
         color: rgba(19, 19, 20, 1) !important; 
         margin: 5px 0px 5px 0px;
@@ -43,5 +43,5 @@
     .item-focus.active{
         color: rgba(217, 217, 217, 1) !important; 
         background-color: transparent;
-      } 
+    } 
 }

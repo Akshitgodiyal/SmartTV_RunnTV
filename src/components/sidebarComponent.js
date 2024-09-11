@@ -6,6 +6,8 @@ import tvImage from "../assets/images/tv.png";
 import discoverImage from "../assets/images/discover.png";
 import eyeImage from "../assets/images/eye.png";
 import searchImage from "../assets/images/search.png";
+import loginImage from "../assets/images/Login.png";
+import exitImage from "../assets/images/Exit.png";
 const ToggleItem = ({
   icon,
   children,
@@ -13,10 +15,10 @@ const ToggleItem = ({
   onFocus,
   onEnterDown,
   isActiveIndex,
-  focusedIndex
+  focusedIndex,
 }) => {
   const [active, setActive] = useState(0);
-  // useEffect(()=>{ 
+  // useEffect(()=>{
   //   if(focusedIndex){
   //     setActive(true);
   //   }
@@ -42,16 +44,16 @@ const Sidebar = () => {
   const [focusedIndex, setFocusedIndex] = useState(1);
 
   const [activeItemName, setActiveItemName] = useState("tv");
-  const {sidebarActive, setsidebarActive } = useContext(VideoContext);
+  const { sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
-  const {activeIndex, setActiveIndex } = useContext(VideoContext);
+  const { activeIndex, setActiveIndex } = useContext(VideoContext);
   const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
     {
       id: "login",
-      label: "login",
-      icon: "",
+      label: "Login",
+      icon: loginImage,
     },
     {
       id: "tv",
@@ -76,7 +78,7 @@ const Sidebar = () => {
     {
       id: "Exit",
       label: "Exit",
-      icon: "",
+      icon: exitImage,
     },
   ];
 
@@ -106,7 +108,6 @@ const Sidebar = () => {
   };
 
   const onEnterDown = (index) => {
-      
     setActiveIndex(index);
     setsidebarActive(items[index].id);
     localStorage.setItem(
@@ -116,14 +117,13 @@ const Sidebar = () => {
   };
 
   return (
-    <div id="side_bar" className={active ? "focused" : ""}
-    style={{
-      opacity: isActive ? 1 : 0,
-      zIndex: isActive ? 2 : -1,
-    }}
-    
-    
-    
+    <div
+      id="side_bar"
+      className={active ? "focused" : ""}
+      style={{
+        opacity: isActive ? 1 : 0,
+        zIndex: isActive ? 2 : -1,
+      }}
     >
       <div ref={content1}>
         <VerticalList
@@ -138,7 +138,7 @@ const Sidebar = () => {
               icon={icon}
               isActiveIndex={activeIndex === index}
               onEnterDown={() => onEnterDown(index)}
-              focusedIndex={activeIndex=== index}
+              focusedIndex={activeIndex === index}
             >
               <img
                 src={icon.icon}

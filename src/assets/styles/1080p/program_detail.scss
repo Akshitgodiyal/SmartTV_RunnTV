@@ -1,0 +1,126 @@
+.program-detail-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    margin: 100px;
+  }
+  
+  .program-detail-content {
+    width: 460px;
+    height: 770px;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .program-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .channel-logo {
+    width: 120px;
+    height: 80px;
+  }
+  
+  .channel-logo-img {
+    width: 120px;
+    height: 70px;
+    object-fit: cover;
+  }
+  
+  .channel-info {
+    .channel-title {
+      font-size: 24px;
+      font-weight: normal;
+    }
+  
+    .channel-category {
+      font-size: 20px;
+      color: #d9d9d9;
+    }
+  }
+  
+  .channel-description {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #d9d9d9;
+  }
+  
+  .program-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 24px;
+  
+    .program-thumbnail {
+      width: 140px;
+      height: 80px;
+  
+      .program-thumbnail-img {
+        width: 140px;
+        height: 80px;
+        object-fit: cover;
+      }
+    }
+  
+    .program-details {
+      font-weight: normal;
+  
+      .program-title {
+        font-size: 24px;
+        font-weight: normal;
+      }
+  
+      .program-rating {
+        font-size: 16px;
+        color: #d9d9d9;
+        border: 1px solid white;
+        width: max-content;
+      }
+  
+      .program-genre {
+        font-size: 16px;
+        color: #d9d9d9;
+      }
+    }
+  }
+  
+  .program-description {
+    margin-top: 16px;
+  
+    .description-title {
+      font-size: 16px;
+      color: #d9d9d9;
+      font-weight: 500;
+    }
+  
+    .description-content {
+      font-size: 16px;
+      color: #d9d9d9;
+      font-weight: normal;
+    }
+  }
+  
+  .control-toggle-container {
+    margin-top: 24px;
+  
+    .control-toggle {
+      background-color: #1c3a7e;
+    }
+  }
+  
+
+
+
+  .control-toggle__icon {
+    width:24px; 
+    margin-right: 16px; 
+  }
+  
+  .control-toggle__text {
+    font-size: 24px;
+    color: white;
+  }

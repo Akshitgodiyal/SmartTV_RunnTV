@@ -1,0 +1,138 @@
+.program-detail-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  margin: 200px;
+}
+
+.program-detail-content {
+  width: 920px;
+  height: 1540px;
+  color: white;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.program-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.channel-logo {
+  width: 240px;
+  height: 160px;
+}
+
+.channel-logo-img {
+  width: 240px;
+  height: 140px;
+  object-fit: cover;
+}
+
+.channel-info {
+  .channel-title {
+    font-size: 48px;
+    line-height: normal;
+   font-weight: normal;
+line-height:normal;
+  }
+
+  .channel-category {
+    font-size: 40px;
+    color: #d9d9d9;
+    line-height:normal;
+  }
+}
+
+.channel-description {
+  margin-top: 16px;
+  font-size: 32px;
+  color: #d9d9d9;
+  line-height:normal;
+}
+
+.program-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 48px;
+
+  .program-thumbnail {
+    width: 280px;
+    height: 160px;
+
+    .program-thumbnail-img {
+      width: 280px;
+      height: 160px;
+      object-fit: cover;
+    }
+  }
+
+  .program-details {
+   font-weight: normal;
+line-height:normal;
+
+    .program-title {
+      font-size: 48px;
+     font-weight: normal;
+line-height:normal;
+    }
+
+    .program-rating {
+      font-size: 32px;
+      line-height:normal;
+      color: #d9d9d9;
+      border: 2px solid white;
+      width: max-content;
+    }
+
+    .program-genre {
+      font-size: 32px;
+      color: #d9d9d9;
+      line-height:normal;
+
+    }
+  }
+}
+
+.program-description {
+  margin-top: 32px;
+
+  .description-title {
+    font-size: 32px;
+    color: #d9d9d9;
+    font-weight: 500;
+    line-height:normal;
+  }
+
+  .description-content {
+    font-size: 32px;
+    
+    color: #d9d9d9;
+   font-weight: normal;
+line-height:normal;
+  }
+}
+
+.control-toggle-container {
+  margin-top: 48px;
+
+  .control-toggle {
+    background-color: #1c3a7e;
+  }
+}
+
+
+
+
+.control-toggle__icon {
+  width:48px; 
+  margin-right: 32px; 
+}
+
+.control-toggle__text {
+  font-size: 48px;
+  color: white;
+}

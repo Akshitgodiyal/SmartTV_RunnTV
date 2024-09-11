@@ -78,6 +78,7 @@ const ControlToggle = (props) => {
       onBlur={() => setActive(false)}
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
+      onBack ={()=>props.onBack()}
     >
       {renderContent()}
     </Focusable>

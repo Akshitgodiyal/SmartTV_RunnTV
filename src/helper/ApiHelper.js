@@ -19,7 +19,7 @@ class ApiHelper {
     const options = {
       method: method,
       headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
         ...headers,
       },
     };

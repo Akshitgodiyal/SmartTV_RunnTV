@@ -12,7 +12,7 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 
-const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
+const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { sidebarActive } = useContext(VideoContext);
   const [active, setActive] = useState(false);
@@ -59,10 +59,13 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
     }
   };
 
-  const changeFocusTo = (index) => {
+  const changeFocusTo = (index, categoryIndex) => {
     setActiveListIndex(index);
     setActive(index !== null);
-
+    if (activeIndex !== categoryIndex) {
+      setActiveIndex(categoryIndex);
+      handleSetActive(true, categoryIndex);
+    }
     if (content2.current) {
       const items = content2.current.getElementsByClassName("contentgroup");
       const container = content2.current;
@@ -104,8 +107,8 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
         }
       }
     }
-    if (index === lists.length - 2) {
-      setNextCategoryIndex(nextCategoryIndex + 1);
+    if ( index === lists.length - 2 ) {
+      setNextCategoryIndex(activeIndex + 1);
     }
   };
 
@@ -113,17 +116,17 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
     setShowloader(true);
     // setSelectedAsset(null);
     setActiveIndex(index);
-    setNextCategoryIndex(index);
+    // setNextCategoryIndex(index);
     const headers = {
       PARTNER_CODE: "ALL",
-      userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+      userid: globals.getUserId(),
     };
     ApiHelper.get(
       globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
       headers
     ).then((result) => {
       if (result && result.length > 0) {
-        var channelList = mapChannelEpg(result);
+        var channelList = mapChannelEpg(result, index);
         localStorage.setItem(
           "filterCategoryResult",
           JSON.stringify(channelList)
@@ -147,17 +150,19 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
         setShowloader(true);
         const headers = {
           PARTNER_CODE: "ALL",
-          userid: "814b3509-2309-4e7c-b903-dc09389f7fbd",
+          userid: globals.getUserId(),
         };
         ApiHelper.get(
           globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
           headers
         ).then((result) => {
           if (result && result.length > 0) {
-            var channelList = mapChannelEpg(result);
-           setLists(lists.concat(channelList));
-            //setNextCategoryIndex(nextCategoryIndex+1)
-            setShowloader(false);
+            var channelList = mapChannelEpg(result, nextCategoryIndex);
+            setLists(lists.concat(channelList));
+            localStorage.setItem(  "filterCategoryResult", JSON.stringify(lists));
+            setTimeout(() => {
+              setShowloader(false);
+            }, 10);
           } else {
             setNextCategoryIndex(nextCategoryIndex + 1);
             setShowloader(false);
@@ -193,7 +198,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      //setLoading(false);
+      // setLoading(false);
     }
   }
   function SetInitialFocus() {
@@ -209,7 +214,7 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
         );
         setShowloader(false);
       }
-    }, 400);
+    }, 300);
   }
   useEffect(() => {
     if (show) {
@@ -238,133 +243,140 @@ const ContentCategory = ({ show, setSelectedAsset,backtohome }) => {
 
   return (
     <>
-    <LoaderScreen show={showloader} /> 
-    <VerticalList id="contantData" retainLastFocus={true}>
-      <div
-        className={`mainbox  ${show ? "" : "hidden"}`}
-        style={{
-          position: "absolute",
-          top: "0",
-          opacity: opacity,
-          zIndex: opacity === 1 ? 1 : -1,
-        }}
-      >
-        <div className="flex flex-col justify-between h-full">
-          <div className=" mx-[48px] my-[59px]">
-            <img className="w-40" src={logo} alt="Logo" />
-            <div className="text-white text-lg border-l-4 border-red-500  pl-1">
-              <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
-                Rated {rating}
+      <LoaderScreen show={showloader} />
+      <VerticalList id="contantData" retainLastFocus={true}>
+        <div
+          className={`mainbox  ${show ? "" : "hidden"}`}
+          style={{
+            position: "absolute",
+            top: "0",
+            opacity: opacity,
+            zIndex: opacity === 1 ? 1 : -1,
+          }}
+        >
+          <div className="flex flex-col justify-between h-full">
+            <div className=" mx-[48px] my-[59px]">
+              <img className="w-40" src={logo} alt="Logo" />
+              <div className="text-white text-lg border-l-4 border-red-500  pl-1">
+                <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
+                  Rated {rating}
+                </div>
+                <div className="px-2 text-[22px]">Kid content</div>
               </div>
-              <div className="px-2 text-[22px]">Kid content</div>
             </div>
-          </div>
-          <div className="w-full">
-            <div className="flex my-5 w-full justtify-center">
-              <img className=" w-15 m-auto" src={upArrow} alt="Logo" />
-            </div>
-            <HorizontalList retainLastFocus={true}>
-              <div className="category-filter">
-                <div
-                  id="category-filter-div"
-                  className={active ? "focused " : ""}
-                >
-                  <div id="category-filter" ref={content1}>
-                    <VerticalList
-                      id={globals.COMPONENT_NAME.Category_Filter}
-                      onFocus={(index) =>
-                        onFocus(index, globals.COMPONENT_NAME.Category_Filter)
-                      }
-                      onBlur={(index) => handleSetActive(false, index)}
-                      retainLastFocus={true}
-                    >
-                      {homeCategory.map((category, index) => (
-                        <ToggleItem
-                          key={category.name}
-                          images={category.images}
-                          isActiveIndex={activeIndex === index}
-                          onEnter={() => loadCategoryData(category, index)}
-                          index={index}
-                          onBack={()=>backtohome()}
-                        >
-                          {category.name}
-                        </ToggleItem>
-                      ))}
-                    </VerticalList>
+            <div className="w-full">
+              <div className="flex my-5 w-full justtify-center">
+                <img id="upArrow" className=" w-15 m-auto" src={upArrow} alt="Logo" />
+              </div>
+              <HorizontalList retainLastFocus={true}>
+                <div className="category-filter">
+                  <div
+                    id="category-filter-div"
+                    className={active ? "focused " : ""}
+                  >
+                    <div id="category-filter" ref={content1}>
+                      <VerticalList
+                        id={globals.COMPONENT_NAME.Category_Filter}
+                        onFocus={(index) =>
+                          onFocus(index, globals.COMPONENT_NAME.Category_Filter)
+                        }
+                        onBlur={(index) => handleSetActive(false, index)}
+                        retainLastFocus={true}
+                      >
+                        {homeCategory.map((category, index) => (
+                          <ToggleItem
+                            key={category.name}
+                            images={category.images}
+                            isActiveIndex={activeIndex === index}
+                            onEnter={() => loadCategoryData(category, index)}
+                            index={index}
+                            onBack={() => backtohome()}
+                          >
+                            {category.name}
+                          </ToggleItem>
+                        ))}
+                      </VerticalList>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="scroll-hidden programs-list" ref={content2}>
-                {lists && lists.length > 0 ? (
-                  <VerticalList
-                    id={globals.COMPONENT_NAME.Content}
-                    retainLastFocus={true}
-                    navDefault={show}
-                    onFocus={(index) =>
-                      localStorage.setItem(globals.ACTIVE_COMPONENT, globals.COMPONENT_NAME.Content)
-                    }
-                    // onBlur={(index) => handleSetActive(false, index)}
-                  >
-                    {lists?.map((list, i) => (
-                      <div
-                        className={
-                          i === activeListIndex
-                            ? "active flex rounded-md "
-                            : "flex  rounded-md"
-                        }
-                        key={i}
-                      >
-                        <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
-                          <div className="720p:text-[16px] 1080p:text-[20px] text-white p-1">101</div>
-                          <div
-                            className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
-                              i === activeListIndex ? "" : ""
-                            } `}
-                          >
-                            <img
-                              className={
-                                "items-center " +
-                                (i === activeListIndex
-                                  ? "active-img"
-                                  : "deactive-img")
+                <div className="scroll-hidden programs-list" ref={content2}>
+                  {lists && lists.length > 0 ? (
+                    <VerticalList
+                      id={globals.COMPONENT_NAME.Content}
+                      retainLastFocus={true}
+                      navDefault={show}
+                      onFocus={(index) =>
+                        localStorage.setItem(
+                          globals.ACTIVE_COMPONENT,
+                          globals.COMPONENT_NAME.Content
+                        )
+                      }
+                      // onBlur={(index) => handleSetActive(false, index)}
+                    >
+                      {lists?.map((list, i) => (
+                        <div
+                          className={
+                            i === activeListIndex
+                              ? "active flex rounded-md "
+                              : "flex  rounded-md"
+                          }
+                          key={i}
+                        >
+                          <div className="before-box   flex justify-between  items-center  mr-3  text-center ">
+                            <div className="720p:text-[16px] 1080p:text-[20px] text-white p-1">
+                              101
+                            </div>
+                            <div
+                              className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
+                                i === activeListIndex ? "" : ""
+                              } `}
+                            >
+                              <img
+                                className={
+                                  "items-center " +
+                                  (i === activeListIndex
+                                    ? "active-img"
+                                    : "deactive-img")
+                                }
+                                src={img_cloudfront + list?.image?.logo?.tv}
+                                alt="Logo"
+                              />
+                            </div>
+                          </div>
+                          <div className="filter">
+                            <List
+                              id={list.id}
+                              //setUrl={setUrl}
+                              setSelectedAsset={setSelectedAsset}
+                              title={list.title}
+                              layout={list.layout}
+                              assets={list.schedules}
+                              playUrl={list.playUrl}
+                              channel={list}
+                              onFocus={() =>
+                                changeFocusTo(i, list.categoryIndex)
                               }
-                              src={img_cloudfront + list?.image?.logo?.tv}
-                              alt="Logo"
+                              visible={true}
+                              isActive={i == activeListIndex}
+                              parentNav="home-div-nav"
+                              isFirstList={i === 0 ? true : false}
+                              onBack={() => backtohome()}
                             />
                           </div>
                         </div>
-                        <div className="filter">
-                          <List
-                            id={list.id}
-                          //  setUrl={setUrl}
-                            setSelectedAsset={setSelectedAsset}  
-                            title={list.title}
-                            layout={list.layout}
-                            assets={list.schedules}
-                            playUrl={list.playUrl}
-                            channel={list}
-                            onFocus={() => changeFocusTo(i)}
-                            visible={true}
-                            isActive={i == activeListIndex}
-                            parentNav="home-div-nav"
-                            isFirstList={i === 0 ? true : false}
-                            onBack={()=>backtohome()}
-                           />
-                        </div>
-                      </div>
-                    ))}
-                  </VerticalList>
-                ) : (
-                  <div>
-                    {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
-                  </div>
-                )}
-              </div>
-            </HorizontalList>
+                      ))}
+                    </VerticalList>
+                  ) : (
+                    <div>
+                      {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
+                    </div>
+                  )}
+                </div>
+              </HorizontalList>
+            </div>
           </div>
         </div>
-      </div>
-    </VerticalList>
+      </VerticalList>
     </>
   );
 };

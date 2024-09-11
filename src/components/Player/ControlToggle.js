@@ -48,8 +48,8 @@ const ControlToggle = (props) => {
               (props.isActiveIndex ? "active" : "")
             }
           >
-            <img className="w-[24px] mr-[16px]" src={discover} />
-            <div className="text-[24px] text-white">{props.children}</div>
+              <img className="control-toggle__icon" src={discover} />
+              <div className="control-toggle__text">{props.children}</div>
           </div>
         );
 
@@ -63,8 +63,8 @@ const ControlToggle = (props) => {
               (props.isActiveIndex ? "active" : "")
             }
           >
-            <img className="w-[24px] mr-[16px]" src={props?.images} />
-            <div className="text-[24px] text-white">{props.children}</div>
+           <img className="control-toggle__icon" src={discover} />
+           <div className="control-toggle__text">{props.children}</div>
           </div>
         );
     }
