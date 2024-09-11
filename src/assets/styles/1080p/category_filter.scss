@@ -1,10 +1,10 @@
-.category-filter{ 
+.category-filter {
   width: 280px;
   float: left;
   padding: 14px;
 }
 
-#category-filter .item{
+#category-filter .item {
   height: 60px;
   /* text-align: center; */
   /* margin: 0px 0px 0px 0px; */
@@ -16,34 +16,38 @@
   font-weight: 500;
   line-height: 22px;
   color: rgba(217, 217, 217, 1);
-  }
-  #category-filter .item img {
-    height: auto;
-    width: 30px;
-    object-fit: cover;
-    float: inline-start;
-    margin-right: 10px;
 }
-  #category-filter .item-focus{
-    border:2px solid #fff !important;
-    background-color: transparent;
-    color: rgba(217, 217, 217, 1);
+
+#category-filter .item img {
+  height: auto;
+  width: 30px;
+  object-fit: cover;
+  float: inline-start;
+  margin-right: 10px;
+}
+
+#category-filter .item-focus {
+  border: 2px solid #fff !important;
+  background-color: transparent;
+  color: rgba(217, 217, 217, 1);
+  font-weight: bold;
+  background-color: transparent;
+}
+
+#category-filter {
+  .active {
+    font-size: 20px;
+    background-color: rgba(230, 230, 230, 1);
+    color: rgba(19, 19, 20, 1) !important;
     font-weight: bold;
+    margin: 6px 0px 6px 0px;
+    border: 2px solid transparent;
+  }
+
+  .item-focus.active {
+    color: rgba(217, 217, 217, 1) !important;
     background-color: transparent;
   }
-#category-filter{
-    .active{
-      font-size: 20px;
-      background-color: rgba(230, 230, 230, 1);
-      color: rgba(19, 19, 20, 1) !important; 
-      font-weight: bold;
-        margin: 6px 0px 6px 0px; 
-        border:2px solid transparent;
-    } 
-    .item-focus.active{
-      color: rgba(217, 217, 217, 1) !important;
-      background-color: transparent;
-    }
 }
 
 #content {
@@ -135,11 +139,12 @@
   }
 }
 
-.program-list{
+.program-list {
   width: 100%;
-.program-name {
+
+  .program-name {
     font-size: 24px;
-  
+
   }
 
   .detail {
@@ -187,19 +192,22 @@
 }
 
 
-#content .before-box .items-center img{
+#content .before-box .items-center img {
   width: auto !important;
-  height: auto  !important;
+  height: auto !important;
   max-height: 40px !important;
 }
 
-.programs-list { 
+.programs-list {
   width: 84%;
   float: right;
   overflow-y: auto;
   padding-top: 21px;
   padding-right: 2px;
 }
-.category-filter,.programs-list{
-  height: 538px;
+
+.category-filter,
+.programs-list {
+  height: 500px;
+
 }

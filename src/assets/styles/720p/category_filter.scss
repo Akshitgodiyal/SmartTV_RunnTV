@@ -1,5 +1,5 @@
 #content {
-  height:   333.35px;
+
   position: relative;
 
   .content {
@@ -125,4 +125,8 @@
   width: 84% ;
   float: left;
   overflow-y: auto;
+}
+.category-filter,.programs-list{
+  height:   333.35px;
+
 }

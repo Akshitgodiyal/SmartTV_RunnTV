@@ -60,18 +60,22 @@ const ToggleItem = (props) => {
         {props.parentNav == "home-div-nav" ? (
              <div
              id={props.isFirstItem ? "defaultFocused" : ""}
-             className={`item program-item  h-[116px] ${active ? "item-focus" : ""
-               } ${props.isActiveIndex ? "active" : ""}`}
+             className={
+              "item program-item h-[116px] " +
+              (active ? "item-focus " : "") +
+              (props.isActiveIndex ? "active" : "")
+            }
+            
            >
           <div className=" program-list flex justify-between items-center h-full">
             <div
               className="text-white w-[80%] pl-[14px]  h-full"
               style={{
-                background: `${
-                  props.index === 0 &&
-                  "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
-                }`,
+                background: props.index === 0
+                  ? "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
+                  : undefined
               }}
+              
             >
               <div className="program-name font-medium truncate w-[50%]">
                 {props.assetinfo?.programName}
@@ -115,8 +119,13 @@ const ToggleItem = (props) => {
          (
           <div
           id={props.isFirstItem ? "defaultFocused" : ""}
-          className={`item categories-item   ${active ? "item-focus" : ""
-            } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
+        className={
+  "item categories-item " +
+  (active ? "item-focus " : "") +
+  (props.isActiveIndex ? "active " : "") +
+  (props.className || "")
+}
+
         >
           <div className="flex justify-start items-center categories ">
             {props.images ?
@@ -138,8 +147,13 @@ const ToggleItem = (props) => {
         (
           <div
           id={"seekbarref"}
-          className={`item categories-item   ${active ? "item-focus" : ""
-            } ${props.isActiveIndex ? "active" : ""} ${props.className}`}
+        className={
+  "item categories-item " +
+  (active ? "item-focus " : "") +
+  (props.isActiveIndex ? "active " : "") +
+  (props.className || "")
+}
+
         >
           <div className="flex justify-start items-center  ">
             {props.images ?

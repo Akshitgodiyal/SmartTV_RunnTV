@@ -245,8 +245,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
     <>
       <LoaderScreen show={showloader} />
       <VerticalList id="contantData" retainLastFocus={true}>
-        <div
-          className={`mainbox  ${show ? "" : "hidden"}`}
+      <div className={show ? 'mainbox' : 'mainbox hidden'}
           style={{
             position: "absolute",
             top: "0",
@@ -327,9 +326,8 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
                               101
                             </div>
                             <div
-                              className={` img-box rounded-md flex justify-center items-center  bg-black bg-opacity-75  ${
-                                i === activeListIndex ? "" : ""
-                              } `}
+                   className="img-box rounded-md flex justify-center items-center bg-black bg-opacity-75"
+
                             >
                               <img
                                 className={

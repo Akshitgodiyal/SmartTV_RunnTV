@@ -39,7 +39,10 @@ function Login({ show,backtohome }) {
   }
   return (
     <div
-      className={`mainbox    overflow-y-auto bg-black ${show ? "" : "hidden"}`}
+    className={
+      "mainbox overflow-y-auto bg-black " + (show ? "" : "hidden")
+    }
+    
       style={{ position: "absolute", top: "0" }}
     >
       <div className="container">

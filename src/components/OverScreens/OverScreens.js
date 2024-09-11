@@ -10,17 +10,20 @@ import { globals } from "../../global";
 
 function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
- 
+
+  console.log(sidebarActive);
   useEffect(() => {
-    if (sidebarActive === "user") {
+    if (sidebarActive === "tv") {
       setTimeout(() => {
-        const firstMenuRef = document.getElementById("firstMenuRef");
+        const firstMenuRef = document.getElementById("defaultFocused");
+        console.log(firstMenuRef);
         if (firstMenuRef) {
           localStorage.setItem("screenLoaded", true);
+         
           firstMenuRef.click();
           localStorage.setItem("screenLoaded", false);
         }
-      }, 20);
+      }, 300);
     }
   }, [sidebarActive]);
   const { setsidebarActive } = useContext(VideoContext);

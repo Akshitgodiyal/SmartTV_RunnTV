@@ -24,7 +24,7 @@ module.exports = (env) => {
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
         },
         {
           test: /\.scss$/,
@@ -36,24 +36,15 @@ module.exports = (env) => {
               options: {
                 postcssOptions: {
                   plugins: [
-                    require('autoprefixer'),
+                    'tailwindcss',
+                    'autoprefixer',
                   ],
                 },
                 sourceMap: true,
               },
             },
-            {
-              loader: 'resolve-url-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
+            'resolve-url-loader',
+            'sass-loader'
           ],
         },
         {

@@ -30,9 +30,12 @@ const ToggleItem = ({
       onEnterDown={onEnterDown}
     >
       <div
-        className={`item ${active ? "item-focus" : ""} ${
-          isActiveIndex ? "active" : ""
-        }`}
+className={
+  "item " +
+  (active ? "item-focus " : "") +
+  (isActiveIndex ? "active" : "")
+}
+
       >
         {children}
       </div>
