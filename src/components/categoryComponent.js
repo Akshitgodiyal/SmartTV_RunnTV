@@ -107,11 +107,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
         }
       }
     }
-    if (
-      index ===
-      lists.length - 2
-      ||index === lists.length - 1
-    ) {
+    if ( index === lists.length - 2 ) {
       setNextCategoryIndex(activeIndex + 1);
     }
   };
@@ -163,9 +159,10 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
           if (result && result.length > 0) {
             var channelList = mapChannelEpg(result, nextCategoryIndex);
             setLists(lists.concat(channelList));
+            localStorage.setItem(  "filterCategoryResult", JSON.stringify(lists));
             setTimeout(() => {
               setShowloader(false);
-            }, 1000);
+            }, 10);
           } else {
             setNextCategoryIndex(nextCategoryIndex + 1);
             setShowloader(false);

@@ -90,17 +90,15 @@ class Focusable extends Component {
   }
 
   async focus() {
-    this.setState({ isFocused: true });
+    
     for (const component of this.treePath) {
-      if (component.props.onFocus) {
-        await component.props.onFocus(
-          this.indexInParent,
-          this.context.navigationComponent
-        );
-      }
-    }
+     await component.props.onFocus(
+        this.indexInParent,
+        this.context.navigationComponent
+      );
+    } 
+    this.setState({ isFocused: true });
   }
-
   blur() {
     if (this.props.onBlur) {
       this.props.onBlur(this.indexInParent, this.context.navigationComponent);

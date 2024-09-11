@@ -199,16 +199,19 @@ class Navigation extends Component {
       if (next) {
         this.lastDirection = direction;
         this.focus(next);
-        if (next.props.disabled) {
-          const nextRight = next.getNextFocusFrom("right");
-          if (nextRight && next.props.parentId === nextRight.props.parentId) {
-            this.focus(nextRight);
+        setTimeout(() => {
+          if (next.props.disabled) {
+            const nextRight = next.getNextFocusFrom("right");
+            if (nextRight && next.props.parentId === nextRight.props.parentId) {
+              this.focus(nextRight);
+            }
+            const nextLeft = next.getNextFocusFrom("left");
+            if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
+              this.focus(nextLeft);
+            }
           }
-          const nextLeft = next.getNextFocusFrom("left");
-          if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
-            this.focus(nextLeft);
-          }
-        }
+        }, 10);
+        
       }
     }
   }
@@ -321,8 +324,10 @@ class Navigation extends Component {
       return;
     }
 
-    this.blur(next.treePath); 
-    next.focus(); 
+    this.blur(next.treePath);
+
+    next.focus();
+    
     const lastPath = this.currentFocusedPath;
     this.currentFocusedPath = next.treePath;
     this.lastFocusedPath = lastPath;

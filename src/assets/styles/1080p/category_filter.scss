@@ -1,5 +1,4 @@
-.category-filter{
-  height:   500px;
+.category-filter{ 
   width: 280px;
   float: left;
   padding: 14px;
@@ -194,11 +193,13 @@
   max-height: 40px !important;
 }
 
-.programs-list {
-  height: 500px;
+.programs-list { 
   width: 84%;
   float: right;
   overflow-y: auto;
   padding-top: 21px;
   padding-right: 2px;
+}
+.category-filter,.programs-list{
+  height: 538px;
 }
