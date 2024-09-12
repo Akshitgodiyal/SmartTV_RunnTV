@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useLayoutEffect } from "react";
 import HorizontalList from "../../helper/HorizontalList";
- 
+
 import { VideoContext } from "../../utility/context";
 import { globals } from "../../global";
 import ToggleItem from "../ToogleItem";
@@ -10,6 +10,8 @@ import VerticalList from "../../helper/VerticalList";
 import { mapChannel } from "../../helper/mapper/mapChannelEpg";
 import downArrow from "../../assets/images/downArrow.png";
 import ProgramDetail from "../programDetail.js/ProgramDetail";
+import prevIcon from "../../assets/images/PreviousChannel.png";
+import nextIcon from "../../assets/images/NextChannel.png";
 const PlayerControls = () => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const { fullscreen, setFullscreen } = useContext(VideoContext);
@@ -19,7 +21,7 @@ const PlayerControls = () => {
   const [previousChannel, setPreviousChannel] = useState(null);
   const [nextChannel, setNextChannel] = useState(null);
   const [value, setValue] = useState(80);
- 
+
   const handleSetActive = (status) => {
     setIsActive(status);
   };
@@ -27,7 +29,7 @@ const PlayerControls = () => {
     handleSetActive(false);
     setFullscreen(false);
 
-    
+
     localStorage.setItem(globals.ACTIVE_COMPONENT, Control);
   };
   useLayoutEffect(() => {
@@ -48,7 +50,7 @@ const PlayerControls = () => {
     }
   }, [selectedAsset]);
 
-  var timeoutId; // Variable to hold the timeout ID
+   var timeoutId; // Variable to hold the timeout ID
 var interval = 1000; // Time in milliseconds for each update
 
 function updateSeekBar() {
@@ -87,27 +89,27 @@ function stopUpdating() {
     setValue(e.target.value);
     handleSeek(newTime);
   };
-
+ 
   const handlefullscreen = () => {
     if (fullscreen == false) {
       setFullscreen(true);
     } else {
       setFullscreen(false);
 
-      handleSetActive(true);
-      let firstSectionRef = document.getElementById("defaultFocused");
-      if (firstSectionRef) {
-        localStorage.setItem("screenLoaded", true);
-        firstSectionRef.click();
-        localStorage.setItem("screenLoaded", false);
-        localStorage.setItem(
-          globals.ACTIVE_COMPONENT,
-          globals.COMPONENT_NAME.Content
-        );
-      }
+     handleSetActive(true);
+     let firstSectionRef = document.getElementById("defaultFocused");
+     if (firstSectionRef) {
+       localStorage.setItem("screenLoaded", true);
+       firstSectionRef.click();
+       localStorage.setItem("screenLoaded", false);
+       localStorage.setItem(
+         globals.ACTIVE_COMPONENT,
+         globals.COMPONENT_NAME.Content
+       );
+     }
     }
   };
- 
+
   return (
     <>
       <VerticalList
@@ -135,7 +137,7 @@ function stopUpdating() {
             id={globals.COMPONENT_NAME.Player_Control}
           >
             <div id="seekbar">
-              <ToggleItem className="" onBack={() => handlefullscreen()}  parentNav="seekbar" >
+            <ToggleItem className="" onBack={() => handlefullscreen()}  parentNav="seekbar" >
                 <div className="seek-bar">
                   <div
                     id="seekBarFill"
@@ -146,9 +148,9 @@ function stopUpdating() {
               </ToggleItem>
             </div>
           </HorizontalList>
- 
+
           <HorizontalList
-            onFocus={(index) =>
+             onFocus={(index) =>
               onFocus( globals.COMPONENT_NAME.Player_Control)
             }
             onBlur={(index) => handleSetActive(true, index)}
@@ -169,7 +171,23 @@ function stopUpdating() {
                 onEnter={() => setSelectedAsset(previousChannel)}
                 onBack={() => handlefullscreen()}
               >
-                <div className="channel-detail">pre</div>
+                <div className="channel-detail">
+                  <div className="next-prev-title">
+                    {previousChannel?.title ? previousChannel.title : ""}
+                  </div>
+
+                  <div className="next-prev-label">
+                    <div className="prev">
+                      <img
+                        src={prevIcon}
+                        alt={
+                          previousChannel?.title ? previousChannel.title : ""
+                        }
+                      ></img>
+                      Previous Channel
+                    </div>
+                  </div>
+                </div>
                 <div className="channel-image">
                   <img
                     src={
@@ -183,14 +201,14 @@ function stopUpdating() {
                 </div>
               </ToggleItem>
               <>
-                <img
+                <img              
                   id="downArrow"
                   className="absolute 720p:bottom-5 bottom-10 1020p:w-15 720p:w-10"
                   src={downArrow}
                   alt="runnTV_downArrow"
                 ></img>
               </>
- 
+
               <ToggleItem
                 allowedDirection={"left"}
                 parentId={globals.COMPONENT_NAME.Player_Control}
@@ -214,7 +232,21 @@ function stopUpdating() {
                     alt="runnTV_downArrow"
                   ></img>
                 </div>
-                <div className="channel-detail">next</div>
+                <div className="channel-detail">
+                  <div className="next-prev-title">
+                    {nextChannel?.title ? nextChannel.title : ""}
+                  </div>
+
+                  <div className="next-prev-label">
+                    <div className="next">
+                      Next Channel
+                      <img
+                        src={nextIcon}
+                        alt={nextChannel?.title ? nextChannel.title : ""}
+                      ></img>
+                    </div>
+                  </div>
+                </div>
               </ToggleItem>
             </div>
           </HorizontalList>
@@ -223,5 +255,5 @@ function stopUpdating() {
     </>
   );
 };
- 
+
 export default PlayerControls;
