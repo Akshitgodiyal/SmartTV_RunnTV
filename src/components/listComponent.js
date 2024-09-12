@@ -3,10 +3,10 @@ import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem";
 import { VideoContext } from "../utility/context.js";
 import { globals } from "../global.js";
-const List = (props = []) => {
+const List = (props ) => {
   const contentRef3 = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
-
+  const { setSelectedAsset } = useContext(VideoContext);
   const onFocus = (index) => {
     if (lastFocus === index) {
       return;
@@ -91,7 +91,7 @@ const List = (props = []) => {
     }
   };
   const handleItemClick = (url) => {
-    props.setSelectedAsset(url);
+    setSelectedAsset(url);
     props.onBack()
     setTimeout(() => {
      

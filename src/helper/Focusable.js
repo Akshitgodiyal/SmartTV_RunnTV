@@ -124,6 +124,8 @@ class Focusable extends Component {
   }
 
   handleClick = () => {
+
+    
     if (
       this.context.navigationComponent.currentFocusedPath &&
       this.context.navigationComponent.currentFocusedPath.includes(this)
@@ -242,7 +244,7 @@ class Focusable extends Component {
       <span
         {...props}
         data-focusable-id={this.focusableId}
-        onClick={this.handleClick} // Updated to handle mouse click
+        onClick={()=>this.handleClick()} // Updated to handle mouse click
         className={focusClass}
       />
     );
@@ -266,7 +268,8 @@ Focusable.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onEnterDown: () => {},
-  onBack: () => {}, // Default back button handler
+  onClick: () => {}, // Default click handler
+  onBack: () => {}, 
 };
 
 export default Focusable;

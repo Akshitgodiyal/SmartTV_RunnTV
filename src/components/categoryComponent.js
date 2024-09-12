@@ -12,9 +12,10 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 
-const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
+const ContentCategory = ({ show,  backtohome }) => {
   const { isActive } = useContext(VideoContext);
-  const { sidebarActive } = useContext(VideoContext);
+  const { setSelectedAsset } = useContext(VideoContext);
+
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState();
   const [opacity, setOpacity] = useState(1);
@@ -184,7 +185,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
-  function fetchCategory() {
+  const fetchCategory=()=> {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
         (result) => {
@@ -201,7 +202,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
       // setLoading(false);
     }
   }
-  function SetInitialFocus() {
+  const SetInitialFocus=() =>{
     setTimeout(() => {
       let firstSectionRef = document.getElementById("defaultFocused");
       if (firstSectionRef) {
@@ -241,6 +242,8 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
     }
   }, [show]);
 
+  console.log("activeListIndex",activeListIndex);
+  
   return (
     <>
       <LoaderScreen show={showloader} />
@@ -345,7 +348,7 @@ const ContentCategory = ({ show, setSelectedAsset, backtohome }) => {
                             <List
                               id={list.id}
                               //setUrl={setUrl}
-                              setSelectedAsset={setSelectedAsset}
+                          
                               title={list.title}
                               layout={list.layout}
                               assets={list.schedules}

@@ -9,7 +9,7 @@
     <script src="./bundle.js" defer></script>
     <script>window.onload=()=>{
         document.getElementsByTagName('body')[0].style.width=window.innerWidth;
-        document.getElementsByTagName('body')[0].style.height=window.innerHeight;
+        document.getElementsByTagName('body')[0].style.height=window.innerWidth;
     }
     
   
@@ -19,10 +19,10 @@
 			console.log('mousedown event:', event , event.target.onclick);
 			// if (event.target.nodeName == "BUTTON") {
 				if (event.target.onclick !== null) {
-					// console.log("hello");
+					console.log("hello");
 				} else {
-					// console.log("null");
-					event.preventDefault();
+					console.log("null");
+					// event.preventDefault();
 				}
 			}
 		// }
@@ -48,8 +48,8 @@ body{
 </head>
 <body>
     <div id="root"></div>  
-    <script>
+    <!-- <script>
         document.addEventListener('mousedown', handleMouseDown);
-    </script>
+    </script> -->
 </body>
 </html>

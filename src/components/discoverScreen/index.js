@@ -13,7 +13,7 @@ import ToggleItem from "../carousel/Toggleitem.js";
 import { globals } from "../../global.js";
 const DiscoverScreen = ({ setUrl, show, backtohome }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
-
+  const { setSelectedAsset } = useContext(VideoContext);
   const [themes, setThemes] = useState([]);
   const [language, setlanguage] = useState([]);
   const [category, setCategory] = useState([]);
@@ -113,15 +113,15 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
       setTimeout(() => {
         let firstSection = document.getElementById("firstSection");
 
-console.log(firstSection);
+
 
         if (firstSection) {
           localStorage.setItem("screenLoaded", true);
           firstSection.click();
-          firstSection.focus();
+        
           localStorage.setItem("screenLoaded", false);
         }
-      }, 3000);
+      }, 300);
     }
   }, [show, firstSection != null]);
 

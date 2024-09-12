@@ -12,11 +12,12 @@ import { VideoContext } from "../utility/context.js";
 import { globals } from "../global.js";
 
 const Home = () => { 
-  const [selectedAsset, setSelectedAsset] = useState("");
+
+  const { setSelectedAsset } = useContext(VideoContext);
   const { setsidebarActive } = useContext(VideoContext);
-  const {activeIndex, setActiveIndex } = useContext(VideoContext);
-  const { isActive, setIsActive } = useContext(VideoContext);
-  const { fullscreen, setFullscreen } = useContext(VideoContext);
+  const { setActiveIndex } = useContext(VideoContext);
+  const { setIsActive } = useContext(VideoContext);
+  const {  setFullscreen } = useContext(VideoContext);
   const showVideoSlider = () => {
     setFullscreen(false)
     setIsActive(false)
@@ -46,6 +47,7 @@ const Home = () => {
     }
   }, []);
 
+
   return (
     <Navigation id="home-div-nav" active={true}>
       <div className="active-component">
@@ -53,10 +55,10 @@ const Home = () => {
           <div>
             <Sidebar />
             <VerticalList retainLastFocus={true}>
-              <Player selectedAsset={selectedAsset} 
+              <Player 
                 // onBufferUpdate={handleBufferUpdate}
                  />
-              <OverScreens backtohome={()=>showVideoSlider()} selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset}
+              <OverScreens backtohome={()=>showVideoSlider()} 
                  
                
                   // onSeek={handleSeek}

@@ -8,15 +8,15 @@ import PlayerControls from "../Player/PlayerControls";
 import PrivacyPage from "../privacy/privacyPage";
 import { globals } from "../../global";
 
-function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
+function OverScreens({ backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
 
-  console.log(sidebarActive);
+
   useEffect(() => {
     if (sidebarActive === "tv") {
       setTimeout(() => {
         const firstMenuRef = document.getElementById("defaultFocused");
-        console.log(firstMenuRef);
+
         if (firstMenuRef) {
           localStorage.setItem("screenLoaded", true);
          
@@ -26,21 +26,20 @@ function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
       }, 300);
     }
   }, [sidebarActive]);
-  const { setsidebarActive } = useContext(VideoContext);
-  const showVideoSlider = () => {
-    setsidebarActive("tv")
-    localStorage.setItem(
-      globals.ACTIVE_COMPONENT,
-      globals.COMPONENT_NAME.Sidebar
-    );
-  }
+  // const showVideoSlider = () => {
+  //   setsidebarActive("tv")
+  //   localStorage.setItem(
+  //     globals.ACTIVE_COMPONENT,
+  //     globals.COMPONENT_NAME.Sidebar
+  //   );
+  // }
  
   if (sidebarActive == "tv") {
     return (
       <>
         <PlayerControls
-          selectedAsset={selectedAsset}
-          setSelectedAsset={setSelectedAsset}
+        
+        
           backtohome={backtohome}
        
         />
@@ -48,7 +47,7 @@ function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
         <ContentCategory
         backtohome={backtohome}
           show={sidebarActive === "tv"}
-          setSelectedAsset={setSelectedAsset}
+       
         />
       </>
     );
@@ -57,7 +56,7 @@ function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
       <DiscoverScreen
       backtohome={backtohome}
         show={sidebarActive === "discover"}
-        setSelectedAsset={setSelectedAsset}
+   
       />
     );
   } else if (sidebarActive === "search") {
