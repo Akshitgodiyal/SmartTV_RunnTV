@@ -9,7 +9,7 @@ const MyProvider = ({ children }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [bufferedEnd, setBufferedEnd] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
-
+  const [selectedAsset, setSelectedAsset] = useState("");
   const handleSetIsActive = useCallback((status) => {
     setIsActive(status);
   }, []);
@@ -25,7 +25,8 @@ const MyProvider = ({ children }) => {
         currentTime,
         bufferedEnd, setBufferedEnd,
         activeIndex, setActiveIndex,
-        fullscreen, setFullscreen
+        fullscreen, setFullscreen,
+        selectedAsset, setSelectedAsset
       }}
     >
       {children}

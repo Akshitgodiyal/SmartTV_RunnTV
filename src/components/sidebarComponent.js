@@ -28,11 +28,15 @@ const ToggleItem = ({
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onEnterDown={onEnterDown}
+      
     >
-      <div
-        className={`item ${active ? "item-focus" : ""} ${
-          isActiveIndex ? "active" : ""
-        }`}
+      <div 
+className={
+  "item " +
+  (active ? "item-focus " : "") +
+  (isActiveIndex ? "active" : "")
+}
+
       >
         {children}
       </div>
@@ -125,6 +129,7 @@ const Sidebar = () => {
         zIndex: isActive ? 2 : -1,
       }}
     >
+     
       <div ref={content1}>
         <VerticalList
           onFocus={(index) => onFocus(index)}

@@ -11,9 +11,9 @@ import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import Carousel from "../carousel/index.js";
 import ToggleItem from "../carousel/Toggleitem.js";
 import { globals } from "../../global.js";
-const DiscoverScreen = ({ setUrl, show,backtohome }) => {
+const DiscoverScreen = ({ setUrl, show, backtohome }) => {
   const [activeListIndex, setActiveListIndex] = useState(null);
-
+  const { setSelectedAsset } = useContext(VideoContext);
   const [themes, setThemes] = useState([]);
   const [language, setlanguage] = useState([]);
   const [category, setCategory] = useState([]);
@@ -60,7 +60,7 @@ const DiscoverScreen = ({ setUrl, show,backtohome }) => {
     }
   }, [show]);
 
-  
+
 
   const containerRef = useRef(null);
 
@@ -99,38 +99,47 @@ const DiscoverScreen = ({ setUrl, show,backtohome }) => {
     }
   };
 
- 
+
 
   const firstSection = document.getElementById("firstSection");
 
-  
+
   useEffect(() => {
 
-    if (show ) {
-      
+    if (show) {
+
       handleFocus("slider"); // Focus the section and ensure the 
-  
+
       setTimeout(() => {
         let firstSection = document.getElementById("firstSection");
-        
+
+
 
         if (firstSection) {
           localStorage.setItem("screenLoaded", true);
           firstSection.click();
+        
           localStorage.setItem("screenLoaded", false);
         }
       }, 300);
     }
   }, [show, firstSection != null]);
 
-const back =()=>{
-  
-}
+  const back = () => {
+
+  }
 
   return (
     <div
-      className={`mainbox overflow-y-auto bg-black ${show ? "" : "hidden"}`}
-      style={{ position: "absolute", top: "0" }}
+      className={
+        "mainbox overflow-y-auto bg-black " +
+        (show ? "" : "hidden")
+      }
+      style={{
+        position: "absolute",
+        top: "0"
+      }}
+
       ref={containerRef}
     >
       <div className="flex flex-col h-full">
@@ -157,9 +166,9 @@ const back =()=>{
                 >
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
                   <Carousel
-                      setUrl={setUrl}
-  backtohome={backtohome}
-              
+                    setUrl={setUrl}
+                    backtohome={backtohome}
+
                     assets={themes}
                     visible={true}
                     parentNav="home-div-nav"
@@ -170,9 +179,9 @@ const back =()=>{
                 <div ref={sectionRefs.streaming} className="mb-[50px]">
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
-                      setUrl={setUrl}
-  backtohome={backtohome}
-                   
+                    setUrl={setUrl}
+                    backtohome={backtohome}
+
                     assets={streamingNow}
                     visible={true}
                     parentNav="home-div-nav"
@@ -182,7 +191,7 @@ const back =()=>{
                 </div>
                 <div ref={sectionRefs.categories} className="mb-[50px] w-full">
                   <div className="text-white text-[32px]">Categories</div>
-              
+
 
                   <Grid
                     retainLastFocus={true}
@@ -205,9 +214,9 @@ const back =()=>{
                 <div ref={sectionRefs.genres} className="mb-[50px]">
                   <div className="text-white text-[32px]">Genres</div>
                   <Carousel
-                      setUrl={setUrl}
-  backtohome={backtohome}
-                    
+                    setUrl={setUrl}
+                    backtohome={backtohome}
+
                     assets={genre}
                     visible={true}
                     parentNav="home-div-nav"
@@ -233,9 +242,9 @@ const back =()=>{
                 <div ref={sectionRefs.language} className="mb-[50px]">
                   <div className="text-white text-[32px] ">Language</div>
                   <Carousel
-                      setUrl={setUrl}
-  backtohome={backtohome}
-                   
+                    setUrl={setUrl}
+                    backtohome={backtohome}
+
                     assets={language}
                     visible={true}
                     parentNav="home-div-nav"

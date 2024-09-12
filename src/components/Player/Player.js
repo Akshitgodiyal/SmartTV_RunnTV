@@ -3,10 +3,10 @@ import HlsPlayer from "./HlsPlayer";
 import PlayerControls from "./PlayerControls";
 import { VideoContext } from "../../utility/context";
 
-function Player({ selectedAsset }) {
+function Player() {
   return (
     <div>
-      <HlsPlayer selectedAsset={selectedAsset} />
+      <HlsPlayer  />
     </div>
   );
 }

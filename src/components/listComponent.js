@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem";
-const List = (props = []) => {
+import { VideoContext } from "../utility/context.js";
+import { globals } from "../global.js";
+const List = (props ) => {
   const contentRef3 = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
-
+  const { setSelectedAsset } = useContext(VideoContext);
   const onFocus = (index) => {
     if (lastFocus === index) {
       return;
@@ -65,16 +67,47 @@ const List = (props = []) => {
 
     setLastFocus(index);
   };
+  const { fullscreen, setFullscreen } = useContext(VideoContext);
+  const { isActive, setIsActive } = useContext(VideoContext);
+  const handlefullscreen = () => {
+    if (fullscreen == false) {
+      setFullscreen(true);
+     
+    } else {
+      setFullscreen(false);
 
+      setIsActive(true);
+     let firstSectionRef = document.getElementById("defaultFocused");
+     if (firstSectionRef) {
+       localStorage.setItem("screenLoaded", true);
+       firstSectionRef.click();
+       localStorage.setItem("screenLoaded", false);
+       localStorage.setItem(
+         globals.ACTIVE_COMPONENT,
+         globals.COMPONENT_NAME.Content
+       );
+      
+     }
+    }
+  };
   const handleItemClick = (url) => {
-    props.setSelectedAsset(url);
+    setSelectedAsset(url);
+    props.onBack()
+    setTimeout(() => {
+     
+      handlefullscreen()
+    }, 1000);
   };
 
   return (
     <div
-      className={`contentgroup ${props.layout} ${
-        props.visible ? "" : "fading-out"
-      } ${props.isActive ? "active-list" : ""}`}
+    className={
+      "contentgroup " +
+      props.layout +
+      (props.visible ? "" : " fading-out") +
+      (props.isActive ? " active-list" : "")
+    }
+    
     >
       <div className="content" ref={contentRef3}>
         <HorizontalList

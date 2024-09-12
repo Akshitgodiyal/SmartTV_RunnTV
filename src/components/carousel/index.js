@@ -65,7 +65,13 @@ const Carousel = forwardRef((props) => {
  
   return (
     <div
-      className={`contentgroup ${props.layout} ${props.visible ? "" : "fading-out"} ${props.isActive ? "active-list" : ""}`}
+    className={
+      "contentgroup " +
+      props.layout + 
+      (props.visible ? "" : " fading-out") + 
+      (props.isActive ? " active-list" : "")
+    }
+    
     >
       <div className="content" ref={contentRef}>
         <HorizontalList

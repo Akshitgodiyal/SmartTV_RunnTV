@@ -15,7 +15,11 @@ function WatchHistory({ setUrl, show }) {
 
   return (
     <div
-      className={`mainbox overflow-y-auto bg-black ${show ? "" : "hidden"}`}
+    className={
+      "mainbox overflow-y-auto bg-black " + 
+      (show ? "" : "hidden")
+    }
+    
       style={{ position: "absolute", top: "0", left: "0", right: "0", bottom: "0" }}
     >
       <div className="flex flex-col h-full">
@@ -34,11 +38,13 @@ function WatchHistory({ setUrl, show }) {
                   navDefault={index === 0} // Set the first tab as the default focus
                 >
                   <button
-                    className={`font-semibold text-[32px] py-2 px-8 cursor-pointer transition-opacity ${
-                      active === type
-                        ? "border-b-2 border-[#D22F26] opacity-100 font-bold text-[white]"
-                        : "border-b-2 border-[#9E9C9C] text-[#9E9C9C]"
-                    }`}
+        className={
+          "font-semibold text-[32px] py-2 px-8 cursor-pointer transition-opacity " +
+          (active === type
+            ? "border-b-2 border-[#D22F26] opacity-100 font-bold text-[white]"
+            : "border-b-2 border-[#9E9C9C] text-[#9E9C9C]")
+        }
+        
                   >
                     <div className="flex justify-center gap-2 items-center">
                       <IconStarFilled size={32} /> {type}

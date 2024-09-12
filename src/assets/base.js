@@ -1,23 +1,12 @@
-const width = window.screen.width;
-const height = window.screen.height;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
-
-    if (
-      (width === 1280 && height === 720) 
-    ) {
-        require("./styles/720p.css");
-    } else if (
-      (width === 1920 && height === 1080) 
-    ) {
-        require("./styles/1080p.css");
-    } else if (
-      (width === 3840 && height === 2160) 
-    ) {
-        require("./styles/2160p.css");
-    }  
-    else{
-       require("./styles/1080p.css");
-    } 
-
-
- 
+if (width === 1280 && height === 720) {
+  import('./styles/720p.scss');
+} else if (width === 1920 && height === 1080) {
+  import('./styles/1080p.scss');
+} else if (width === 3840 && height === 2160) {
+  import('./styles/2160p.scss');
+} else {
+  import('./styles/1080p.scss');
+}

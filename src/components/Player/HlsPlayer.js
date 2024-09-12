@@ -1,46 +1,50 @@
 import React, { useRef, useImperativeHandle, forwardRef, useContext, useEffect,useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { VideoContext } from "../../utility/context";
+import { globals } from "../../global";
 
-const HlsPlayer = React.forwardRef(({selectedAsset }, ref) => {
+const HlsPlayer = React.forwardRef(( ref) => {
 const [url, setUrl] = useState("");
 const [poster, setPoster] = useState("");
 const playerRef = useRef();
 const {  setBufferedEnd} = useContext(VideoContext);
 const {setCurrentTime} = useContext(VideoContext);
-useImperativeHandle(ref, () => ({
-    playVideo: () => {
-      if (playerRef.current) {
-        playerRef.current
-          .play()
-          .then(() => {
-            console.log("Playback started successfully");
-          })
-          .catch((error) => {
-            console.error("Playback failed:", error);
-          });
-      }
-    },
-  })); 
+const {selectedAsset} =  useContext(VideoContext);
+// useImperativeHandle(ref, () => ({
+//     playVideo: () => {
+//       if (playerRef.current) {
+//         playerRef.current
+//           .play()
+//           .then(() => {
+
+//           })
+//           .catch((error) => {
+//             console.error("Playback failed:", error);
+//           });
+//       }
+//     },
+//   })); 
+
 
 useEffect(()=>{
-  if(selectedAsset){ 
+  if (selectedAsset && selectedAsset.playUrl !== url) { 
     setUrl(selectedAsset.playUrl);
-    setPoster(selectedAsset.baseSourceLocation +   selectedAsset.image.poster.tv );
+    setPoster(selectedAsset.baseSourceLocation + selectedAsset.image.poster.tv);
   }
-},[selectedAsset])
+}, [selectedAsset]);
+
 
   useEffect(() => {
     const player = playerRef.current; 
     if (url && player) {
       const handlePlay = () => {
-        // console.log("Video started");
+
 
         // Attempt to unmute the video after it starts playing
         setTimeout(() => {
           try {
             player.muted = false;
-            // console.log("Video unmuted");
+
 
             // Attempt to resume playback after unmuting (this may still fail on some browsers)
             player.play().catch((error) => {
@@ -60,21 +64,24 @@ useEffect(()=>{
     }
   }, [url]);
 
+
   useEffect(() => {
     const player = playerRef.current; 
     const handleTimeUpdate = () => {
-      
+     if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
             setCurrentTime(player.currentTime);
-       
+       }
     };
 
     const handleBufferUpdate = () => {
-    
-            const buffer = player.buffered;
-            if (buffer.length > 0) {
-                const bufferedEnd = buffer.end(buffer.length - 1);
-                setBufferedEnd(bufferedEnd);
-            }
+      if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
+        const buffer = player.buffered;
+        if (buffer.length > 0) {
+            const bufferedEnd = buffer.end(buffer.length - 1);
+            setBufferedEnd(bufferedEnd);
+        }
+   }
+           
       
     };
     player.addEventListener('timeupdate', handleTimeUpdate);

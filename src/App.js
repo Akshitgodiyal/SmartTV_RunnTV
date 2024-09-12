@@ -28,7 +28,7 @@ const App = () => {
         userid:globals.getUserId(),
       };
       ApiHelper.get(
-        globals.API_URL.GET_EPG_BY_FILTER_ID + category.categoryId,
+        globals.API_URL.GET_EPG_BY_FILTER_ID + category?.categoryId,
         headers
       ).then((result) => {
         if (result && result.length > 0) {

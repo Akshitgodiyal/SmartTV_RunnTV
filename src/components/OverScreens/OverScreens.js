@@ -8,36 +8,38 @@ import PlayerControls from "../Player/PlayerControls";
 import PrivacyPage from "../privacy/privacyPage";
 import { globals } from "../../global";
 
-function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
+function OverScreens({ backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
- 
+
+
   useEffect(() => {
-    if (sidebarActive === "user") {
+    if (sidebarActive === "tv") {
       setTimeout(() => {
-        const firstMenuRef = document.getElementById("firstMenuRef");
+        const firstMenuRef = document.getElementById("defaultFocused");
+
         if (firstMenuRef) {
           localStorage.setItem("screenLoaded", true);
+         
           firstMenuRef.click();
           localStorage.setItem("screenLoaded", false);
         }
-      }, 20);
+      }, 300);
     }
   }, [sidebarActive]);
-  const { setsidebarActive } = useContext(VideoContext);
-  const showVideoSlider = () => {
-    setsidebarActive("tv")
-    localStorage.setItem(
-      globals.ACTIVE_COMPONENT,
-      globals.COMPONENT_NAME.Sidebar
-    );
-  }
+  // const showVideoSlider = () => {
+  //   setsidebarActive("tv")
+  //   localStorage.setItem(
+  //     globals.ACTIVE_COMPONENT,
+  //     globals.COMPONENT_NAME.Sidebar
+  //   );
+  // }
  
   if (sidebarActive == "tv") {
     return (
       <>
         <PlayerControls
-          selectedAsset={selectedAsset}
-          setSelectedAsset={setSelectedAsset}
+        
+        
           backtohome={backtohome}
        
         />
@@ -45,7 +47,7 @@ function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
         <ContentCategory
         backtohome={backtohome}
           show={sidebarActive === "tv"}
-          setSelectedAsset={setSelectedAsset}
+       
         />
       </>
     );
@@ -54,7 +56,7 @@ function OverScreens({ selectedAsset, setSelectedAsset,backtohome }) {
       <DiscoverScreen
       backtohome={backtohome}
         show={sidebarActive === "discover"}
-        setSelectedAsset={setSelectedAsset}
+   
       />
     );
   } else if (sidebarActive === "search") {
