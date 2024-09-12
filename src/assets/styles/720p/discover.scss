@@ -1,162 +1,141 @@
+/* Category Title */
 .category-title {
     font-family: Roboto;
-
-
     font-weight: 500;
-
     color: white;
     font-size: calc(var(--base-font-size) * 0.6667);
 }
 
-
+/* Channels Container */
 .Channels {
     border: 1.36px solid #333333;
-
     border-radius: 8px;
-
-    .channel-image-box {
-        width: 100%;
-        height: 136px;
-
-        border-radius: 8px 8px 0px 0px;
-
-        img {
-            width: 106px;
-            height: 108px;
-
-            border-radius: 8px;
-
-
-        }
-    }
-
-    .text-box {
-        width: 100%;
-        height: 100%;
-        padding: 16px;
-        border-radius: 0px 0px 8px 8px;
-
-        .streaming-text {
-            font-family: Roboto;
-            font-size: 16px;
-            font-weight: 500;
-
-
-            text-align: left;
-            color: #D22F26;
-
-        }
-
-        .title {
-            font-family: Roboto;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 24px;
-            text-align: left;
-            color: white;
-        }
-
-        .duration {
-            font-family: Roboto;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 16px;
-            text-align: left;
-            color: #9E9C9C;
-        }
-
-    }
 }
 
+/* Channel Image Box */
+.Channels .channel-image-box {
+    width: 100%;
+    height: 136px;
+    border-radius: 8px 8px 0 0;
+}
 
+/* Channel Image */
+.Channels .channel-image-box img {
+    width: 106px;
+    height: 108px;
+    border-radius: 8px;
+}
 
+/* Text Box within Channels */
+.Channels .text-box {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Streaming Text */
+.Channels .text-box .streaming-text {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: #D22F26;
+}
+
+/* Title Text */
+.Channels .text-box .title {
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: white;
+}
+
+/* Duration Text */
+.Channels .text-box .duration {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    color: #9E9C9C;
+}
+
+/* Slider Box */
 .slider-box {
     width: 480px;
     height: 141.34px;
-    
     margin-top: 264.01px;
     margin-left: 165.34px;
     padding: 26.67px;
-    
-
     border-radius: 8px;
-
     background: linear-gradient(290.01deg, rgba(255, 255, 255, 0.08) 42.6%, rgba(255, 255, 255, 0) 103.07%);
     border: 1px solid;
-
     border-image-source: radial-gradient(69.43% 69.43% at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%),
-
-        radial-gradient(9.48% 467.39% at 50% 50%, rgba(126, 129, 227, 0.3) 0%, rgba(126, 129, 227, 0.12) 100%),
-
-        radial-gradient(54.8% 53% at 50% 50%, rgba(21, 21, 21, 0.3) 0%, rgba(21, 21, 21, 0) 100%);
-
-
-
-    .slider-title {
-
-        font-size: 29.35px;
-
-        font-weight: 500;
-       
-        text-align: left;
-
-    }
-
-    .slider-text {
-
-
-        font-size: 16px;
-
-        font-weight: 400;
-
-        text-align: left;
-        color: #BEBEBE;
-
-
-    }
-
-
+                          radial-gradient(9.48% 467.39% at 50% 50%, rgba(126, 129, 227, 0.3) 0%, rgba(126, 129, 227, 0.12) 100%),
+                          radial-gradient(54.8% 53% at 50% 50%, rgba(21, 21, 21, 0.3) 0%, rgba(21, 21, 21, 0) 100%);
 }
 
+/* Slider Title */
+.slider-box .slider-title {
+    font-size: 29.35px;
+    font-weight: 500;
+    text-align: left;
+}
+
+/* Slider Text */
+.slider-box .slider-text {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    color: #BEBEBE;
+}
+
+/* Slider Item */
 .slider-item {
     width: 100% !important;
     height: 458.34px !important;
 }
 
+/* Streaming Item */
 .streaming-item {
     width: 160px;
     height: 213.34px;
-
-    .streaming-title{
-
-        font-size: calc(var(--base-font-size) * 0.6667);
-        overflow-x: hidden;
-    }
- 
 }
 
+/* Streaming Title */
+.streaming-item .streaming-title {
+    font-size: calc(var(--base-font-size) * 0.6667);
+    overflow-x: hidden;
+}
+
+/* Category Item */
 .category-item {
     width: 150px;
     height: 110px;
-
-   
 }
 
+/* Genre Item */
 .genre-item {
     width: 169.60px;
     height: 110.00px;
 }
 
+/* Channel Item */
 .channel-item {
     width: 169.60px;
     height: 162.68px;
 }
 
+/* Language Item */
 .language-item {
     width: 149.94px;
     height: 53.34px;
 }
 
+/* Default Item */
 .default-item {
     padding: 3.33px;
 }

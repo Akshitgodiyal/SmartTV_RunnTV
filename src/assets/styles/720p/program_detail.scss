@@ -31,18 +31,16 @@
   object-fit: cover;
 }
 
-.channel-info {
-  .channel-title {
-    font-size: 16px;
-    line-height: normal;
-    font-weight: normal;
-  }
+.channel-title {
+  font-size: 16px;
+  line-height: normal;
+  font-weight: normal;
+}
 
-  .channel-category {
-    font-size: 13.33px;
-    line-height: normal;
-    color: #d9d9d9;
-  }
+.channel-category {
+  font-size: 13.33px;
+  line-height: normal;
+  color: #d9d9d9;
 }
 
 .channel-description {
@@ -57,67 +55,67 @@
   align-items: flex-start;
   gap: 5.33px;
   margin-top: 16px;
+}
 
-  .program-thumbnail {
-    width: 93.34px;
-    height: 53.34px;
+.program-thumbnail {
+  width: 93.34px;
+  height: 53.34px;
+}
 
-    .program-thumbnail-img {
-      width: 93.34px;
-      height: 53.34px;
-      object-fit: cover;
-    }
-  }
+.program-thumbnail-img {
+  width: 93.34px;
+  height: 53.34px;
+  object-fit: cover;
+}
 
-  .program-details {
-    font-weight: normal;
+.program-details {
+  font-weight: normal;
+}
 
-    .program-title {
-      font-size: 16px;
-      line-height: normal;
-      font-weight: normal;
-    }
+.program-title {
+  font-size: 16px;
+  line-height: normal;
+  font-weight: normal;
+}
 
-    .program-rating {
-      font-size: 10.67px;
-      line-height: normal;
-      color: #d9d9d9;
-      border: 0.67px solid white;
-      width: max-content;
-    }
+.program-rating {
+  font-size: 10.67px;
+  line-height: normal;
+  color: #d9d9d9;
+  border: 0.67px solid white;
+  width: max-content;
+}
 
-    .program-genre {
-      font-size: 10.67px;
-      line-height: normal;
-      color: #d9d9d9;
-    }
-  }
+.program-genre {
+  font-size: 10.67px;
+  line-height: normal;
+  color: #d9d9d9;
 }
 
 .program-description {
   margin-top: 10.67px;
+}
 
-  .description-title {
-    font-size: 10.67px;
-    line-height: normal;
-    color: #d9d9d9;
-    font-weight: 500;
-  }
+.description-title {
+  font-size: 10.67px;
+  line-height: normal;
+  color: #d9d9d9;
+  font-weight: 500;
+}
 
-  .description-content {
-    font-size: 10.67px;
-    line-height: normal;
-    color: #d9d9d9;
-    font-weight: normal;
-  }
+.description-content {
+  font-size: 10.67px;
+  line-height: normal;
+  color: #d9d9d9;
+  font-weight: normal;
 }
 
 .control-toggle-container {
   margin-top: 16px;
+}
 
-  .control-toggle {
-    background-color: #1c3a7e;
-  }
+.control-toggle {
+  background-color: #1c3a7e;
 }
 
 .control-toggle__icon {

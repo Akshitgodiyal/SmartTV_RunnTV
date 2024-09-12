@@ -1,47 +1,47 @@
-.category-filter{
- 
-    width:  186.676px;
-    float:left ;
+.category-filter {
+    width: 186.676px;
+    float: left;
     padding: 9.3338px;
-  }
-#category-filter .item{
+}
+
+#category-filter .item {
     height: 40.002px;
-    /* text-align: center; */
-    /* margin: 0px 0px 0px 0px; */
     border-radius: 5.3336px;
     border: 1.32px solid transparent;
-    padding: 11.3338px 8.0004px 9.3338px 8.0004px;
+    padding: 11.3338px 8.0004px;
     font-size: 12.0008px;
     font-family: "Roboto";
     font-weight: 500;
     line-height: 15.3344px;
     color: rgba(217, 217, 217, 1);
+    display: flex;
+    align-items: center;
 }
+
 #category-filter .item img {
     height: auto;
     width: 16px;
     object-fit: cover;
-    float: inline-start;
     margin-right: 8px;
 }
-#category-filter .item-focus{
-    border:1.32px solid #fff !important;
+
+#category-filter .item-focus {
+    border: 1.32px solid #fff;
     background-color: transparent;
-    background-color: transparent; 
     font-weight: bold;
-    color: rgba(217, 217, 217, 1) !important; 
+    color: rgba(217, 217, 217, 1);
 }
-#category-filter{ 
-    .active{
-        font-size: 12.6676px;
-        background-color: rgba(230, 230, 230, 1);
-        color: rgba(19, 19, 20, 1) !important; 
-        margin: 5px 0px 5px 0px;
-        font-weight: bold;
-        border:1.32px solid transparent;
-    }
-    .item-focus.active{
-        color: rgba(217, 217, 217, 1) !important; 
-        background-color: transparent;
-    } 
+
+#category-filter .active {
+    font-size: 12.6676px;
+    background-color: rgba(230, 230, 230, 1);
+    color: rgba(19, 19, 20, 1);
+    margin: 5px 0;
+    font-weight: bold;
+    border: 1.32px solid transparent;
+}
+
+#category-filter .item-focus.active {
+    color: rgba(217, 217, 217, 1);
+    background-color: transparent;
 }
