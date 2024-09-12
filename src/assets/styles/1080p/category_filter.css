@@ -6,8 +6,6 @@
 
 #category-filter .item {
   height: 60px;
-  /* text-align: center; */
-  /* margin: 0px 0px 0px 0px; */
   border-radius: 8px;
   border: 2px solid transparent;
   padding: 15px 12px 14px 12px;
@@ -29,18 +27,14 @@
 #category-filter .item-focus {
   border: 2px solid #fff !important;
   background-color: transparent;
-
   font-weight: bold;
-
 }
 
-#category-filter {
-  .active {
-    font-size: 20px;
-    background-color: rgba(230, 230, 230, 1);
-    color: rgba(19, 19, 20, 1) !important;
-    font-weight: bold;
-    margin: 6px 0px 6px 0px;
-    border: 2px solid transparent;
-  }
+#category-filter .active {
+  font-size: 20px;
+  background-color: rgba(230, 230, 230, 1);
+  color: rgba(19, 19, 20, 1) !important;
+  font-weight: bold;
+  margin: 6px 0px 6px 0px;
+  border: 2px solid transparent;
 }

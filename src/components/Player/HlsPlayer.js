@@ -68,20 +68,18 @@ useEffect(()=>{
   useEffect(() => {
     const player = playerRef.current; 
     const handleTimeUpdate = () => {
-     if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
-            setCurrentTime(player.currentTime);
-       }
+       localStorage.setItem("player_currentTime",player.currentTime)
+            //setCurrentTime(player.currentTime);
+       
     };
 
     const handleBufferUpdate = () => {
-      if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
-        const buffer = player.buffered;
-        if (buffer.length > 0) {
-            const bufferedEnd = buffer.end(buffer.length - 1);
-            setBufferedEnd(bufferedEnd);
-        }
-   }
-           
+    
+            const buffer = player.buffered;
+            if (buffer.length > 0) {
+                const bufferedEnd = buffer.end(buffer.length - 1);
+                setBufferedEnd(bufferedEnd);
+            }
       
     };
     player.addEventListener('timeupdate', handleTimeUpdate);

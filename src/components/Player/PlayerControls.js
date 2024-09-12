@@ -47,42 +47,71 @@ const PlayerControls = () => {
       }
     }
   }, [selectedAsset]);
- 
-  useEffect(() => {
-    const percentage = (currentTime / bufferedEnd) * 100;
-    setValue(percentage);
-  }, [currentTime, bufferedEnd]);
 
+  var timeoutId; // Variable to hold the timeout ID
+var interval = 1000; // Time in milliseconds for each update
 
+function updateSeekBar() {
+    var _currentTime = localStorage.getItem("player_currentTime") || null;
+    var bufferedEnd = localStorage.getItem("bufferedEnd") || null;
+
+    if (_currentTime && bufferedEnd) {
+        const percentage = (_currentTime / bufferedEnd) * 100; 
+        var seekBarFill = document.getElementById("seekBarFill");
+        if (seekBarFill) { 
+            seekBarFill.style.width = percentage + "%";
+        }
+    } 
+    // Schedule the next update
+    timeoutId = setTimeout(updateSeekBar, interval);
+}
+
+// Start the update process
+updateSeekBar();
+
+// Function to stop the updates
+function stopUpdating() {
+    clearTimeout(timeoutId);
+}
+
+  // useEffect(() => {
+  //   //const percentage = (currentTime / bufferedEnd) * 100;
+  //  // setValue(percentage);
+  // }, [currentTime, bufferedEnd]);
+  const handleSeek = (time) => {
+    const player = document.querySelector("video");
+    player.currentTime = time;
+  };
+  const handleSeekChange = (e) => {
+    const newTime = (e.target.value / 100) * bufferedEnd;
+    setValue(e.target.value);
+    handleSeek(newTime);
+  };
 
   const handlefullscreen = () => {
     if (fullscreen == false) {
       setFullscreen(true);
-     
     } else {
       setFullscreen(false);
 
-     handleSetActive(true);
-     let firstSectionRef = document.getElementById("defaultFocused");
-     if (firstSectionRef) {
-       localStorage.setItem("screenLoaded", true);
-       firstSectionRef.click();
-       localStorage.setItem("screenLoaded", false);
-       localStorage.setItem(
-         globals.ACTIVE_COMPONENT,
-         globals.COMPONENT_NAME.Content
-       );
-      
-     }
+      handleSetActive(true);
+      let firstSectionRef = document.getElementById("defaultFocused");
+      if (firstSectionRef) {
+        localStorage.setItem("screenLoaded", true);
+        firstSectionRef.click();
+        localStorage.setItem("screenLoaded", false);
+        localStorage.setItem(
+          globals.ACTIVE_COMPONENT,
+          globals.COMPONENT_NAME.Content
+        );
+      }
     }
   };
  
   return (
     <>
       <VerticalList
-        onFocus={(index) =>
-          onFocus( globals.COMPONENT_NAME.Player_Detail)
-        }
+        onFocus={(index) => onFocus(globals.COMPONENT_NAME.Player_Detail)}
         onBlur={(index) => handleSetActive(true, index)}
         className="w-full justify-center gap-3 items-center text-2xl flex"
         retainLastFocus={true}
@@ -108,7 +137,11 @@ const PlayerControls = () => {
             <div id="seekbar">
               <ToggleItem className="" onBack={() => handlefullscreen()}  parentNav="seekbar" >
                 <div className="seek-bar">
-                  <div className="filled" style={{ width: value + "%" }}></div>
+                  <div
+                    id="seekBarFill"
+                    className="filled"
+                    style={{ width: value + "%" }}
+                  ></div>
                 </div>
               </ToggleItem>
             </div>
@@ -151,7 +184,6 @@ const PlayerControls = () => {
               </ToggleItem>
               <>
                 <img
-              
                   id="downArrow"
                   className="absolute 720p:bottom-5 bottom-10 1020p:w-15 720p:w-10"
                   src={downArrow}
