@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin'); // For minification
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = (env) => {
   const platform = process.env.PLATFORM || 'lg';
   const environment = process.env.ENVIRONMENT || 'development';
@@ -92,6 +92,17 @@ module.exports = (env) => {
         template: `./src/platform/${platform}/index.html`,
         filename: 'index.html',
       }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: `./src/platform/${platform}/`, // Copy all files from this directory
+            to: path.resolve(__dirname, 'dist', platform), // Output destination
+            globOptions: {
+              ignore: ['**/index.html'], // Exclude index.html as it's handled by HtmlWebpackPlugin
+            },
+          },
+        ],
+      }),
     ],
     resolve: {
       extensions: ['.js', '.jsx', '.json'],
@@ -105,15 +116,13 @@ module.exports = (env) => {
       hot: true,
     },
     optimization: {
-      minimize: true, // Minify everything including SCSS if needed
+      minimize: true, // Minify everything
       minimizer: [
         new TerserPlugin({ // Minify JS and other assets
           extractComments: false,
         }),
       ],
-      splitChunks: {
-        chunks: 'all',
-      },
+      splitChunks: false, // Disable chunk splitting to create a single JS bundle
     },
   };
 };
