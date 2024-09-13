@@ -1,18 +1,18 @@
-
-
+/* Container for Dynamic Content */
 #dynamic-content {
   height: 100%;
   position: relative;
+}
 
-
-.content {
+/* Content within Dynamic Content */
+#dynamic-content .content {
   white-space: nowrap;
   font-size: 0;
   overflow: hidden;
-
 }
 
- h1 {
+/* Header within Dynamic Content */
+#dynamic-content h1 {
   font-size: 30px;
   height: 80px;
   padding: 0;
@@ -20,7 +20,8 @@
   line-height: 80px;
 }
 
- .item {
+/* Item Styling */
+#dynamic-content .item {
   display: inline-block;
   background-color: #666;
   font-size: 1rem;
@@ -28,50 +29,47 @@
   cursor: pointer;
 }
 
-
- .horizontal .item, .vertical .item { 
- 
+/* Border and Transition for Item */
+#dynamic-content .horizontal .item,
+#dynamic-content .vertical .item {
   border: 2px solid transparent;
-
   transition: width 0.001s ease-in-out; /* Added transition */
 }
 
-
- .item-focus {
+/* Focused Item Styling */
+#dynamic-content .item-focus {
   transition: width 0.001s ease-in-out, border 0.002s ease-in-out; /* Added transition */
   border: 2px solid #fff;
-} 
-
- .vertical .item-focus, 
- .horizontal .item-focus { 
-  border: 2px solid #fff;
-  border-radius: 5px;
-
 }
 
- .animate {
+/* Focused Item in Vertical and Horizontal Orientation */
+#dynamic-content .vertical .item-focus,
+#dynamic-content .horizontal .item-focus {
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+
+/* Animated Item */
+#dynamic-content .animate {
   width: 25%;
   padding-bottom: 0;
   transition: padding-bottom 0.3s ease;
 }
 
- .placeholder {
+/* Placeholder Item */
+#dynamic-content .placeholder {
   width: 25%;
   padding-bottom: calc(30% + 80px);
 }
 
+/* Active Flex Styling */
+#dynamic-content .active.flex .before-box {
+  height: 116px;
+}
 
-display: block;
-  .active.flex {
-    .before-box{
-      
-    height:116px;
-    }
-    .item-focus,.item {  
-   width: 50% !important;
-   height:116px;
- }}
-
-
-
+/* Active Flex Item Focus */
+#dynamic-content .active.flex .item-focus,
+#dynamic-content .active.flex .item {
+  width: 50% !important;
+  height: 116px;
 }
