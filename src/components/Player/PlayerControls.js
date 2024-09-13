@@ -32,7 +32,7 @@ const PlayerControls = ({show,lists}) => {
   };
   useLayoutEffect(() => {
     if (selectedAsset) { 
-      var getCategoryResult = lists?.lists;
+      var getCategoryResult = lists;
       if (getCategoryResult) {
         getCategoryResult[selectedAsset.previousChannelIndex]
           ? setPreviousChannel(
