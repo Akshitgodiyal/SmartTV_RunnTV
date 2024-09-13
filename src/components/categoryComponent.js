@@ -227,7 +227,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
       if (getCategory) {
         var category = mapFilterCategory(getCategory);
         setHomeCategory && setHomeCategory(category);
-        var getCategoryResult = localStorage.getItem("filterCategoryResult")
+        var getCategoryResult =lists && lists.length>0?lists: localStorage.getItem("filterCategoryResult")
           ? JSON.parse(localStorage.getItem("filterCategoryResult"))
           : null;
         if (getCategoryResult) {
