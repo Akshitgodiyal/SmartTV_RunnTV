@@ -123,6 +123,7 @@ const List = (props ) => {
             props.assets &&
             props.assets.map((asset, i) => (
               <ToggleItem
+              fistline={props.fistline}
               onBack={()=>props.onBack()}
                 activeListIndex={props.isActive}
                 firstid={props.index == 0}

@@ -116,9 +116,9 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
 
 
         if (firstSection) {
-           localStorage.setItem("screenLoaded", true);
+          localStorage.setItem("screenLoaded", true);
           firstSection.click();
-        
+
           localStorage.setItem("screenLoaded", false);
         }
       }, 300);
@@ -177,7 +177,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                   />
                 </div>
                 <div ref={sectionRefs.streaming} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
-                  <div className="text-white text-[32px]">Streaming Now</div>
+                  <div className="text-white text-[32px] my-2">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
                     backtohome={backtohome}

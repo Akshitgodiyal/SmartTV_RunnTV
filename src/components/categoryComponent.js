@@ -248,7 +248,7 @@ const ContentCategory = ({ show,  backtohome }) => {
     <>
       <LoaderScreen show={showloader} />
       <VerticalList id="contantData" retainLastFocus={true}>
-      <div className={show ? 'mainbox' : 'mainbox hidden'}
+      <div className={show ? 'mainbox bg-[#000000B8]' : 'mainbox hidden'}
           style={{
             position: "absolute",
             top: "0",
@@ -287,6 +287,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                       >
                         {homeCategory.map((category, index) => (
                           <ToggleItem
+                          fistline={index == 0?true:false}
                             key={category.name}
                             images={category.images}
                             isActiveIndex={activeIndex === index}
@@ -304,6 +305,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                 <div className="scroll-hidden programs-list" ref={content2}>
                   {lists && lists.length > 0 ? (
                     <VerticalList
+                    
                       id={globals.COMPONENT_NAME.Content}
                       retainLastFocus={true}
                       navDefault={show}
@@ -348,7 +350,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                             <List
                               id={list.id}
                               //setUrl={setUrl}
-                          
+                          fistline={i == 0?true:false}
                               title={list.title}
                               layout={list.layout}
                               assets={list.schedules}

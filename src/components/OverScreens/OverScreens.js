@@ -11,7 +11,7 @@ import { globals } from "../../global";
 function OverScreens({ backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
 
-  console.log("ASdasdhask");
+
 
   useEffect(() => {
     if (sidebarActive === "tv") {
@@ -26,24 +26,25 @@ function OverScreens({ backtohome }) {
         }
       }, 300);
     }
-  }, [sidebarActive]);
-  // const showVideoSlider = () => {
-  //   setsidebarActive("tv")
-  //   localStorage.setItem(
-  //     globals.ACTIVE_COMPONENT,
-  //     globals.COMPONENT_NAME.Sidebar
-  //   );
-  // }
+    if (!(sidebarActive == "tv")) {
+      localStorage.setItem("isplayerShow", false);
+    }
 
-  if (sidebarActive == "tv") {
+  }, [sidebarActive]);
+
+  if (sidebarActive == "playerControl") {
+    return <PlayerControls
+
+      show={sidebarActive == "playerControl"}
+      backtohome={backtohome}
+
+    />;
+  }
+
+  else if (sidebarActive == "tv") {
     return (
       <>
-        <PlayerControls
 
-
-          backtohome={backtohome}
-
-        />
 
         <ContentCategory
           backtohome={backtohome}
@@ -64,6 +65,7 @@ function OverScreens({ backtohome }) {
     return <PrivacyPage backtohome={backtohome} show={sidebarActive == "search"} />;
   } else if (sidebarActive === "login") {
     return <Login backtohome={backtohome} show={sidebarActive == "login"} />;
+
   }
 }
 export default OverScreens;
