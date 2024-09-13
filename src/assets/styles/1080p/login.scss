@@ -1,15 +1,14 @@
 /* General Styles */
 
-
 .container {
     display: flex;
     flex-direction: column;
     height: 100%;
     padding: var(--container-padding);
+}
 
-    .logo {
-        width: var(--logo-width);
-    }
+.container .logo {
+    width: var(--logo-width);
 }
 
 .left-section,
@@ -65,13 +64,11 @@
     padding: var(--qr-code-padding);
     color: white;
     border-radius: var(--qr-code-border-radius);
-    
-    
 }
-.scanner-img{
 
-width: 251.95px;
-height: 240px;
+.scanner-img {
+    width: 251.95px;
+    height: 240px;
 }
 
 .code-input-container {
@@ -93,13 +90,13 @@ height: 240px;
     width: var(--skip-button-width);
     margin: auto;
     margin-top: var(--skip-button-margin-top);
+}
 
-    .skip-text {
-        color: white;
-        padding: var(--skip-button-padding);
-        font-size: var(--skip-button-font-size);
-        border-radius: var(--skip-button-border-radius);
-    }
+.skip-button .skip-text {
+    color: white;
+    padding: var(--skip-button-padding);
+    font-size: var(--skip-button-font-size);
+    border-radius: var(--skip-button-border-radius);
 }
 
 /* Font Sizes */
@@ -111,6 +108,7 @@ height: 240px;
     font-weight: bold;
 }
 
+/* CSS Variables */
 :root {
     --container-padding: 60px 144px;
     --logo-width: 10rem;
