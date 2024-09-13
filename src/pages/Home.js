@@ -31,7 +31,7 @@ const Home = () => {
       let datasection = document.getElementById("seekbarref");
 
       if (datasection) {
-        localStorage.setItem("screenLoaded", true);
+        localStorage.setItem("screenLoaded", true); 
         datasection.click();
         localStorage.setItem("screenLoaded", false);
       }

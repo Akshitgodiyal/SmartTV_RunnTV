@@ -242,7 +242,7 @@ const ContentCategory = ({ show,  backtohome }) => {
     }
   }, [show]);
 
-  console.log("activeListIndex",activeListIndex);
+
   
   return (
     <>

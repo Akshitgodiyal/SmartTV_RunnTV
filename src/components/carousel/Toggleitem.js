@@ -67,16 +67,16 @@ const ToggleItem = (props) => {
           <div
           className={"item streaming-item " + (active ? "item-focus " : "") + (props.isActiveIndex ? "active" : "")}
 
-        
+        //props.assetinfo?.baseSourceLocation 
             style={{
-              backgroundImage: `url(${props.assetinfo?.baseSourceLocation+props.assetinfo?.schedules[0]?.discoverImages?.tv})`,
+              backgroundImage: `url(${img_cloudfront1+props.assetinfo?.schedules[0]?.discoverImages?.tv})`,
               backgroundSize: "contain",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo?.schedules[0]?.discoverImages?.tv ? "#6457578c" : null,
             }}
           >
-            <div className="bg-red-500 streaming-title text-white px-2">
+            <div className="bg-red-600 text-center streaming-title text-white px-2">
 
               {props.assetinfo.title}
             </div>
@@ -86,7 +86,7 @@ const ToggleItem = (props) => {
         return (
           <div
           style={{
-            backgroundImage: "url(" + img_cloudfront1 + props.assetinfo?.images.tv + ")",
+            backgroundImage: "url(" + img_cloudfront1 + props.assetinfo?.images?.tv + ")",
             backgroundSize: "contain",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

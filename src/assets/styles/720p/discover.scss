@@ -72,7 +72,7 @@
     padding: 26.67px;
     border-radius: 8px;
     background: linear-gradient(290.01deg, rgba(255, 255, 255, 0.08) 42.6%, rgba(255, 255, 255, 0) 103.07%);
-    border: 1px solid;
+   
     border-image-source: radial-gradient(69.43% 69.43% at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%),
                           radial-gradient(9.48% 467.39% at 50% 50%, rgba(126, 129, 227, 0.3) 0%, rgba(126, 129, 227, 0.12) 100%),
                           radial-gradient(54.8% 53% at 50% 50%, rgba(21, 21, 21, 0.3) 0%, rgba(21, 21, 21, 0) 100%);
@@ -95,6 +95,7 @@
 
 /* Slider Item */
 .slider-item {
+    box-shadow: inset 0px 0px 30px rgb(255, 255, 255);
     width: 100% !important;
     height: 458.34px !important;
 }

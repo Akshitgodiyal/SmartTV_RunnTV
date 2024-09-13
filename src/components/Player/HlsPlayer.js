@@ -60,6 +60,8 @@ const HlsPlayer = React.forwardRef(() => {
       if (buffer.length > 0) {
         const bufferedEnd = buffer.end(buffer.length - 1);
         setBufferedEnd(bufferedEnd);
+        // console.log("bufferedEnd", bufferedEnd);
+        
       }
     };
 

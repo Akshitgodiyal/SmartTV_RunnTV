@@ -150,7 +150,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
           <img className="w-40" src={logo} alt="Logo" />
           <div className="text-white text-lg"> Welcome </div>
         </div> */}
-        <div className="w-full  pl-[24px] 1080p:pl-[24px]">
+        <div className="w-full  ">
           <HorizontalList id="discoverelement" retainLastFocus={true}>
             <div style={{ width: "100%", float: "left", overflowY: "auto" }}>
               <VerticalList
@@ -161,7 +161,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                 <div
                   ref={sectionRefs.slider}
                   id="discover"
-                  className="mb-[50px]  pr-[24px] 1080p:pr-[24px]"
+                  className=" mb-[50px]"
                   tabIndex={-1} // Make it focusable
                 >
                   {/* <div className="text-white text-[32px]">Streaming Now</div> */}
@@ -176,7 +176,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                     onFocus={() => handleFocus("slider")}
                   />
                 </div>
-                <div ref={sectionRefs.streaming} className="mb-[50px]">
+                <div ref={sectionRefs.streaming} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
                   <div className="text-white text-[32px]">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
@@ -189,7 +189,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                     onFocus={() => handleFocus("streaming")}
                   />
                 </div>
-                <div ref={sectionRefs.categories} className="mb-[50px] w-full">
+                <div ref={sectionRefs.categories} className=" mb-[50px] pl-[24px] 1080p:pl-[24px] w-full">
                   <div className="text-white text-[32px]">Categories</div>
 
 
@@ -211,7 +211,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                   </Grid>
                 </div>
 
-                <div ref={sectionRefs.genres} className="mb-[50px]">
+                <div ref={sectionRefs.genres} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
                   <div className="text-white text-[32px]">Genres</div>
                   <Carousel
                     setUrl={setUrl}
@@ -225,7 +225,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                   />
                 </div>
 
-                {/* <div ref={sectionRefs.channels} className="mb-[50px]">
+                {/* <div ref={sectionRefs.channels} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
                   <div className="text-white text-[32px]">Channels</div>
                   <Carousel
                       setUrl={setUrl}
@@ -239,7 +239,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                   />
                 </div> */}
 
-                <div ref={sectionRefs.language} className="mb-[50px]">
+                <div ref={sectionRefs.language} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
                   <div className="text-white text-[32px] ">Language</div>
                   <Carousel
                     setUrl={setUrl}
