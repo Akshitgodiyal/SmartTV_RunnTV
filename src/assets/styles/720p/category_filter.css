@@ -10,7 +10,7 @@
     border: 1.32px solid transparent;
     padding: 11.3338px 8.0004px;
     font-size: 12.0008px;
-    font-family: "Roboto";
+    font-family: "Roboto" !important;
     font-weight: 500;
     line-height: 15.3344px;
     color: rgba(217, 217, 217, 1);

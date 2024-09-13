@@ -98,7 +98,7 @@ class Navigation extends Component {
   };
 
   fireEvent(element, evt, evtProps) {
-    console.log("fireEvent", element, evt, evtProps);
+    //console.log("fireEvent", element, evt, evtProps);
     
     switch (evt) {
       case "willmove":
