@@ -42,14 +42,30 @@ const ToggleItem = (props) => {
     </div>
   );
 
+  const isplayerShow = () => {
+
+    if (props.fistline) {
+
+
+      
+      localStorage.setItem("isplayerShow", true); 
+    }else{
+
+      localStorage.setItem("isplayerShow", false); 
+    }
+
+
+    
+  };
+
 
 
 
 
   return (
     <Focusable
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
+      onFocus={() => {setActive(true) ; isplayerShow() } }
+      onBlur={() => {setActive(false) ; isplayerShow() }}
       onEnterDown={onKeyDown}
       onClick={()=>assetClick()}
       onBack={() => props.onBack()}

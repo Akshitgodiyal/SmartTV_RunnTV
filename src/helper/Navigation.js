@@ -4,6 +4,7 @@ import VerticalList from "./VerticalList.js";
 import { globals } from "../global.js";
 import { scrolling } from "../components/privacy/privacyPage.js";
 import { debounce } from "lodash"; // Import debounce from lodash
+import { VideoContext } from "../utility/context.js";
 const reverseDirection = {
   up: "down",
   down: "up",
@@ -20,6 +21,7 @@ class Navigation extends Component {
   root = null;
   focusableComponents = {};
   focusableIds = 0;
+
   constructor(props) {
     super(props);
     // Debounce the onKeyDown function
@@ -247,7 +249,7 @@ class Navigation extends Component {
     let prevent = false;
     const activeComponent =
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
-
+    
     if (direction == "up") {
       switch (activeComponent) {
         case globals.COMPONENT_NAME.Discover:
@@ -264,10 +266,20 @@ class Navigation extends Component {
             prevent = true;
           }
           break;
+        case globals.COMPONENT_NAME.Content:
+          if (localStorage.getItem("isplayerShow") == "true" ) {
+       
+        
+            this.props.showVideoSlider();
+          }
+          break;
         default:
           prevent = false;
           break;
       }
+   
+     
+
     }
 
     return prevent;
@@ -277,17 +289,30 @@ class Navigation extends Component {
     const activeComponent =
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
 
-    if (direction == "up") {
+    if (direction == "down") {
       switch (activeComponent) {
         case globals.COMPONENT_NAME.scroll_item:
           if (current) {
             prevent = true;
           }
           break;
+          case globals.COMPONENT_NAME.Player_Control:
+            if (current) {
+              if (localStorage.getItem("isplayerShow") === "true" ) {
+              
+                
+                 
+                       this.props.activemenuActive();
+                     }
+            }
+           
+          break;
         default:
           prevent = false;
           break;
       }
+    
+ 
     }
 
     return prevent;

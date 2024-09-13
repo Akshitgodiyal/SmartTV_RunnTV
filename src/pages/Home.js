@@ -11,10 +11,13 @@ import { mapChannel } from "../helper/mapper/mapChannelEpg.js";
 import { VideoContext } from "../utility/context.js";
 import { globals } from "../global.js";
 
+
+
+
 const Home = () => { 
 
   const { setSelectedAsset } = useContext(VideoContext);
-  const { setsidebarActive } = useContext(VideoContext);
+  const {sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { setActiveIndex } = useContext(VideoContext);
   const { setIsActive } = useContext(VideoContext);
   const {  setFullscreen } = useContext(VideoContext);
@@ -22,20 +25,12 @@ const Home = () => {
     setFullscreen(false)
     setIsActive(false)
     setActiveIndex(1)
-    setsidebarActive("tv")
+    setsidebarActive("playerControl")
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
       globals.COMPONENT_NAME.Sidebar
     );
-    setTimeout(() => {
-      let datasection = document.getElementById("seekbarref");
-
-      if (datasection) {
-        localStorage.setItem("screenLoaded", true);
-        datasection.click();
-        localStorage.setItem("screenLoaded", false);
-      }
-    }, 200);
+  
   }
 
   useEffect(() => {
@@ -48,8 +43,13 @@ const Home = () => {
   }, []);
 
 
+const activemenuActive =()=>{
+  setIsActive(true)
+  setActiveIndex(1)
+    setsidebarActive("tv")
+}
   return (
-    <Navigation id="home-div-nav" active={true}>
+    <Navigation showVideoSlider={()=>{ showVideoSlider()}} activemenuActive={()=>{activemenuActive()}}  id="home-div-nav" active={true}>
       <div className="active-component">
         <HorizontalList>
           <div>

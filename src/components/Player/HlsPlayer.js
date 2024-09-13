@@ -2,7 +2,7 @@ import React, { useRef, useContext, useEffect, useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { VideoContext } from "../../utility/context";
 
-const HlsPlayer = React.forwardRef((ref) => {
+const HlsPlayer = React.forwardRef(() => {
   const [url, setUrl] = useState("");
   const [poster, setPoster] = useState("");
   const playerRef = useRef();
@@ -60,6 +60,8 @@ const HlsPlayer = React.forwardRef((ref) => {
       if (buffer.length > 0) {
         const bufferedEnd = buffer.end(buffer.length - 1);
         setBufferedEnd(bufferedEnd);
+        // console.log("bufferedEnd", bufferedEnd);
+        
       }
     };
 

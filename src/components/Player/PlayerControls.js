@@ -12,7 +12,7 @@ import downArrow from "../../assets/images/downArrow.png";
 import ProgramDetail from "../programDetail.js/ProgramDetail";
 import prevIcon from "../../assets/images/PreviousChannel.png";
 import nextIcon from "../../assets/images/NextChannel.png";
-const PlayerControls = () => {
+const PlayerControls = ({show}) => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const { fullscreen, setFullscreen } = useContext(VideoContext);
   const { selectedAsset,setSelectedAsset } = useContext(VideoContext);
@@ -89,13 +89,14 @@ function stopUpdating() {
     setValue(e.target.value);
     handleSeek(newTime);
   };
+  const { sidebarActive, setsidebarActive } = useContext(VideoContext);
  
   const handlefullscreen = () => {
     if (fullscreen == false) {
       setFullscreen(true);
     } else {
       setFullscreen(false);
-
+      setsidebarActive("tv");
      handleSetActive(true);
      let firstSectionRef = document.getElementById("defaultFocused");
      if (firstSectionRef) {
@@ -110,8 +111,35 @@ function stopUpdating() {
     }
   };
 
+
+  let datasection = document.getElementById("seekbarref");
+  useEffect(() => {
+
+    if (show) {
+
+      setTimeout(() => {
+        let datasection = document.getElementById("seekbarref");
+  
+        if (datasection) {
+          localStorage.setItem("screenLoaded", true); 
+          datasection.click();
+          localStorage.setItem("screenLoaded", false);
+        }
+      }, 200);
+    }
+  }, [show, datasection != null]);
+
+  
+
+
+
+
+
   return (
-    <>
+    <div
+    className={show ? "" : "hidden"   }
+ >
+
       <VerticalList
         onFocus={(index) => onFocus(globals.COMPONENT_NAME.Player_Detail)}
         onBlur={(index) => handleSetActive(true, index)}
@@ -160,6 +188,7 @@ function stopUpdating() {
           >
             <div className="player-next-prev">
               <ToggleItem
+                 fistline={true}
                 allowedDirection={"right"}
                 parentId={globals.COMPONENT_NAME.Player_Control}
                 disabled={previousChannel ? false : true}
@@ -210,6 +239,7 @@ function stopUpdating() {
               </>
 
               <ToggleItem
+              fistline={true}
                 allowedDirection={"left"}
                 parentId={globals.COMPONENT_NAME.Player_Control}
                 disabled={nextChannel ? false : true}
@@ -252,7 +282,8 @@ function stopUpdating() {
           </HorizontalList>
         </VerticalList>
       </div>
-    </>
+      </div>
+ 
   );
 };
 
