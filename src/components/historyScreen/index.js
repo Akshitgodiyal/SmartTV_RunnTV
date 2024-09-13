@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Focusable, HorizontalList } from "../../helper/react-navigation";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
-import { IconStarFilled } from "@tabler/icons-react";
+
  // Import your Focusable component
 
 function WatchHistory({ setUrl, show }) {
@@ -47,7 +47,7 @@ function WatchHistory({ setUrl, show }) {
         
                   >
                     <div className="flex justify-center gap-2 items-center">
-                      <IconStarFilled size={32} /> {type}
+                      {/* <IconStarFilled size={32} /> {type} */}
                     </div>
                   </button>
                 </Focusable>

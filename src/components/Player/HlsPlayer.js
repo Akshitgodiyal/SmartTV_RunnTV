@@ -3,7 +3,7 @@ import ReactHlsPlayer from "react-hls-player";
 import { VideoContext } from "../../utility/context";
 import { globals } from "../../global";
 
-const HlsPlayer = React.forwardRef(( ref) => {
+const HlsPlayer = React.forwardRef(( ) => {
 const [url, setUrl] = useState("");
 const [poster, setPoster] = useState("");
 const playerRef = useRef();
@@ -68,19 +68,19 @@ useEffect(()=>{
   useEffect(() => {
     const player = playerRef.current; 
     const handleTimeUpdate = () => {
-     if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
-            setCurrentTime(player.currentTime);
-       }
+    //  if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
+    //         setCurrentTime(player.currentTime);
+    //    }
     };
 
     const handleBufferUpdate = () => {
-      if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
-        const buffer = player.buffered;
-        if (buffer.length > 0) {
-            const bufferedEnd = buffer.end(buffer.length - 1);
-            setBufferedEnd(bufferedEnd);
-        }
-   }
+  //     if(localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Control || localStorage.getItem(globals.ACTIVE_COMPONENT) === globals.COMPONENT_NAME.Player_Detail) {
+  //       const buffer = player.buffered;
+  //       if (buffer.length > 0) {
+  //           const bufferedEnd = buffer.end(buffer.length - 1);
+  //           setBufferedEnd(bufferedEnd);
+  //       }
+  //  }
            
       
     };

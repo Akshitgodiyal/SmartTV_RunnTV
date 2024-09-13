@@ -93,7 +93,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
     setActiveListIndex(section);
     scrollToSection(sectionRefs[section], section === "slider");
     if (section === "slider") {
-      localStorage.setItem("ACTIVE_COMPONENT", "discover");
+      localStorage.setItem(globals.ACTIVE_COMPONENT, "discover");
     } else {
       localStorage.setItem(globals.ACTIVE_COMPONENT, "");
     }
@@ -116,7 +116,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
 
 
         if (firstSection) {
-          localStorage.setItem("screenLoaded", true);
+           localStorage.setItem("screenLoaded", true);
           firstSection.click();
         
           localStorage.setItem("screenLoaded", false);
