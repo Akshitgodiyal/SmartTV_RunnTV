@@ -22,7 +22,8 @@ const HlsPlayer = React.forwardRef(() => {
 
       // Set new URL and poster
       setUrl(selectedAsset.playUrl);
-      setPoster(selectedAsset.baseSourceLocation + selectedAsset.image.poster.tv);
+      var posterUrl=selectedAsset.baseSourceLocation + selectedAsset.image.poster.tv;
+      setPoster(posterUrl);
     }
   }, [selectedAsset]);
 

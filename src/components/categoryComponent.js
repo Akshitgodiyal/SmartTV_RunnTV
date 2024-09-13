@@ -131,8 +131,8 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
           "filterCategoryResult",
           JSON.stringify(channelList)
         );
-        setSelectedAsset(channelList[0]);
         setLists(channelList);
+        setSelectedAsset(channelList[0]);
         SetInitialFocus();
       } else {
         localStorage.setItem("filterCategoryResult", null);
