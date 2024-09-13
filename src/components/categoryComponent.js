@@ -12,7 +12,7 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 
-const ContentCategory = ({ show,  backtohome }) => {
+const ContentCategory = ({ show, backtohome, lists, setLists }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
 
@@ -24,7 +24,6 @@ const ContentCategory = ({ show,  backtohome }) => {
   const content2 = useRef(null);
   const [rating, setRating] = useState("");
   // eslint-disable-next-line
-  const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
   const [showloader, setShowloader] = useState(true);
   const [nextCategoryIndex, setNextCategoryIndex] = useState();
@@ -108,7 +107,7 @@ const ContentCategory = ({ show,  backtohome }) => {
         }
       }
     }
-    if ( index === lists.length - 2 ) {
+    if (index === lists.length - 2) {
       setNextCategoryIndex(activeIndex + 1);
     }
   };
@@ -160,10 +159,13 @@ const ContentCategory = ({ show,  backtohome }) => {
           if (result && result.length > 0) {
             var channelList = mapChannelEpg(result, nextCategoryIndex);
             setLists(lists.concat(channelList));
-            localStorage.setItem(  "filterCategoryResult", JSON.stringify(lists));
-            setTimeout(() => {
-              setShowloader(false);
-            }, 10);
+            if (result.length < 3) {
+              setNextCategoryIndex(nextCategoryIndex + 1);
+            } else {
+              setTimeout(() => {
+                setShowloader(false);
+              }, 10);
+            }
           } else {
             setNextCategoryIndex(nextCategoryIndex + 1);
             setShowloader(false);
@@ -185,7 +187,7 @@ const ContentCategory = ({ show,  backtohome }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
-  const fetchCategory=()=> {
+  const fetchCategory = () => {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
         (result) => {
@@ -201,8 +203,8 @@ const ContentCategory = ({ show,  backtohome }) => {
     } finally {
       // setLoading(false);
     }
-  }
-  const SetInitialFocus=() =>{
+  };
+  const SetInitialFocus = () => {
     setTimeout(() => {
       let firstSectionRef = document.getElementById("defaultFocused");
       if (firstSectionRef) {
@@ -216,7 +218,7 @@ const ContentCategory = ({ show,  backtohome }) => {
         setShowloader(false);
       }
     }, 300);
-  }
+  };
   useEffect(() => {
     if (show) {
       var getCategory = localStorage.getItem("filterCategory")
@@ -242,8 +244,6 @@ const ContentCategory = ({ show,  backtohome }) => {
     }
   }, [show]);
 
-
-  
   return (
     <>
       <LoaderScreen show={showloader} />
@@ -268,7 +268,12 @@ const ContentCategory = ({ show,  backtohome }) => {
             </div>
             <div className="w-full">
               <div className="flex my-5 w-full justtify-center">
-                <img id="upArrow" className=" w-15 m-auto" src={upArrow} alt="Logo" />
+                <img
+                  id="upArrow"
+                  className=" w-15 m-auto"
+                  src={upArrow}
+                  alt="Logo"
+                />
               </div>
               <HorizontalList retainLastFocus={true}>
                 <div className="category-filter">
@@ -330,10 +335,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                             <div className="720p:text-[16px] 1080p:text-[20px] text-white p-1">
                               101
                             </div>
-                            <div
-                   className="img-box rounded-md flex justify-center items-center bg-black bg-opacity-75"
-
-                            >
+                            <div className="img-box rounded-md flex justify-center items-center bg-black bg-opacity-75">
                               <img
                                 className={
                                   "items-center " +

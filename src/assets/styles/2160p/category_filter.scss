@@ -169,7 +169,7 @@
   padding-top: 42px; /* 21px * 2 */
   padding-right: 4px; /* 2px * 2 */
 }
-.category-filter,.programs-list{
+#category-filter,.programs-list{
   height:   1000px;
-
+  overflow-y: hidden !important;
 }
