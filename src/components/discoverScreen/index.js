@@ -137,7 +137,8 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
       }
       style={{
         position: "absolute",
-        top: "0"
+        top: "0",
+       overflow:"hidden"
       }}
 
       ref={containerRef}
@@ -177,7 +178,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                   />
                 </div>
                 <div ref={sectionRefs.streaming} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
-                  <div className="text-white text-[32px] my-2">Streaming Now</div>
+                  <div className="text-white text-[32px] my-2 tray-header ">Streaming Now</div>
                   <Carousel
                     setUrl={setUrl}
                     backtohome={backtohome}
@@ -190,7 +191,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                   />
                 </div>
                 <div ref={sectionRefs.categories} className=" mb-[50px] pl-[24px] 1080p:pl-[24px] w-full">
-                  <div className="text-white text-[32px]">Categories</div>
+                  <div className="text-white text-[32px] tray-header">Categories</div>
 
 
                   <Grid
@@ -212,7 +213,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                 </div>
 
                 <div ref={sectionRefs.genres} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
-                  <div className="text-white text-[32px]">Genres</div>
+                  <div className="text-white text-[32px] tray-header">Genres</div>
                   <Carousel
                     setUrl={setUrl}
                     backtohome={backtohome}
@@ -226,7 +227,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                 </div>
 
                 {/* <div ref={sectionRefs.channels} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
-                  <div className="text-white text-[32px]">Channels</div>
+                  <div className="text-white text-[32px] tray-header">Channels</div>
                   <Carousel
                       setUrl={setUrl}
   backtohome={backtohome}
@@ -240,7 +241,7 @@ const DiscoverScreen = ({ setUrl, show, backtohome }) => {
                 </div> */}
 
                 <div ref={sectionRefs.language} className=" mb-[50px] pl-[24px] 1080p:pl-[24px]">
-                  <div className="text-white text-[32px] ">Language</div>
+                  <div className="text-white text-[32px] tray-header">Language</div>
                   <Carousel
                     setUrl={setUrl}
                     backtohome={backtohome}
