@@ -6,7 +6,8 @@ import tvImage from "../assets/images/tv.png";
 import discoverImage from "../assets/images/discover.png";
 import eyeImage from "../assets/images/eye.png";
 import searchImage from "../assets/images/search.png";
-import loginImage from "../assets/images/Login.png";
+import loginImageOutlined from "../assets/images/person_outlined.png";
+import loginImage from "../assets/images/person.png";
 import exitImage from "../assets/images/Exit.png";
 const ToggleItem = ({
   icon,
@@ -57,32 +58,38 @@ const Sidebar = () => {
     {
       id: "login",
       label: "Login",
-      icon: loginImage,
+      icon: loginImageOutlined,
+      icon_Outlined:loginImage
     },
     {
       id: "tv",
       label: "Home",
       icon: tvImage,
+      icon_Outlined:tvImage
     },
     {
       id: "discover",
       label: "Discover",
       icon: discoverImage,
+      icon_Outlined:discoverImage
     },
     {
       id: "eye",
       label: "Watchlist",
       icon: eyeImage,
+      icon_Outlined:eyeImage
     },
-    {
-      id: "search",
-      label: "Search",
-      icon: searchImage,
-    },
+    // {
+    //   id: "search",
+    //   label: "Search",
+    //   icon: searchImage,
+    //   icon_Outlined:searchImage
+    // },
     {
       id: "Exit",
       label: "Exit",
       icon: exitImage,
+      icon_Outlined:exitImage
     },
   ];
 

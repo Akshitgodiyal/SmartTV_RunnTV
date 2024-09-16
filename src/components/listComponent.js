@@ -126,8 +126,8 @@ const List = (props) => {
                 assetinfo={asset}
                 parentNav={props.parentNav}
                 isFirstItem={props.isFirstList && i == 0 ? true : false}
-                //preventDown={props.preventDown}
                 setRating={props.setRating}
+              
               />
             ))}
         </HorizontalList>

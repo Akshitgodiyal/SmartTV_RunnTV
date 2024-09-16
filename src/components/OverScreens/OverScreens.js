@@ -14,14 +14,14 @@ function OverScreens({ backtohome }) {
   useEffect(() => {
     if (sidebarActive === "tv") {
       setTimeout(() => {
-        const firstMenuRef = document.getElementById("defaultFocused");
+        // const firstMenuRef = document.getElementById("defaultFocused");
 
-        if (firstMenuRef) {
-          localStorage.setItem("screenLoaded", true);
+        // if (firstMenuRef) {
+        //   localStorage.setItem("screenLoaded", true);
 
-          firstMenuRef.click();
-          localStorage.setItem("screenLoaded", false);
-        }
+        //   firstMenuRef.click();
+        //   localStorage.setItem("screenLoaded", false);
+        // }
       }, 300);
     }
     if (!(sidebarActive == "tv")) {

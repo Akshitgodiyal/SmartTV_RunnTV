@@ -15,7 +15,9 @@ const App = () => {
           localStorage.setItem("filterCategory", JSON.stringify(result));
           loadCategoryData(result[0],0)
         }
-      );
+       ).catch((error) => {
+        console.log("Error====:", error);  
+      });
     } catch (error) {
       localStorage.setItem("filterCategory", null);
       console.error("Error fetching data:", error);
@@ -38,7 +40,9 @@ const App = () => {
           localStorage.setItem("filterCategoryResult", null);
         }
       })
-      
+      .catch((error) => {
+        console.log("Error====:", error);  
+      });
     } catch (error) {
       localStorage.setItem("filterCategoryResult", null);
       console.error("Error fetching data:", error);

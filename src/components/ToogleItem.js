@@ -4,19 +4,20 @@ import { img_cloudfront, img_cloudfront1 } from "../utility/constant.js";
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
 
-  const assetClick = () => {
+  const assetClick = (id) => {
+    localStorage.setItem("LastFocusedItemId",id);
     var cc = localStorage.getItem("activeNav");
     if (cc !== props.parentNav) {
       return;
     }
-
+    
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
   };
 
-  const onKeyDown = () => {
-    assetClick();
+  const onKeyDown = (id) => {
+    assetClick(id);
     if (props.onEnter) {
       props.onEnter(); // Call the passed callback function
     }
@@ -66,8 +67,8 @@ const ToggleItem = (props) => {
     <Focusable
       onFocus={() => {setActive(true) ; isplayerShow() } }
       onBlur={() => {setActive(false) ; isplayerShow() }}
-      onEnterDown={onKeyDown}
-      onClick={()=>assetClick()}
+      onEnterDown={()=>onKeyDown(props.assetinfo && props.assetinfo.id ?props.assetinfo.id:"")}
+      onClick={()=>assetClick(props.assetinfo && props.assetinfo.id ?props.assetinfo.id:"")}
       onBack={() => props.onBack()}
       disabled={props.disabled}
       parentId={props.parentId}
@@ -76,7 +77,7 @@ const ToggleItem = (props) => {
 
       {props.parentNav == "home-div-nav" ? (
         <div
-          id={props.isFirstItem ? "defaultFocused" : ""}
+          id={props.isFirstItem ? "defaultFocused" : props.assetinfo.id}
           className={
             "item program-item h-[116px] " +
             (active ? "item-focus " : "") +
@@ -147,14 +148,12 @@ const ToggleItem = (props) => {
               <div className="flex justify-start items-center categories ">
                 {props.images ?
 
-                  <img src={
-                    active
-                      ? img_cloudfront1 + props.images.disabledIcon.tv
-                      : props.isActiveIndex
-                        ? img_cloudfront1 + props.images.enabledIcon.tv
-                        : img_cloudfront1 + props.images.disabledIcon.tv
-                  }
-                    alt={props.children} />
+                {active}?
+                 <img src={img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} ></img> :
+                 props.isActiveIndex?
+                 <img src={img_cloudfront1 + props.images.enabledIcon.tv} alt={props.children} ></img>:
+                 <img src={img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} ></img>
+ 
 
                   : ""}
                 {props.children}

@@ -31,7 +31,7 @@ body {
  
 #side_bar.focused {
   width: 100%;
-  background-color: rgb(16 17 19 / 69%) !important;
+  background: linear-gradient(to right, rgb(16 17 19 ), transparent) !important;
 }
 
  #sidebarComponent{
