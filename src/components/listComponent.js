@@ -3,7 +3,7 @@ import { HorizontalList } from "../helper/react-navigation.js";
 import ToggleItem from "./ToogleItem";
 import { VideoContext } from "../utility/context.js";
 import { globals } from "../global.js";
-const List = (props ) => {
+const List = (props) => {
   const contentRef3 = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
   const { setSelectedAsset } = useContext(VideoContext);
@@ -47,23 +47,20 @@ const List = (props ) => {
           });
         }
 
-          // Ensure the last element is fully visible
-          if (index === items.length - 1) {
-            contentRef3.current.scrollTo({
-              left:
-                itemRect.left -
-                containerRect.left +
-                contentRef3.current.scrollLeft,
-              behavior: "smooth",
-            });
-            const lastItem = items[items.length - 1];
-            lastItem.style.marginRight = "0";
-        
+        // Ensure the last element is fully visible
+        if (index === items.length - 1) {
+          contentRef3.current.scrollTo({
+            left:
+              itemRect.left -
+              containerRect.left +
+              contentRef3.current.scrollLeft,
+            behavior: "smooth",
+          });
+          const lastItem = items[items.length - 1];
+          lastItem.style.marginRight = "0";
         }
       }
     }
-
-
 
     setLastFocus(index);
   };
@@ -72,42 +69,38 @@ const List = (props ) => {
   const handlefullscreen = () => {
     if (fullscreen == false) {
       setFullscreen(true);
-     
     } else {
       setFullscreen(false);
 
       setIsActive(true);
-     let firstSectionRef = document.getElementById("defaultFocused");
-     if (firstSectionRef) {
-       localStorage.setItem("screenLoaded", true);
-       firstSectionRef.click();
-       localStorage.setItem("screenLoaded", false);
-       localStorage.setItem(
-         globals.ACTIVE_COMPONENT,
-         globals.COMPONENT_NAME.Content
-       );
-      
-     }
+      let firstSectionRef = document.getElementById("defaultFocused");
+      if (firstSectionRef) {
+        localStorage.setItem("screenLoaded", true);
+        firstSectionRef.click();
+        localStorage.setItem("screenLoaded", false);
+        localStorage.setItem(
+          globals.ACTIVE_COMPONENT,
+          globals.COMPONENT_NAME.Content
+        );
+      }
     }
   };
   const handleItemClick = (url) => {
     setSelectedAsset(url);
-    props.onBack()
+    props.onBack();
     setTimeout(() => {
-     
-      handlefullscreen()
-    }, 1000);
+      handlefullscreen();
+    }, 100);
   };
 
   return (
     <div
-    className={
-      "contentgroup " +
-      props.layout +
-      (props.visible ? "" : " fading-out") +
-      (props.isActive ? " active-list" : "")
-    }
-    
+      className={
+        "contentgroup " +
+        props.layout +
+        (props.visible ? "" : " fading-out") +
+        (props.isActive ? " active-list" : "")
+      }
     >
       <div className="content" ref={contentRef3}>
         <HorizontalList
@@ -116,8 +109,8 @@ const List = (props ) => {
           onFocus={(index) => onFocus(index)}
           onBlur={() => setLastFocus(null)}
           retainLastFocus={true}
-         // preventDown={props.preventDown}
-          id={"HorizontalList_"+props.id +props.title }
+          // preventDown={props.preventDown}
+          id={"HorizontalList_" + props.id + props.title}
         >
           {props &&
             props.assets &&
@@ -133,8 +126,8 @@ const List = (props ) => {
                 assetinfo={asset}
                 parentNav={props.parentNav}
                 isFirstItem={props.isFirstList && i == 0 ? true : false}
-                //preventDown={props.preventDown}
-                setRating={props.setRating} 
+                setRating={props.setRating}
+              
               />
             ))}
         </HorizontalList>

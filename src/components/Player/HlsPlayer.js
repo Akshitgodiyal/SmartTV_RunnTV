@@ -8,7 +8,7 @@ const HlsPlayer = React.forwardRef(() => {
   const playerRef = useRef();
   const { setBufferedEnd } = useContext(VideoContext);
   const { selectedAsset } = useContext(VideoContext);
-
+  const {setCurrentTime} = useContext(VideoContext);
   // Update player on selectedAsset change
   useEffect(() => {
     if (selectedAsset && selectedAsset.playUrl !== url) {
@@ -22,7 +22,8 @@ const HlsPlayer = React.forwardRef(() => {
 
       // Set new URL and poster
       setUrl(selectedAsset.playUrl);
-      setPoster(selectedAsset.baseSourceLocation + selectedAsset.image.poster.tv);
+      var posterUrl=selectedAsset.baseSourceLocation + selectedAsset.image.poster.tv;
+      setPoster(posterUrl);
     }
   }, [selectedAsset]);
 
@@ -59,8 +60,7 @@ const HlsPlayer = React.forwardRef(() => {
       const buffer = player.buffered;
       if (buffer.length > 0) {
         const bufferedEnd = buffer.end(buffer.length - 1);
-        setBufferedEnd(bufferedEnd);
-        // console.log("bufferedEnd", bufferedEnd);
+        localStorage.setItem("bufferedEnd", bufferedEnd);
         
       }
     };

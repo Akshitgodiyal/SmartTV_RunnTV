@@ -7,12 +7,12 @@ import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
-import { mapChannelEpg } from "../helper/mapper/mapChannelEpg.js";
+import { mapChannelEpg,setChannelIndex } from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 
-const ContentCategory = ({ show,  backtohome }) => {
+const ContentCategory = ({ show, backtohome, lists, setLists }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
 
@@ -24,10 +24,10 @@ const ContentCategory = ({ show,  backtohome }) => {
   const content2 = useRef(null);
   const [rating, setRating] = useState("");
   // eslint-disable-next-line
-  const [lists, setLists] = useState([]);
   const [homeCategory, setHomeCategory] = useState([]);
   const [showloader, setShowloader] = useState(true);
   const [nextCategoryIndex, setNextCategoryIndex] = useState();
+  const [firstItemIndex, setFirstItemIndex] = useState(0);
   const handleSetActive = (status, index) => {
     setActive(status);
 
@@ -108,7 +108,7 @@ const ContentCategory = ({ show,  backtohome }) => {
         }
       }
     }
-    if ( index === lists.length - 2 ) {
+    if (index === lists.length - 2) {
       setNextCategoryIndex(activeIndex + 1);
     }
   };
@@ -132,8 +132,8 @@ const ContentCategory = ({ show,  backtohome }) => {
           "filterCategoryResult",
           JSON.stringify(channelList)
         );
-        setSelectedAsset(channelList[0]);
         setLists(channelList);
+        setSelectedAsset(channelList[0]);
         SetInitialFocus();
       } else {
         localStorage.setItem("filterCategoryResult", null);
@@ -141,7 +141,9 @@ const ContentCategory = ({ show,  backtohome }) => {
         setLists([]);
         setShowloader(false);
       }
-    });
+    }).catch((error) => {
+      console.log("Error====:", error);  
+    });;
   };
 
   const loadNextCategory = function () {
@@ -159,15 +161,23 @@ const ContentCategory = ({ show,  backtohome }) => {
         ).then((result) => {
           if (result && result.length > 0) {
             var channelList = mapChannelEpg(result, nextCategoryIndex);
-            setLists(lists.concat(channelList));
-            localStorage.setItem(  "filterCategoryResult", JSON.stringify(lists));
-            setTimeout(() => {
-              setShowloader(false);
-            }, 10);
+            var _lists=setChannelIndex(lists.concat(channelList)); 
+            setLists(_lists);
+            if (result.length < 3) {
+              setNextCategoryIndex(nextCategoryIndex + 1);
+            } else {
+              setTimeout(() => {
+                setShowloader(false);
+              }, 10);
+            }
           } else {
             setNextCategoryIndex(nextCategoryIndex + 1);
             setShowloader(false);
           }
+        })
+        .catch((error) => {
+          console.log("Error====:", error); 
+          setShowloader(false); 
         });
       }
     }
@@ -185,7 +195,7 @@ const ContentCategory = ({ show,  backtohome }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
-  const fetchCategory=()=> {
+  const fetchCategory = () => {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
         (result) => {
@@ -195,16 +205,23 @@ const ContentCategory = ({ show,  backtohome }) => {
           //====load data from first filter===//
           loadCategoryData(category[0], 0);
         }
-      );
+      ).catch((error) => {
+        console.log("Error====:", error);  
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       // setLoading(false);
     }
-  }
-  const SetInitialFocus=() =>{
+  };
+  const SetInitialFocus = () => {
     setTimeout(() => {
-      let firstSectionRef = document.getElementById("defaultFocused");
+      let lastFocused = localStorage.getItem("LastFocusedItemId")
+        ? document.getElementById(localStorage.getItem("LastFocusedItemId"))
+        : null;
+      let firstSectionRef = lastFocused
+        ? lastFocused
+        : document.getElementById("defaultFocused");
       if (firstSectionRef) {
         localStorage.setItem("screenLoaded", true);
         firstSectionRef.click();
@@ -214,9 +231,10 @@ const ContentCategory = ({ show,  backtohome }) => {
           globals.COMPONENT_NAME.Content
         );
         setShowloader(false);
+        localStorage.setItem("LastFocusedItemId", null);
       }
     }, 300);
-  }
+  };
   useEffect(() => {
     if (show) {
       var getCategory = localStorage.getItem("filterCategory")
@@ -225,9 +243,12 @@ const ContentCategory = ({ show,  backtohome }) => {
       if (getCategory) {
         var category = mapFilterCategory(getCategory);
         setHomeCategory && setHomeCategory(category);
-        var getCategoryResult = localStorage.getItem("filterCategoryResult")
-          ? JSON.parse(localStorage.getItem("filterCategoryResult"))
-          : null;
+        var getCategoryResult =
+          lists && lists.length > 0
+            ? lists
+            : localStorage.getItem("filterCategoryResult")
+            ? JSON.parse(localStorage.getItem("filterCategoryResult"))
+            : null;
         if (getCategoryResult) {
           setActiveIndex(0);
           setNextCategoryIndex(0);
@@ -242,13 +263,12 @@ const ContentCategory = ({ show,  backtohome }) => {
     }
   }, [show]);
 
-
-  
   return (
     <>
       <LoaderScreen show={showloader} />
       <VerticalList id="contantData" retainLastFocus={true}>
-      <div className={show ? 'mainbox bg-[#000000B8]' : 'mainbox hidden'}
+        <div
+          className={show ? "mainbox bg-[#000000B8]" : "mainbox hidden"}
           style={{
             position: "absolute",
             top: "0",
@@ -258,17 +278,22 @@ const ContentCategory = ({ show,  backtohome }) => {
         >
           <div className="flex flex-col justify-between h-full">
             <div className=" mx-[48px] my-[59px]">
-              <img className="w-40" src={logo} alt="Logo" />
+              {/* <img className="w-40" src={logo} alt="Logo" />
               <div className="text-white text-lg border-l-4 border-red-500  pl-1">
                 <div className="w-[max-content] text-[24px] bg-black bg-opacity-50 px-2 ">
                   Rated {rating}
                 </div>
                 <div className="px-2 text-[22px]">Kid content</div>
-              </div>
+              </div> */}
             </div>
             <div className="w-full">
               <div className="flex my-5 w-full justtify-center">
-                <img id="upArrow" className=" w-15 m-auto" src={upArrow} alt="Logo" />
+                <img
+                  id="upArrow"
+                  className=" w-15 m-auto"
+                  src={upArrow}
+                  alt="Logo"
+                />
               </div>
               <HorizontalList retainLastFocus={true}>
                 <div className="category-filter">
@@ -287,7 +312,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                       >
                         {homeCategory.map((category, index) => (
                           <ToggleItem
-                          fistline={index == 0?true:false}
+                            fistline={index == 0 ? true : false}
                             key={category.name}
                             images={category.images}
                             isActiveIndex={activeIndex === index}
@@ -305,7 +330,6 @@ const ContentCategory = ({ show,  backtohome }) => {
                 <div className="scroll-hidden programs-list" ref={content2}>
                   {lists && lists.length > 0 ? (
                     <VerticalList
-                    
                       id={globals.COMPONENT_NAME.Content}
                       retainLastFocus={true}
                       navDefault={show}
@@ -330,10 +354,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                             <div className="720p:text-[16px] 1080p:text-[20px] text-white p-1">
                               101
                             </div>
-                            <div
-                   className="img-box rounded-md flex justify-center items-center bg-black bg-opacity-75"
-
-                            >
+                            <div className="img-box rounded-md flex justify-center items-center bg-black bg-opacity-75">
                               <img
                                 className={
                                   "items-center " +
@@ -350,7 +371,7 @@ const ContentCategory = ({ show,  backtohome }) => {
                             <List
                               id={list.id}
                               //setUrl={setUrl}
-                          fistline={i == 0?true:false}
+                              fistline={i == 0 ? true : false}
                               title={list.title}
                               layout={list.layout}
                               assets={list.schedules}

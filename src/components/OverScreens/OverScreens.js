@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { VideoContext } from "../../utility/context";
 import ContentCategory from "../categoryComponent";
 import DiscoverScreen from "../discoverScreen";
@@ -10,20 +10,18 @@ import { globals } from "../../global";
 
 function OverScreens({ backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
-
-
-
+  const [lists, setLists] = useState([]);
   useEffect(() => {
     if (sidebarActive === "tv") {
       setTimeout(() => {
-        const firstMenuRef = document.getElementById("defaultFocused");
+        // const firstMenuRef = document.getElementById("defaultFocused");
 
-        if (firstMenuRef) {
-          localStorage.setItem("screenLoaded", true);
+        // if (firstMenuRef) {
+        //   localStorage.setItem("screenLoaded", true);
 
-          firstMenuRef.click();
-          localStorage.setItem("screenLoaded", false);
-        }
+        //   firstMenuRef.click();
+        //   localStorage.setItem("screenLoaded", false);
+        // }
       }, 300);
     }
     if (!(sidebarActive == "tv")) {
@@ -37,19 +35,24 @@ function OverScreens({ backtohome }) {
 
       show={sidebarActive == "playerControl"}
       backtohome={backtohome}
-
+      lists={lists} setLists={setLists}
     />;
   }
 
   else if (sidebarActive == "tv") {
     return (
       <>
-
+        <PlayerControls
+        
+        
+          backtohome={backtohome}
+          lists={lists} setLists={setLists}
+        />
 
         <ContentCategory
           backtohome={backtohome}
           show={sidebarActive === "tv"}
-
+          lists={lists} setLists={setLists}
         />
       </>
     );

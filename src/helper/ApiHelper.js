@@ -36,7 +36,7 @@ class ApiHelper {
       }
       return await response.json();
     } catch (error) {
-      console.error('API call error:', error);
+      console.log('API call error:', error);
       throw error;
     }
   }

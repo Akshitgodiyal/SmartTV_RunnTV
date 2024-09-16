@@ -12,7 +12,7 @@ import downArrow from "../../assets/images/downArrow.png";
 import ProgramDetail from "../programDetail.js/ProgramDetail";
 import prevIcon from "../../assets/images/PreviousChannel.png";
 import nextIcon from "../../assets/images/NextChannel.png";
-const PlayerControls = ({show}) => {
+const PlayerControls = ({show,lists}) => {
   const { isActive, setIsActive } = useContext(VideoContext);
   const { fullscreen, setFullscreen } = useContext(VideoContext);
   const { selectedAsset,setSelectedAsset } = useContext(VideoContext);
@@ -27,16 +27,12 @@ const PlayerControls = ({show}) => {
   };
   const onFocus = (Control) => {
     handleSetActive(false);
-    setFullscreen(false);
-
-
+    setFullscreen(false); 
     localStorage.setItem(globals.ACTIVE_COMPONENT, Control);
   };
   useLayoutEffect(() => {
-    if (selectedAsset) {
-      var getCategoryResult = localStorage.getItem("filterCategoryResult")
-        ? JSON.parse(localStorage.getItem("filterCategoryResult"))
-        : null;
+    if (selectedAsset) { 
+      var getCategoryResult = lists;
       if (getCategoryResult) {
         getCategoryResult[selectedAsset.previousChannelIndex]
           ? setPreviousChannel(
@@ -50,7 +46,7 @@ const PlayerControls = ({show}) => {
     }
   }, [selectedAsset]);
 
-   var timeoutId; // Variable to hold the timeout ID
+  var timeoutId; // Variable to hold the timeout ID
 var interval = 1000; // Time in milliseconds for each update
 
 function updateSeekBar() {
@@ -58,7 +54,11 @@ function updateSeekBar() {
     var bufferedEnd = localStorage.getItem("bufferedEnd") || null;
 
     if (_currentTime && bufferedEnd) {
-        const percentage = (_currentTime / bufferedEnd) * 100; 
+      
+        var percentage = (_currentTime / bufferedEnd) * 100; 
+        if(percentage>=100){
+          percentage=99;
+        }
         var seekBarFill = document.getElementById("seekBarFill");
         if (seekBarFill) { 
             seekBarFill.style.width = percentage + "%";

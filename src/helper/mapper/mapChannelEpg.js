@@ -25,3 +25,12 @@ export function mapChannelEpg(response,categoryIndex) {
     nextChannelIndex: index === filteredChannels.length - 1 ? null : index + 1
   }));
 }
+export function setChannelIndex(list){
+  return list.map((channel, index) => ({ 
+    ...channel,
+    previousChannel: index === 0 ? null : list[index - 1],
+    previousChannelIndex: index === 0 ? null : index - 1, // Correctly fetch the previous channel
+    nextChannel: index === list.length - 1 ? null : list[index + 1], // Fetch the next channel, if it exists
+    nextChannelIndex: index === list.length - 1 ? null : index + 1
+  }));
+}
