@@ -165,6 +165,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
             setLists(_lists);
             if (result.length < 3) {
               setNextCategoryIndex(nextCategoryIndex + 1);
+              setShowloader(false);
             } else {
               setTimeout(() => {
                 setShowloader(false);
