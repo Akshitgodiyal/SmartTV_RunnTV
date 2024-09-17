@@ -41,12 +41,23 @@
 #dynamic-content .item-focus {
   transition: width 0.001s ease-in-out, border 0.002s ease-in-out; /* Added transition */
   border: 2px solid #fff;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 1); /* Change shadow to white on hover */
+} 
+#dynamic-content .item.slider-item {
+ 
+  border: 2px solid transparent;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Change shadow to white on hover */
+}
+#dynamic-content .slider-item.item-focus {
+ 
+  border: 2px solid transparent;
+  box-shadow: 0 0 10px transparent; /* Change shadow to white on hover */
 }
 
 #dynamic-content .vertical .item-focus,
 #dynamic-content .horizontal .item-focus {
-  border: 2px solid #fff;
-  border-radius: 5px;
+  border: 2px solid transparent;
+  border-radius: 5px; 
 }
 
 #dynamic-content .animate {
