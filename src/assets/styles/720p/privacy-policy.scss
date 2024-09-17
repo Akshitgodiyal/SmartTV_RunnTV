@@ -1,0 +1,18 @@
+#datasection {
+    border: 2px solid transparent;
+}
+
+#datasection.item {
+    border: 2px solid transparent;
+}
+
+#datasection.item-focus {
+    border: 2px solid white;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8); /* Adds the shadow effect */
+}
+#datasection .tnc-title{
+    font-size: 25px;
+}
+#datasection #scrollItem{
+    font-size: 18px;
+}

@@ -12,9 +12,11 @@
     margin-bottom: 10px;
     font-size: 24px;
     letter-spacing: 1.2px;
+    white-space: nowrap;
 }
 #side_bar.focused #sidebarComponent .item .itemdiv{
 visibility: visible;
+white-space: nowrap;
 }
 #sidebarComponent .item img{
     float: left;

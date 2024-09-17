@@ -47,7 +47,6 @@ className={
 
 const Sidebar = () => {
   const [focusedIndex, setFocusedIndex] = useState(1);
-
   const [activeItemName, setActiveItemName] = useState("tv");
   const { sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
@@ -74,7 +73,7 @@ const Sidebar = () => {
       icon_Outlined:discoverImage
     },
     {
-      id: "eye",
+      id: "Watchlist",
       label: "Watchlist",
       icon: eyeImage,
       icon_Outlined:eyeImage
@@ -85,6 +84,18 @@ const Sidebar = () => {
     //   icon: searchImage,
     //   icon_Outlined:searchImage
     // },
+     {
+      id: "PrivacyPage",
+      label: "Privacy Policy",
+      icon: searchImage,
+      icon_Outlined:searchImage
+    },
+    {
+      id: "TermsAndCondition",
+      label: "Terms And Condition",
+      icon: searchImage,
+      icon_Outlined:searchImage
+    },
     {
       id: "Exit",
       label: "Exit",

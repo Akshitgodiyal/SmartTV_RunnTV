@@ -11,6 +11,7 @@ import { mapChannelEpg,setChannelIndex } from "../helper/mapper/mapChannelEpg.js
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
+import NoChannel from "./noChannelComponent.js";
 
 const ContentCategory = ({ show, backtohome, lists, setLists }) => {
   const { isActive } = useContext(VideoContext);
@@ -137,9 +138,10 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
         SetInitialFocus();
       } else {
         localStorage.setItem("filterCategoryResult", null);
-        setSelectedAsset(null);
+       // setSelectedAsset(null);
         setLists([]);
         setShowloader(false);
+        //setActiveIndex(index);
       }
     }).catch((error) => {
       console.log("Error====:", error);  
@@ -289,12 +291,14 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
             </div>
             <div className="w-full">
               <div className="flex my-5 w-full justtify-center">
-                <img
-                  id="upArrow"
-                  className=" w-15 m-auto"
-                  src={upArrow}
-                  alt="Logo"
-                />
+              {lists && lists.length > 0? (
+                    <img
+                      id="upArrow"
+                      className=" w-15 m-auto"
+                      src={upArrow}
+                      alt="Logo"
+                    />):
+                    <div></div>}
               </div>
               <HorizontalList retainLastFocus={true}>
                 <div className="category-filter">
@@ -393,6 +397,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
                     </VerticalList>
                   ) : (
                     <div>
+                      <NoChannel ></NoChannel>
                       {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
                     </div>
                   )}

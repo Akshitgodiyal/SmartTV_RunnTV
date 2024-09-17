@@ -1,0 +1,26 @@
+#datasection{
+    border: 6px solid transparent; 
+}
+#datasection.item{
+    border: 6px solid transparent; 
+}
+#datasection .item-focus {
+    border: 6px solid white;
+}#datasection {
+    border: 6px solid transparent;
+}
+
+#datasection.item {
+    border: 6px solid transparent;
+}
+
+#datasection.item-focus {
+    border: 6px solid white;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 1.6); /* Adds the shadow effect */
+}
+#datasection .tnc-title{
+    font-size: 80px;
+}
+#datasection #scrollItem{
+    font-size: 65px;
+}
