@@ -73,7 +73,7 @@ const Sidebar = () => {
       icon_Outlined:discoverImage
     },
     {
-      id: "eye",
+      id: "Watchlist",
       label: "Watchlist",
       icon: eyeImage,
       icon_Outlined:eyeImage
