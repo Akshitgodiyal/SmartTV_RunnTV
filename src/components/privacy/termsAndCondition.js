@@ -36,7 +36,7 @@ export const scrolling = (key) => {
 }
 
 
-function PrivacyPage({ show, backtohome }) {
+function TermsAndCondition({ show, backtohome }) {
     const datasection = document.getElementById("datasection");
 
     useEffect(() => {
@@ -71,9 +71,9 @@ function PrivacyPage({ show, backtohome }) {
 
                 {/* <VerticalList> */}
                 <ControlToggle onBack={() => backtohome()} type={"data"} >
-                <div className="tnc-title">
-                    <div className="m-auto mt-5 text-center text-white">Privacy Policy</div>
-                </div>
+                    <div className="tnc-title">
+                        <div className="m-auto mt-5 text-center text-white">Terms And Condition</div>
+                    </div>
                     <div className=" text-justify w-[96%] my-5 h-[82vh] 4k:h-[88vh] 720p:h-[78vh] m-auto mt-5 overflow-y-auto scroll-hidden " id="scrollItem"  >
 
                         {demotext}
@@ -95,4 +95,4 @@ function PrivacyPage({ show, backtohome }) {
     );
 }
 
-export default PrivacyPage;
+export default TermsAndCondition;
