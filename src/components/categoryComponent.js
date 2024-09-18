@@ -7,7 +7,10 @@ import logo from "../assets/images/logo.aaf739805db645e7a37b.png";
 import upArrow from "../assets/images/upArrow.png";
 import { globals } from "../global.js";
 import ApiHelper from "../helper/ApiHelper.js";
-import { mapChannelEpg,setChannelIndex } from "../helper/mapper/mapChannelEpg.js";
+import {
+  mapChannelEpg,
+  setChannelIndex,
+} from "../helper/mapper/mapChannelEpg.js";
 import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
@@ -123,29 +126,29 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
       PARTNER_CODE: "ALL",
       userid: globals.getUserId(),
     };
-    ApiHelper.get(
-      globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
-      headers
-    ).then((result) => {
-      if (result && result.length > 0) {
-        var channelList = mapChannelEpg(result, index);
-        localStorage.setItem(
-          "filterCategoryResult",
-          JSON.stringify(channelList)
-        );
-        setLists(channelList);
-        setSelectedAsset(channelList[0]);
-        SetInitialFocus();
-      } else {
-        localStorage.setItem("filterCategoryResult", null);
-       // setSelectedAsset(null);
-        setLists([]);
+    ApiHelper.get(globals.API_URL.GET_EPG_BY_FILTER_ID + category.id, headers)
+      .then((result) => {
+        if (result && result.length > 0) {
+          var channelList = mapChannelEpg(result, index);
+          localStorage.setItem(
+            "filterCategoryResult",
+            JSON.stringify(channelList)
+          );
+          setLists(channelList);
+          setSelectedAsset(channelList[0]);
+          SetInitialFocus();
+        } else {
+          localStorage.setItem("filterCategoryResult", null);
+          // setSelectedAsset(null);
+          setLists([]);
+          setShowloader(false);
+          //setActiveIndex(index);
+        }
+      })
+      .catch((error) => {
+        console.log("Error====:", error);
         setShowloader(false);
-        //setActiveIndex(index);
-      }
-    }).catch((error) => {
-      console.log("Error====:", error);  
-    });;
+      });
   };
 
   const loadNextCategory = function () {
@@ -160,28 +163,29 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
         ApiHelper.get(
           globals.API_URL.GET_EPG_BY_FILTER_ID + category.id,
           headers
-        ).then((result) => {
-          if (result && result.length > 0) {
-            var channelList = mapChannelEpg(result, nextCategoryIndex);
-            var _lists=setChannelIndex(lists.concat(channelList)); 
-            setLists(_lists);
-            if (result.length < 3) {
+        )
+          .then((result) => {
+            if (result && result.length > 0) {
+              var channelList = mapChannelEpg(result, nextCategoryIndex);
+              var _lists = setChannelIndex(lists.concat(channelList));
+              setLists(_lists);
+              if (result.length < 3) {
+                setNextCategoryIndex(nextCategoryIndex + 1);
+                setShowloader(false);
+              } else {
+                setTimeout(() => {
+                  setShowloader(false);
+                }, 10);
+              }
+            } else {
               setNextCategoryIndex(nextCategoryIndex + 1);
               setShowloader(false);
-            } else {
-              setTimeout(() => {
-                setShowloader(false);
-              }, 10);
             }
-          } else {
-            setNextCategoryIndex(nextCategoryIndex + 1);
+          })
+          .catch((error) => {
+            console.log("Error====:", error);
             setShowloader(false);
-          }
-        })
-        .catch((error) => {
-          console.log("Error====:", error); 
-          setShowloader(false); 
-        });
+          });
       }
     }
   };
@@ -200,17 +204,17 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
   };
   const fetchCategory = () => {
     try {
-      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
-        (result) => {
+      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null)
+        .then((result) => {
           var _result = result.filter((cate) => cate.active === true);
           var category = mapFilterCategory(_result);
           setHomeCategory && setHomeCategory(category);
           //====load data from first filter===//
           loadCategoryData(category[0], 0);
-        }
-      ).catch((error) => {
-        console.log("Error====:", error);  
-      });
+        })
+        .catch((error) => {
+          console.log("Error====:", error);
+        });
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -291,14 +295,16 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
             </div>
             <div className="w-full">
               <div className="flex my-5 w-full justtify-center">
-              {lists && lists.length > 0? (
-                    <img
-                      id="upArrow"
-                      className=" w-15 m-auto"
-                      src={upArrow}
-                      alt="Logo"
-                    />):
-                    <div></div>}
+                {lists && lists.length > 0 ? (
+                  <img
+                    id="upArrow"
+                    className=" w-15 m-auto"
+                    src={upArrow}
+                    alt="Logo"
+                  />
+                ) : (
+                  <div></div>
+                )}
               </div>
               <HorizontalList retainLastFocus={true}>
                 <div className="category-filter">
@@ -397,7 +403,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
                     </VerticalList>
                   ) : (
                     <div>
-                      <NoChannel ></NoChannel>
+                      <NoChannel></NoChannel>
                       {/* <VerticalList id={globals.COMPONENT_NAME.Content}></VerticalList> */}
                     </div>
                   )}

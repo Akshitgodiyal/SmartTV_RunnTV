@@ -46,12 +46,14 @@
 #dynamic-content .item.slider-item {
  
   border: 2px solid transparent;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Change shadow to white on hover */
+
+  box-shadow: 0 0 10px transparent; /* Change shadow to white on hover */
 }
 #dynamic-content .slider-item.item-focus {
  
   border: 2px solid transparent;
-  box-shadow: 0 0 10px transparent; /* Change shadow to white on hover */
+  border-bottom: 2px solid  #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Change shadow to white on hover */
 }
 
 #dynamic-content .vertical .item-focus,
