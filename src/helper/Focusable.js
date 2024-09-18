@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { globals } from "../global";
 
 class Focusable extends Component {
   treePath = [];
@@ -125,16 +126,28 @@ class Focusable extends Component {
 
   handleClick = () => {
 
+    const activeComponent =
+    localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+    console.log("activeComponent",activeComponent);
     
     if (
+      
       this.context.navigationComponent.currentFocusedPath &&
       this.context.navigationComponent.currentFocusedPath.includes(this)
     ) {
-      return;
+      if(activeComponent == "player-controls" || activeComponent =="exit-popup"){
+        this.props.onEnterDown();
+      }else{
+        return;
+
+      }
     }
+    
     if (localStorage.getItem("screenLoaded") === "true") {
+    
       this.context.navigationComponent.focus(this);
       return;
+   
     }
 
     // Trigger focus when clicked
@@ -143,6 +156,7 @@ class Focusable extends Component {
     // Also trigger the onEnterDown event when clicked
     if (this.props.onEnterDown) {
       this.props.onEnterDown();
+
     }
   };
   handleBack = () => {
@@ -268,7 +282,7 @@ Focusable.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onEnterDown: () => {},
-  onClick: () => {}, // Default click handler
+
   onBack: () => {}, 
 };
 

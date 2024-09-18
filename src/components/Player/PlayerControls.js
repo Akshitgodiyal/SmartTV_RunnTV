@@ -12,7 +12,8 @@ import downArrow from "../../assets/images/downArrow.png";
 import ProgramDetail from "../programDetail.js/ProgramDetail";
 import prevIcon from "../../assets/images/PreviousChannel.png";
 import nextIcon from "../../assets/images/NextChannel.png";
-const PlayerControls = ({show,lists}) => {
+const PlayerControls = ({show}) => {
+  const { lists } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
   const { fullscreen, setFullscreen } = useContext(VideoContext);
   const { selectedAsset,setSelectedAsset } = useContext(VideoContext);

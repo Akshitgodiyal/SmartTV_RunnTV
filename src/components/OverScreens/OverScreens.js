@@ -10,7 +10,8 @@ import { globals } from "../../global";
 
 function OverScreens({ backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
-  const [lists, setLists] = useState([]);
+  const { lists, setLists } = useContext(VideoContext);
+ 
   useEffect(() => {
     if (sidebarActive === "tv") {
       setTimeout(() => {
@@ -35,24 +36,18 @@ function OverScreens({ backtohome }) {
 
       show={sidebarActive == "playerControl"}
       backtohome={backtohome}
-      lists={lists} setLists={setLists}
+  
     />;
   }
 
   else if (sidebarActive == "tv") {
     return (
       <>
-        <PlayerControls
-        
-        
-          backtohome={backtohome}
-          lists={lists} setLists={setLists}
-        />
-
+       
         <ContentCategory
           backtohome={backtohome}
           show={sidebarActive === "tv"}
-          lists={lists} setLists={setLists}
+    
         />
       </>
     );

@@ -19,11 +19,7 @@ const ToggleItem = ({
   focusedIndex,
 }) => {
   const [active, setActive] = useState(0);
-  // useEffect(()=>{
-  //   if(focusedIndex){
-  //     setActive(true);
-  //   }
-  // },[focusedIndex])
+
   return (
     <Focusable
       onFocus={() => setActive(true)}
@@ -45,8 +41,8 @@ className={
   );
 };
 
-const Sidebar = () => {
-  const [focusedIndex, setFocusedIndex] = useState(1);
+const Sidebar = (props) => {
+  // const [focusedIndex, setFocusedIndex] = useState(1);
 
   const [activeItemName, setActiveItemName] = useState("tv");
   const { sidebarActive, setsidebarActive } = useContext(VideoContext);
@@ -95,7 +91,7 @@ const Sidebar = () => {
 
   const handleSetActive = (status, index) => {
     setActive(status);
-    setFocusedIndex(status);
+    // setFocusedIndex(status);
     if (status && content1.current) {
       const items = content1.current.getElementsByClassName("item");
       const rect = items[index] && items[index].getBoundingClientRect();
@@ -119,12 +115,21 @@ const Sidebar = () => {
   };
 
   const onEnterDown = (index) => {
-    setActiveIndex(index);
-    setsidebarActive(items[index].id);
+    
+   
+
+  
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
       globals.COMPONENT_NAME.Sidebar
     );
+    if(items[index].id=="Exit"){
+    
+    props.handleExit(true);
+  }else{
+    setActiveIndex(index);
+    setsidebarActive(items[index].id);
+  }
   };
 
   return (

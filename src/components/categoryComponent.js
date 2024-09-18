@@ -12,9 +12,10 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 
-const ContentCategory = ({ show, backtohome, lists, setLists }) => {
+const ContentCategory = ({ show, backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
+  const { lists, setLists } = useContext(VideoContext);
 
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState();
@@ -195,6 +196,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
+
   const fetchCategory = () => {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(

@@ -3,7 +3,7 @@ import { Focusable, HorizontalList } from "../../helper/react-navigation";
 import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import scanner from "../../assets/images/scaaner.png";
 
-import ControlToggle from "../CommonToggle";
+import CommonToggle from "../CommonToggle";
 import { globals } from "../../global";
 import { VideoContext } from "../../utility/context";
 
@@ -113,13 +113,13 @@ function Login({ show,backtohome }) {
         </div>
 
         <div className="skip-button">
-          <ControlToggle    
+          <CommonToggle    
           onBack={() => backtohome()}
          
           
           type={"data"} logincomp="logincomp">
             <div className="skip-text" >Skip for now</div>
-          </ControlToggle>
+          </CommonToggle>
         </div>
       </div>
     </div>

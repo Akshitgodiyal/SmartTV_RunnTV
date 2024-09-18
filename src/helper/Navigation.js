@@ -98,7 +98,7 @@ class Navigation extends Component {
   };
 
   fireEvent(element, evt, evtProps) {
-    //console.log("fireEvent", element, evt, evtProps);
+
     
     switch (evt) {
       case "willmove":
@@ -138,7 +138,7 @@ class Navigation extends Component {
     const activeComponent =
     localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
     
-    // console.log(activeComponent,globals.COMPONENT_NAME.scroll_item,direction);
+
     if (activeComponent === globals.COMPONENT_NAME.scroll_item) {
       const result = scrolling(direction);
 
@@ -176,7 +176,7 @@ class Navigation extends Component {
         }
       } else {
         if (direction == "up" || direction == "down") {
-          // console.log(result); // "Scrolling up", "Scrolling down", or "Invalid direction"
+
         } else {
           const next = current.getNextFocusFrom(direction);
           if (next) {
@@ -249,6 +249,7 @@ class Navigation extends Component {
     let prevent = false;
     const activeComponent =
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+
     
     if (direction == "up") {
       switch (activeComponent) {
@@ -267,6 +268,12 @@ class Navigation extends Component {
           }
           break;
         case globals.COMPONENT_NAME.Content:
+          if (localStorage.getItem("isplayerShow") == "true" ) {
+       
+        
+            this.props.showVideoSlider();
+          }
+        case globals.COMPONENT_NAME.Category_Filter:
           if (localStorage.getItem("isplayerShow") == "true" ) {
        
         
