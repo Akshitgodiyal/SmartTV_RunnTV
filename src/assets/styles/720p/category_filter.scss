@@ -25,13 +25,16 @@
   }
 
   .horizontal .item {
-    border: 1.33px solid transparent;
+    border: 2px solid transparent;
+    border-image-slice: 1;
+    transition: border 0.0s ease, border-image-source 0.1s ease;
   }
 
   .vertical .item-focus,
   .horizontal .item-focus {
-    border-radius: 6px;
-    border: 2px solid;
+    border-radius: 4px;
+    border:  2px solid#fff;
+    transition: border 0.0s ease, border-image-source 0.1s ease;
     border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
     border-image-slice: 1;
   }

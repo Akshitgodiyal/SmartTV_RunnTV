@@ -11,10 +11,12 @@
     margin-top: 10.6675px;
     margin-bottom: 5.6675px;
     margin-left: 7.6675px;
+    white-space: nowrap;
 }
 
 #side_bar.focused #sidebarComponent .item .itemdiv {
     visibility: visible;
+    white-space: nowrap;
 }
 
 #sidebarComponent .item img {

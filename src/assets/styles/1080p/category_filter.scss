@@ -74,13 +74,17 @@
 }
 
 #content .horizontal .item {
-  border: 2px solid transparent;
+  border-radius: 5px; 
+  border-image-slice: 1;
+  transition: border 0.0s ease, border-image-source 0.1s ease;
+  border: 3.3px solid transparent;
 }
 
 #content .vertical .item-focus,
 #content .horizontal .item-focus {
   border-radius: 5px;
-  border: 2px solid;
+  border: 3.3px solid #fff;
+  transition: border 0.0s ease, border-image-source 0.1s ease;
   border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
   border-image-slice: 1;
 }
@@ -160,7 +164,7 @@
   width: 84%;
   float: right;
   overflow-y: auto;
-  margin-top: 21px;
+  margin-top: 40px;
   padding-right: 2px;
 }
 
