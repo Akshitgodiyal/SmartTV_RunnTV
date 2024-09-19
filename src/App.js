@@ -13,7 +13,14 @@ const App = () => {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
         (result) => { 
           localStorage.setItem("filterCategory", JSON.stringify(result));
-          loadCategoryData(result[0],0)
+          loadCategoryData(result[0],0);
+          const splashTimeout = setTimeout(() => {
+            setShowSplash(false); // Hide the splash screen after 1 second
+          }, 1000);
+      
+          return () => {
+            clearTimeout(splashTimeout);
+          };
         }
        ).catch((error) => {
         console.log("Error====:", error);  
@@ -109,13 +116,7 @@ const App = () => {
 
     fetchCategory();
     fetchAllDiscoverPageData();
-    const splashTimeout = setTimeout(() => {
-      setShowSplash(false); // Hide the splash screen after 1 second
-    }, 1000);
-
-    return () => {
-      clearTimeout(splashTimeout);
-    };
+    
   }, []);
 
   // Render the splash screen if showSplash is true

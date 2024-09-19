@@ -85,15 +85,17 @@ const ToggleItem = (props) => {
             (props.isActiveIndex ? "active" : "")
           }
         >
-          <div className=" program-list flex justify-between items-center h-full">
+          <div className=" program-list flex justify-between items-center h-full fill-background" 
+              data-startTime={props.assetinfo.startTime}
+              data-durationSeconds={props.assetinfo.durationSeconds}>
             <div
-              className="text-white w-[80%] pl-[14px]  h-full"
-              style={{
-                background:
-                  props.index === 0
-                    ? "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
-                    : undefined,
-              }}
+              className="text-white w-[80%] pl-[14px]  h-full "
+              // style={{
+              //   background:
+              //     props.index === 0
+              //       ? "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
+              //       : undefined,
+              // }}
             >
               <div className="program-name font-medium truncate w-[50%]">
                 {props.assetinfo?.programName}
