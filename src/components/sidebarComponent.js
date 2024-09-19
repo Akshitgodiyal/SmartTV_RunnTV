@@ -41,7 +41,7 @@ className={
   );
 };
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 
   const { sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);

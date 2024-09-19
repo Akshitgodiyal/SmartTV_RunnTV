@@ -2,7 +2,7 @@ import React, { useContext, useEffect,useState } from "react";
 import { VideoContext } from "../../utility/context";
 import ContentCategory from "../categoryComponent";
 import DiscoverScreen from "../discoverScreen";
-import WatchHistory from "../historyScreen";
+
 import Login from "../login";
 import PlayerControls from "../Player/PlayerControls";
 import PrivacyPage from "../privacy/privacyPage";
@@ -72,6 +72,7 @@ function OverScreens({ backtohome }) {
   }
   else if (sidebarActive === "Watchlist") {
     return <Watchlist backtohome={backtohome} show={sidebarActive === "Watchlist"} />;
+
   }
 }
 export default OverScreens;

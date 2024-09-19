@@ -90,6 +90,11 @@ html, body {
 /* Focus State */
 .item-focus {
   border: 1.32px solid white;
+  border-radius: 5px;
+ 
+  transition: border 0.0s ease, border-image-source 0.1s ease;
+  border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+  border-image-slice: 1;
 }
 
 /* Mainbox */
