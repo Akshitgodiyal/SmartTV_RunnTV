@@ -15,7 +15,7 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 import NoChannel from "./noChannelComponent.js";
-
+import _lodash from 'lodash';
 const ContentCategory = ({ show, backtohome, lists, setLists }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
@@ -70,6 +70,11 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
     if (activeIndex !== categoryIndex) {
       setActiveIndex(categoryIndex);
       handleSetActive(true, categoryIndex);
+      var channelList=lists && lists.filter(obj=>obj.categoryIndex===categoryIndex);
+      if(channelList){
+      //  localStorage.setItem("filterCategoryResult",null); 
+      //  localStorage.setItem("filterCategoryResult",JSON.stringify(channelList)); 
+      }
     }
     if (content2.current) {
       const items = content2.current.getElementsByClassName("contentgroup");
@@ -116,9 +121,8 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
       setNextCategoryIndex(activeIndex + 1);
     }
   };
-
-  const loadCategoryData = (category, index) => {
-    setShowloader(true);
+  const loadCategoryData = (category, index,showLoader=true) => {
+    setShowloader(showLoader);
     // setSelectedAsset(null);
     setActiveIndex(index);
     // setNextCategoryIndex(index);
@@ -129,21 +133,26 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
     ApiHelper.get(globals.API_URL.GET_EPG_BY_FILTER_ID + category.id, headers)
       .then((result) => {
         if (result && result.length > 0) {
-          var channelList = mapChannelEpg(result, index);
-          localStorage.setItem(
-            "filterCategoryResult",
-            JSON.stringify(channelList)
-          );
-          setLists(channelList);
-          setSelectedAsset(channelList[0]);
-          SetInitialFocus();
+          var channelList = mapChannelEpg(result, index); 
+          var _channelList=lists && lists.filter(obj=>obj.categoryIndex===activeIndex);  
+          if (!_lodash.isEqual(channelList, _channelList)) {
+            // localStorage.setItem(
+            //   "filterCategoryResult",
+            //   JSON.stringify(channelList)
+            // ); 
+            setLists(channelList);
+            setSelectedAsset(channelList[0]);
+            SetInitialFocus();
+          }
+          
         } else {
-          localStorage.setItem("filterCategoryResult", null);
+          //localStorage.setItem("filterCategoryResult", null);
           // setSelectedAsset(null);
           setLists([]);
-          setShowloader(false);
+          
           //setActiveIndex(index);
         }
+        setShowloader(false);
       })
       .catch((error) => {
         console.log("Error====:", error);
@@ -269,6 +278,69 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
       }
     }
   }, [show]);
+
+  useEffect(() => {
+    if (show) {
+      const intervalId = setInterval(() => {
+        if (homeCategory.length > 0) { 
+          // setNextCategoryIndex(activeIndex);
+           //loadCategoryData(homeCategory[activeIndex], activeIndex,false);  
+        }
+
+       
+        var ele = document.getElementsByClassName("fill-background");
+
+        // Convert HTMLCollection to an array and filter elements
+        ele = Array.from(ele).filter(obj => obj.dataset.starttime && parseFloat(obj.dataset.starttime) < Date.now());
+        
+        // Loop through filtered elements
+        ele.forEach(number => {
+          if (number.dataset && number.dataset.starttime && number.dataset.durationseconds) {
+            var startTime = parseFloat(number.dataset.starttime);
+            var durationSeconds = parseFloat(number.dataset.durationseconds);
+            var coveredTime = (Date.now() - startTime) / 1000;  // Convert coveredTime to seconds
+            var percentage = (coveredTime / durationSeconds) * 100;  // Calculate percentage 
+            number.style.background="linear-gradient(86.21deg, #30203E "+percentage+"%, rgba(27, 8, 42, 0))" 
+            
+          }
+        }); 
+      }, 3000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [show, homeCategory, activeIndex]);
+
+
+  function deepEqual(obj1, obj2) {
+    if (obj1 === obj2) return true; // Check for reference equality first
+
+    if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) {
+        return false; // Check if both are objects
+    }
+
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) return false; // Compare keys count
+
+    for (const key of keys1) {
+        if (!keys2.includes(key)) return false; // Check if both have the same keys
+
+        if (!deepEqual(obj1[key], obj2[key])) return false; // Recursively compare values
+    }
+
+    return true;
+}
+
+function compareArrays(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false; // Check array length
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (!deepEqual(arr1[i], arr2[i])) return false; // Deep compare each object
+    }
+
+    return true;
+}
 
   return (
     <>
