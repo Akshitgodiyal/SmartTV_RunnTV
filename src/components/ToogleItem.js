@@ -5,12 +5,12 @@ const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
 
   const assetClick = (id) => {
-    localStorage.setItem("LastFocusedItemId",id);
+    localStorage.setItem("LastFocusedItemId", id);
     var cc = localStorage.getItem("activeNav");
     if (cc !== props.parentNav) {
       return;
     }
-    
+
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
@@ -44,37 +44,38 @@ const ToggleItem = (props) => {
   );
 
   const isplayerShow = () => {
-
     if (props.fistline) {
-
-
-      
-      localStorage.setItem("isplayerShow", true); 
-    }else{
-
-      localStorage.setItem("isplayerShow", false); 
+      localStorage.setItem("isplayerShow", true);
+    } else {
+      localStorage.setItem("isplayerShow", false);
     }
-
-
-    
   };
-
-
-
-
 
   return (
     <Focusable
-      onFocus={() => {setActive(true) ; isplayerShow() } }
-      onBlur={() => {setActive(false) ; isplayerShow() }}
-      onEnterDown={()=>onKeyDown(props.assetinfo && props.assetinfo.id ?props.assetinfo.id:"")}
-      onClick={()=>assetClick(props.assetinfo && props.assetinfo.id ?props.assetinfo.id:"")}
+      onFocus={() => {
+        setActive(true);
+        isplayerShow();
+      }}
+      onBlur={() => {
+        setActive(false);
+        isplayerShow();
+      }}
+      onEnterDown={() =>
+        onKeyDown(
+          props.assetinfo && props.assetinfo.id ? props.assetinfo.id : ""
+        )
+      }
+      onClick={() =>
+        assetClick(
+          props.assetinfo && props.assetinfo.id ? props.assetinfo.id : ""
+        )
+      }
       onBack={() => props.onBack()}
       disabled={props.disabled}
       parentId={props.parentId}
       allowedDirection={props.allowedDirection}
     >
-
       {props.parentNav == "home-div-nav" ? (
         <div
           id={props.isFirstItem ? "defaultFocused" : props.assetinfo.id}
@@ -83,17 +84,18 @@ const ToggleItem = (props) => {
             (active ? "item-focus " : "") +
             (props.isActiveIndex ? "active" : "")
           }
-
         >
-          <div className=" program-list flex justify-between items-center h-full">
+          <div className=" program-list flex justify-between items-center h-full fill-background" 
+              data-startTime={props.assetinfo.startTime}
+              data-durationSeconds={props.assetinfo.durationSeconds}>
             <div
-              className="text-white w-[80%] pl-[14px]  h-full"
-              style={{
-                background: props.index === 0
-                  ? "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
-                  : undefined
-              }}
-
+              className="text-white w-[80%] pl-[14px]  h-full "
+              // style={{
+              //   background:
+              //     props.index === 0
+              //       ? "linear-gradient(86.21deg, #30203E 57.62%, rgba(27, 8, 42, 0) 97.62%)"
+              //       : undefined,
+              // }}
             >
               <div className="program-name font-medium truncate w-[50%]">
                 {props.assetinfo?.programName}
@@ -126,71 +128,78 @@ const ToggleItem = (props) => {
             </div>
             {props.activeListIndex && (
               <div className="program-image flex justify-center mx-1   rounded-md">
-                <img className="items-center" src={img_cloudfront1 + props.assetinfo?.infoImages.tv} alt="Logo" />
+                <img
+                  className="items-center"
+                  src={img_cloudfront1 + props.assetinfo?.infoImages.tv}
+                  alt="Logo"
+                />
               </div>
             )}
           </div>
         </div>
-      ) :
-
-        !props.parentNav == "seekbar" ?
-          (
-            <div
-              id={props.isFirstItem ? "defaultFocused" : ""}
-              className={
-                "item categories-item " +
-                (active ? "item-focus " : "") +
-                (props.isActiveIndex ? "active " : "") +
-                (props.className || "")
-              }
-
-            >
-              <div className="flex justify-start items-center categories ">
-                {props.images ?
-
-                {active}?
-                 <img src={img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} ></img> :
-                 props.isActiveIndex?
-                 <img src={img_cloudfront1 + props.images.enabledIcon.tv} alt={props.children} ></img>:
-                 <img src={img_cloudfront1 + props.images.disabledIcon.tv} alt={props.children} ></img>
- 
-
-                  : ""}
-                {props.children}
-              </div>
-            </div>
-          ) :
-          (
-            <div
-              id={"seekbarref"}
-              className={
-                "item categories-item " +
-                (active ? "item-focus " : "") +
-                (props.isActiveIndex ? "active " : "") +
-                (props.className || "")
-              }
-
-            >
-              <div className="flex justify-start items-center  ">
-                {props.images ?
-
-                  <img src={
-                    active
-                      ? img_cloudfront1 + props.images.disabledIcon.tv
-                      : props.isActiveIndex
-                        ? img_cloudfront1 + props.images.enabledIcon.tv
-                        : img_cloudfront1 + props.images.disabledIcon.tv
-                  }
-                    alt={props.children} />
-
-                  : ""}
-                {props.children}
-              </div>
-            </div>
-          )
-
-      }
-
+      ) : !props.parentNav == "seekbar" ? (
+        <div
+          id={props.isFirstItem ? "defaultFocused" : ""}
+          className={
+            "item categories-item " +
+            (active ? "item-focus " : "") +
+            (props.isActiveIndex ? "active " : "") +
+            (props.className || "")
+          }
+        >
+          <div className="flex justify-start items-center categories ">
+            {props.images ? (
+              { active } ? (
+                <img
+                  src={img_cloudfront1 + props.images.disabledIcon.tv}
+                  alt={props.children}
+                ></img>
+              ) : props.isActiveIndex ? (
+                <img
+                  src={img_cloudfront1 + props.images.enabledIcon.tv}
+                  alt={props.children}
+                ></img>
+              ) : (
+                <img
+                  src={img_cloudfront1 + props.images.disabledIcon.tv}
+                  alt={props.children}
+                ></img>
+              )
+            ) : (
+              ""
+            )}
+            {props.children}
+          </div>
+        </div>
+      ) : (
+        <div
+          id={"seekbarref"}
+          className={
+            "item categories-item " +
+            (active ? "item-focus " : "") +
+            (props.isActiveIndex ? "active " : "") +
+            (props.className || "")
+          }
+        >
+          <div className="flex justify-start items-center  ">
+            {props.images ? (
+              <img
+                src={
+                  active
+                    ? img_cloudfront1 + props.images.disabledIcon.tv
+                    : props.isActiveIndex
+                    ? img_cloudfront1 + props.images.enabledIcon.tv
+                    : img_cloudfront1 + props.images.disabledIcon.tv
+                }
+                alt={props.children}
+              />
+            ) : (
+              ""
+            )}
+            {props.children}
+          </div>
+        </div>
+      )}
     </Focusable>
   );
 };
