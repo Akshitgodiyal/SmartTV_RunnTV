@@ -76,7 +76,7 @@ class Navigation extends Component {
       }
     }
     if (evt.keyCode === 13) {
-      if (this.getLastFromPath(this.currentFocusedPath).props.disabled) {
+      if (this.getLastFromPath(this.currentFocusedPath) && this.getLastFromPath(this.currentFocusedPath).props && this.getLastFromPath(this.currentFocusedPath).props.disabled) {
         this.focusNext(
           this.getLastFromPath(this.currentFocusedPath).props.allowedDirection,
           currentFocusedPath
