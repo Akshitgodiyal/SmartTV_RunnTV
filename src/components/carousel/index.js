@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect, forwardRef } from "react";
+import React, { useContext,useRef, useState, useEffect, forwardRef } from "react";
 import ToggleItem from "./Toggleitem.js";
 import HorizontalList from "../../helper/HorizontalList.js";
-
+import { VideoContext } from "../../utility/context.js";
+import {  mapChannel } from "../../helper/mapper/mapChannelEpg.js";
 const Carousel = forwardRef((props) => {
   const contentRef = useRef(null);
   const [lastFocus, setLastFocus] = useState(null);
-
-
-
+  const { setSelectedAsset } = useContext(VideoContext);
+  const {  setFullscreen } = useContext(VideoContext);
+  const {setsidebarActive } = useContext(VideoContext);
   const onFocus = (index) => {
     if (lastFocus === index) {
       return;
@@ -25,7 +26,10 @@ const Carousel = forwardRef((props) => {
 
       if (itemRect) {
         // Horizontal scroll
-        if (itemRect.left < containerRect.left || itemRect.right > containerRect.right) {
+        if (
+          itemRect.left < containerRect.left ||
+          itemRect.right > containerRect.right
+        ) {
           item.scrollIntoView({
             behavior: "smooth",
             block: "nearest",
@@ -34,7 +38,10 @@ const Carousel = forwardRef((props) => {
         }
 
         // Vertical scroll
-        if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
+        if (
+          itemRect.top < containerRect.top ||
+          itemRect.bottom > containerRect.bottom
+        ) {
           item.scrollIntoView({
             behavior: "smooth",
             inline: "nearest",
@@ -46,11 +53,14 @@ const Carousel = forwardRef((props) => {
         if (index === items.length - 1) {
           setTimeout(() => {
             contentRef?.current.scrollTo({
-              left: itemRect?.left - containerRect?.left + contentRef?.current.scrollLeft,
+              left:
+                itemRect?.left -
+                containerRect?.left +
+                contentRef?.current.scrollLeft,
               behavior: "smooth",
             });
             const lastItem = items[items.length - 1];
-            lastItem.style.marginRight = '0';
+            lastItem.style.marginRight = "0";
           }, 200);
         }
       }
@@ -59,19 +69,26 @@ const Carousel = forwardRef((props) => {
     setLastFocus(index);
   };
 
-  const handleItemClick = (url) => {
-    props.setUrl(url);
+  const handleItemClick = (asset, type) => {
+    if (type  && type.toLowerCase()==="streaming") {
+      setSelectedAsset(mapChannel(asset));
+      setsidebarActive("playerControl")
+   // props.onBack();
+    setTimeout(() => {
+       setFullscreen(true);
+    }, 100);
+    }
+
+    //props.setUrl(url);
   };
- 
   return (
     <div
-    className={
-      "contentgroup " +
-      props.layout + 
-      (props.visible ? "" : " fading-out") + 
-      (props.isActive ? " active-list" : "")
-    }
-    
+      className={
+        "contentgroup " +
+        props.layout +
+        (props.visible ? "" : " fading-out") +
+        (props.isActive ? " active-list" : "")
+      }
     >
       <div className="content" ref={contentRef}>
         <HorizontalList
@@ -83,8 +100,8 @@ const Carousel = forwardRef((props) => {
         >
           {props.assets?.map((asset, index) => (
             <ToggleItem
-              onEnter={() => handleItemClick("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")}
-        onBack={() => props.backtohome()}
+              onEnter={() => handleItemClick(asset, props.type)}
+              onBack={() => props.backtohome()}
               key={index}
               index={index}
               assetinfo={asset}

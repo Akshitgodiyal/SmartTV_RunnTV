@@ -311,37 +311,6 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
   }, [show, homeCategory, activeIndex]);
 
 
-  function deepEqual(obj1, obj2) {
-    if (obj1 === obj2) return true; // Check for reference equality first
-
-    if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) {
-        return false; // Check if both are objects
-    }
-
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
-
-    if (keys1.length !== keys2.length) return false; // Compare keys count
-
-    for (const key of keys1) {
-        if (!keys2.includes(key)) return false; // Check if both have the same keys
-
-        if (!deepEqual(obj1[key], obj2[key])) return false; // Recursively compare values
-    }
-
-    return true;
-}
-
-function compareArrays(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false; // Check array length
-
-    for (let i = 0; i < arr1.length; i++) {
-        if (!deepEqual(arr1[i], arr2[i])) return false; // Deep compare each object
-    }
-
-    return true;
-}
-
   return (
     <>
       <LoaderScreen show={showloader} />
