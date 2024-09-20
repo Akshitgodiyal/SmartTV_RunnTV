@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import VerticalList from "./VerticalList.js";
 import { globals } from "../global.js";
 import { scrolling } from "../components/privacy/privacyPage.js";
-import { debounce } from "lodash"; // Import debounce from lodash
-import { VideoContext } from "../utility/context.js";
+import { debounce } from "lodash"; 
+
 const reverseDirection = {
   up: "down",
   down: "up",
@@ -76,7 +76,7 @@ class Navigation extends Component {
       }
     }
     if (evt.keyCode === 13) {
-      if (this.getLastFromPath(this.currentFocusedPath).props.disabled) {
+      if (this.getLastFromPath(this.currentFocusedPath) && this.getLastFromPath(this.currentFocusedPath).props && this.getLastFromPath(this.currentFocusedPath).props.disabled) {
         this.focusNext(
           this.getLastFromPath(this.currentFocusedPath).props.allowedDirection,
           currentFocusedPath
@@ -98,7 +98,7 @@ class Navigation extends Component {
   };
 
   fireEvent(element, evt, evtProps) {
-    //console.log("fireEvent", element, evt, evtProps);
+
     
     switch (evt) {
       case "willmove":
@@ -138,7 +138,7 @@ class Navigation extends Component {
     const activeComponent =
     localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
     
-    // console.log(activeComponent,globals.COMPONENT_NAME.scroll_item,direction);
+
     if (activeComponent === globals.COMPONENT_NAME.scroll_item) {
       const result = scrolling(direction);
 
@@ -176,7 +176,7 @@ class Navigation extends Component {
         }
       } else {
         if (direction == "up" || direction == "down") {
-          // console.log(result); // "Scrolling up", "Scrolling down", or "Invalid direction"
+
         } else {
           const next = current.getNextFocusFrom(direction);
           if (next) {
@@ -199,20 +199,28 @@ class Navigation extends Component {
         }
       }
     } else {
+      
       const next = current.getNextFocusFrom(direction);
       if (next) {
         this.lastDirection = direction;
         this.focus(next);
         setTimeout(() => {
           if (next.props.disabled) {
-            const nextRight = next.getNextFocusFrom("right");
-            if (nextRight && next.props.parentId === nextRight.props.parentId) {
-              this.focus(nextRight);
-            }
-            const nextLeft = next.getNextFocusFrom("left");
-            if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
-              this.focus(nextLeft);
-            }
+           // if(direction==="right" || direction==="left"){
+              const nextRight = next.getNextFocusFrom("right");
+              if (nextRight && next.props.parentId === nextRight.props.parentId) {
+                this.focus(nextRight);
+              }
+              const nextLeft = next.getNextFocusFrom("left");
+              if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
+                this.focus(nextLeft);
+              }
+           // }
+            // else{
+            //   //const _next = next.getNextFocusFrom(direction);
+            //  // this.focus(_next);
+            // }
+            
           }
         }, 10);
         
@@ -249,6 +257,7 @@ class Navigation extends Component {
     let prevent = false;
     const activeComponent =
       localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
+
     
     if (direction == "up") {
       switch (activeComponent) {
@@ -267,6 +276,12 @@ class Navigation extends Component {
           }
           break;
         case globals.COMPONENT_NAME.Content:
+          if (localStorage.getItem("isplayerShow") == "true" ) {
+       
+        
+            this.props.showVideoSlider();
+          }
+        case globals.COMPONENT_NAME.Category_Filter:
           if (localStorage.getItem("isplayerShow") == "true" ) {
        
         

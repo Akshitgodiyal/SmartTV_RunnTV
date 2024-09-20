@@ -15,10 +15,11 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 import NoChannel from "./noChannelComponent.js";
-import _lodash from 'lodash';
-const ContentCategory = ({ show, backtohome, lists, setLists }) => {
+import { _lodash } from "lodash"; 
+const ContentCategory = ({ show, backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
+  const { lists, setLists } = useContext(VideoContext);
 
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState();
@@ -135,7 +136,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
         if (result && result.length > 0) {
           var channelList = mapChannelEpg(result, index); 
           var _channelList=lists && lists.filter(obj=>obj.categoryIndex===activeIndex);  
-          if (!_lodash.isEqual(channelList, _channelList)) {
+         // if (!_lodash.isEqual(channelList, _channelList)) {
             // localStorage.setItem(
             //   "filterCategoryResult",
             //   JSON.stringify(channelList)
@@ -143,7 +144,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
             setLists(channelList);
             setSelectedAsset(channelList[0]);
             SetInitialFocus();
-          }
+        //  }
           
         } else {
           //localStorage.setItem("filterCategoryResult", null);
@@ -211,6 +212,7 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
     handleSetActive(true, index);
     localStorage.setItem(globals.ACTIVE_COMPONENT, component);
   };
+
   const fetchCategory = () => {
     try {
       ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null)
@@ -310,37 +312,6 @@ const ContentCategory = ({ show, backtohome, lists, setLists }) => {
     }
   }, [show, homeCategory, activeIndex]);
 
-
-  function deepEqual(obj1, obj2) {
-    if (obj1 === obj2) return true; // Check for reference equality first
-
-    if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) {
-        return false; // Check if both are objects
-    }
-
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
-
-    if (keys1.length !== keys2.length) return false; // Compare keys count
-
-    for (const key of keys1) {
-        if (!keys2.includes(key)) return false; // Check if both have the same keys
-
-        if (!deepEqual(obj1[key], obj2[key])) return false; // Recursively compare values
-    }
-
-    return true;
-}
-
-function compareArrays(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false; // Check array length
-
-    for (let i = 0; i < arr1.length; i++) {
-        if (!deepEqual(arr1[i], arr2[i])) return false; // Deep compare each object
-    }
-
-    return true;
-}
 
   return (
     <>

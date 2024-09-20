@@ -94,14 +94,14 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
 }
 .item-focus {
-  background-color: white;
+
   color: red !important;
 }
 .item .fa {
   width: 40px;
 }
 #menu .item-focus {
-  background-color: white;
+ 
   color: red !important;
 }
 
@@ -174,16 +174,14 @@ body {
   width:33% !important;
   border: 2px solid transparent;
   height: 80px;
-  //transition: width 0.2s ease-in-out; /* Added transition */
+ 
 }
 
- .item-focus {
-  //transition: width 0.2s ease-in-out, border 0.2s ease-in-out; /* Added transition */
-} 
+
 
  .vertical .item-focus, 
  .horizontal .item-focus { 
-  border: 2px solid #fff;
+
   border-radius: 5px;
 
 }

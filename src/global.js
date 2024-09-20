@@ -11,6 +11,7 @@ export const globals={
         Player_Detail:"detail-data",
         scroll_item:"scroll-data",
         full_screen:"full-screen",
+        exitpopup:"exit-popup",
     },
     API_URL:{ 
         GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg",

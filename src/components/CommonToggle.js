@@ -3,14 +3,11 @@ import Focusable from "../helper/Focusable";
 
 
 
-const ControlToggle = (props) => {
+const CommonToggle = (props) => {
   const [active, setActive] = useState(false);
 
   const assetClick = () => {
-    const cc = localStorage.getItem("activeNav");
-    if (cc !== props.parentNav) {
-      return;
-    }
+  
 
     if (props.onClick) {
       props.onClick(props.assetinfo);
@@ -18,7 +15,7 @@ const ControlToggle = (props) => {
   };
 
   const onKeyDown = () => {
-    console.log("onKeyDown");
+
     
     assetClick();
     if (props.onEnter) {
@@ -47,14 +44,15 @@ const ControlToggle = (props) => {
       default:
         return (
           <div
+          id={props.logincomp}
             className={
-              "w-[max-content] flex justify-start items-center categories  py-2 px-4 bg-transparent " +
-              (active ? "item-focus" : "") +
+              " w-[max-content] flex justify-start items-center categories  bg-transparent " +
+              (active ? "item-focus" : "items") +
               " " +
               (props.isActiveIndex ? "active" : "")
             }
           >
-            <img className="w-[24px] mr-[16px]" src={props?.images} />
+           
             <div className="text-[24px] text-white">{props.children}</div>
           </div>
         );
@@ -74,4 +72,4 @@ const ControlToggle = (props) => {
   );
 };
 
-export default ControlToggle;
+export default CommonToggle;

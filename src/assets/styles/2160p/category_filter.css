@@ -27,7 +27,7 @@
 }
 
 #category-filter .item-focus {
-  border: 4px solid #fff !important; /* 2px * 2 */
+
   background-color: transparent;
   font-weight: bold;
 }
@@ -39,6 +39,6 @@
     color: rgba(19, 19, 20, 1) !important;
     font-weight: bold;
     margin: 12px 0px 12px 0px; /* Each value multiplied by 2 */
-    border: 4px solid transparent; /* 2px * 2 */
+    border: 10px transparent; /* 2px * 2 */
   }
 }

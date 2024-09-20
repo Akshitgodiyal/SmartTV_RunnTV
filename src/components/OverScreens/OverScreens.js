@@ -2,7 +2,7 @@ import React, { useContext, useEffect,useState } from "react";
 import { VideoContext } from "../../utility/context";
 import ContentCategory from "../categoryComponent";
 import DiscoverScreen from "../discoverScreen";
-import WatchHistory from "../historyScreen";
+
 import Login from "../login";
 import PlayerControls from "../Player/PlayerControls";
 import PrivacyPage from "../privacy/privacyPage";
@@ -11,7 +11,8 @@ import { globals } from "../../global";
 import Watchlist from "../watchlist/watchlistComponent";
 function OverScreens({ backtohome }) {
   const { sidebarActive } = useContext(VideoContext);
-  const [lists, setLists] = useState([]);
+  const { lists, setLists } = useContext(VideoContext);
+ 
   useEffect(() => {
     if (sidebarActive === "tv") {
       setTimeout(() => {
@@ -36,24 +37,18 @@ function OverScreens({ backtohome }) {
 
       show={sidebarActive == "playerControl"}
       backtohome={backtohome}
-      lists={lists} setLists={setLists}
+  
     />;
   }
 
   else if (sidebarActive == "tv") {
     return (
       <>
-        <PlayerControls
-        
-        
-          backtohome={backtohome}
-          lists={lists} setLists={setLists}
-        />
-
+       
         <ContentCategory
           backtohome={backtohome}
           show={sidebarActive === "tv"}
-          lists={lists} setLists={setLists}
+    
         />
       </>
     );
@@ -77,6 +72,7 @@ function OverScreens({ backtohome }) {
   }
   else if (sidebarActive === "Watchlist") {
     return <Watchlist backtohome={backtohome} show={sidebarActive === "Watchlist"} />;
+
   }
 }
 export default OverScreens;

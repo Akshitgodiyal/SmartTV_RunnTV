@@ -1,0 +1,114 @@
+.tabs-container {
+    
+    display: flex;
+    flex-direction: column;
+  
+    background-color: #000;
+    color: #9E9C9C;
+    min-height: 100vh;
+    padding: 0px 48px;
+  
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 20px;
+  
+      .tab {
+        cursor: pointer;
+        padding: 10px 20px;
+        font-family: Roboto;
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 40px;
+        text-align: center;
+        
+        border-bottom: 2px solid transparent;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 2px solid #9E9C9C;
+        &.active {
+          border-bottom: 2px solid #D22F26;
+    color:white;
+        }
+  
+       
+  
+        .tab-icon {
+          font-size: 20px;
+        }
+      }
+    }
+  
+    .tab-content {
+       
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+   
+    }
+  }
+  
+
+  .message-box-container {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+ 
+  }
+  
+  .message-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    border-radius: 10px;
+    max-width: 600px;
+    text-align: center;
+  
+    .icon-placeholder {
+      margin-bottom: 20px;
+  
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  
+    .message-text {
+      margin-bottom: 30px;
+      color: #fff;
+  
+      h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+  
+      p {
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: center;
+        color: #D9D9D9;
+  
+        .highlight-icon {
+          font-size: 16px;
+       
+        }
+      }
+    }
+  
+    
+  }
+  .logo-size{
+    width: 182.31px;
+    height: 60px;
+  
+    
+  }

@@ -8,6 +8,7 @@ let APIDATA = {
 let ID = {
   BASE_API_DEV: "https://prod-epg.runn.tv/",
   BASE_API_PROD: "https://prod-epg.runn.tv/",
+  BASE_API_UAT: "http://13.126.110.199:9002/", 
 };
 var BASE_RUNN_API = null;
 if (typeof window.APPLICATION_ENVIRONMENT !== "undefined") {
