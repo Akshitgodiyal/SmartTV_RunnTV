@@ -128,7 +128,7 @@ class Focusable extends Component {
 
     const activeComponent =
     localStorage.getItem(globals.ACTIVE_COMPONENT) || null;
-    console.log("activeComponent",activeComponent);
+    
     
     if (
       

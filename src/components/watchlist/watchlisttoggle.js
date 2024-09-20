@@ -21,7 +21,7 @@ const Watchlisttoggle = (props) => {
     
     assetClick();
     if (props.onEnter) {
-      props.onEnter(); // Call the passed callback function
+    //   props.onEnter(); // Call the passed callback function
     }
   };
 
@@ -29,7 +29,7 @@ const Watchlisttoggle = (props) => {
 
   return (
     <Focusable
-    onFocus={() => { setActive(true); props.setActiveTab(props.log); }}
+    onFocus={() => { setActive(true); props.onEnter(props?.log); }}
       onBlur={() => setActive(false) }
       onEnterDown={onKeyDown}
       onClick={onKeyDown}

@@ -136,7 +136,7 @@ const ContentCategory = ({ show, backtohome }) => {
         if (result && result.length > 0) {
           var channelList = mapChannelEpg(result, index); 
           var _channelList=lists && lists.filter(obj=>obj.categoryIndex===activeIndex);  
-          if (!_lodash.isEqual(channelList, _channelList)) {
+       //   if (!_lodash.isEqual(channelList, _channelList)) {
             // localStorage.setItem(
             //   "filterCategoryResult",
             //   JSON.stringify(channelList)
@@ -144,7 +144,7 @@ const ContentCategory = ({ show, backtohome }) => {
             setLists(channelList);
             setSelectedAsset(channelList[0]);
             SetInitialFocus();
-          }
+       //   }
           
         } else {
           //localStorage.setItem("filterCategoryResult", null);

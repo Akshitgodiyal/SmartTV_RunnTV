@@ -47,7 +47,7 @@ class ApiHelper {
         return await response.json();
       } catch (error) {
         if (error.name === 'AbortError') {
-          console.log(`Request to ${url} timed out after ${timeout}ms`);
+          // console.log(`Request to ${url} timed out after ${timeout}ms`);
         } else {
           console.log(`Attempt ${i + 1} failed for ${url}:`, error.message);
         }
