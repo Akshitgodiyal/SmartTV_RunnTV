@@ -16,29 +16,38 @@ function Watchlist({ show, backtohome }) {
         if (datasection) {
        
           datasection.click();
-          setActiveTab("Watchlist")
+          // setActiveTab("Watchlist")
         }
       }, 200);
     }
   }, [show, datasection != null]);
+
+
+
+const setActive = (data) => {
+
+  if(data == activeTab){
+  setActiveTab(data);
+  }
+};
 
   return (
     <div
       className={"mainbox overflow-y-auto bg-black " + (show ? "" : "hidden")}
       style={{ position: "absolute", top: "0" }}
     >
-      <div className="w-full p-[48px]">
-        <img className="w-40" src={logo} alt="Logo" />
+      <div className="w-full p-[2.5%]">
+        <img className="logo-size" src={logo} alt="Logo" />
         <div className="text-white text-lg">Welcome</div>
       </div>
       <div className="tabs-container">
         <HorizontalList>
           <div className="tabs">
             <Watchlisttoggle
-             setActiveTab={setActiveTab}
+             
                log="Watchlist"
               onBack={() => backtohome()}
-              onEnter={() => setActiveTab("Watchlist")}
+              onEnter={setActive}
               logincomp="watchlist"
             
             >
@@ -47,9 +56,9 @@ function Watchlist({ show, backtohome }) {
         
             </Watchlisttoggle>
             <Watchlisttoggle
-             setActiveTab={setActiveTab}
+          
               onBack={() => backtohome()}
-              onEnter={() => setActiveTab("Favourites")}
+              onEnter={setActive}
              log ="Favourites"
             >
              
@@ -57,10 +66,10 @@ function Watchlist({ show, backtohome }) {
         
             </Watchlisttoggle>
             <Watchlisttoggle
-            setActiveTab={setActiveTab}
+          
            log ={"Recent"}
               onBack={() => backtohome()}
-              onEnter={() => setActiveTab("Recent")}
+              onEnter={ setActive}
             >
            
                 <span className="tab-icon">🕑</span> Recent

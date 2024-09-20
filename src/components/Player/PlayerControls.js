@@ -166,7 +166,7 @@ function stopUpdating() {
             id={globals.COMPONENT_NAME.Player_Control}
           >
             <div id="seekbar">
-            <ToggleItem className="" onBack={() => handlefullscreen()}  parentNav="seekbar" >
+            <ToggleItem   fistline={ !previousChannel && !nextChannel &&   true} className="" onBack={() => handlefullscreen()}  parentNav="seekbar" >
                 <div className="seek-bar">
                   <div
                     id="seekBarFill"
