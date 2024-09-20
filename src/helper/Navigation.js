@@ -206,7 +206,7 @@ class Navigation extends Component {
         this.focus(next);
         setTimeout(() => {
           if (next.props.disabled) {
-            if(direction==="right" || direction==="left"){
+           // if(direction==="right" || direction==="left"){
               const nextRight = next.getNextFocusFrom("right");
               if (nextRight && next.props.parentId === nextRight.props.parentId) {
                 this.focus(nextRight);
@@ -215,11 +215,11 @@ class Navigation extends Component {
               if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
                 this.focus(nextLeft);
               }
-            }
-            else{
-              //const _next = next.getNextFocusFrom(direction);
-             // this.focus(_next);
-            }
+           // }
+            // else{
+            //   //const _next = next.getNextFocusFrom(direction);
+            //  // this.focus(_next);
+            // }
             
           }
         }, 10);
