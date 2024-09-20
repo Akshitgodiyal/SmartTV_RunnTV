@@ -76,7 +76,12 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
 }
 .item-focus {
-    border: 2px solid white; 
+    border: 2px solid white  !important; 
+    border-radius: 7.22px !important;
+
+    transition: border 0.0s ease, border-image-source 0.1s ease !important;
+    border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%) !important;
+    border-image-slice: 1 !important;
 }
 .item .fa {
   width: 40px;
