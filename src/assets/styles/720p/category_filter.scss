@@ -1,113 +1,123 @@
 #content {
   position: relative;
-
-  .content {
-    white-space: nowrap;
-    font-size: 0;
-    overflow: hidden;
-  }
-
-  h1 {
-    font-size: 20px;
-    padding: 0;
-    margin: 0;
-  }
-
-  .item {
-    display: inline-block;
-    width: 443px;
-    height: 53px;
-    background: #00000073;
-    border-radius: 4px;
-    font-size: 0.6667rem;
-    margin-right: 2px;
-    cursor: pointer;
-  }
-
-  .horizontal .item {
-    border: 2px solid transparent;
-    border-image-slice: 1;
-    transition: border 0.0s ease, border-image-source 0.1s ease;
-  }
-
-  .vertical .item-focus,
-  .horizontal .item-focus {
-    border-radius: 4px;
-    border:  2px solid#fff;
-    transition: border 0.0s ease, border-image-source 0.1s ease;
-    border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
-    border-image-slice: 1;
-  }
-
-  .animate {
-    width: 16.67%;
-    padding-bottom: 0;
-  }
-
-  .placeholder {
-    width: 16.67%;
-    padding-bottom: calc(20% + 53px);
-  }
-
   display: block;
-
-  .active.flex {
-    background: black;
-    margin-bottom: 0.67px;
-
-    .before-box {
-      width: 97px;
-      height: 77px;
-      padding: 0;
-      background: transparent;
-    }
-
-    .item-focus,
-    .item {
-      width: 443px;
-      height: 77px;
-    }
-  }
 }
 
-.program-list {
-  .program-name {
-    font-size: 16px;
-    width: 267px;
-  }
-
-  .detail {
-    font-size: 11px;
-  }
-
-  .program-image {
-    img {
-      width: 107px;
-      height: 59px;
-    }
-  }
-
-  .focus-program {
-    width: 310px;
-    font-size: 10px;
-  }
+#content .content {
+  white-space: nowrap;
+  font-size: 0;
+  overflow: hidden;
 }
 
-.before-box {
-  .img-box {
-    width: 80px;
-    height: 53px;
+#content h1 {
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+}
 
-    img.active-img {
-      width: 67px;
-      height: 56px;
-    }
+#content .item {
+  display: inline-block;
+  width: 443px;
+  height: 53px;
+  background: #00000073;
+  border-radius: 4px;
+  font-size: 0.6667rem;
+  margin-right: 2px;
+  cursor: pointer;
+}
 
-    img.deactive-img {
-      width: 51px;
-      height: 43px;
-    }
-  }
+#content .horizontal .item {
+  border-radius: 5.22px;
+  border: 3px solid transparent;
+}
+
+#content .vertical .item-focus,
+#content .horizontal .item-focus {
+  position: relative;
+  border-radius: 5.22px; /* Ensures rounded corners */
+}
+
+#content .vertical .item-focus::before,
+#content .horizontal .item-focus::before {
+  
+  border-radius: 5.22px; /* Match the main element's border-radius */
+  border: 3px solid transparent; /* Border is set to transparent */
+  background: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+ 
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0px;
+  right:  -2px;
+  bottom:  -2px;
+  background: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+  
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+ 
+  pointer-events: none; /* Ensures it doesn't interfere with other elements */
+}
+
+#content .animate {
+  width: 16.67%;
+  padding-bottom: 0;
+}
+
+#content .placeholder {
+  width: 16.67%;
+  padding-bottom: calc(20% + 53px);
+}
+
+#content .active.flex {
+  background: black;
+  margin-bottom: 0.67px;
+}
+
+#content .active.flex .before-box {
+  width: 97px;
+  height: 77px;
+  padding: 0;
+  background: transparent;
+}
+
+#content .active.flex .item-focus,
+#content .active.flex .item {
+  width: 443px;
+  height: 77px;
+}
+
+.program-list .program-name {
+  font-size: 16px;
+  width: 267px;
+}
+
+.program-list .detail {
+  font-size: 11px;
+}
+
+.program-list .program-image img {
+  width: 107px;
+  height: 59px;
+}
+
+.program-list .focus-program {
+  width: 310px;
+  font-size: 10px;
+}
+
+.before-box .img-box {
+  width: 80px;
+  height: 53px;
+}
+
+.before-box .img-box img.active-img {
+  width: 67px;
+  height: 56px;
+}
+
+.before-box .img-box img.deactive-img {
+  width: 51px;
+  height: 43px;
 }
 
 #content .before-box .items-center img {
@@ -123,7 +133,8 @@
   overflow-y: auto;
 }
 
-#category-filter, .programs-list {
+#category-filter,
+.programs-list {
   height: 333.35px;
   overflow-y: hidden !important;
 }

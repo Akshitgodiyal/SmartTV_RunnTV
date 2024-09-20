@@ -6,8 +6,7 @@
 
 #category-filter .item {
     height: 40.002px;
-    border-radius: 5.3336px;
-    border: 1.32px solid transparent;
+    border: 3px solid transparent; 
     padding: 11.3338px 8.0004px;
     font-size: 12.0008px;
     font-family: "Roboto" !important;
@@ -26,11 +25,28 @@
 }
 
 #category-filter .item-focus {
-    border: 1.32px solid #fff;
+    position: relative;
     background-color: transparent;
-    font-weight: bold;
-    color: rgba(217, 217, 217, 1);
+   /* font-weight: bold; */
+    color: rgba(217, 217, 217, 1); 
+    border-radius: 5.22px;
+    border: 3px solid transparent;
 }
+
+#category-filter .item-focus::before {
+    content: '';
+    position: absolute;
+    top: -1.5px;
+    left:-1.5px;
+    right:-1.5px;
+    bottom:-1.5px;
+    border: 3px solid transparent;
+    border-radius: 5.22px;
+    background: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none; /* Ensures it doesn't interfere with other elements */
+  }
 
 #category-filter .active {
     font-size: 12.6676px;
@@ -38,7 +54,8 @@
     color: rgba(19, 19, 20, 1);
     margin: 5px 0;
     font-weight: bold;
-    border: 1.32px solid transparent;
+    border-radius: 5.22px;
+    border: 3px solid transparent;
 }
 
 #category-filter .item-focus.active {

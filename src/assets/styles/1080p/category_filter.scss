@@ -25,10 +25,27 @@
 }
 
 #category-filter .item-focus {
-  
+  position: relative; /* Required for ::before */
   background-color: transparent;
   color: rgba(217, 217, 217, 1);
-  font-weight: bold;
+  //font-weight: bold;
+  border-radius: 8.22px;
+  border-color:transparent !important;
+}
+
+#category-filter .item-focus::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid transparent;
+  border-radius: 8.22px;
+  background: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none; /* Ensures it doesn't interfere with other elements */
 }
 
 #category-filter .active {
@@ -74,21 +91,34 @@
 }
 
 #content .horizontal .item {
-  border-radius: 5px; 
-  border-image-slice: 1;
-  transition: border 0.0s ease, border-image-source 0.1s ease;
-  border: 3.3px solid transparent;
+  border: 4px solid transparent  !important; 
+  border-radius: 8.22px !important;
 }
 
 #content .vertical .item-focus,
 #content .horizontal .item-focus {
-  border-radius: 5px;
-  border: 3.3px solid #fff;
-  transition: border 0.0s ease, border-image-source 0.1s ease;
-  border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
-  border-image-slice: 1;
+  position: relative;
+//border: 4px solid transparent;
+  border-radius: 8.22px; /* Border radius applied to the main element */
+  background-color: transparent; /* Ensure background is transparent */
+ 
 }
 
+#content .vertical .item-focus::before,
+#content .horizontal .item-focus::before {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  left:-1.5px;
+  right:-1.5px;
+  bottom:-1.5px;
+  border: 3px solid transparent;
+  border-radius: 5.22px;
+  background: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none; /* Ensures it doesn't interfere with other elements */
+}
 #content .animate {
   width: 25%;
   padding-bottom: 0;

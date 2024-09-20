@@ -74,11 +74,11 @@ body {
 }
 
 .item-focus {
-  border-radius: 5px;
-  border: 4px solid #fff;
-  transition: border 0.0s ease, border-image-source 0.1s ease;
-  border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
-  border-image-slice: 1;
+  border-radius: 10px;
+  border: 8px solid #fff;
+  // transition: border 0.0s ease, border-image-source 0.1s ease;
+  // border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%);
+  // border-image-slice: 1;
 }
 
 .item .fa {
