@@ -94,18 +94,20 @@
 .item.streaming-item {
     width: 240px;
     height: 320px;
-    border: 2px solid transparent; 
-    border-radius: 5px;
+    border: 4px solid #000; 
+    border-radius: 12px;
 }
 .streaming-item.item-focus {
     width: 240px;
     height: 320px;
-    
-    border-radius: 5px;
+    border: 4px solid #fff !important; 
+    border-radius: 12px;
 }
 
 .streaming-item .streaming-title {
     font-size: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .category-item {
@@ -114,8 +116,10 @@
 }
 
 .genre-item {
-    width: 254px;
+    min-width: 254px;
     height: 166px;
+    border: 4px solid transparent; 
+    border-radius: 12px;
 }
 
 .channel-item {
@@ -126,10 +130,11 @@
 .language-item {
     width: 224px;
     height: 80px;
+    border: 4px solid #000; 
 }
 
 .default-item {
-    padding: 5px;
+ 
 }
 .tray-header{
     margin-bottom: 12px;

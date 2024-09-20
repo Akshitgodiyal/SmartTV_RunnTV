@@ -76,7 +76,7 @@ class Navigation extends Component {
       }
     }
     if (evt.keyCode === 13) {
-      if (this.getLastFromPath(this.currentFocusedPath).props.disabled) {
+      if (this.getLastFromPath(this.currentFocusedPath) && this.getLastFromPath(this.currentFocusedPath).props && this.getLastFromPath(this.currentFocusedPath).props.disabled) {
         this.focusNext(
           this.getLastFromPath(this.currentFocusedPath).props.allowedDirection,
           currentFocusedPath
@@ -199,20 +199,28 @@ class Navigation extends Component {
         }
       }
     } else {
+      
       const next = current.getNextFocusFrom(direction);
       if (next) {
         this.lastDirection = direction;
         this.focus(next);
         setTimeout(() => {
           if (next.props.disabled) {
-            const nextRight = next.getNextFocusFrom("right");
-            if (nextRight && next.props.parentId === nextRight.props.parentId) {
-              this.focus(nextRight);
+            if(direction==="right" || direction==="left"){
+              const nextRight = next.getNextFocusFrom("right");
+              if (nextRight && next.props.parentId === nextRight.props.parentId) {
+                this.focus(nextRight);
+              }
+              const nextLeft = next.getNextFocusFrom("left");
+              if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
+                this.focus(nextLeft);
+              }
             }
-            const nextLeft = next.getNextFocusFrom("left");
-            if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
-              this.focus(nextLeft);
+            else{
+              //const _next = next.getNextFocusFrom(direction);
+             // this.focus(_next);
             }
+            
           }
         }, 10);
         
