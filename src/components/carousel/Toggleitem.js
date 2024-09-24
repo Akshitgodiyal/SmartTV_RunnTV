@@ -100,6 +100,8 @@ const ToggleItem = (props) => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images.tv ? "#6457578c" : null,
+             // marginLeft: "10px",
+              // marginRight: "10px",
             }}
             className={
               "item my-3 rounded-md category-item " +
@@ -107,7 +109,7 @@ const ToggleItem = (props) => {
               (props.isActiveIndex ? "active" : "")
             }
           >
-            <div className="category-title flex justify-center p-1 items-center w-full h-full">
+            <div className="category-title flex justify-center items-center w-full h-full">
               {props.assetinfo?.name}
             </div>
           </div>
@@ -122,6 +124,8 @@ const ToggleItem = (props) => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images?.tv ? "#6457578c" : null,
+             //marginLeft: "1px",
+              //marginRight: "10px",
             }}
             className={
               "item my-3 rounded-md genre-item " +

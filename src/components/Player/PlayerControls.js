@@ -195,8 +195,8 @@ function stopUpdating() {
                 disabled={previousChannel ? false : true}
                 className={
                   previousChannel
-                    ? "absolute 720p:bottom-5 bottom-10 left-[125px]"
-                    : "disabled-button"
+                    ? "absolute 720p:bottom-5 bottom-10 left-[125px] move-right"
+                    : "disabled-button move-right"
                 }
                 onEnter={() => setSelectedAsset(previousChannel)}
                 onBack={() => handlefullscreen()}
@@ -246,8 +246,8 @@ function stopUpdating() {
                 disabled={nextChannel ? false : true}
                 className={
                   nextChannel
-                    ? "absolute  720p:bottom-5 bottom-10 right-[110px]"
-                    : "disabled-button"
+                    ? "absolute  720p:bottom-5 bottom-10 right-[110px] move-left"
+                    : "disabled-button move-left"
                 }
                 onEnter={() => setSelectedAsset(nextChannel)}
                 onBack={() => handlefullscreen()}
