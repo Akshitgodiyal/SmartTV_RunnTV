@@ -6,7 +6,7 @@ import { VideoContext } from "../../utility/context";
 function Player() {
   return (
     <div>
-      {/* <HlsPlayer  /> */}
+      <HlsPlayer  />
     </div>
   );
 }

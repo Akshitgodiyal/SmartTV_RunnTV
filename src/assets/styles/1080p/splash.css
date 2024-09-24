@@ -38,7 +38,9 @@
     height: 100vh;
     background-color: #282c34;
   }
-  
+  .splash-screen img{
+    width: 600px; 
+  }
   .animated-circle {
     width: 100px;
     height: 100px;
