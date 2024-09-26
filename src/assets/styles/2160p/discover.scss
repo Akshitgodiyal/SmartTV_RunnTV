@@ -84,11 +84,29 @@
     color: #BEBEBE;
   }
   
+ 
   .slider-item {
     width: 100% !important;
     height: 1376px !important;
-  }
-  
+    border: none;
+    border:8px solid transparent !important; 
+}
+.item.slider-item {
+  width: 100% !important;
+  height: 1376px !important;
+    border: none !important;
+    border-radius: 0px !important;
+    border-bottom: 8px solid transparent !important; 
+}
+.slider-item.item-focus {
+  width: 100% !important;
+  height: 1376px !important;
+    border-bottom: 8px solid transparent !important; 
+     transition: border 0.0s ease, border-image-source 0.1s ease !important;
+     border-image-source: linear-gradient(91.77deg, #22BBBE 0%, #7DAD41 30.67%, #F4B719 45.19%, #E55824 63.32%, #B52C80 84.14%, #FFFFFF 112.34%) !important;
+     border-image-slice: 1 !important;
+     box-shadow: none !important;
+}
   .streaming-item {
     width: 480px;
     height: 640px;
