@@ -89,6 +89,7 @@ const ContentCategory = ({ show, backtohome }) => {
         const isBelow = rect.bottom > containerRect.bottom;
 
         if (isAbove || isBelow) {
+
           let scrollAmount;
           const itemHeight = rect.height;
           const containerHeight = containerRect.height;
@@ -115,6 +116,13 @@ const ContentCategory = ({ show, backtohome }) => {
               itemHeight / 2;
           }
           container.scrollTop += scrollAmount;
+
+          if(isAbove){
+             
+          }
+          else if(isBelow){
+           
+          }
         }
       }
     }
