@@ -203,31 +203,34 @@ class Navigation extends Component {
       const next = current.getNextFocusFrom(direction);
       if (next) {
         this.lastDirection = direction;
-        this.focus(next);
+      
         setTimeout(() => {
           if (next.props.disabled) {
            // if(direction==="right" || direction==="left"){
               const nextRight = next.getNextFocusFrom("right");
               if (nextRight && next.props.parentId === nextRight.props.parentId) {
                 this.focus(nextRight);
+                return;
               }
               const nextLeft = next.getNextFocusFrom("left");
               if (nextLeft && next.props.parentId === nextLeft.props.parentId) {
                 this.focus(nextLeft);
+                return;
               }
-           // }
-            // else{
-            //   //const _next = next.getNextFocusFrom(direction);
-            //  // this.focus(_next);
-            // }
-            
+              let _next = next.getNextFocusFrom(direction); 
+              while (_next.props.disabled) { 
+                // Update _next in case the focus changes
+                _next = _next.getNextFocusFrom(direction);
+              }
+              this.focus(_next);
+              return;
           }
-        }, 10);
+          this.focus(next);
+        }, 1);
         
       }
     }
-  }
-
+  } 
   preventLeft(direction, current) {
     let prevent = false;
     const activeComponent =

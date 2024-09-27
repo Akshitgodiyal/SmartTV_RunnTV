@@ -1,71 +1,126 @@
 import React from "react";
-import discover from "../../assets/images/discover.png";
+import _favourite from "../../assets/images/favorite.svg";
+import _watchlist from "../../assets/images/saved.svg";
+import _episodes from "../../assets/images/Episodes.svg";
+import _audio from "../../assets/images/audio_change.svg";
+import _start_over from "../../assets/images/Frame.svg"; 
+
 import ControlToggle from "../Player/ControlToggle";
 
-
-function ProgramDetail({ onBack }) {
+function ProgramDetail({ onBack, asset }) {
+  const AddToFavourite = () => {
+    console.log(asset);
+  };
+  const AddToWaTchList = () => {
+    console.log(asset);
+  };
   return (
-    <div className="program-detail-container">
-      <div className="program-detail-content">
-        <div className="program-header">
-          <div className="channel-logo">
-            <img
-              src="https://via.placeholder.com/60"
-              alt="Channel Logo"
-              className="channel-logo-img"
-            />
-          </div>
-          <div className="channel-info">
-            <div className="channel-title">ZEE5 TV</div>
-            <div className="channel-category">Family Entertainment</div>
-          </div>
-        </div>
+    <div>
+      <div className="program-detail-container">
+        <div className="program-detail-content">
+          <div className="program-header">
+            <div className="channel-logo">
+              <img
+                src={asset.baseSourceLocation+asset.image.poster.tv}
+                alt="Channel Logo"
+                className="channel-logo-img"
+              />
+            </div>
+            <div className="channel-info">
+              <div className="channel-title">{asset.title}</div>
+              <div className="channel-category"> 
 
-        <div className="channel-description">
-          24 hour Hindi General Entertainment Channel that provides complete
-          family entertainment.
-        </div>
-
-        <div className="program-info">
-          <div className="program-thumbnail">
-            <img
-              src="https://via.placeholder.com/60"
-              alt="Program Thumbnail"
-              className="program-thumbnail-img"
-            />
+                {asset.categories?.[0]?.name || ''}
+              </div>
+            </div>
           </div>
-          <div className="program-details">
-            <h2 className="program-title">Kumkum Bhagya</h2>
-            <div className="program-rating">Rated U/A - 13+</div>
-            <div className="program-genre">Drama • Emotional • Suspense</div>
-          </div>
-        </div>
 
-        <div className="program-description">
-          <div className="description-title">Description</div>
-          <div className="description-content">
-            Sarla Arora, who runs a marriage hall, hopes to see her daughters,
-            Pragya and Bulbul, married. The sisters have their own dreams and
-            ambitions but it all changes when Purab and Abhi enter their lives.
+          <div className="channel-description">
+              {asset.description}
           </div>
-        </div>
 
-        <div className="control-toggle-container">
-          <ControlToggle onBack={onBack} type={"detaildata"} className="control-toggle" image={discover}>
-            Add channel to favourite
-          </ControlToggle>
-          <ControlToggle onBack={onBack} type={"detaildata"} className="control-toggle" image={discover}>
-            Add title to watchlist
-          </ControlToggle>
-          <ControlToggle onBack={onBack} type={"detaildata"} className="control-toggle" image={discover}>
-            Episodes
-          </ControlToggle>
-          <ControlToggle onBack={onBack} type={"detaildata"} className="control-toggle" image={discover}>
-            Change the Audio
-          </ControlToggle>
-          <ControlToggle onBack={onBack} type={"detaildata"} className="control-toggle" image={discover}>
-            Start Over
-          </ControlToggle>
+          <div className="program-info">
+            <div className="program-thumbnail">
+            
+              <img
+                src={asset.baseSourceLocation+asset.schedules?.[0]?.infoImages.tv}
+                alt="Program Thumbnail"
+                className="program-thumbnail-img"
+              />
+            </div>
+            <div className="program-details truncate">
+              <h2 className="program-title"> 
+                {asset.schedules?.[0]?.programName || ''}
+                </h2>
+              <div className="program-rating">
+            
+               Rated  {asset.schedules?.[0]?.ageRating || ''}
+                </div>
+              <div className="program-genre">
+              {asset.schedules?.[0]?.genres?.[0]?.name || ''}
+                </div>
+            </div>
+          </div>
+
+          <div className="program-description">
+            <div className="description-title">Description</div>
+            <div className="description-content">
+               {asset.schedules[0].description}
+            </div>
+          </div>
+
+          <div className="control-toggle-container">
+            <ControlToggle
+              onBack={onBack}
+              type={"detaildata"}
+              onEnter={AddToFavourite}
+           
+              image={_favourite}
+              
+            >
+              Add channel to favourites
+            </ControlToggle>
+
+         
+              <ControlToggle
+                onBack={onBack}
+                type={"detaildata"}
+                onEnter={AddToWaTchList}
+                 className= { asset.isWatchListEnabled ? " ": "disabled-button"   }
+                image={_watchlist}
+                disabled={!asset.isWatchListEnabled}
+                >
+                Add title to watchlist
+              </ControlToggle>
+
+             <ControlToggle onBack={onBack} 
+            type={"detaildata"} 
+             className="disabled-button"        
+            disabled="true" 
+            image={_episodes}>
+              Episodes
+            </ControlToggle>  
+        
+              <ControlToggle onBack={onBack} type={"detaildata"}
+             className= {asset.languages && asset.languages.length > 1? " " : "disabled-button"   }
+                disabled={!(asset.languages && asset.languages.length > 1) }
+               image={_audio}>
+              Change the Audio
+            </ControlToggle>
+           
+
+          
+              <ControlToggle
+                onBack={onBack}
+                type={"detaildata"}
+                className= {asset.isStartOverEnabled? " "  : "disabled-button"}
+                disabled={!asset.isStartOverEnabled}
+                image={_start_over}
+              >
+                 Start Over
+              </ControlToggle>
+           
+          </div>
         </div>
       </div>
     </div>

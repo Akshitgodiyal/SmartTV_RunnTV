@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Focusable from "../../helper/Focusable";
-import discover from "../../assets/images/discover.png";
-
+import { globals } from "../../global";
 const ControlToggle = (props) => {
   const [active, setActive] = useState(false);
 
@@ -33,6 +32,7 @@ const ControlToggle = (props) => {
               (active ? "item-focus" : "") +
               " " +
               (props.isActiveIndex ? "active" : "")
+            + " "+ props.className
             }
           >
             <i className={"fa fa-" + props.icon} /> {props.children}
@@ -46,9 +46,11 @@ const ControlToggle = (props) => {
               (active ? "item-focus" : "") +
               " " +
               (props.isActiveIndex ? "active" : "")
+              + " "+ props.className
             }
+            
           >
-              <img className="control-toggle__icon" src={discover} />
+              <img className="control-toggle__icon" src={props.image} />
               <div className="control-toggle__text">{props.children}</div>
           </div>
         );
@@ -63,7 +65,7 @@ const ControlToggle = (props) => {
               (props.isActiveIndex ? "active" : "")
             }
           >
-           <img className="control-toggle__icon" src={discover} />
+           <img className="control-toggle__icon" src={props.image} />
            <div className="control-toggle__text">{props.children}</div>
           </div>
         );
@@ -77,6 +79,9 @@ const ControlToggle = (props) => {
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
       onBack={() => props.onBack()}
+      disabled={props.disabled}
+      parentId={globals.COMPONENT_NAME.Player_Control}
+      name={props.children}
     >
       {renderContent()}
     </Focusable>
