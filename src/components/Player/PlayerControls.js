@@ -149,7 +149,7 @@ function stopUpdating() {
         id={globals.COMPONENT_NAME.Player_Detail}
         style={{ opacity: isActive  ? 0 : fullscreen ? 0:1 , zIndex: isActive ? -1 : fullscreen ? -1:1 }}
         >
-        <ProgramDetail onBack={() => handlefullscreen()} />
+        <ProgramDetail onBack={() => handlefullscreen()} asset={selectedAsset} />
       </VerticalList>
       <div
       style={{ opacity: isActive  ? 0 : fullscreen ? 0:1, zIndex: isActive ? -1 : fullscreen ? -1:1}}
