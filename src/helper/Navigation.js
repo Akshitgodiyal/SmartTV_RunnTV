@@ -225,7 +225,6 @@ class Navigation extends Component {
               this.focus(_next);
               return;
           }
-          
         }, 10);
         
       }

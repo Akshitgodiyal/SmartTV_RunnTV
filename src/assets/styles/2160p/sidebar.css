@@ -14,7 +14,13 @@
     font-size: 50px; /* 18px * 2 */
     letter-spacing: 2.4px; /* 1.2px * 2 */
     white-space: nowrap;
-  }
+    filter: brightness(0) saturate(100%) invert(85%) sepia(10%) saturate(3%) hue-rotate(170deg) brightness(80%) contrast(75%);
+    /* This makes the SVG appear even more dull (closer to #eee but with reduced vibrancy) */
+    transition: filter 0.3s ease;
+}
+ #sidebarComponent .item-focus .itemdiv{
+    filter: brightness(0) saturate(100%) invert(100%);
+ }
   
   #side_bar.focused #sidebarComponent .item .itemdiv {
     visibility: visible;
@@ -50,4 +56,13 @@
     width: 120px;
     height: 120px;
   }
-  
+  .svg-image {
+    filter: brightness(0) saturate(100%) invert(85%) sepia(10%) saturate(3%) hue-rotate(170deg) brightness(80%) contrast(75%);
+    /* This makes the SVG appear even more dull (closer to #eee but with reduced vibrancy) */
+    transition: filter 0.3s ease;
+}
+
+.item-focus .svg-image {
+    filter: brightness(0) saturate(100%) invert(100%);
+    /* This keeps the SVG white when focused */
+}

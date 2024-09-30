@@ -130,10 +130,6 @@ function stopUpdating() {
     }
   }, [show, datasection != null]);
 
-  
-
-
-
 
 
   return (

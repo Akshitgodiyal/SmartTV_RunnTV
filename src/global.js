@@ -17,6 +17,11 @@ export const globals={
         GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg",
         GET_HOME_PAGE_CATEGORY: localStorage.getItem("IsKidsSafe")=="true"?BASE_URL +"genre/filters/kidSafe":BASE_URL +"genre/filters",
         GET_EPG_BY_FILTER_ID:BASE_URL + "schedule/getEpgByFilters/",
+        ADD_TO_FAVORITE:BASE_URL + "",
+        GET_FAVORITE_LIST:BASE_URL + "favourite/getByDeviceId/",
+
+        ADD_TO_WATCH_LIST:BASE_URL + "",
+        GET_WATCH_LIST:BASE_URL + "",
     },
     getUserId:function(){
         return "814b3509-2309-4e7c-b903-dc09389f7fbd";

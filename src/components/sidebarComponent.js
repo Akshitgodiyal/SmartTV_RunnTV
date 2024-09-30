@@ -2,13 +2,22 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { Focusable, VerticalList } from "../helper/react-navigation";
 import { VideoContext } from "../utility/context";
 import { globals } from "../global";
+
+import loginImageOutlined from "../assets/images/Sign_In_Enabled.svg";
+import loginImage from "../assets/images/Sign_In_Enabled.svg";
+
 import tvImage from "../assets/images/tv.png";
 import discoverImage from "../assets/images/discover.png";
 import eyeImage from "../assets/images/eye.png";
 import searchImage from "../assets/images/search.png";
-import loginImageOutlined from "../assets/images/person_outlined.png";
-import loginImage from "../assets/images/person.png";
+
+import P_P_Enabled from "../assets/images/P_P_Enabled.svg";
+import T_C_Enabled from "../assets/images/T_C_Enabled.svg";
+import Kids_safe_Enabled from "../assets/images/Kids_safe_Enabled.svg";
+
 import exitImage from "../assets/images/Exit.png";
+
+
 const ToggleItem = ({
   icon,
   children,
@@ -82,13 +91,19 @@ const Sidebar = (props) => {
      {
       id: "PrivacyPage",
       label: "Privacy Policy",
-      icon: searchImage,
+      icon: P_P_Enabled,
       icon_Outlined:searchImage
     },
     {
       id: "TermsAndCondition",
       label: "Terms And Condition",
-      icon: searchImage,
+      icon: T_C_Enabled,
+      icon_Outlined:searchImage
+    },
+    {
+      id: "KidsSafe",
+      label: "Kid's Safe",
+      icon: Kids_safe_Enabled,
       icon_Outlined:searchImage
     },
     {
@@ -171,6 +186,7 @@ const Sidebar = (props) => {
                 src={icon.icon}
                 alt={icon.id}
                 style={{ float: "left" }}
+                className="svg-image"
               ></img>
               <div className="itemdiv">{icon.label}</div>
             </ToggleItem>
