@@ -203,7 +203,7 @@ class Navigation extends Component {
       const next = current.getNextFocusFrom(direction);
       if (next) {
         this.lastDirection = direction;
-      
+        this.focus(next);
         setTimeout(() => {
           if (next.props.disabled) {
            // if(direction==="right" || direction==="left"){
@@ -225,8 +225,8 @@ class Navigation extends Component {
               this.focus(_next);
               return;
           }
-          this.focus(next);
-        }, 1);
+          
+        }, 10);
         
       }
     }
