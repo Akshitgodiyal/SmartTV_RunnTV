@@ -26,11 +26,14 @@
 .channel-logo {
   width: 240px;
   height: 160px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 7px;
+  text-align: -webkit-center;
 }
 
 .channel-logo-img {
-  width: 240px;
-  height: 140px;
+  max-width: 240px;
+  max-height: 140px;
   object-fit: cover;
 }
 

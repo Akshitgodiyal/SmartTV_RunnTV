@@ -191,6 +191,7 @@ const ToggleItem = (props) => {
                     ? img_cloudfront1 + props.images.enabledIcon.tv
                     : img_cloudfront1 + props.images.disabledIcon.tv
                 }
+             
                 alt={props.children}
               />
             ) : (
