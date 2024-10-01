@@ -37,7 +37,8 @@
 }
 
 #sidebarComponent .item.active img {
-    border-bottom: 2px solid rgba(210, 47, 38, 1);
+    /* border-bottom: 2px solid rgba(210, 47, 38, 1); */
+    filter: brightness(0) saturate(100%) invert(100%);
 }
 
 #sidebarComponent .item-focus {

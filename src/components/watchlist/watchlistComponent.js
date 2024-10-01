@@ -80,7 +80,8 @@ const setActive = (data) => {
 
         <div className="tab-content">
           {activeTab === "Watchlist" && (
-            <div className="message-box-container">
+           
+             <div className="message-box-container">
               <div className="message-box">
                 <div className="icon-placeholder">
                   <img src="path-to-icon.png" alt="Icon" />
@@ -95,6 +96,7 @@ const setActive = (data) => {
                 </div>
               </div>
             </div>
+
           )}
           {activeTab === "Favourites" && <div>Favourites Content</div>}
           {activeTab === "Recent" && <div>Recent Content</div>}

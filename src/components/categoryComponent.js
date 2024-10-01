@@ -19,8 +19,7 @@ import { _lodash } from "lodash";
 const ContentCategory = ({ show, backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
-  const { lists, setLists } = useContext(VideoContext);
-
+  const { lists, setLists } = useContext(VideoContext); 
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState();
   const [opacity, setOpacity] = useState(1);

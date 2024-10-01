@@ -36,7 +36,8 @@ white-space: nowrap;
 
 }
 #sidebarComponent .item.active img{
-    border-bottom: 3px solid rgba(210, 47, 38, 1);
+    /* border-bottom: 3px solid rgba(210, 47, 38, 1); */
+    filter: brightness(0) saturate(100%) invert(100%);
 } 
 #sidebarComponent .item-focus { 
     border: 2px solid transparent !important;
