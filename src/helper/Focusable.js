@@ -93,7 +93,7 @@ class Focusable extends Component {
   focus() {
     
     for (const component of this.treePath) {
-      component.props.onFocus(
+      component.props && component.props.onFocus &&  component.props.onFocus(
         this.indexInParent,
         this.context.navigationComponent
       );

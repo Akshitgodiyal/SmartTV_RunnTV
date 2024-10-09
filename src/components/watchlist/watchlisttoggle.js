@@ -7,35 +7,32 @@ import Focusable from "../../helper/Focusable";
 const Watchlisttoggle = (props) => {
   const [active, setActive] = useState(false);
 
-  const assetClick = () => {
-  
-
+  const assetClick = () => { 
+    setActive(true); 
+    props.onEnter(props?.log);
     if (props.onClick) {
       props.onClick(props.assetinfo);
     }
   };
 
-  const onKeyDown = () => {
-
-
-    
+  const onKeyDown = () => {  
     assetClick();
     if (props.onEnter) {
-    //   props.onEnter(); // Call the passed callback function
-    }
+      props.onEnter(); // Call the passed callback function
+     }
   };
 
 
 
   return (
     <Focusable
-    onFocus={() => { setActive(true); props.onEnter(props?.log); }}
+      onFocus={() => { setActive(true); props.onEnter(props?.log); }}
       onBlur={() => setActive(false) }
       onEnterDown={onKeyDown}
       onClick={onKeyDown}
       onBack={() => props.onBack()}
     >
-<div
+     <div
             id={props.logincomp}
             className={
               "tab " +

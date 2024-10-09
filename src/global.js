@@ -24,6 +24,9 @@ export const globals={
         ADD_TO_WATCH_LIST:BASE_URL + "watchlist/add",
         REMOVE_FROM_WATCH_LIST:BASE_URL + "watchlist/remove",
         GET_WATCH_LIST:BASE_URL + "watchlist/getByUserId/",
+
+        GET_RECENT_LIST:BASE_URL + "recentlist/getByUserId/",
+
     },
     getUserId:function(){
         return "814b3509-2309-4e7c-b903-dc09389f7fbd";
