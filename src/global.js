@@ -26,7 +26,8 @@ export const globals={
         GET_WATCH_LIST:BASE_URL + "watchlist/getByUserId/",
 
         GET_RECENT_LIST:BASE_URL + "recentlist/getByUserId/",
-
+        Generate_Code:BASE_URL + "auth/tv/generate-code",
+        CHECK_STATUS:BASE_URL + "auth/tv/check-status",
     },
     getUserId:function(){
         return "814b3509-2309-4e7c-b903-dc09389f7fbd";
