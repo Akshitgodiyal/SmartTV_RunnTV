@@ -11,6 +11,7 @@ import {
 import { globals } from "../../global.js";
 import ApiHelper from "../../helper/ApiHelper.js";
 import GridItem from "../../components/watchlist/gridItem.js"
+import LoaderScreen from "../../pages/loader.js";
 function Watchlist({ show, backtohome }) {
   const [gridActive, setGridActive] = useState(false);
   const [activeTab, setActiveTab] = useState("Watchlist");
@@ -20,7 +21,7 @@ function Watchlist({ show, backtohome }) {
   const [row, setRow] = useState(1);
   const [columns] = useState(3);
   let datasection = document.getElementById("Watchlist");
- 
+  const [showloader, setShowloader] = useState(true);
   useEffect(() => {
     if (show) {
       setTimeout(() => {
@@ -35,9 +36,9 @@ function Watchlist({ show, backtohome }) {
   }, [show, datasection != null]);
 
   const setActive = (data) => {
-    // if(data == activeTab){
-    setActiveTab(data);
-    // }
+      if(data){
+       setActiveTab(data);
+      }
   };
 
   useEffect(() => {
@@ -58,26 +59,41 @@ function Watchlist({ show, backtohome }) {
 
 
 const setWatchList=(_url)=>{
+  setShowloader(true);
   ApiHelper.get(_url + globals.getUserId(), null)
   .then((result) => { 
     const data = Array.isArray(result.data) ? result.data : [];
     setRow(Math.ceil(data.length / columns)); 
     setChannelList(data);
+    setTimeout(() => {
+      setShowloader(false);
+    }, 150); // 150ms = 1 second
+
   })
   .catch((error) => { 
     console.error('API Error:', error);
+    setTimeout(() => {
+      setShowloader(false);
+    }, 150);
   });
 }
 
 const setFavoriteList=(_url)=>{
+  setShowloader(true);
   ApiHelper.get(_url + globals.getUserId(), null)
   .then((result) => { 
     const data = Array.isArray(result) ? result : [];
     setRow(Math.ceil(data.length / columns)); 
     setChannelList(data);
+    setTimeout(() => {
+      setShowloader(false);
+    }, 150);  
   })
   .catch((error) => { 
     console.error('API Error:', error);
+    setTimeout(() => {
+      setShowloader(false);
+    }, 150);
   });
 }
 const assetClick = () => { 
@@ -107,7 +123,7 @@ const handleFocus = (section) => {
         <div className="text-white text-lg">Welcome</div>
       </div>
       <div className="tabs-container">
-        <HorizontalList>
+        <HorizontalList retainLastFocus>
           <div className="tabs">
             <Watchlisttoggle
               log="Watchlist"
@@ -134,6 +150,11 @@ const handleFocus = (section) => {
           </div>
         </HorizontalList>
 
+        <div style={{ position: "absolute", width: "100vw",  left: 0,  top: 0}}>
+           <LoaderScreen show={showloader} />
+        </div>
+        <div style={{ display: showloader ? "none" : "block" }}>
+         
         {channelList && channelList.length > 0 ? (
           <Grid
             //onFocus={handleFocus("dfg")}
@@ -142,12 +163,15 @@ const handleFocus = (section) => {
             rows={row}
           >
             {channelList.map((item, i) => (
-              <GridItem
-                key={i}
-                assetInfo={item}
-                // onFocus={() => console.log('focus ' + i)}
-                // onBlur={() => console.log('blur ' + i)} onEnterDown={() => console.log('enter ' + i)}
-              />
+              <div className={activeTab}>
+                <GridItem
+                  key={i}
+                  assetInfo={item}
+                  type={activeTab}
+                  // onFocus={() => console.log('focus ' + i)}
+                  // onBlur={() => console.log('blur ' + i)} onEnterDown={() => console.log('enter ' + i)}
+                />
+              </div>
             ))}
           </Grid>
         ) : (
@@ -172,6 +196,7 @@ const handleFocus = (section) => {
             </div>
           </div>
         )}
+         </div>
       </div>
     </div>
   );
