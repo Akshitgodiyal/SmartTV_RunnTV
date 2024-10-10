@@ -4,6 +4,8 @@ import { VideoContext } from "../utility/context";
 import { globals } from "../global";
 
 import loginImageOutlined from "../assets/images/Sign_In_Enabled.svg";
+import logoutImageOutlined from "../assets/images/logout.svg";
+
 import loginImage from "../assets/images/Sign_In_Enabled.svg";
 
 import tvImage from "../assets/images/tv.png";
@@ -55,15 +57,16 @@ const Sidebar = (props) => {
   const { sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
   const { activeIndex, setActiveIndex } = useContext(VideoContext);
+  
   const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
     {
       id: "login",
-      label: "Login",
-      icon: loginImageOutlined,
-      icon_Outlined:loginImage
-    },
+      label:localStorage.getItem("userDetails")? "Logout":"Login",
+      icon:localStorage.getItem("userDetails")? logoutImageOutlined:loginImageOutlined
+    }
+    ,
     {
       id: "tv",
       label: "Home",
@@ -140,21 +143,21 @@ const Sidebar = (props) => {
   };
 
   const onEnterDown = (index) => {
-    
-   
 
-  
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
       globals.COMPONENT_NAME.Sidebar
     );
-    if(items[index].id=="Exit"){
-    
-    props.handleExit(true);
-  }else{
-    setActiveIndex(index);
-    setsidebarActive(items[index].id);
-  }
+    if (items[index].id == "Exit") {
+      props.handleExit(true);
+    } else if (items[index].id == "login" && localStorage.getItem("userDetails")) {
+      
+      debugger;
+      
+    } else {
+      setActiveIndex(index);
+      setsidebarActive(items[index].id);
+    }
   };
 
   return (
@@ -193,9 +196,7 @@ const Sidebar = (props) => {
           ))}
         </VerticalList>
       </div>
-      {/* <div id="active-item-name">
-        <p>Active Item: {activeItemName}</p>
-      </div> */}
+   
     </div>
   );
 };

@@ -5,18 +5,15 @@ import logo from "../../assets/images/logo.aaf739805db645e7a37b.png";
 import CommonToggle from "../CommonToggle";
 import { globals } from "../../global";
 import { VideoContext } from "../../utility/context"; 
-import ApiHelper from "../../helper/ApiHelper.js";
-
+import ApiHelper from "../../helper/ApiHelper.js"; 
 function Login({ show,backtohome }) {
   const [qrCode, setQrCode] = useState();
   const [textCode, setTextCode] = useState([]);
-  
   let datasection = document.getElementById("logincomp");
   useEffect(() => {
     if (show) {
       setTimeout(() => {
-        let datasection = document.getElementById("logincomp");
-
+        let datasection = document.getElementById("logincomp"); 
         if (datasection) {
           localStorage.setItem("screenLoaded", true);
           datasection.click();
@@ -34,8 +31,7 @@ function Login({ show,backtohome }) {
       ApiHelper.post(globals.API_URL.Generate_Code, data)
         .then((result) => {
                setQrCode(result.data.qrImage)
-               var x=result.data.otp.split("");
-               setTextCode(x); 
+               setTextCode(result.data.otp.split("")); 
         })
         .catch((error) => {
           console.log("Error====:", error);
@@ -44,15 +40,13 @@ function Login({ show,backtohome }) {
   }, [show, datasection != null]);
   const { setsidebarActive } = useContext(VideoContext);
   const {activeIndex, setActiveIndex } = useContext(VideoContext);
-  const showVideoSlider = () => {
-  
+  const showVideoSlider = () => { 
     setActiveIndex(1)
     setsidebarActive("tv")
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
       globals.COMPONENT_NAME.Sidebar
-    );
-   
+    ); 
   }
   useEffect(() => {
     const generateCode = () => {
@@ -73,7 +67,6 @@ function Login({ show,backtohome }) {
           console.log("Error====:", error);
         });
     };
-    
     generateCode(); // Call the function
 
     const checkStatus=()=>{
@@ -81,9 +74,12 @@ function Login({ show,backtohome }) {
         tvDeviceId: globals.getUserId()
       };
       ApiHelper.post(globals.API_URL.CHECK_STATUS, data)
-        .then((result) => { 
+        .then((result) => {
           if(result.data.subscriber){
-             localStorage.setItem("userDetails",JSON.stringify(data))
+             localStorage.setItem("userDetails",JSON.stringify(data));
+             console.log("user logged in.")
+             setActiveIndex(1);
+             setsidebarActive("tv"); 
           }else{
             setTimeout(() => {
               checkStatus();

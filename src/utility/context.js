@@ -32,7 +32,7 @@ const MyProvider = ({ children }) => {
         selectedAsset, setSelectedAsset,
         showModal, setShowModal,
         previuosValue, setpreviuosValue,
-        lists, setLists 
+        lists, setLists
       }}
     >
       {children}
