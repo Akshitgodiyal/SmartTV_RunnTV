@@ -19,7 +19,8 @@ import Kids_safe_Enabled from "../assets/images/Kids_safe_Enabled.svg";
 
 import exitImage from "../assets/images/Exit.png";
 
-
+import kidsON from "../assets/images/kidsOn.svg";
+import KidsOff from "../assets/images/kidsoff.svg";
 const ToggleItem = ({
   icon,
   children,
@@ -70,20 +71,17 @@ const Sidebar = (props) => {
     {
       id: "tv",
       label: "Home",
-      icon: tvImage,
-      icon_Outlined:tvImage
+      icon: tvImage
     },
     {
       id: "discover",
       label: "Discover",
-      icon: discoverImage,
-      icon_Outlined:discoverImage
+      icon: discoverImage
     },
     {
       id: "Watchlist",
       label: "Watchlist",
-      icon: eyeImage,
-      icon_Outlined:eyeImage
+      icon: eyeImage
     },
     // {
     //   id: "search",
@@ -94,20 +92,18 @@ const Sidebar = (props) => {
      {
       id: "PrivacyPage",
       label: "Privacy Policy",
-      icon: P_P_Enabled,
-      icon_Outlined:searchImage
+      icon: P_P_Enabled
     },
     {
       id: "TermsAndCondition",
       label: "Terms And Condition",
-      icon: T_C_Enabled,
-      icon_Outlined:searchImage
+      icon: T_C_Enabled
     },
     {
       id: "KidsSafe",
       label: "Kid's Safe",
       icon: Kids_safe_Enabled,
-      icon_Outlined:searchImage
+      rightIcon:localStorage.getItem("IsKidsSafe")=="true"?KidsOff:kidsON
     },
     {
       id: "Exit",
@@ -151,9 +147,8 @@ const Sidebar = (props) => {
     if (items[index].id == "Exit") {
       props.handleExit(true);
     } else if (items[index].id == "login" && localStorage.getItem("userDetails")) {
-      
-      debugger;
-      
+      props.handleLogout(true);
+
     } else {
       setActiveIndex(index);
       setsidebarActive(items[index].id);
@@ -191,7 +186,17 @@ const Sidebar = (props) => {
                 style={{ float: "left" }}
                 className="svg-image"
               ></img>
-              <div className="itemdiv">{icon.label}</div>
+              <div className="itemdiv-container">
+  <div className="itemdiv iconolabel">
+    {icon.label}
+  </div>
+  <div className="right-image">
+    {icon.rightIcon ? (
+      <img src={icon.rightIcon} alt={icon.id} />
+    ) : null}
+  </div>
+</div>
+              
             </ToggleItem>
           ))}
         </VerticalList>

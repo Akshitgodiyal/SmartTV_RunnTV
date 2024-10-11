@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect } from "react"; 
 import HorizontalList from "../../helper/HorizontalList";
 import CommonToggle from "../CommonToggle";
-
-const CommonPop = ({ onCancel, onConfirm }) => {
+import { globals } from "../../global";
+const CommonPop = ({ onCancel, onConfirm ,activePopup}) => { 
   let popSection = document.getElementById("exitcomp");
   useEffect(() => {
     setTimeout(() => {
@@ -16,13 +15,18 @@ const CommonPop = ({ onCancel, onConfirm }) => {
         localStorage.setItem("screenLoaded", false);
       }
     }, 300);
-  }, [popSection != null]);
-
+  }, [popSection != null]); 
   return (
     <div className="modal-overlay">
       <div className="modal-container">
         <div>
-          <div className="modal-text">Do you want to exit the RunnTV app?</div>
+          <div className="modal-text">
+            {globals.COMPONENT_NAME.logoutpopup == activePopup
+              ? "Do you want to logout?"
+              : globals.COMPONENT_NAME.exitpopup == activePopup
+              ? "Do you want to exit the RunnTV app?"
+              : "Label"}
+          </div>
 
           <HorizontalList>
             <div className="button-group">
@@ -40,12 +44,11 @@ const CommonPop = ({ onCancel, onConfirm }) => {
               </CommonToggle>
 
               <CommonToggle
-                onEnter={() => onCancel(false)}
+                onEnter={() => onConfirm()}
                 onBack={() => onCancel(false)}
               >
                 <div
                   className="btn confirm-btn"
-
                   //   onClick={onConfirm}
                 >
                   Ok
