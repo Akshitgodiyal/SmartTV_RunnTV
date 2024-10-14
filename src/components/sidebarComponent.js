@@ -149,7 +149,13 @@ const Sidebar = (props) => {
     } else if (items[index].id == "login" && localStorage.getItem("userDetails")) {
       props.handleLogout(true);
 
-    } else {
+    } else { 
+      if (items[index].id == "tv") {
+        localStorage.setItem("filterCategory",null);
+        localStorage.setItem("filterCategoryResult", null);
+        setActiveIndex(0);
+        setsidebarActive(null);
+      }
       setActiveIndex(index);
       setsidebarActive(items[index].id);
     }

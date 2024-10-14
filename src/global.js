@@ -29,6 +29,10 @@ export const globals={
         GET_RECENT_LIST:BASE_URL + "recentlist/getByUserId/",
         Generate_Code:BASE_URL + "auth/tv/generate-code",
         CHECK_STATUS:BASE_URL + "auth/tv/check-status",
+        
+        GET_EPG_BY_CATEGORY_ID:BASE_URL + "schedule/getEpgByFilters/",
+        GET_EPG_BY_GENRE_ID:BASE_URL + "schedule/getEpgByFilters/",
+        GET_EPG_BY_LANGUAGE_ID:BASE_URL + "schedule/getEpgByFilters/",
     },
     getUserId:function(){
         return "814b3509-2309-4e7c-b903-dc09389f7fbd";

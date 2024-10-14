@@ -153,7 +153,7 @@ function ProgramDetail({ onBack, asset }) {
           <div className="program-description">
             <div className="description-title">Description</div>
             <div className="description-content">
-              {asset.schedules[0].description}
+              {asset.schedules[0]?.description}
             </div>
           </div>
 

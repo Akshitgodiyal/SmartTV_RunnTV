@@ -10,6 +10,7 @@ import {
 
 import { globals } from "../../global.js";
 import ApiHelper from "../../helper/ApiHelper.js";
+
 import GridItem from "../../components/watchlist/gridItem.js"
 import LoaderScreen from "../../pages/loader.js";
 function Watchlist({ show, backtohome }) {
