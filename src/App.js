@@ -10,7 +10,7 @@ const App = () => {
   const [showSplash, setShowSplash] = useState(true);
   function fetchCategory() {
     try {
-      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null).then(
+      ApiHelper.get(globals.API_URL.getHOMEPAGECATEGORY(), null).then(
         (result) => { 
           localStorage.setItem("filterCategory", JSON.stringify(result));
           loadCategoryData(result[0],0);

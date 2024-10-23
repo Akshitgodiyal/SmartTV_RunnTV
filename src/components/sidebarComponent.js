@@ -58,7 +58,7 @@ const Sidebar = (props) => {
   const { sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
   const { activeIndex, setActiveIndex } = useContext(VideoContext);
-  
+  const {  setLists } = useContext(VideoContext);
   const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
@@ -139,7 +139,6 @@ const Sidebar = (props) => {
   };
 
   const onEnterDown = (index) => {
-
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
       globals.COMPONENT_NAME.Sidebar
@@ -151,10 +150,15 @@ const Sidebar = (props) => {
 
     } else { 
       if (items[index].id == "tv") {
+        setLists([]);
         localStorage.setItem("filterCategory",null);
-        localStorage.setItem("filterCategoryResult", null);
+        localStorage.setItem("filterCategoryResult", null); 
         setActiveIndex(0);
         setsidebarActive(null);
+      }
+      if (items[index].id == "KidsSafe") {
+          localStorage.getItem("IsKidsSafe")=="true"?localStorage.setItem("IsKidsSafe","false"):localStorage.setItem("IsKidsSafe","true");
+           
       }
       setActiveIndex(index);
       setsidebarActive(items[index].id);

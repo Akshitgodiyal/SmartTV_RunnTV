@@ -220,7 +220,7 @@ const ContentCategory = ({ show, backtohome }) => {
 
   const fetchCategory = () => {
     try {
-      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null)
+      ApiHelper.get(globals.API_URL.getHOMEPAGECATEGORY(), null)
         .then((result) => {
           var _result = result.filter((cate) => cate.active === true);
           var category = mapFilterCategory(_result);
@@ -260,6 +260,7 @@ const ContentCategory = ({ show, backtohome }) => {
   };
   useEffect(() => {
     if (show) {
+     
       var getCategory = localStorage.getItem("filterCategory")
         ? JSON.parse(localStorage.getItem("filterCategory"))
         : null;

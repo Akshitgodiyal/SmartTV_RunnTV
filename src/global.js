@@ -16,7 +16,7 @@ export const globals={
     },
     API_URL:{ 
         GET_CHANNEL_EPG:BASE_URL +"schedule/getChannelEpg",
-        GET_HOME_PAGE_CATEGORY: localStorage.getItem("IsKidsSafe")=="true"?BASE_URL +"genre/filters/kidSafe":BASE_URL +"genre/filters",
+       // GET_HOME_PAGE_CATEGORY:this.API_URL.getHOMEPAGECATEGORY(),
         GET_EPG_BY_FILTER_ID:BASE_URL + "schedule/getEpgByFilters/",
         ADD_TO_FAVORITE:BASE_URL + "favourite",
         REMOVE_FROM_FAVORITE:BASE_URL + "favourite/remove",
@@ -33,8 +33,34 @@ export const globals={
         GET_EPG_BY_CATEGORY_ID:BASE_URL + "schedule/getEpgByFilters/",
         GET_EPG_BY_GENRE_ID:BASE_URL + "schedule/getEpgByFilters/",
         GET_EPG_BY_LANGUAGE_ID:BASE_URL + "schedule/getEpgByFilters/",
+        getHOMEPAGECATEGORY:function(){
+            if(localStorage.getItem("IsKidsSafe")=="true"){
+               return BASE_URL +"genre/filters/kidSafe";
+            }else{
+               return BASE_URL +"genre/filters";
+            }
+        }
     },
     getUserId:function(){
-        return "814b3509-2309-4e7c-b903-dc09389f7fbd";
+        var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        if(userDetails && userDetails.tvDeviceId){
+          return userDetails.tvDeviceId;
+        }else{
+          return this.getDeviceId();
+        } 
+    },
+    getDeviceId:function(){
+        var deviceId =  localStorage.getItem("deviceId");
+        if(deviceId){
+          return deviceId;
+        }else{
+            return this.setDeviceId();
+        }
+        
+    },
+    setDeviceId:function(){ 
+      var deviceId="814b3509-2309-4e7c-b903-dc09389f7fbd";
+      localStorage.setItem("deviceId",deviceId)
+      return deviceId;
     }
 }
