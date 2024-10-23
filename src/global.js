@@ -59,8 +59,16 @@ export const globals={
         
     },
     setDeviceId:function(){ 
-      var deviceId="814b3509-2309-4e7c-b903-dc09389f7fbd";
+      var deviceId=this.generateGUID();
       localStorage.setItem("deviceId",deviceId)
       return deviceId;
-    }
+    },
+    generateGUID: function() {
+        // Generate a random GUID using the crypto API
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = (crypto.getRandomValues(new Uint8Array(1))[0] & 15) >> (c === 'x' ? 0 : 1);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    },
+
 }
