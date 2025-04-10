@@ -2,7 +2,7 @@
     display: flex;
     color: #fff;
   }
-  
+
   #sidebarComponent .item .itemdiv {
     visibility: hidden;
     border: 6px solid transparent; /* 3px * 2 */
@@ -21,12 +21,13 @@
  #sidebarComponent .item-focus .itemdiv{
     filter: brightness(0) saturate(100%) invert(100%);
  }
-  
+
   #side_bar.focused #sidebarComponent .item .itemdiv {
     visibility: visible;
     white-space: nowrap;
+    display: inline-flex; 
   }
-  
+
   #sidebarComponent .item img {
     float: left;
     border: 6px solid transparent; /* 3px * 2 */
@@ -35,20 +36,22 @@
     margin-top: 10px; /* 5px * 2 */
     margin-bottom: 20px; /* 10px * 2 */
   }
-  
+
   #sidebarComponent .item.active img {
-    border-bottom: 6px solid rgba(210, 47, 38, 1); /* 3px * 2 */
+    /* border-bottom: 6px solid rgba(210, 47, 38, 1);  */
+    filter: brightness(0) saturate(100%) invert(100%);
   }
-  
+
   #sidebarComponent .item-focus {
     border: none;
+    width: fit-content;
   }
-  
+
   #sidebarComponent .item-focus img {
     border: 6px solid transparent; /* 3px * 2 */
     border-bottom: 6px solid #fff !important; /* 3px * 2 */
   }
-  
+
   #sidebarComponent .item img {
     display: block;
     margin-left: auto;
@@ -65,4 +68,30 @@
 .item-focus .svg-image {
     filter: brightness(0) saturate(100%) invert(100%);
     /* This keeps the SVG white when focused */
+}
+.itemdiv-container{
+  display: inline-flex;
+}
+
+.right-image, #sidebarComponent .item.active .right-image {
+  min-width: 290PX; /* Scaled up */
+  filter: none !important;
+  transition: none;
+  display: none;
+}
+
+#side_bar.focused .right-image, #sidebarComponent .item.active .right-image {
+  display: block;
+}
+
+#sidebarComponent .right-image img, #sidebarComponent .item.active .right-image img {
+  border: none !important;
+  filter: none !important;
+  float: right !important;
+  padding-bottom: 0px !important;
+  padding-top: 0px !important;
+  margin-top: 16.8896px !important;
+  margin-bottom: 0px !important;
+  height: 141.2248px !important;
+  width: 225.782px;                 /* 337.78px */
 }

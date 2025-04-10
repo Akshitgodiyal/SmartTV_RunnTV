@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Focusable from "../../helper/Focusable";
 import { img_cloudfront1 } from "../../utility/constant";
-
+import { globals } from "../../global.js";
+import ApiHelper from "../../helper/ApiHelper.js";
+import { VideoContext } from "../../utility/context.js";
+import { mapChannelEpg } from "../../helper/mapper/mapChannelEpg.js";
 const ToggleItem = (props) => {
   const [active, setActive] = useState(false);
-
+  const {setsidebarActive } = useContext(VideoContext);
+  const { setActiveIndex } = useContext(VideoContext);
+  const { lists, setLists } = useContext(VideoContext); 
   const assetClick = (id) => {
     localStorage.setItem("LastFocusedItemId", id);
-    var cc = localStorage.getItem("activeNav");
-    if (cc !== props.parentNav) {
-      return;
+    if(props.type==="Categories"){
+      setCategoryResult();
+    }else if(props.type==="Genres"){
+      setGenreResult();
+    }else if(props.type==="Language"){
+      setLanguageResult()
     }
+ 
+    //filterCategoryResult
 
     if (props.onClick) {
       props.onClick(props.assetinfo);
@@ -19,11 +29,71 @@ const ToggleItem = (props) => {
 
   const onKeyDown = (id) => {
     assetClick(id);
+
     if (props.onEnter) {
       props.onEnter(); // Call the passed callback function
     }
   };
-
+  const setCategoryResult=()=>{
+    const headers = {
+      PARTNER_CODE: "ALL",
+      userid: globals.getUserId(),
+    };
+    ApiHelper.get(globals.API_URL.GET_EPG_BY_CATEGORY_ID+props.assetinfo.categoryId, headers)
+    .then((result) => { 
+      var _category = [props.assetinfo];
+      localStorage.setItem("filterCategory", JSON.stringify(_category));
+      var _list=mapChannelEpg(result);
+      setLists(_list)
+      localStorage.setItem("filterCategoryResult", JSON.stringify(_list));
+      setActiveIndex(1);
+      setsidebarActive("tv");
+    })
+    .catch((error) => { 
+      console.error('API Error:', error);
+      
+    });
+  }
+  const setGenreResult=()=>{
+    const headers = {
+      PARTNER_CODE: "ALL",
+      userid: globals.getUserId(),
+    };
+    ApiHelper.get(globals.API_URL.GET_EPG_BY_GENRE_ID+props.assetinfo.genreId, headers)
+    .then((result) => { 
+      var _category = [props.assetinfo]; 
+      localStorage.setItem("filterCategory", JSON.stringify(_category));
+       var _list=mapChannelEpg(result);
+      setLists(_list)
+      localStorage.setItem("filterCategoryResult", JSON.stringify(_list));
+      setActiveIndex(1);
+      setsidebarActive("tv");
+    })
+    .catch((error) => { 
+      console.error('API Error:', error);
+      
+    });
+  }
+  const setLanguageResult=()=>{
+    const headers = {
+      PARTNER_CODE: "ALL",
+      userid: globals.getUserId(),
+    };
+    ApiHelper.get(globals.API_URL.GET_EPG_BY_LANGUAGE_ID+props.assetinfo.languageId, headers)
+    .then((result) => { 
+      var _category = [props.assetinfo];
+      localStorage.setItem("filterCategory", JSON.stringify(_category));
+      var _list=mapChannelEpg(result);
+      setLists(_list)
+      localStorage.setItem("filterCategoryResult", JSON.stringify(_list));
+      setActiveIndex(1);
+      setsidebarActive("tv");
+    })
+    .catch((error) => { 
+      console.error('API Error:', error);
+      
+    });
+  }
   const renderContent = () => {
     switch (props.type) {
       case "slider":
@@ -100,7 +170,7 @@ const ToggleItem = (props) => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images.tv ? "#6457578c" : null,
-             // marginLeft: "10px",
+              // marginLeft: "10px",
               // marginRight: "10px",
             }}
             className={
@@ -124,7 +194,7 @@ const ToggleItem = (props) => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundColor: props.assetinfo.images?.tv ? "#6457578c" : null,
-             //marginLeft: "1px",
+              //marginLeft: "1px",
               //marginRight: "10px",
             }}
             className={

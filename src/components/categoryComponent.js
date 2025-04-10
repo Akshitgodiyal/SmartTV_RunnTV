@@ -15,12 +15,11 @@ import { mapFilterCategory } from "../helper/mapper/mapFilterCategory.js";
 import { img_cloudfront } from "../utility/constant.js";
 import LoaderScreen from "../pages/loader.js";
 import NoChannel from "./noChannelComponent.js";
-import { _lodash } from "lodash"; 
+import { _lodash } from "lodash";
 const ContentCategory = ({ show, backtohome }) => {
   const { isActive } = useContext(VideoContext);
   const { setSelectedAsset } = useContext(VideoContext);
   const { lists, setLists } = useContext(VideoContext);
-
   const [active, setActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState();
   const [opacity, setOpacity] = useState(1);
@@ -34,6 +33,7 @@ const ContentCategory = ({ show, backtohome }) => {
   const [nextCategoryIndex, setNextCategoryIndex] = useState();
   const [firstItemIndex, setFirstItemIndex] = useState(0);
   const handleSetActive = (status, index) => {
+   
     setActive(status);
 
     if (status && content1.current) {
@@ -71,10 +71,11 @@ const ContentCategory = ({ show, backtohome }) => {
     if (activeIndex !== categoryIndex) {
       setActiveIndex(categoryIndex);
       handleSetActive(true, categoryIndex);
-      var channelList=lists && lists.filter(obj=>obj.categoryIndex===categoryIndex);
-      if(channelList){
-      //  localStorage.setItem("filterCategoryResult",null); 
-      //  localStorage.setItem("filterCategoryResult",JSON.stringify(channelList)); 
+      var channelList =
+        lists && lists.filter((obj) => obj.categoryIndex === categoryIndex);
+      if (channelList) {
+        //  localStorage.setItem("filterCategoryResult",null);
+        //  localStorage.setItem("filterCategoryResult",JSON.stringify(channelList));
       }
     }
     if (content2.current) {
@@ -89,7 +90,6 @@ const ContentCategory = ({ show, backtohome }) => {
         const isBelow = rect.bottom > containerRect.bottom;
 
         if (isAbove || isBelow) {
-
           let scrollAmount;
           const itemHeight = rect.height;
           const containerHeight = containerRect.height;
@@ -117,11 +117,8 @@ const ContentCategory = ({ show, backtohome }) => {
           }
           container.scrollTop += scrollAmount;
 
-          if(isAbove){
-             
-          }
-          else if(isBelow){
-           
+          if (isAbove) {
+          } else if (isBelow) {
           }
         }
       }
@@ -130,7 +127,7 @@ const ContentCategory = ({ show, backtohome }) => {
       setNextCategoryIndex(activeIndex + 1);
     }
   };
-  const loadCategoryData = (category, index,showLoader=true) => {
+  const loadCategoryData = (category, index, showLoader = true) => {
     setShowloader(showLoader);
     // setSelectedAsset(null);
     setActiveIndex(index);
@@ -142,23 +139,23 @@ const ContentCategory = ({ show, backtohome }) => {
     ApiHelper.get(globals.API_URL.GET_EPG_BY_FILTER_ID + category.id, headers)
       .then((result) => {
         if (result && result.length > 0) {
-          var channelList = mapChannelEpg(result, index); 
-          var _channelList=lists && lists.filter(obj=>obj.categoryIndex===activeIndex);  
-         // if (!_lodash.isEqual(channelList, _channelList)) {
-            // localStorage.setItem(
-            //   "filterCategoryResult",
-            //   JSON.stringify(channelList)
-            // ); 
-            setLists(channelList);
-            setSelectedAsset(channelList[0]);
-            SetInitialFocus();
-        //  }
-          
+          var channelList = mapChannelEpg(result, index);
+          var _channelList =
+            lists && lists.filter((obj) => obj.categoryIndex === activeIndex);
+          // if (!_lodash.isEqual(channelList, _channelList)) {
+          // localStorage.setItem(
+          //   "filterCategoryResult",
+          //   JSON.stringify(channelList)
+          // );
+          setLists(channelList);
+          setSelectedAsset(channelList[0]);
+          SetInitialFocus();
+          //  }
         } else {
           //localStorage.setItem("filterCategoryResult", null);
           // setSelectedAsset(null);
           setLists([]);
-          
+
           //setActiveIndex(index);
         }
         setShowloader(false);
@@ -223,7 +220,7 @@ const ContentCategory = ({ show, backtohome }) => {
 
   const fetchCategory = () => {
     try {
-      ApiHelper.get(globals.API_URL.GET_HOME_PAGE_CATEGORY, null)
+      ApiHelper.get(globals.API_URL.getHOMEPAGECATEGORY(), null)
         .then((result) => {
           var _result = result.filter((cate) => cate.active === true);
           var category = mapFilterCategory(_result);
@@ -263,12 +260,15 @@ const ContentCategory = ({ show, backtohome }) => {
   };
   useEffect(() => {
     if (show) {
+     
       var getCategory = localStorage.getItem("filterCategory")
         ? JSON.parse(localStorage.getItem("filterCategory"))
         : null;
       if (getCategory) {
         var category = mapFilterCategory(getCategory);
+        console.log(activeIndex);
         setHomeCategory && setHomeCategory(category);
+
         var getCategoryResult =
           lists && lists.length > 0
             ? lists
@@ -292,34 +292,42 @@ const ContentCategory = ({ show, backtohome }) => {
   useEffect(() => {
     if (show) {
       const intervalId = setInterval(() => {
-        if (homeCategory.length > 0) { 
+        if (homeCategory.length > 0) {
           // setNextCategoryIndex(activeIndex);
-           //loadCategoryData(homeCategory[activeIndex], activeIndex,false);  
+          //loadCategoryData(homeCategory[activeIndex], activeIndex,false);
         }
 
-       
         var ele = document.getElementsByClassName("fill-background");
 
         // Convert HTMLCollection to an array and filter elements
-        ele = Array.from(ele).filter(obj => obj.dataset.starttime && parseFloat(obj.dataset.starttime) < Date.now());
-        
+        ele = Array.from(ele).filter(
+          (obj) =>
+            obj.dataset.starttime &&
+            parseFloat(obj.dataset.starttime) < Date.now()
+        );
+
         // Loop through filtered elements
-        ele.forEach(number => {
-          if (number.dataset && number.dataset.starttime && number.dataset.durationseconds) {
+        ele.forEach((number) => {
+          if (
+            number.dataset &&
+            number.dataset.starttime &&
+            number.dataset.durationseconds
+          ) {
             var startTime = parseFloat(number.dataset.starttime);
             var durationSeconds = parseFloat(number.dataset.durationseconds);
-            var coveredTime = (Date.now() - startTime) / 1000;  // Convert coveredTime to seconds
-            var percentage = (coveredTime / durationSeconds) * 100;  // Calculate percentage 
-            number.style.background="linear-gradient(86.21deg, #30203E "+percentage+"%, rgba(27, 8, 42, 0))" 
-            
+            var coveredTime = (Date.now() - startTime) / 1000; // Convert coveredTime to seconds
+            var percentage = (coveredTime / durationSeconds) * 100; // Calculate percentage
+            number.style.background =
+              "linear-gradient(86.21deg, #30203E " +
+              percentage +
+              "%, rgba(27, 8, 42, 0))";
           }
-        }); 
+        });
       }, 3000);
 
       return () => clearInterval(intervalId);
     }
   }, [show, homeCategory, activeIndex]);
-
 
   return (
     <>
@@ -377,7 +385,7 @@ const ContentCategory = ({ show, backtohome }) => {
                             fistline={index == 0 ? true : false}
                             key={category.name}
                             images={category.images}
-                            isActiveIndex={activeIndex === index}
+                            isActiveIndex={homeCategory.length>1?activeIndex === index:true}
                             onEnter={() => loadCategoryData(category, index)}
                             index={index}
                             onBack={() => backtohome()}

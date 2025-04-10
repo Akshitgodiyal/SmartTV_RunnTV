@@ -4,6 +4,8 @@ import { VideoContext } from "../utility/context";
 import { globals } from "../global";
 
 import loginImageOutlined from "../assets/images/Sign_In_Enabled.svg";
+import logoutImageOutlined from "../assets/images/logout.svg";
+
 import loginImage from "../assets/images/Sign_In_Enabled.svg";
 
 import tvImage from "../assets/images/tv.png";
@@ -17,7 +19,8 @@ import Kids_safe_Enabled from "../assets/images/Kids_safe_Enabled.svg";
 
 import exitImage from "../assets/images/Exit.png";
 
-
+import kidsON from "../assets/images/kidsOn.svg";
+import KidsOff from "../assets/images/kidsoff.svg";
 const ToggleItem = ({
   icon,
   children,
@@ -55,32 +58,30 @@ const Sidebar = (props) => {
   const { sidebarActive, setsidebarActive } = useContext(VideoContext);
   const { isActive, setIsActive } = useContext(VideoContext);
   const { activeIndex, setActiveIndex } = useContext(VideoContext);
+  const {  setLists } = useContext(VideoContext);
   const [active, setActive] = useState(0);
   const content1 = useRef(null);
   const items = [
     {
       id: "login",
-      label: "Login",
-      icon: loginImageOutlined,
-      icon_Outlined:loginImage
-    },
+      label:localStorage.getItem("userDetails")? "Logout":"Login",
+      icon:localStorage.getItem("userDetails")? logoutImageOutlined:loginImageOutlined
+    }
+    ,
     {
       id: "tv",
       label: "Home",
-      icon: tvImage,
-      icon_Outlined:tvImage
+      icon: tvImage
     },
     {
       id: "discover",
       label: "Discover",
-      icon: discoverImage,
-      icon_Outlined:discoverImage
+      icon: discoverImage
     },
     {
       id: "Watchlist",
       label: "Watchlist",
-      icon: eyeImage,
-      icon_Outlined:eyeImage
+      icon: eyeImage
     },
     // {
     //   id: "search",
@@ -91,20 +92,18 @@ const Sidebar = (props) => {
      {
       id: "PrivacyPage",
       label: "Privacy Policy",
-      icon: P_P_Enabled,
-      icon_Outlined:searchImage
+      icon: P_P_Enabled
     },
     {
       id: "TermsAndCondition",
       label: "Terms And Condition",
-      icon: T_C_Enabled,
-      icon_Outlined:searchImage
+      icon: T_C_Enabled
     },
     {
       id: "KidsSafe",
       label: "Kid's Safe",
       icon: Kids_safe_Enabled,
-      icon_Outlined:searchImage
+      rightIcon:localStorage.getItem("IsKidsSafe")=="true"?KidsOff:kidsON
     },
     {
       id: "Exit",
@@ -140,21 +139,30 @@ const Sidebar = (props) => {
   };
 
   const onEnterDown = (index) => {
-    
-   
-
-  
     localStorage.setItem(
       globals.ACTIVE_COMPONENT,
       globals.COMPONENT_NAME.Sidebar
     );
-    if(items[index].id=="Exit"){
-    
-    props.handleExit(true);
-  }else{
-    setActiveIndex(index);
-    setsidebarActive(items[index].id);
-  }
+    if (items[index].id == "Exit") {
+      props.handleExit(true);
+    } else if (items[index].id == "login" && localStorage.getItem("userDetails")) {
+      props.handleLogout(true);
+
+    } else { 
+      if (items[index].id == "tv") {
+        setLists([]);
+        localStorage.setItem("filterCategory",null);
+        localStorage.setItem("filterCategoryResult", null); 
+        setActiveIndex(0);
+        setsidebarActive(null);
+      }
+      if (items[index].id == "KidsSafe") {
+          localStorage.getItem("IsKidsSafe")=="true"?localStorage.setItem("IsKidsSafe","false"):localStorage.setItem("IsKidsSafe","true");
+           
+      }
+      setActiveIndex(index);
+      setsidebarActive(items[index].id);
+    }
   };
 
   return (
@@ -188,14 +196,22 @@ const Sidebar = (props) => {
                 style={{ float: "left" }}
                 className="svg-image"
               ></img>
-              <div className="itemdiv">{icon.label}</div>
+              <div className="itemdiv-container">
+  <div className="itemdiv iconolabel">
+    {icon.label}
+  </div>
+  <div className="right-image">
+    {icon.rightIcon ? (
+      <img src={icon.rightIcon} alt={icon.id} />
+    ) : null}
+  </div>
+</div>
+              
             </ToggleItem>
           ))}
         </VerticalList>
       </div>
-      {/* <div id="active-item-name">
-        <p>Active Item: {activeItemName}</p>
-      </div> */}
+   
     </div>
   );
 };

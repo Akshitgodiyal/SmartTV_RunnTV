@@ -23,6 +23,7 @@
 #side_bar.focused #sidebarComponent .item .itemdiv {
     visibility: visible;
     white-space: nowrap;
+    display: inline-flex; 
 }
 
 #sidebarComponent .item img {
@@ -37,11 +38,13 @@
 }
 
 #sidebarComponent .item.active img {
-    border-bottom: 2px solid rgba(210, 47, 38, 1);
+    /* border-bottom: 2px solid rgba(210, 47, 38, 1); */
+    filter: brightness(0) saturate(100%) invert(100%);
 }
 
 #sidebarComponent .item-focus {
     border: none;
+    width: fit-content;
 }
 
 #sidebarComponent .item-focus img {
@@ -63,4 +66,30 @@
 .item-focus .svg-image {
     filter: brightness(0) saturate(100%) invert(100%);
     /* This keeps the SVG white when focused */
+}
+.itemdiv-container{
+    display: inline-flex;
+}
+
+.right-image, #sidebarComponent .item.active .right-image {
+    min-width: calc(120px * 0.6667); /* Scaled down */
+    filter: none !important;
+    transition: none;
+    display: none;
+}
+
+#side_bar.focused .right-image, #sidebarComponent .item.active .right-image {
+    display: block;
+}
+
+#sidebarComponent .right-image img, #sidebarComponent .item.active .right-image img {
+    border: none !important;
+    filter: none !important;
+    float: right !important;
+    padding-bottom: calc(0px * 0.6667) !important;
+    padding-top: calc(0px * 0.6667) !important;
+    margin-top: calc(16px * 0.6667) !important;  /* 10.67px */
+    margin-bottom: calc(0px * 0.6667) !important;
+    height: calc(58px * 0.6667) !important;      /* 38.67px */
+    width: calc(95px * 0.6667);                  /* 63.33px */
 }

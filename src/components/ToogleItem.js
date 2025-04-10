@@ -182,14 +182,14 @@ const ToggleItem = (props) => {
           }
         >
           <div className="flex justify-start items-center  ">
-            {props.images ? (
+            {props && props.images && (props.images?.disabledIcon && props.images?.enabledIcon) ? (
               <img
                 src={
                   active
-                    ? img_cloudfront1 + props.images.disabledIcon.tv
+                    ? img_cloudfront1 + props.images?.disabledIcon?.tv
                     : props.isActiveIndex
-                    ? img_cloudfront1 + props.images.enabledIcon.tv
-                    : img_cloudfront1 + props.images.disabledIcon.tv
+                    ? img_cloudfront1 + props.images?.enabledIcon?.tv
+                    : img_cloudfront1 + props.images?.disabledIcon?.tv
                 }
              
                 alt={props.children}

@@ -20,6 +20,7 @@ const Home = () => {
   const { setFullscreen } = useContext(VideoContext);
   const { showModal, setShowModal } = useContext(VideoContext);
   const { lists, setLists } = useContext(VideoContext);
+  const [activePopup, setActivePopup] = useState([]);
   const showVideoSlider = () => {
     if (lists.length != 0) {
       setFullscreen(false);
@@ -44,14 +45,15 @@ const Home = () => {
 
   const activemenuActive = () => {
     setIsActive(true);
-    setActiveIndex(1);
-
+    setActiveIndex(1); 
     setsidebarActive("tv");
   };
 
   const handleExit = (bool) => {
     if (bool) {
+      setActivePopup(globals.COMPONENT_NAME.exitpopup);
       setShowModal(true);
+
       localStorage.setItem(
         globals.ACTIVE_COMPONENT,
         globals.COMPONENT_NAME.exitpopup
@@ -60,7 +62,27 @@ const Home = () => {
       setShowModal(false);
     }
   };
+  const handleLogout = (bool) => { 
+    if (bool) {
+      setActivePopup(globals.COMPONENT_NAME.logoutpopup);
+      setShowModal(true); 
+      localStorage.setItem(
+        globals.ACTIVE_COMPONENT,
+        globals.COMPONENT_NAME.logoutpopup
+      );
+    } else {
+      setShowModal(false);
+    }
+  };
+const onConfirm=()=>{
+  if(activePopup===globals.COMPONENT_NAME.logoutpopup){
+   localStorage.setItem("userDetails","");
+   activemenuActive();
+   setShowModal(false);
+  }else if(activePopup===globals.COMPONENT_NAME.exitpopup){
 
+  }
+}
   return (
     <Navigation
       showVideoSlider={() => {
@@ -73,10 +95,17 @@ const Home = () => {
       active={true}
     >
       <div className="active-component">
-        {showModal && <CommonPop onCancel={handleExit} onConfirm={null} />}
+        {showModal && (
+          <CommonPop
+            onCancel={handleExit}
+            onConfirm={onConfirm}
+            activePopup={activePopup}
+          />
+        )}
+
         <HorizontalList>
           <div>
-            <Sidebar handleExit={handleExit} />
+            <Sidebar handleExit={handleExit} handleLogout={handleLogout} />
             <VerticalList retainLastFocus={true}>
               <Player
               // onBufferUpdate={handleBufferUpdate}
